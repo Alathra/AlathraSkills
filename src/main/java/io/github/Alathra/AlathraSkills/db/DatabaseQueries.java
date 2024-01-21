@@ -13,7 +13,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.UUID;
 
-import static io.github.ExampleUser.ExamplePlugin.db.schema.Tables.SOME_LIST;
+//import static io.github.Alathra.AlathraSkills.db.schema.Tables.SOME_LIST;
 
 /**
  * A holder class for all SQL queries
@@ -24,46 +24,46 @@ public abstract class DatabaseQueries {
      * <p>
      * This method actually is an upsert and inserts or updates entries dependent on whether a duplicate row exists.
      */
-    public static void addEntry() {
-        try (
-            Connection con = DB.getConnection()
-        ) {
-            DSLContext context = DB.getContext(con);
-
-            context
-                .insertInto(SOME_LIST)
-                .set(SOME_LIST.UUID, DatabaseQueries.convertUUIDToBytes(UUID.randomUUID()))
-                .set(SOME_LIST.NAME, "testname")
-                .onDuplicateKeyUpdate()
-                .set(SOME_LIST.NAME, "testname")
-                .execute();
-        } catch (SQLException e) {
-            Logger.get().error("SQL Query threw an error!", e);
-        }
-    }
+//    public static void addEntry() {
+//        try (
+//            Connection con = DB.getConnection()
+//        ) {
+//            DSLContext context = DB.getContext(con);
+//
+//            context
+//                .insertInto(SOME_LIST)
+//                .set(SOME_LIST.UUID, DatabaseQueries.convertUUIDToBytes(UUID.randomUUID()))
+//                .set(SOME_LIST.NAME, "testname")
+//                .onDuplicateKeyUpdate()
+//                .set(SOME_LIST.NAME, "testname")
+//                .execute();
+//        } catch (SQLException e) {
+//            Logger.get().error("SQL Query threw an error!", e);
+//        }
+//    }
 
     /**
      * Example save all data to database.
      * <p>
      * This method actually is an upsert and inserts or updates entries dependent on whether a duplicate row exists.
      */
-    public static void saveAll() {
-        try (
-            @NotNull Connection con = DB.getConnection();
-        ) {
-            DSLContext context = DB.getContext(con);
-
-            context
-                .insertInto(SOME_LIST)
-                .set(SOME_LIST.UUID, DatabaseQueries.convertUUIDToBytes(UUID.randomUUID()))
-                .set(SOME_LIST.NAME, "testname")
-                .onDuplicateKeyUpdate()
-                .set(SOME_LIST.NAME, "testname")
-                .execute();
-        } catch (SQLException e) {
-            Logger.get().error("SQL Query threw an error!", e);
-        }
-    }
+//    public static void saveAll() {
+//        try (
+//            @NotNull Connection con = DB.getConnection();
+//        ) {
+//            DSLContext context = DB.getContext(con);
+//
+//            context
+//                .insertInto(SOME_LIST)
+//                .set(SOME_LIST.UUID, DatabaseQueries.convertUUIDToBytes(UUID.randomUUID()))
+//                .set(SOME_LIST.NAME, "testname")
+//                .onDuplicateKeyUpdate()
+//                .set(SOME_LIST.NAME, "testname")
+//                .execute();
+//        } catch (SQLException e) {
+//            Logger.get().error("SQL Query threw an error!", e);
+//        }
+//    }
 
     /**
      * Example load all data from database.
@@ -71,33 +71,33 @@ public abstract class DatabaseQueries {
      * You should make this method return whatever it is you're grabbing from db.
      *
      */
-    public static @Nullable Result<Record2<String, byte[]>> loadAll() {
-        try (
-            Connection con = DB.getConnection();
-        ) {
-            DSLContext context = DB.getContext(con);
-
-            return context
-                .select(SOME_LIST.NAME, SOME_LIST.UUID)
-                .from(SOME_LIST)
-                .fetch();
-        } catch (SQLException e) {
-            Logger.get().error("SQL Query threw an error!", e);
-        }
-        return null;
-    }
-
-    public static byte[] convertUUIDToBytes(UUID uuid) {
-        ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
-        bb.putLong(uuid.getMostSignificantBits());
-        bb.putLong(uuid.getLeastSignificantBits());
-        return bb.array();
-    }
-
-    public static UUID convertBytesToUUID(byte[] bytes) {
-        ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
-        long high = byteBuffer.getLong();
-        long low = byteBuffer.getLong();
-        return new UUID(high, low);
-    }
+//    public static @Nullable Result<Record2<String, byte[]>> loadAll() {
+//        try (
+//            Connection con = DB.getConnection();
+//        ) {
+//            DSLContext context = DB.getContext(con);
+//
+//            return context
+//                .select(SOME_LIST.NAME, SOME_LIST.UUID)
+//                .from(SOME_LIST)
+//                .fetch();
+//        } catch (SQLException e) {
+//            Logger.get().error("SQL Query threw an error!", e);
+//        }
+//        return null;
+//    }
+//
+//    public static byte[] convertUUIDToBytes(UUID uuid) {
+//        ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
+//        bb.putLong(uuid.getMostSignificantBits());
+//        bb.putLong(uuid.getLeastSignificantBits());
+//        return bb.array();
+//    }
+//
+//    public static UUID convertBytesToUUID(byte[] bytes) {
+//        ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
+//        long high = byteBuffer.getLong();
+//        long low = byteBuffer.getLong();
+//        return new UUID(high, low);
+//    }
 }
