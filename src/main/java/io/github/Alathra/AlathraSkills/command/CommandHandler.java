@@ -1,7 +1,7 @@
-package io.github.ExampleUser.ExamplePlugin.command;
+package io.github.Alathra.AlathraSkills.command;
 
-import io.github.ExampleUser.ExamplePlugin.ExamplePlugin;
-import io.github.ExampleUser.ExamplePlugin.Reloadable;
+import io.github.Alathra.AlathraSkills.AlathraSkills;
+import io.github.Alathra.AlathraSkills.Reloadable;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
 
@@ -9,9 +9,9 @@ import dev.jorel.commandapi.CommandAPIBukkitConfig;
  * A class to handle registration of commands.
  */
 public class CommandHandler implements Reloadable {
-    private final ExamplePlugin plugin;
+    private final AlathraSkills plugin;
 
-    public CommandHandler(ExamplePlugin plugin) {
+    public CommandHandler(AlathraSkills plugin) {
         this.plugin = plugin;
     }
 

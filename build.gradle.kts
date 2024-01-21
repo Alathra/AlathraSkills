@@ -17,8 +17,8 @@ plugins {
     idea
 }
 
-group = "io.github.ExampleUser"
-version = "1.0.5"
+group = "io.github.Alathra"
+version = "1.0.0"
 description = ""
 val mainPackage = "${project.group}.${rootProject.name}"
 
@@ -78,10 +78,6 @@ dependencies {
 }
 
 tasks {
-    // NOTE: Use when developing plugins using Mojang mappings
-//    assemble {
-//        dependsOn(reobfJar)
-//    }
 
     build {
         dependsOn(shadowJar)
@@ -154,7 +150,7 @@ bukkit { // Options: https://github.com/Minecrell/plugin-yml#bukkit
     prefix = project.name
     version = "${project.version}"
     description = "${project.description}"
-    authors = listOf("GITHUB_USERNAME")
+    authors = listOf("rooooose-b, ShermansWorld")
     contributors = listOf()
     apiVersion = "1.19"
 

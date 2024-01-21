@@ -1,24 +1,24 @@
-package io.github.ExampleUser.ExamplePlugin;
+package io.github.Alathra.AlathraSkills;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
-import io.github.ExampleUser.ExamplePlugin.command.CommandHandler;
-import io.github.ExampleUser.ExamplePlugin.config.ConfigHandler;
-import io.github.ExampleUser.ExamplePlugin.db.DatabaseHandler;
-import io.github.ExampleUser.ExamplePlugin.hooks.VaultHook;
-import io.github.ExampleUser.ExamplePlugin.listener.ListenerHandler;
-import io.github.ExampleUser.ExamplePlugin.utility.Logger;
+import io.github.Alathra.AlathraSkills.command.CommandHandler;
+import io.github.Alathra.AlathraSkills.config.ConfigHandler;
+import io.github.Alathra.AlathraSkills.db.DatabaseHandler;
+import io.github.Alathra.AlathraSkills.hooks.VaultHook;
+import io.github.Alathra.AlathraSkills.listener.ListenerHandler;
+import io.github.Alathra.AlathraSkills.utility.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-public class ExamplePlugin extends JavaPlugin {
-    private static ExamplePlugin instance;
+public class AlathraSkills extends JavaPlugin {
+    private static AlathraSkills instance;
     private ConfigHandler configHandler;
     private DatabaseHandler databaseHandler;
     private CommandHandler commandHandler;
     private ListenerHandler listenerHandler;
     private static VaultHook vaultHook;
 
-    public static ExamplePlugin getInstance() {
+    public static AlathraSkills getInstance() {
         return instance;
     }
 

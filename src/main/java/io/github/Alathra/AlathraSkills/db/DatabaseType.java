@@ -1,4 +1,4 @@
-package io.github.ExampleUser.ExamplePlugin.db;
+package io.github.Alathra.AlathraSkills.db;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.h2.jdbcx.JdbcDataSource;
