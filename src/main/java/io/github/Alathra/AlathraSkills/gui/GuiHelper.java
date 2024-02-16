@@ -38,4 +38,16 @@ public class GuiHelper {
         return gui;
     }
 
+    public static void populateMainGui(Gui gui) {
+        io.github.Alathra.AlathraSkills.gui.main.PopulateBorders.populateBorders(gui);
+        io.github.Alathra.AlathraSkills.gui.main.PopulateButtons.populateButtons(gui);
+        io.github.Alathra.AlathraSkills.gui.main.PopulateContent.populateContent(gui);
+    }
+
+    public static void populateSkillGui(Gui gui) {
+        io.github.Alathra.AlathraSkills.gui.skill.PopulateBorders.populateBorders(gui);
+        io.github.Alathra.AlathraSkills.gui.skill.PopulateButtons.populateButtons(gui);
+        io.github.Alathra.AlathraSkills.gui.skill.PopulateContent.populateContent(gui);
+    }
+
 }
