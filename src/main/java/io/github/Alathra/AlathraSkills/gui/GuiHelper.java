@@ -33,7 +33,9 @@ public class GuiHelper {
                     .disableItemTake()
                     .create();
             }
+            default -> gui = null;
         }
+        return gui;
     }
 
 }
