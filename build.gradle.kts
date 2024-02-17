@@ -90,10 +90,13 @@ tasks {
         // See https://openjdk.java.net/jeps/247 for more information.
         options.release.set(17)
         options.compilerArgs.addAll(arrayListOf("-Xlint:all", "-Xlint:-processing", "-Xdiags:verbose"))
+
+        dependsOn(jooqCodegen) // Generate jOOQ sources before compilation
     }
 
     javadoc {
         options.encoding = Charsets.UTF_8.name() // We want UTF-8 for everything
+        exclude("${mainPackage.replace(".", "/")}/db/schema/**") // Exclude generated jOOQ sources from javadocs
     }
 
     processResources {
@@ -164,6 +167,7 @@ flyway {
     url = "jdbc:h2:${project.layout.buildDirectory.get()}/generated/flyway/db;AUTO_SERVER=TRUE;MODE=MySQL;CASE_INSENSITIVE_IDENTIFIERS=TRUE;IGNORECASE=TRUE"
     user = "sa"
     password = ""
+    schemas = listOf("PUBLIC").toTypedArray()
     placeholders = mapOf( // Substitute placeholders for flyway
         "tablePrefix" to "",
         "columnSuffix" to " VIRTUAL",
@@ -206,37 +210,6 @@ jooq {
             }
         }
     }
-}
-
-tasks.withType<FlywayMigrateTask>().configureEach { // Declare Flyway migration scripts as inputs
-    inputs.files(
-        fileTree("src/main/resources/db/migration"),
-        fileTree("src/main/java/${mainPackage}/db/flyway/migration")
-    ).withPropertyName("flyway-migration-files").withPathSensitivity(PathSensitivity.RELATIVE)
-
-    outputs.files(
-        fileTree("${project.layout.buildDirectory.get()}/generated/flyway"),
-    ).withPropertyName("flyway-files")
-}
-
-tasks.withType<CodegenTask>().configureEach {
-    dependsOn.add(tasks.flywayMigrate) // Ensure database schema has been prepared by Flyway before generating the jOOQ sources
-
-    // Declare Flyway migration scripts as inputs on the jOOQ task
-    inputs.files(
-        fileTree("src/main/resources/db/migration"),
-        fileTree("src/main/java/${mainPackage}/db/flyway/migration")
-    ).withPropertyName("flyway-migration-files").withPathSensitivity(PathSensitivity.RELATIVE)
-
-    // Declare outputs
-    val dir = layout.buildDirectory.dir("generated-src/jooq").get()
-    outputs.dir(dir).withPropertyName("jooq-generated-sources")
-    sourceSets {
-        get("main").java.srcDir(dir)
-    }
-
-    // Enable build caching
-    outputs.cacheIf { true }
 }
 
 // Apply custom version arg
