@@ -1,4 +1,4 @@
-package io.github.Alathra.AlathraSkills.gui;
+package io.github.alathra.alathraskills.gui;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.triumphteam.gui.guis.Gui;
@@ -39,15 +39,15 @@ public class GuiHelper {
     }
 
     public static void populateMainGui(Gui gui) {
-        io.github.Alathra.AlathraSkills.gui.main.PopulateBorders.populateBorders(gui);
-        io.github.Alathra.AlathraSkills.gui.main.PopulateButtons.populateButtons(gui);
-        io.github.Alathra.AlathraSkills.gui.main.PopulateContent.populateContent(gui);
+        io.github.alathra.alathraskills.gui.main.PopulateBorders.populateBorders(gui);
+        io.github.alathra.alathraskills.gui.main.PopulateButtons.populateButtons(gui);
+        io.github.alathra.alathraskills.gui.main.PopulateContent.populateContent(gui);
     }
 
     public static void populateSkillGui(Gui gui) {
-        io.github.Alathra.AlathraSkills.gui.skill.PopulateBorders.populateBorders(gui);
-        io.github.Alathra.AlathraSkills.gui.skill.PopulateButtons.populateButtons(gui);
-        io.github.Alathra.AlathraSkills.gui.skill.PopulateContent.populateContent(gui);
+        io.github.alathra.alathraskills.gui.skill.PopulateBorders.populateBorders(gui);
+        io.github.alathra.alathraskills.gui.skill.PopulateButtons.populateButtons(gui);
+        io.github.alathra.alathraskills.gui.skill.PopulateContent.populateContent(gui);
     }
 
 }

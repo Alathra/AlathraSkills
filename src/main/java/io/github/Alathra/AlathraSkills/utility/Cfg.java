@@ -1,7 +1,7 @@
-package io.github.Alathra.AlathraSkills.utility;
+package io.github.alathra.alathraskills.utility;
 
-import io.github.Alathra.AlathraSkills.AlathraSkills;
-import io.github.Alathra.AlathraSkills.config.ConfigHandler;
+import io.github.alathra.alathraskills.AlathraSkills;
+import io.github.alathra.alathraskills.config.ConfigHandler;
 import com.github.milkdrinkers.Crate.Config;
 import org.jetbrains.annotations.NotNull;
 

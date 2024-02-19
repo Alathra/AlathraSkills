@@ -1,6 +1,6 @@
-package io.github.Alathra.AlathraSkills.db.flyway;
+package io.github.alathra.alathraskills.db.flyway;
 
-import io.github.Alathra.AlathraSkills.db.DatabaseType;
+import io.github.alathra.alathraskills.db.DatabaseType;
 import com.github.milkdrinkers.Crate.Config;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.ClassProvider;

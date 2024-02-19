@@ -1,7 +1,7 @@
-package io.github.Alathra.AlathraSkills.listener;
+package io.github.alathra.alathraskills.listener;
 
-import io.github.Alathra.AlathraSkills.AlathraSkills;
-import io.github.Alathra.AlathraSkills.Reloadable;
+import io.github.alathra.alathraskills.AlathraSkills;
+import io.github.alathra.alathraskills.Reloadable;
 
 /**
  * A class to handle registration of event listeners.

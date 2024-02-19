@@ -1,4 +1,4 @@
-package io.github.Alathra.AlathraSkills.command;
+package io.github.alathra.alathraskills.command;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.jorel.commandapi.CommandAPICommand;

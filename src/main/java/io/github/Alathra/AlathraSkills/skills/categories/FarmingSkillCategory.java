@@ -1,4 +1,4 @@
-package io.github.Alathra.AlathraSkills.skills.categories;
+package io.github.alathra.alathraskills.skills.categories;
 
 import java.util.Collections;
 
@@ -8,7 +8,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 
-import io.github.Alathra.AlathraSkills.skills.SkillCategory;
+import io.github.alathra.alathraskills.skills.SkillCategory;
 
 public class FarmingSkillCategory extends SkillCategory {
 

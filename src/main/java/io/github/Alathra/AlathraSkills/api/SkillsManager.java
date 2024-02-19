@@ -1,13 +1,13 @@
-package io.github.Alathra.AlathraSkills.api;
+package io.github.alathra.alathraskills.api;
 
 import java.util.HashMap;
 
-import io.github.Alathra.AlathraSkills.AlathraSkills;
-import io.github.Alathra.AlathraSkills.Reloadable;
-import io.github.Alathra.AlathraSkills.skills.SkillCategory;
-import io.github.Alathra.AlathraSkills.skills.categories.FarmingSkillCategory;
-import io.github.Alathra.AlathraSkills.skills.categories.MiningSkillCategory;
-import io.github.Alathra.AlathraSkills.skills.categories.WoodcuttingSkillCategory;
+import io.github.alathra.alathraskills.AlathraSkills;
+import io.github.alathra.alathraskills.Reloadable;
+import io.github.alathra.alathraskills.skills.SkillCategory;
+import io.github.alathra.alathraskills.skills.categories.FarmingSkillCategory;
+import io.github.alathra.alathraskills.skills.categories.MiningSkillCategory;
+import io.github.alathra.alathraskills.skills.categories.WoodcuttingSkillCategory;
 
 public class SkillsManager implements Reloadable {
 	

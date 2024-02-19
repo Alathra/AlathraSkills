@@ -1,4 +1,4 @@
-package io.github.Alathra.AlathraSkills.skills;
+package io.github.alathra.alathraskills.skills;
 
 import java.util.ArrayList;
 
@@ -47,13 +47,5 @@ public abstract class SkillCategory {
 	}
 	public void setSkills(ArrayList<Skill> skills) {
 		this.skills = skills;
-	}
-
-	public ArrayList<Skill> getUnlockedSkills() {
-		return unlockedSkills;
-	}
-
-	public void setUnlockedSkills(ArrayList<Skill> unlockedSkills) {
-		this.unlockedSkills = unlockedSkills;
 	}
 }

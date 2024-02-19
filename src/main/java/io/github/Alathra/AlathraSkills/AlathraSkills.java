@@ -1,14 +1,14 @@
-package io.github.Alathra.AlathraSkills;
+package io.github.alathra.alathraskills;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 
-import io.github.Alathra.AlathraSkills.api.SkillsManager;
-import io.github.Alathra.AlathraSkills.command.CommandHandler;
-import io.github.Alathra.AlathraSkills.config.ConfigHandler;
-import io.github.Alathra.AlathraSkills.db.DatabaseHandler;
-import io.github.Alathra.AlathraSkills.hooks.VaultHook;
-import io.github.Alathra.AlathraSkills.listener.ListenerHandler;
-import io.github.Alathra.AlathraSkills.utility.Logger;
+import io.github.alathra.alathraskills.api.SkillsManager;
+import io.github.alathra.alathraskills.command.CommandHandler;
+import io.github.alathra.alathraskills.config.ConfigHandler;
+import io.github.alathra.alathraskills.db.DatabaseHandler;
+import io.github.alathra.alathraskills.hooks.VaultHook;
+import io.github.alathra.alathraskills.listener.ListenerHandler;
+import io.github.alathra.alathraskills.utility.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 

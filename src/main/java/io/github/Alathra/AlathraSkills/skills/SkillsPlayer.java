@@ -1,4 +1,4 @@
-package io.github.Alathra.AlathraSkills.skills;
+package io.github.alathra.alathraskills.skills;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -6,8 +6,8 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
-import io.github.Alathra.AlathraSkills.AlathraSkills;
-import io.github.Alathra.AlathraSkills.api.SkillsManager;
+import io.github.alathra.alathraskills.AlathraSkills;
+import io.github.alathra.alathraskills.api.SkillsManager;
 
 public class SkillsPlayer {
 

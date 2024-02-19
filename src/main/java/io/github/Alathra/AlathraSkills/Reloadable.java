@@ -1,4 +1,4 @@
-package io.github.Alathra.AlathraSkills;
+package io.github.alathra.alathraskills;
 
 /**
  * Implemented in classes that should support being reloaded IE executing the methods during runtime after startup.

@@ -1,7 +1,7 @@
-package io.github.Alathra.AlathraSkills.hooks;
+package io.github.alathra.alathraskills.hooks;
 
-import io.github.Alathra.AlathraSkills.AlathraSkills;
-import io.github.Alathra.AlathraSkills.Reloadable;
+import io.github.alathra.alathraskills.AlathraSkills;
+import io.github.alathra.alathraskills.Reloadable;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;

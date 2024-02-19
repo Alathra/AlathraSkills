@@ -1,7 +1,7 @@
-package io.github.Alathra.AlathraSkills.command;
+package io.github.alathra.alathraskills.command;
 
-import io.github.Alathra.AlathraSkills.AlathraSkills;
-import io.github.Alathra.AlathraSkills.Reloadable;
+import io.github.alathra.alathraskills.AlathraSkills;
+import io.github.alathra.alathraskills.Reloadable;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
 

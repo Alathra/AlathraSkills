@@ -1,7 +1,7 @@
-package io.github.Alathra.AlathraSkills.config;
+package io.github.alathra.alathraskills.config;
 
-import io.github.Alathra.AlathraSkills.AlathraSkills;
-import io.github.Alathra.AlathraSkills.Reloadable;
+import io.github.alathra.alathraskills.AlathraSkills;
+import io.github.alathra.alathraskills.Reloadable;
 import com.github.milkdrinkers.Crate.Config;
 
 import javax.inject.Singleton;

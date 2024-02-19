@@ -1,7 +1,7 @@
-package io.github.Alathra.AlathraSkills.db;
+package io.github.alathra.alathraskills.db;
 
-import io.github.Alathra.AlathraSkills.utility.DB;
-import io.github.Alathra.AlathraSkills.utility.Logger;
+import io.github.alathra.alathraskills.utility.DB;
+import io.github.alathra.alathraskills.utility.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jooq.DSLContext;

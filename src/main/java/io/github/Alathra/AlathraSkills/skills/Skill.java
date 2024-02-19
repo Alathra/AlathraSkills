@@ -1,4 +1,4 @@
-package io.github.Alathra.AlathraSkills.skills;
+package io.github.alathra.alathraskills.skills;
 
 import java.util.ArrayList;
 

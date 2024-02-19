@@ -1,12 +1,12 @@
-package io.github.Alathra.AlathraSkills.db;
+package io.github.alathra.alathraskills.db;
 
-import io.github.Alathra.AlathraSkills.AlathraSkills;
-import io.github.Alathra.AlathraSkills.Reloadable;
-import io.github.Alathra.AlathraSkills.db.flyway.DatabaseMigrationException;
-import io.github.Alathra.AlathraSkills.db.flyway.DatabaseMigrationHandler;
-import io.github.Alathra.AlathraSkills.db.jooq.JooqContext;
-import io.github.Alathra.AlathraSkills.utility.Cfg;
-import io.github.Alathra.AlathraSkills.utility.Logger;
+import io.github.alathra.alathraskills.AlathraSkills;
+import io.github.alathra.alathraskills.Reloadable;
+import io.github.alathra.alathraskills.db.flyway.DatabaseMigrationException;
+import io.github.alathra.alathraskills.db.flyway.DatabaseMigrationHandler;
+import io.github.alathra.alathraskills.db.jooq.JooqContext;
+import io.github.alathra.alathraskills.utility.Cfg;
+import io.github.alathra.alathraskills.utility.Logger;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.jetbrains.annotations.NotNull;

@@ -1,7 +1,7 @@
-package io.github.Alathra.AlathraSkills.utility;
+package io.github.alathra.alathraskills.utility;
 
 
-import io.github.Alathra.AlathraSkills.AlathraSkills;
+import io.github.alathra.alathraskills.AlathraSkills;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import org.jetbrains.annotations.NotNull;
 

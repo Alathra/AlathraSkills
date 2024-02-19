@@ -1,6 +1,6 @@
-package io.github.Alathra.AlathraSkills.db.jooq;
+package io.github.alathra.alathraskills.db.jooq;
 
-import io.github.Alathra.AlathraSkills.utility.Cfg;
+import io.github.alathra.alathraskills.utility.Cfg;
 import org.jooq.*;
 import org.jooq.conf.*;
 import org.jooq.exception.DataAccessException;

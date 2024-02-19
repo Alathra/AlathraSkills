@@ -1,9 +1,9 @@
-package io.github.Alathra.AlathraSkills.utility;
+package io.github.alathra.alathraskills.utility;
 
-import io.github.Alathra.AlathraSkills.AlathraSkills;
-import io.github.Alathra.AlathraSkills.db.DatabaseHandler;
-import io.github.Alathra.AlathraSkills.db.DatabaseType;
-import io.github.Alathra.AlathraSkills.db.jooq.JooqContext;
+import io.github.alathra.alathraskills.AlathraSkills;
+import io.github.alathra.alathraskills.db.DatabaseHandler;
+import io.github.alathra.alathraskills.db.DatabaseType;
+import io.github.alathra.alathraskills.db.jooq.JooqContext;
 import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
 

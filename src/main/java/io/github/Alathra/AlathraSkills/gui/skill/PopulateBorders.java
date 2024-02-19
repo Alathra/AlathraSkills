@@ -1,4 +1,4 @@
-package io.github.Alathra.AlathraSkills.gui.skill;
+package io.github.alathra.alathraskills.gui.skill;
 
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;

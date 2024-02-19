@@ -1,4 +1,4 @@
-package io.github.Alathra.AlathraSkills.api;
+package io.github.alathra.alathraskills.api;
 
 public class SkillsPlayerManager {
 	//TODO

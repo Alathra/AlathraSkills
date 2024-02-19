@@ -1,4 +1,4 @@
-package io.github.Alathra.AlathraSkills.db.flyway;
+package io.github.alathra.alathraskills.db.flyway;
 
 import org.flywaydb.core.api.ClassProvider;
 import org.flywaydb.core.api.migration.JavaMigration;
