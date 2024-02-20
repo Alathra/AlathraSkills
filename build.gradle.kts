@@ -17,7 +17,7 @@ plugins {
     idea
 }
 
-group = "io.github.Alathra"
+group = "io.github.alathra"
 version = "1.0.0"
 description = ""
 val mainPackage = "${project.group}.${rootProject.name}"
