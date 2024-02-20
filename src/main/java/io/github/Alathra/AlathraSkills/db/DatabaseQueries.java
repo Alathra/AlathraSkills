@@ -75,8 +75,8 @@ public abstract class DatabaseQueries {
 
             context
                 .insertInto(PLAYER_SKILLINFO,
-                    PLAYERS_SKILLINFO.UUID,
-                    PLAYERS_SKILLINFO.SKILLID)
+                    PLAYER_SKILLINFO.UUID,
+                    PLAYER_SKILLINFO.SKILLID)
                 .values(
                     convertUUIDToBytes(uuid),
                     skillId
