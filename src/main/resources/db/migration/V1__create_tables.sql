@@ -1,10 +1,13 @@
-CREATE TABLE IF NOT EXISTS ${tablePrefix}some_list (
+CREATE TABLE IF NOT EXISTS ${tablePrefix}player_skillcategoryinfo (
     uuid ${uuidType} NOT NULL,
-    "name" TINYTEXT NOT NULL,
-    PRIMARY KEY (uuid)
+    skillcategoryid INT NOT NULL,
+    exp FLOAT NOT NULL,
+    PRIMARY KEY (uuid, skillcategoryid)
 )${tableDefaults};
 
 
-CREATE TABLE IF NOT EXISTS ${tablePrefix}test (
-    "name" TINYTEXT NOT NULL
+CREATE TABLE IF NOT EXISTS ${tablePrefix}player_skillinfo (
+    uuid ${uuidType} NOT NULL,
+    skillid INT NOT NULL,
+    PRIMARY KEY (uuid, skillid)
 )${tableDefaults};
