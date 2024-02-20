@@ -1,5 +1,3 @@
-import org.flywaydb.gradle.task.FlywayMigrateTask
-import org.jooq.codegen.gradle.CodegenTask
 import org.jooq.meta.jaxb.Logging
 import java.time.Instant
 
@@ -17,7 +15,7 @@ plugins {
     idea
 }
 
-group = "io.github.Alathra"
+group = "io.github.alathra"
 version = "1.0.0"
 description = ""
 val mainPackage = "${project.group}.${rootProject.name}"
@@ -78,9 +76,12 @@ dependencies {
 }
 
 tasks {
-
     build {
         dependsOn(shadowJar)
+    }
+
+    jooqCodegen {
+        dependsOn(flywayMigrate)
     }
 
     compileJava {
