@@ -32,7 +32,7 @@ public abstract class DatabaseQueries {
      * @param exp
      */
 
-    public static void saveSkillCategoryExp(UUID uuid, int skillCategoryId, float exp) {
+    public static void saveSkillCategoryExp(UUID uuid, int skillCategoryId, Float exp) {
         try (
             Connection con = DB.getConnection()
         ) {
@@ -46,10 +46,10 @@ public abstract class DatabaseQueries {
                 .values(
                     convertUUIDToBytes(uuid),
                     skillCategoryId,
-                    exp
+                    exp.doubleValue()
                 )
                 .onDuplicateKeyUpdate()
-                .set(PLAYER_SKILLCATEGORYINFO.EXP, exp)
+                .set(PLAYER_SKILLCATEGORYINFO.EXP, exp.doubleValue())
                 .execute();
         } catch (SQLException e) {
             Logger.get().error("SQL Query threw an error!", e);
@@ -99,7 +99,7 @@ public abstract class DatabaseQueries {
      * @return record containing skill category exp.
      */
 
-    public static Record1<Float> getSkillCategoryExp(UUID uuid, int skillCategoryId) {
+    public static Record1<Double> getSkillCategoryExp(UUID uuid, int skillCategoryId) {
         try (
             Connection con = DB.getConnection()
         ) {
@@ -117,7 +117,7 @@ public abstract class DatabaseQueries {
         }
     }
 
-    public static Record1<Float> getSkillCategoryExp(Player p, int skillCategoryId) {
+    public static Record1<Double> getSkillCategoryExp(Player p, int skillCategoryId) {
         return getSkillCategoryExp(p.getUniqueId(), skillCategoryId);
     }
 
