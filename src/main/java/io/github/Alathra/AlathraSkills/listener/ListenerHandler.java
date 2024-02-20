@@ -2,6 +2,7 @@ package io.github.alathra.alathraskills.listener;
 
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.Reloadable;
+import io.github.alathra.alathraskills.listener.woodcutting.WoodcuttingExpListener;
 
 /**
  * A class to handle registration of event listeners.
@@ -22,6 +23,7 @@ public class ListenerHandler implements Reloadable {
         // Register listeners here
         //plugin.getServer().getPluginManager().registerEvents(new PlayerJoinListener(plugin), plugin);
         plugin.getServer().getPluginManager().registerEvents(new VaultListener(), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new WoodcuttingExpListener(), plugin);
     }
 
     @Override

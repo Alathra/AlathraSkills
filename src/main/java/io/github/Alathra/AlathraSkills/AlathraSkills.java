@@ -3,6 +3,7 @@ package io.github.alathra.alathraskills;
 import com.github.milkdrinkers.colorparser.ColorParser;
 
 import io.github.alathra.alathraskills.api.SkillsManager;
+import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.command.CommandHandler;
 import io.github.alathra.alathraskills.config.ConfigHandler;
 import io.github.alathra.alathraskills.db.DatabaseHandler;
@@ -22,6 +23,7 @@ public class AlathraSkills extends JavaPlugin {
     
     // Internal managers
     private static SkillsManager skillsManager;
+    private static SkillsPlayerManager skillsPlayerManager;
 
     public static AlathraSkills getInstance() {
         return instance;
@@ -36,6 +38,7 @@ public class AlathraSkills extends JavaPlugin {
         listenerHandler = new ListenerHandler(instance);
         vaultHook = new VaultHook(instance);
         skillsManager = new SkillsManager(instance);
+        skillsPlayerManager = new SkillsPlayerManager(instance);
 
         configHandler.onLoad();
         databaseHandler.onLoad();
@@ -43,6 +46,7 @@ public class AlathraSkills extends JavaPlugin {
         listenerHandler.onLoad();
         vaultHook.onLoad();
         skillsManager.onLoad();
+        skillsPlayerManager.onLoad();
     }
 
     @Override
@@ -53,6 +57,7 @@ public class AlathraSkills extends JavaPlugin {
         listenerHandler.onEnable();
         vaultHook.onEnable();
         skillsManager.onEnable();
+        skillsPlayerManager.onEnable();
 
         if (vaultHook.isVaultLoaded()) {
             Logger.get().info(ColorParser.of("<green>Vault has been found on this server. Vault support enabled.").build());
@@ -70,6 +75,7 @@ public class AlathraSkills extends JavaPlugin {
         listenerHandler.onDisable();
         vaultHook.onDisable();
         skillsManager.onDisable();
+        skillsPlayerManager.onDisable();
     }
 
     /**
