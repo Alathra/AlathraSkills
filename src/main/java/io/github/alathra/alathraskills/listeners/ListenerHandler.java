@@ -1,8 +1,8 @@
-package io.github.alathra.alathraskills.listener;
+package io.github.alathra.alathraskills.listeners;
 
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.Reloadable;
-import io.github.alathra.alathraskills.listener.woodcutting.WoodcuttingExpListener;
+import io.github.alathra.alathraskills.listeners.exp.WoodcuttingExpListener;
 
 /**
  * A class to handle registration of event listeners.

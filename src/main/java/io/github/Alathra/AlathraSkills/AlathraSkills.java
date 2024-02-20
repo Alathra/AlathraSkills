@@ -8,7 +8,7 @@ import io.github.alathra.alathraskills.command.CommandHandler;
 import io.github.alathra.alathraskills.config.ConfigHandler;
 import io.github.alathra.alathraskills.db.DatabaseHandler;
 import io.github.alathra.alathraskills.hooks.VaultHook;
-import io.github.alathra.alathraskills.listener.ListenerHandler;
+import io.github.alathra.alathraskills.listeners.ListenerHandler;
 import io.github.alathra.alathraskills.utility.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;

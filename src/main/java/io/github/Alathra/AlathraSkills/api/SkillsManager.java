@@ -11,6 +11,10 @@ import io.github.alathra.alathraskills.skills.categories.WoodcuttingSkillCategor
 
 public class SkillsManager implements Reloadable {
 	
+	public static int FARMING_SKILL_ID = 1;
+	public static int MINING_SKILL_ID = 2;
+	public static int WOODCUTTING_SKILL_ID = 3;
+	
 	private final AlathraSkills plugin;
 	
 	// Id, SkillCategory

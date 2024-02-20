@@ -1,4 +1,4 @@
-package io.github.alathra.alathraskills.listener;
+package io.github.alathra.alathraskills.listeners;
 
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.hooks.VaultHook;
