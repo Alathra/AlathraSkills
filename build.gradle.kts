@@ -50,6 +50,7 @@ dependencies {
     implementation("com.github.milkdrinkers:colorparser:2.0.0") {
         exclude("net.kyori")
     }
+    implementation("com.github.milkdrinkers:customblockdata:1.0.0")
 
     implementation("dev.jorel:commandapi-bukkit-shade:9.3.0")
 //    compileOnly("dev.jorel:commandapi-annotations:9.3.0")
@@ -114,6 +115,7 @@ tasks {
         reloc("space.arim.morepaperlib", "morepaperlib")
         reloc("com.github.milkdrinkers.Crate", "crate")
         reloc("com.github.milkdrinkers.colorparser", "colorparser")
+        reloc("com.github.milkdrinkers.customblockdata", "customblockdata")
         reloc("dev.jorel.commandapi", "commandapi")
         reloc("dev.triumphteam.gui", "gui")
         reloc("com.zaxxer.hikari", "hikaricp")
