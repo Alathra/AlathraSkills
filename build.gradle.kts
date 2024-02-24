@@ -19,6 +19,7 @@ group = "io.github.alathra"
 version = "1.0.0"
 description = ""
 val mainPackage = "${project.group}.${rootProject.name}"
+val title = "AlathraSkills"
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_17.majorVersion)) // Configure the java toolchain. This allows gradle to auto-provision JDK 17 on systems that only have JDK 8 installed for example.
@@ -106,7 +107,7 @@ tasks {
     }
 
     shadowJar {
-        archiveBaseName.set(project.name)
+        archiveBaseName.set(title)
         archiveClassifier.set("")
 
         // Shadow classes
@@ -129,7 +130,7 @@ tasks {
 
     runServer {
         // Configure the Minecraft version for our task.
-        minecraftVersion("1.20.2")
+        minecraftVersion("1.20.4")
 
         // IntelliJ IDEA debugger setup: https://docs.papermc.io/paper/dev/debugging#using-a-remote-debugger
         jvmArgs("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005", "-DPaper.IgnoreJavaVersion=true", "-Dcom.mojang.eula.agree=true", "-DIReallyKnowWhatIAmDoingISwear")
@@ -149,11 +150,11 @@ tasks {
 
 bukkit { // Options: https://github.com/Minecrell/plugin-yml#bukkit
     // Plugin main class (required)
-    main = "${mainPackage}.${rootProject.name}"
+    main = "${mainPackage}.${title}"
 
     // Plugin Information
-    name = project.name
-    prefix = project.name
+    name = title
+    prefix = title
     version = "${project.version}"
     description = "${project.description}"
     authors = listOf("rooooose-b, ShermansWorld")
