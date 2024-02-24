@@ -25,14 +25,14 @@ public abstract class DatabaseQueries {
 
 
     /**
-     * Attempts to save skill category exp to DB.
+     * Attempts to save skill category experience to DB.
      *
      * @param uuid
      * @param skillCategoryId
-     * @param exp
+     * @param experience
      */
 
-    public static void saveSkillCategoryExp(UUID uuid, int skillCategoryId, Float exp) {
+    public static void saveSkillCategoryExperience(UUID uuid, int skillCategoryId, Float experience) {
         try (
             Connection con = DB.getConnection()
         ) {
@@ -42,22 +42,22 @@ public abstract class DatabaseQueries {
                 .insertInto(PLAYER_SKILLCATEGORYINFO,
                     PLAYER_SKILLCATEGORYINFO.UUID,
                     PLAYER_SKILLCATEGORYINFO.SKILLCATEGORYID,
-                    PLAYER_SKILLCATEGORYINFO.EXP)
+                    PLAYER_SKILLCATEGORYINFO.EXPERIENCE)
                 .values(
                     convertUUIDToBytes(uuid),
                     skillCategoryId,
-                    exp.doubleValue()
+                    experience.doubleValue()
                 )
                 .onDuplicateKeyUpdate()
-                .set(PLAYER_SKILLCATEGORYINFO.EXP, exp.doubleValue())
+                .set(PLAYER_SKILLCATEGORYINFO.EXPERIENCE, experience.doubleValue())
                 .execute();
         } catch (SQLException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
     }
 
-    public static void saveSkillCategoryExp(Player p, int skillCategoryId, float exp) {
-        saveSkillCategoryExp(p.getUniqueId(), skillCategoryId, exp);
+    public static void saveSkillCategoryExperience(Player p, int skillCategoryId, float experience) {
+        saveSkillCategoryExperience(p.getUniqueId(), skillCategoryId, experience);
     }
 
     /**
@@ -92,21 +92,21 @@ public abstract class DatabaseQueries {
     }
 
     /**
-     * Fetches skill category exp.
+     * Fetches skill category experience.
      *
      * @param uuid
      * @param skillCategoryId
-     * @return record containing skill category exp.
+     * @return record containing skill category experience.
      */
 
-    public static Record1<Double> getSkillCategoryExp(UUID uuid, int skillCategoryId) {
+    public static Record1<Double> getSkillCategoryExperience(UUID uuid, int skillCategoryId) {
         try (
             Connection con = DB.getConnection()
         ) {
             DSLContext context = DB.getContext(con);
 
             return context
-                .select(PLAYER_SKILLCATEGORYINFO.EXP)
+                .select(PLAYER_SKILLCATEGORYINFO.EXPERIENCE)
                 .from(PLAYER_SKILLCATEGORYINFO)
                 .where(PLAYER_SKILLCATEGORYINFO.UUID.equal(convertUUIDToBytes(uuid)))
                 .and(PLAYER_SKILLCATEGORYINFO.SKILLCATEGORYID.equal(skillCategoryId))
@@ -117,24 +117,24 @@ public abstract class DatabaseQueries {
         }
     }
 
-    public static Record1<Double> getSkillCategoryExp(Player p, int skillCategoryId) {
-        return getSkillCategoryExp(p.getUniqueId(), skillCategoryId);
+    public static Record1<Double> getSkillCategoryExperience(Player p, int skillCategoryId) {
+        return getSkillCategoryExperience(p.getUniqueId(), skillCategoryId);
     }
 
     /**
-     * Convenience method for {@link #getSkillCategoryExp(UUID, int)}
+     * Convenience method for {@link #getSkillCategoryExperience(UUID, int)}
      *
      * @param uuid
      * @param skillCategoryId
-     * @return skill category exp as float.
+     * @return skill category experience as float.
      */
 
-    public static float getSkillCategoryExpFloat(UUID uuid, int skillCategoryId) {
-        return (float) getSkillCategoryExp(uuid, skillCategoryId).getValue("EXP");
+    public static float getSkillCategoryExperienceFloat(UUID uuid, int skillCategoryId) {
+        return (float) getSkillCategoryExperience(uuid, skillCategoryId).getValue("EXP");
     }
 
-    public static float getSkillCategoryExpFloat(Player p, int skillCategoryId) {
-        return getSkillCategoryExpFloat(p.getUniqueId(), skillCategoryId);
+    public static float getSkillCategoryExperienceFloat(Player p, int skillCategoryId) {
+        return getSkillCategoryExperienceFloat(p.getUniqueId(), skillCategoryId);
     }
 
     /**
