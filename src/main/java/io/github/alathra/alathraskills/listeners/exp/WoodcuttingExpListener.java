@@ -3,6 +3,7 @@ package io.github.alathra.alathraskills.listeners.exp;
 import java.util.ArrayList;
 
 import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,23 +15,7 @@ import io.github.alathra.alathraskills.skills.SkillsPlayer;
 
 public class WoodcuttingExpListener implements Listener {
 	
-	public static ArrayList<Material> logs = new ArrayList<>();
-	
-	static {
-		// overworld wood
-		logs.add(Material.ACACIA_LOG);
-		logs.add(Material.BIRCH_LOG);
-		logs.add(Material.CHERRY_LOG);
-		logs.add(Material.DARK_OAK_LOG);
-		logs.add(Material.JUNGLE_LOG);
-		logs.add(Material.MANGROVE_LOG);
-		logs.add(Material.OAK_LOG);
-		logs.add(Material.SPRUCE_LOG);
-		
-		// nether wood
-		logs.add(Material.CRIMSON_STEM);
-		logs.add(Material.WARPED_STEM);
-	}
+	public static ArrayList<Material> logs = new ArrayList<>(Tag.LOGS.getValues());
 	
 	// Completely arbitrary right now
 	private float expAmount = 5.0f;
