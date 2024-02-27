@@ -5,17 +5,18 @@ import org.bukkit.entity.Player;
 import com.github.milkdrinkers.colorparser.ColorParser;
 
 import dev.jorel.commandapi.CommandAPICommand;
+import dev.jorel.commandapi.arguments.FloatArgument;
 import dev.jorel.commandapi.arguments.IntegerArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
 import io.github.alathra.alathraskills.db.DatabaseQueries;
 
-public class TestGetExerienceCommand {
+public class TestSetExerienceCommand {
 
-    public TestGetExerienceCommand() {
-        new CommandAPICommand("testGetExperience")
-        	.withArguments(new IntegerArgument("skillCategoryID"))
-            .withFullDescription("Get Experience For a Given Skill Category.")
-            .withShortDescription("Get Experience")
+    public TestSetExerienceCommand() {
+        new CommandAPICommand("testSetExperience")
+        	.withArguments(new IntegerArgument("skillCategoryID"), new FloatArgument("Experience"))
+            .withFullDescription("Set Experience For a Given Skill Category.")
+            .withShortDescription("Set Experience")
             .withPermission("example.command")
             .executesPlayer(this::runCommand)
             .register();
@@ -28,15 +29,22 @@ public class TestGetExerienceCommand {
                         .parseLegacy() // Parse legacy color codes
                         .build()
             );
+        }
+        if (args.get(1) == null) {
+            player.sendMessage(
+                    ColorParser.of("Provide a value after the skill category to indicate experience amount.")
+                        .parseLegacy() // Parse legacy color codes
+                        .build()
+            );
             return;
         }
-        float dbReturnValue = DatabaseQueries.getSkillCategoryExperienceFloat(player, (Integer) args.get(0));
+        DatabaseQueries.saveSkillCategoryExperience(player, (Integer) args.get(0), (float) args.get(1));
         String returnString =
         		"Player with ID " +
 				player.getUniqueId() +
-				" has an experience value of " +
-				Float.toString(dbReturnValue) +
-				" in skill category " +
+				" has had an experience value of " +
+				args.get(1) +
+				" set in skill category " +
 				args.get(0) +
 				".";
         player.sendMessage(

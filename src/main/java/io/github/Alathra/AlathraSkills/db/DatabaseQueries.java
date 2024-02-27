@@ -138,7 +138,11 @@ public abstract class DatabaseQueries {
      */
 
     public static float getSkillCategoryExperienceFloat(UUID uuid, int skillCategoryId) {
-        return (float) getSkillCategoryExperience(uuid, skillCategoryId).getValue("EXP");
+    	Record1<Double> returnRecord = getSkillCategoryExperience(uuid, skillCategoryId);
+    	if (returnRecord == null) {
+    		return 0;
+    	}
+        return ((Double) returnRecord.getValue("EXPERIENCE")).floatValue();
     }
 
     public static float getSkillCategoryExperienceFloat(Player p, int skillCategoryId) {
