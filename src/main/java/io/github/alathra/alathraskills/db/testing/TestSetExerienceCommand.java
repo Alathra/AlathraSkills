@@ -39,14 +39,14 @@ public class TestSetExerienceCommand {
             return;
         }
         // TODO Make Async
-        DatabaseQueries.saveSkillCategoryExperience(player, (Integer) args.get(0), (float) args.get(1));
+        DatabaseQueries.saveSkillCategoryExperience(player, (Integer) args.get("skillCategoryID"), (float) args.get("Experience"));
         String returnString =
         		"Player with ID " +
 				player.getUniqueId() +
 				" has had an experience value of " +
-				args.get(1) +
+				args.get("Experience") +
 				" set in skill category " +
-				args.get(0) +
+				args.get("skillCategoryID") +
 				".";
         player.sendMessage(
                 ColorParser.of(returnString)
