@@ -2,6 +2,8 @@ package io.github.alathra.alathraskills.command;
 
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.Reloadable;
+import io.github.alathra.alathraskills.db.testing.TestGetExerienceCommand;
+import io.github.alathra.alathraskills.db.testing.TestSetExerienceCommand;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
 
@@ -25,6 +27,8 @@ public class CommandHandler implements Reloadable {
         CommandAPI.onEnable();
 
         // Register commands here
+        new TestGetExerienceCommand();
+        new TestSetExerienceCommand();
         new ExampleCommand();
     }
 

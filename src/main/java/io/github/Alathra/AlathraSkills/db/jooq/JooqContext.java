@@ -18,7 +18,7 @@ public final class JooqContext {
 		JooqLogger.globalThreshold(Log.Level.ERROR); // Silence JOOQ warnings
 	}
 
-	private static final String TABLE_PREFIX = Cfg.get().getOrDefault("db.prefix", "alathras_skills_"); // The table prefix as grabbed from config
+	private static final String TABLE_PREFIX = Cfg.get().getOrDefault("db.prefix", "alathra_skills_"); // The table prefix as grabbed from config
 	private static final Pattern MATCH_ALL_EXCEPT_INFORMATION_SCHEMA = Pattern.compile("^(?!INFORMATION_SCHEMA)(.*?)$");
 	private static final Pattern MATCH_ALL = Pattern.compile("^(.*?)$");
 	private static final String REPLACEMENT = "%s$0".formatted(TABLE_PREFIX); //
