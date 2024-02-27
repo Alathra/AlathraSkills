@@ -22,7 +22,7 @@ public class TestGetExerienceCommand {
     }
 
     private void runCommand(Player player, CommandArguments args) {
-        if (args.get(0) == null) {
+        if (args.get("skillCategoryID") == null) {
             player.sendMessage(
                     ColorParser.of("Provide a value after the command to indicate skill category.")
                         .parseLegacy() // Parse legacy color codes
