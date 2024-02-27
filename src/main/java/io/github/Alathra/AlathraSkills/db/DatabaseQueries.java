@@ -13,6 +13,7 @@ import org.jooq.exception.DataAccessException;
 
 import java.nio.ByteBuffer;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.UUID;
 
 import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_SKILLCATEGORYINFO;
@@ -53,6 +54,8 @@ public abstract class DatabaseQueries {
                 .execute();
         } catch (DataAccessException e) {
             Logger.get().error("SQL Query threw an error!", e);
+        } catch (SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
         }
     }
 
@@ -84,6 +87,8 @@ public abstract class DatabaseQueries {
                 .execute();
         } catch (DataAccessException e) {
             Logger.get().error("SQL Query threw an error!", e);
+        } catch (SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
         }
     }
 
@@ -114,6 +119,9 @@ public abstract class DatabaseQueries {
         } catch (DataAccessException e) {
             Logger.get().error("SQL Query threw an error!", e);
             return null;
+        } catch (SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+            return null;        	
         }
     }
 
@@ -159,6 +167,9 @@ public abstract class DatabaseQueries {
         } catch (DataAccessException e) {
             Logger.get().error("SQL Query threw an error!", e);
             return null;
+        } catch (SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+            return null;        	
         }
     }
 
