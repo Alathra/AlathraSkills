@@ -9,10 +9,10 @@ import org.jooq.DSLContext;
 import org.jooq.Record1;
 import org.jooq.Record2;
 import org.jooq.Result;
+import org.jooq.exception.DataAccessException;
 
 import java.nio.ByteBuffer;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.UUID;
 
 import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_SKILLCATEGORYINFO;
@@ -51,7 +51,7 @@ public abstract class DatabaseQueries {
                 .onDuplicateKeyUpdate()
                 .set(PLAYER_SKILLCATEGORYINFO.EXPERIENCE, experience.doubleValue())
                 .execute();
-        } catch (SQLException e) {
+        } catch (DataAccessException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
     }
@@ -82,7 +82,7 @@ public abstract class DatabaseQueries {
                     skillId
                 )
                 .execute();
-        } catch (SQLException e) {
+        } catch (DataAccessException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
     }
@@ -111,7 +111,7 @@ public abstract class DatabaseQueries {
                 .where(PLAYER_SKILLCATEGORYINFO.UUID.equal(convertUUIDToBytes(uuid)))
                 .and(PLAYER_SKILLCATEGORYINFO.SKILLCATEGORYID.equal(skillCategoryId))
                 .fetchOne();
-        } catch (SQLException e) {
+        } catch (DataAccessException e) {
             Logger.get().error("SQL Query threw an error!", e);
             return null;
         }
@@ -156,7 +156,7 @@ public abstract class DatabaseQueries {
                     .selectFrom(PLAYER_SKILLINFO)
                     .where(PLAYER_SKILLINFO.UUID.equal(convertUUIDToBytes(uuid)))
                     .and(PLAYER_SKILLINFO.SKILLID.equal(skillId)));
-        } catch (SQLException e) {
+        } catch (DataAccessException e) {
             Logger.get().error("SQL Query threw an error!", e);
             return null;
         }
