@@ -30,6 +30,7 @@ public class TestGetExerienceCommand {
             );
             return;
         }
+        // TODO Make Async
         float dbReturnValue = DatabaseQueries.getSkillCategoryExperienceFloat(player, (Integer) args.get(0));
         String returnString =
         		"Player with ID " +

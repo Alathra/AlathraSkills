@@ -38,6 +38,7 @@ public class TestSetExerienceCommand {
             );
             return;
         }
+        // TODO Make Async
         DatabaseQueries.saveSkillCategoryExperience(player, (Integer) args.get(0), (float) args.get(1));
         String returnString =
         		"Player with ID " +
