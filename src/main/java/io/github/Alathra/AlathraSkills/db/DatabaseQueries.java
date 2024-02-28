@@ -1,5 +1,6 @@
 package io.github.alathra.alathraskills.db;
 
+import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillinfoRecord;
 import io.github.alathra.alathraskills.utility.DB;
 import io.github.alathra.alathraskills.utility.Logger;
 import org.bukkit.entity.Player;
@@ -84,6 +85,7 @@ public abstract class DatabaseQueries {
                     convertUUIDToBytes(uuid),
                     skillId
                 )
+                .onDuplicateKeyIgnore()
                 .execute();
         } catch (DataAccessException e) {
             Logger.get().error("SQL Query threw an error!", e);
@@ -179,6 +181,63 @@ public abstract class DatabaseQueries {
 
     public static Boolean doesPlayerHaveSkill(Player p, int skillId) {
         return doesPlayerHaveSkill(p.getUniqueId(), skillId);
+    }
+    
+    /**
+     * Fetches all skills a player has
+     *
+     * @param uuid
+     * @return all skill records a player is associated with.
+     */
+
+    public static Result<PlayerSkillinfoRecord> fetchPlayerSkills(UUID uuid) {
+        try (
+            Connection con = DB.getConnection()
+        ) {
+            DSLContext context = DB.getContext(con);
+
+            return context
+                .fetch(context
+                    .selectFrom(PLAYER_SKILLINFO)
+                    .where(PLAYER_SKILLINFO.UUID.equal(convertUUIDToBytes(uuid))));
+        } catch (DataAccessException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+            return null;
+        } catch (SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+            return null;        	
+        }
+    }
+
+    public static Result<PlayerSkillinfoRecord> fetchPlayerSkills(Player p) {
+        return fetchPlayerSkills(p.getUniqueId());
+    }
+    
+    /**
+     * Deletes all skills a player has
+     *
+     * @param uuid
+     */
+
+    public static void deletePlayerSkills(UUID uuid) {
+        try (
+            Connection con = DB.getConnection()
+        ) {
+            DSLContext context = DB.getContext(con);
+
+            context
+                .delete(PLAYER_SKILLINFO
+                    .where(PLAYER_SKILLINFO.UUID.equal(convertUUIDToBytes(uuid))))
+                	.execute();
+        } catch (DataAccessException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+        } catch (SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+        }
+    }
+
+    public static void deletePlayerSkills(Player p) {
+        deletePlayerSkills(p.getUniqueId());
     }
 
     public static byte[] convertUUIDToBytes(UUID uuid) {

@@ -1,6 +1,11 @@
 package io.github.alathra.alathraskills.db.testing;
 
+import java.util.Iterator;
+import java.util.UUID;
+
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.jooq.Result;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 
@@ -9,12 +14,13 @@ import dev.jorel.commandapi.arguments.IntegerArgument;
 import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
 import io.github.alathra.alathraskills.db.DatabaseQueries;
+import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillinfoRecord;
 
-public class TestGetExerienceCommand {
+public class TestGetAllSkillsCommand {
 
-    public TestGetExerienceCommand() {
-        new CommandAPICommand("testGetExperience")
-        	.withArguments(new PlayerArgument("targetPlayer"), new IntegerArgument("skillCategoryID"))
+    public TestGetAllSkillsCommand() {
+        new CommandAPICommand("testGetAllSkills")
+        	.withArguments(new PlayerArgument("targetPlayer"))
             .withFullDescription("Get Experience For a Given Skill Category.")
             .withShortDescription("Get Experience")
             .withPermission("example.command")
@@ -30,24 +36,30 @@ public class TestGetExerienceCommand {
                         .build()
             );
             return;
-        }        if (args.get("skillCategoryID") == null) {
-            player.sendMessage(
-                    ColorParser.of("Provide a value after the target player to indicate skill category.")
-                        .parseLegacy() // Parse legacy color codes
-                        .build()
-            );
-            return;
         }
         // TODO Make Async
-        float dbReturnValue = DatabaseQueries.getSkillCategoryExperienceFloat((Player) args.get("targetPlayer"), (Integer) args.get("skillCategoryID"));
+        Result<PlayerSkillinfoRecord> dbReturnValue = DatabaseQueries.fetchPlayerSkills((Player) args.get("targetPlayer"));
+    	String finalSkillString = "";
+        if (dbReturnValue != null) {
+        	for (Iterator<PlayerSkillinfoRecord> iterator = dbReturnValue.iterator(); iterator.hasNext();) {
+				PlayerSkillinfoRecord playerSkillinfoRecord = iterator.next();
+				finalSkillString += playerSkillinfoRecord.getSkillid() + ", ";
+			}
+        	if (finalSkillString.length() > 2) {
+        		finalSkillString =finalSkillString.substring(0, finalSkillString.length() - 2);
+        	}
+        }
         String returnString =
-        		"Player with ID " +
-				((Player) args.get("targetPlayer")).getUniqueId() +
-				" has an experience value of " +
-				Float.toString(dbReturnValue) +
-				" in skill category " +
-				args.get("skillCategoryID") +
-				".";
+        	"Player with ID " +
+        	((Player) args.get("targetPlayer")).getUniqueId();
+        if (finalSkillString.length() > 2) {
+			returnString +=
+				" has the following skills: " +
+				finalSkillString;			
+        } else {
+			returnString +=
+				" does not have any skills.";			
+        }
         player.sendMessage(
                 ColorParser.of(returnString)
                     .parseLegacy() // Parse legacy color codes

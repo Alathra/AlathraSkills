@@ -11,11 +11,11 @@ import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
 import io.github.alathra.alathraskills.db.DatabaseQueries;
 
-public class TestSetExerienceCommand {
+public class TestSetSkillCommand {
 
-    public TestSetExerienceCommand() {
-        new CommandAPICommand("testSetExperience")
-        	.withArguments(new PlayerArgument("targetPlayer"), new IntegerArgument("skillCategoryID"), new FloatArgument("Experience"))
+    public TestSetSkillCommand() {
+        new CommandAPICommand("testSetSkill")
+        	.withArguments(new PlayerArgument("targetPlayer"), new IntegerArgument("skill"))
             .withFullDescription("Set Experience For a Given Skill Category.")
             .withShortDescription("Set Experience")
             .withPermission("example.command")
@@ -32,31 +32,21 @@ public class TestSetExerienceCommand {
             );
             return;
         }
-    	if (args.get("skillCategoryID") == null) {
+    	if (args.get("skill") == null) {
             player.sendMessage(
-                    ColorParser.of("Provide a value after the command to indicate skill category.")
+                    ColorParser.of("Provide a value after the target player to indicate the skill to add.")
                         .parseLegacy() // Parse legacy color codes
                         .build()
             );
-        }
-        if (args.get("Experience") == null) {
-            player.sendMessage(
-                    ColorParser.of("Provide a value after the skill category to indicate experience amount.")
-                        .parseLegacy() // Parse legacy color codes
-                        .build()
-            );
-            return;
         }
         // TODO Make Async
-        DatabaseQueries.saveSkillCategoryExperience(player, (Integer) args.get("skillCategoryID"), (float) args.get("Experience"));
+        DatabaseQueries.saveSkillInfo((Player) args.get("targetPlayer"), (Integer) args.get("skill"));
         String returnString =
         		"Player with ID " +
-				player.getUniqueId() +
-				" has had an experience value of " +
-				args.get("Experience") +
-				" set in skill category " +
-				args.get("skillCategoryID") +
-				".";
+				((Player) args.get("targetPlayer")).getUniqueId() +
+				" has had the skill " +
+				args.get("skill") +
+				" added in the DB.";
         player.sendMessage(
                 ColorParser.of(returnString)
                     .parseLegacy() // Parse legacy color codes
