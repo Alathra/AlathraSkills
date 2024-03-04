@@ -10,12 +10,12 @@ import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
 import io.github.alathra.alathraskills.db.DatabaseQueries;
 
-public class TestGetExerienceCommand {
+public class TestDeleteAllSkillsCommand {
 
-    public TestGetExerienceCommand() {
-        new CommandAPICommand("testGetExperience")
-        	.withArguments(new PlayerArgument("targetPlayer"), new IntegerArgument("skillCategoryID"))
-            .withFullDescription("Get Experience For a Given Skill Category.")
+    public TestDeleteAllSkillsCommand() {
+        new CommandAPICommand("testDeleteSkills")
+        	.withArguments(new PlayerArgument("targetPlayer"))
+            .withFullDescription("Deletes all skills for this player")
             .withShortDescription("Get Experience")
             .withPermission("example.command")
             .executesPlayer(this::runCommand)
@@ -30,24 +30,13 @@ public class TestGetExerienceCommand {
                         .build()
             );
             return;
-        }        if (args.get("skillCategoryID") == null) {
-            player.sendMessage(
-                    ColorParser.of("Provide a value after the target player to indicate skill category.")
-                        .parseLegacy() // Parse legacy color codes
-                        .build()
-            );
-            return;
         }
         // TODO Make Async
-        float dbReturnValue = DatabaseQueries.getSkillCategoryExperienceFloat((Player) args.get("targetPlayer"), (Integer) args.get("skillCategoryID"));
+        DatabaseQueries.deletePlayerSkills((Player) args.get("targetPlayer"));
         String returnString =
         		"Player with ID " +
 				((Player) args.get("targetPlayer")).getUniqueId() +
-				" has an experience value of " +
-				Float.toString(dbReturnValue) +
-				" in skill category " +
-				args.get("skillCategoryID") +
-				".";
+				" has had all of their skills deleted.";
         player.sendMessage(
                 ColorParser.of(returnString)
                     .parseLegacy() // Parse legacy color codes
