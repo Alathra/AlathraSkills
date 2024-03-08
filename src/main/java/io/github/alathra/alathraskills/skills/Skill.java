@@ -17,12 +17,10 @@ public abstract class Skill {
 	private ArrayList<Skill> parents;
 	private ArrayList<Skill> children;
 	
-	public Skill(int id, String name, String description, ItemStack icon, SkillCategory category) {
+	public Skill(int id, String name, String description) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.icon = icon;
-		this.category = category;
 	}
 	
 	public SkillCategory getCategory() {
