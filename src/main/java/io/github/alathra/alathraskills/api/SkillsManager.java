@@ -4,10 +4,12 @@ import java.util.HashMap;
 
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.Reloadable;
+import io.github.alathra.alathraskills.skills.Skill;
 import io.github.alathra.alathraskills.skills.SkillCategory;
 import io.github.alathra.alathraskills.skills.categories.FarmingSkillCategory;
 import io.github.alathra.alathraskills.skills.categories.MiningSkillCategory;
 import io.github.alathra.alathraskills.skills.categories.WoodcuttingSkillCategory;
+import io.github.alathra.alathraskills.skills.woodcutting.SaveTheTreesSkill;
 
 public class SkillsManager implements Reloadable {
 	
@@ -19,6 +21,9 @@ public class SkillsManager implements Reloadable {
 	
 	// Id, SkillCategory
 	public HashMap<Integer, SkillCategory> skillCategories = new HashMap<>();
+
+    // Id, Skill
+    public HashMap<Integer, Skill> woodcuttingSkills = new HashMap<>();
 	
 	public SkillsManager(AlathraSkills plugin) {
 		this.plugin = plugin;
@@ -33,6 +38,7 @@ public class SkillsManager implements Reloadable {
 	@Override
 	public void onEnable() {
 		loadSkillCategories();
+        loadSkills();
 	}
 
 	@Override
@@ -46,5 +52,13 @@ public class SkillsManager implements Reloadable {
 		skillCategories.put(2, new MiningSkillCategory(2));
 		skillCategories.put(3, new WoodcuttingSkillCategory(3));
 	}
+
+    public void loadSkills() {
+        loadWoodcuttingSkills();
+    }
+
+    public void loadWoodcuttingSkills() {
+        woodcuttingSkills.put(1, new SaveTheTreesSkill(1));
+    }
 	
 }

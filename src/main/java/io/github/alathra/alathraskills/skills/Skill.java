@@ -15,14 +15,12 @@ public abstract class Skill {
 	
 	// Optional 
 	private ArrayList<Skill> parents;
-	private ArrayList<Skill> childrens;
+	private ArrayList<Skill> children;
 	
-	public Skill(int id, String name, String description, ItemStack icon, SkillCategory category) {
+	public Skill(int id, String name, String description) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.icon = icon;
-		this.category = category;
 	}
 	
 	public SkillCategory getCategory() {
@@ -64,12 +62,12 @@ public abstract class Skill {
 		this.parents = parents;
 	}
 
-	public ArrayList<Skill> getChildrens() {
-		return childrens;
+	public ArrayList<Skill> getChildren() {
+		return children;
 	}
 
-	public void setChildrens(ArrayList<Skill> childrens) {
-		this.childrens = childrens;
+	public void setChildren(ArrayList<Skill> children) {
+		this.children = children;
 	}
 	
 }
