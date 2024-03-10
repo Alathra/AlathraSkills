@@ -7,7 +7,6 @@ import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.command.CommandHandler;
 import io.github.alathra.alathraskills.config.ConfigHandler;
 import io.github.alathra.alathraskills.db.DatabaseHandler;
-import io.github.alathra.alathraskills.db.testing.TestGetExerienceCommand;
 import io.github.alathra.alathraskills.hooks.VaultHook;
 import io.github.alathra.alathraskills.listeners.ListenerHandler;
 import io.github.alathra.alathraskills.utility.Logger;
@@ -113,5 +112,10 @@ public class AlathraSkills extends JavaPlugin {
     @NotNull
     public static SkillsManager getSkillsManager() {
         return skillsManager;
+    }
+    
+    @NotNull
+    public static SkillsPlayerManager getSkillsPlayerManager() {
+        return skillsPlayerManager;
     }
 }
