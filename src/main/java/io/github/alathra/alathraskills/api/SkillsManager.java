@@ -58,7 +58,7 @@ public class SkillsManager implements Reloadable {
     }
 
     public void loadWoodcuttingSkills() {
-        woodcuttingSkills.put(1, new SaveTheTreesSkill(1));
+        woodcuttingSkills.put(301, new SaveTheTreesSkill(301));
     }
 	
 }
