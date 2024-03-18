@@ -116,7 +116,7 @@ public class SkillsPlayerManager implements Reloadable {
 		playerExperienceValues
 			.entrySet()
 			.stream()
-			.forEach(e ->DatabaseQueries.saveSkillCategoryExperience(
+			.forEach(e -> DatabaseQueries.saveSkillCategoryExperience(
 					sp.getPlayer().getUniqueId(), e.getKey(), e.getValue()
 					));
 	}
