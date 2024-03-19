@@ -12,6 +12,7 @@ import io.github.alathra.alathraskills.skills.categories.WoodcuttingSkillCategor
 import io.github.alathra.alathraskills.skills.woodcutting.PreciseChopOneSkill;
 import io.github.alathra.alathraskills.skills.woodcutting.PreciseChopTwoSkill;
 import io.github.alathra.alathraskills.skills.woodcutting.SaveTheTreesSkill;
+import io.github.alathra.alathraskills.skills.woodcutting.TrimmerOneSkill;
 
 public class SkillsManager implements Reloadable {
 	
@@ -63,6 +64,7 @@ public class SkillsManager implements Reloadable {
         woodcuttingSkills.put(301, new SaveTheTreesSkill(301));
         woodcuttingSkills.put(302, new PreciseChopOneSkill(302));
         woodcuttingSkills.put(303, new PreciseChopTwoSkill(302));
+        woodcuttingSkills.put(304, new TrimmerOneSkill(304));
     }
 	
 }
