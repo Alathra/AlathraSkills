@@ -1,6 +1,7 @@
 package io.github.alathra.alathraskills.listeners.skills;
 
 import io.github.alathra.alathraskills.skills.woodcutting.PreciseChopOneSkill;
+import io.github.alathra.alathraskills.skills.woodcutting.PreciseChopTwoSkill;
 import io.github.alathra.alathraskills.skills.woodcutting.SaveTheTreesSkill;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
@@ -22,6 +23,7 @@ public class WoodcuttingSkillsListener implements Listener {
         // TODO check if player has skills before calling function
         SaveTheTreesSkill.saveTheTreeSkillRun(block);
         PreciseChopOneSkill.preciseChopOneSkill(block);
+        PreciseChopTwoSkill.preciseChopTwoSkill(block);
     }
 
 }
