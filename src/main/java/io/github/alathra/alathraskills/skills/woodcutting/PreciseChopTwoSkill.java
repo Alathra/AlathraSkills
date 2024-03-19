@@ -32,7 +32,7 @@ public class PreciseChopTwoSkill extends Skill {
         super.setCategory(skillsManager.skillCategories.get(3));
     }
 
-    public static void preciseChopTwoSkill(Block eventBlock) {
+    public static void preciseChopTwoSkillRun(Block eventBlock) {
         int random = new Random().nextInt(20);
         if (random > 1)
             return;

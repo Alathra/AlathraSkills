@@ -24,8 +24,8 @@ public class WoodcuttingSkillsListener implements Listener {
         if (Tag.LOGS.isTagged(material)) {
             // TODO check if player has skills before calling function
             SaveTheTreesSkill.saveTheTreeSkillRun(block);
-            PreciseChopOneSkill.preciseChopOneSkill(block);
-            PreciseChopTwoSkill.preciseChopTwoSkill(block);
+            PreciseChopOneSkill.preciseChopOneSkillRun(block);
+            PreciseChopTwoSkill.preciseChopTwoSkillRun(block);
         }
 
         if (Tag.LEAVES.isTagged(material)) {
