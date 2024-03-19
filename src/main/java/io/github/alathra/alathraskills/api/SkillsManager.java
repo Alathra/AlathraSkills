@@ -9,6 +9,7 @@ import io.github.alathra.alathraskills.skills.SkillCategory;
 import io.github.alathra.alathraskills.skills.categories.FarmingSkillCategory;
 import io.github.alathra.alathraskills.skills.categories.MiningSkillCategory;
 import io.github.alathra.alathraskills.skills.categories.WoodcuttingSkillCategory;
+import io.github.alathra.alathraskills.skills.woodcutting.PreciseChopOneSkill;
 import io.github.alathra.alathraskills.skills.woodcutting.SaveTheTreesSkill;
 
 public class SkillsManager implements Reloadable {
@@ -59,6 +60,7 @@ public class SkillsManager implements Reloadable {
 
     public void loadWoodcuttingSkills() {
         woodcuttingSkills.put(301, new SaveTheTreesSkill(301));
+        woodcuttingSkills.put(302, new PreciseChopOneSkill(302));
     }
 	
 }
