@@ -2,6 +2,8 @@ package io.github.alathra.alathraskills.listeners.skills;
 
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
+import io.github.alathra.alathraskills.api.SkillsPlayer;
+import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.woodcutting.*;
 import io.github.alathra.alathraskills.skills.woodcutting.util.OneSwing;
 import org.bukkit.Material;
@@ -18,6 +20,7 @@ import org.bukkit.inventory.EquipmentSlot;
 public class WoodcuttingSkillsListener implements Listener {
 
     private SkillsManager skillsManager = AlathraSkills.getSkillsManager();
+    private SkillsPlayerManager skillsPlayerManager = AlathraSkills.getSkillsPlayerManager();
 
     @EventHandler
     public void BlockBreakListener(BlockBreakEvent event) {
@@ -25,25 +28,37 @@ public class WoodcuttingSkillsListener implements Listener {
         Material material = block.getType();
         Player player = event.getPlayer();
 
+        SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillPlayers().get(player.getUniqueId());
+
         // TODO Check if block was placed by player
 
         if (Tag.LOGS.isTagged(material)) {
             // TODO check if player has skills before calling function
-            SaveTheTreesSkill.saveTheTreeSkillRun(block);
-            PreciseChopOneSkill.preciseChopOneSkillRun(block);
-            PreciseChopTwoSkill.preciseChopTwoSkillRun(block);
 
-            if (skillsManager.oneSwingActive(player)) {
-                OneSwingOneSkill.runOneSwingSkill(player, block);
+            if (skillsPlayer.getPlayerSkills().get(301))
+                SaveTheTreesSkill.saveTheTreeSkillRun(block);
+
+            if (skillsPlayer.getPlayerSkills().get(302)) {
+                if (skillsPlayer.getPlayerSkills().get(303)) {
+                    PreciseChopTwoSkill.preciseChopTwoSkillRun(block);
+                }
+                PreciseChopOneSkill.preciseChopOneSkillRun(block);
             }
 
-            if (skillsManager.oneSwingRunning(player)) {
-                OneSwing.fellTree(block);
+            if (skillsPlayer.getPlayerSkills().get(305)) {
+                if (skillsManager.oneSwingActive(player)) {
+                    OneSwingOneSkill.runOneSwingSkill(player, block);
+                }
+
+                if (skillsManager.oneSwingRunning(player)) {
+                    OneSwing.fellTree(block);
+                }
             }
         }
 
         if (Tag.LEAVES.isTagged(material)) {
-            TrimmerOneSkill.trimmerOneSkillRun(block);
+            if (skillsPlayer.getPlayerSkills().get(304))
+                TrimmerOneSkill.trimmerOneSkillRun(block);
         }
     }
 
@@ -51,10 +66,15 @@ public class WoodcuttingSkillsListener implements Listener {
     // TODO check if player has trimmer skill
     @EventHandler
     public void BlockDamageListener(BlockDamageEvent event) {
+        SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillPlayers().get(event.getPlayer().getUniqueId());
+
         if (!Tag.LEAVES.isTagged(event.getBlock().getType()))
             return;
 
         if (!Tag.ITEMS_AXES.isTagged(event.getItemInHand().getType()))
+            return;
+
+        if (!skillsPlayer.getPlayerSkills().get(304))
             return;
 
         event.setInstaBreak(true);
