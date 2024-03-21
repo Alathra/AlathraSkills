@@ -1,5 +1,6 @@
 package io.github.alathra.alathraskills.hooks;
 
+import com.github.milkdrinkers.customblockdata.CustomBlockData;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.Reloadable;
 
