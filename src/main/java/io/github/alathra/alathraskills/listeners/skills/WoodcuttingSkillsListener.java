@@ -33,8 +33,6 @@ public class WoodcuttingSkillsListener implements Listener {
         // TODO Check if block was placed by player
 
         if (Tag.LOGS.isTagged(material)) {
-            // TODO check if player has skills before calling function
-
             if (skillsPlayer.getPlayerSkills().get(301))
                 SaveTheTreesSkill.saveTheTreeSkillRun(block);
 
@@ -63,7 +61,6 @@ public class WoodcuttingSkillsListener implements Listener {
     }
 
 
-    // TODO check if player has trimmer skill
     @EventHandler
     public void BlockDamageListener(BlockDamageEvent event) {
         SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillPlayers().get(event.getPlayer().getUniqueId());
@@ -82,6 +79,8 @@ public class WoodcuttingSkillsListener implements Listener {
 
     @EventHandler
     public void RightClickListener(PlayerInteractEvent event) {
+        SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillPlayers().get(event.getPlayer().getUniqueId());
+
         if (event.getHand() == EquipmentSlot.OFF_HAND)
             return;
 
@@ -97,7 +96,7 @@ public class WoodcuttingSkillsListener implements Listener {
 
         Player player = event.getPlayer();
 
-        // TODO check if player has skill
-        OneSwingOneSkill.readyOneSwingOneSkill(player);
+        if (skillsPlayer.getPlayerSkills().get(305))
+            OneSwingOneSkill.readyOneSwingOneSkill(player);
     }
 }
