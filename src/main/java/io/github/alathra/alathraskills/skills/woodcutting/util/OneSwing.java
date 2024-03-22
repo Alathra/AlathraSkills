@@ -7,12 +7,18 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class OneSwing {
 
     private static HashMap<UUID, Instant> cooldowns = new HashMap<>();
+
+    private List<UUID> activeOneSwing = new ArrayList<>();
+
+    private List<UUID> runningOneSwing = new ArrayList<>();
 
     public static void fellTree(Block block) {
         Material material = block.getType();
@@ -64,4 +70,53 @@ public class OneSwing {
     public static int getRemainingCooldown(Player player) {
         return getRemainingCooldown(player.getUniqueId());
     }
+
+    public void setOneSwingActive(UUID uuid) {
+        activeOneSwing.add(uuid);
+    }
+
+    public static void setOneSwingActive(Player player) {
+        setOneSwingActive(player.getUniqueId());
+    }
+
+    public boolean oneSwingActive(UUID uuid) {
+        return activeOneSwing.contains(uuid);
+    }
+
+    public static boolean oneSwingActive(Player player) {
+        return oneSwingActive(player.getUniqueId());
+    }
+
+    public void setOneSwingNotActive(UUID uuid) {
+        activeOneSwing.remove(uuid);
+    }
+
+    public static void setOneSwingNotActive(Player player) {
+        setOneSwingNotActive(player.getUniqueId());
+    }
+
+    public void setOneSwingRunning(UUID uuid) {
+        runningOneSwing.add(uuid);
+    }
+
+    public static void setOneSwingRunning(Player player) {
+        setOneSwingRunning(player.getUniqueId());
+    }
+
+    public boolean oneSwingRunning(UUID uuid) {
+        return runningOneSwing.contains(uuid);
+    }
+
+    public boolean oneSwingRunning(Player player) {
+        return oneSwingRunning(player.getUniqueId());
+    }
+
+    public void setOneSwingNotRunning(UUID uuid) {
+        runningOneSwing.remove(uuid);
+    }
+
+    public static void setOneSwingNotRunning(Player player) {
+        setOneSwingNotRunning(player.getUniqueId());
+    }
+
 }

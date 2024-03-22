@@ -28,12 +28,6 @@ public class SkillsManager implements Reloadable {
 
     // Id, Skill
     public HashMap<Integer, Skill> woodcuttingSkills = new HashMap<>();
-
-    // List of UUIDs that have One Swing ready
-    private List<UUID> activeOneSwing = new ArrayList<>();
-
-    // List of UUIDs that have One Swing running
-    private List<UUID> runningOneSwing = new ArrayList<>();
 	
 	public SkillsManager(AlathraSkills plugin) {
 		this.plugin = plugin;
@@ -75,54 +69,6 @@ public class SkillsManager implements Reloadable {
         woodcuttingSkills.put(305, new OneSwingOneSkill(305));
         woodcuttingSkills.put(306, new CarpenterOneSkill(306));
         woodcuttingSkills.put(307, new TrimmerTwoSkill(307));
-    }
-
-    public void setOneSwingActive(UUID uuid) {
-        activeOneSwing.add(uuid);
-    }
-
-    public void setOneSwingActive(Player player) {
-        setOneSwingActive(player.getUniqueId());
-    }
-
-    public boolean oneSwingActive(UUID uuid) {
-        return activeOneSwing.contains(uuid);
-    }
-
-    public boolean oneSwingActive(Player player) {
-        return oneSwingActive(player.getUniqueId());
-    }
-
-    public void setOneSwingNotActive(UUID uuid) {
-        activeOneSwing.remove(uuid);
-    }
-
-    public void setOneSwingNotActive(Player player) {
-        setOneSwingNotActive(player.getUniqueId());
-    }
-
-    public void setOneSwingRunning(UUID uuid) {
-        runningOneSwing.add(uuid);
-    }
-
-    public void setOneSwingRunning(Player player) {
-        setOneSwingRunning(player.getUniqueId());
-    }
-
-    public boolean oneSwingRunning(UUID uuid) {
-        return runningOneSwing.contains(uuid);
-    }
-
-    public boolean oneSwingRunning(Player player) {
-        return oneSwingRunning(player.getUniqueId());
-    }
-
-    public void setOneSwingNotRunning(UUID uuid) {
-        runningOneSwing.remove(uuid);
-    }
-
-    public void setOneSwingNotRunning(Player player) {
-        setOneSwingNotRunning(player.getUniqueId());
     }
 
 }

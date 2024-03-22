@@ -38,17 +38,17 @@ public class OneSwingOneSkill extends Skill {
     }
 
     public static void readyOneSwingOneSkill(Player player) {
-        if(skillsManager.oneSwingActive(player)) {
-            skillsManager.setOneSwingActive(player);
+        if(OneSwing.oneSwingActive(player)) {
+            OneSwing.setOneSwingActive(player);
 
             player.sendActionBar(ColorParser.of("<dark_grey>One Swing is <green><bold>ready</bold><dark_grey>.").build());
 
             deactivateSkillTask = Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(instance, () -> {
-                skillsManager.setOneSwingNotActive(player);
+                OneSwing.setOneSwingNotActive(player);
                 player.sendActionBar(ColorParser.of("<dark_grey>One Swing is <dark_red><bold>not ready</bold><dark_grey>.").build());
             }, 100L);
         } else {
-            skillsManager.setOneSwingNotActive(player);
+            OneSwing.setOneSwingNotActive(player);
             Bukkit.getServer().getScheduler().cancelTask(deactivateSkillTask.getTaskId());
 
             player.sendActionBar(ColorParser.of("<dark_grey>One Swing is <dark_red><bold>not ready</bold><dark_grey>.").build());
@@ -56,12 +56,12 @@ public class OneSwingOneSkill extends Skill {
     }
 
     public static void runOneSwingOneSkill(Player player, Block block) {
-        skillsManager.setOneSwingRunning(player);
-        skillsManager.setOneSwingNotActive(player);
+        OneSwing.setOneSwingRunning(player);
+        OneSwing.setOneSwingNotActive(player);
         Bukkit.getServer().getScheduler().cancelTask(deactivateSkillTask.getTaskId());
         OneSwing.setOneSwingCooldown(player, 1);
 
-        Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(instance, () -> skillsManager.setOneSwingNotRunning(player), 60L);
+        Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(instance, () -> OneSwing.setOneSwingNotRunning(player), 60L);
         OneSwing.fellTree(block);
     }
 }
