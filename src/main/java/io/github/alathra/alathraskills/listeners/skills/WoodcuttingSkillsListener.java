@@ -42,8 +42,9 @@ public class WoodcuttingSkillsListener implements Listener {
             if (skillsPlayer.getPlayerSkills().get(302)) {
                 if (skillsPlayer.getPlayerSkills().get(303)) {
                     PreciseChopTwoSkill.preciseChopTwoSkillRun(block);
+                } else {
+                    PreciseChopOneSkill.preciseChopOneSkillRun(block);
                 }
-                PreciseChopOneSkill.preciseChopOneSkillRun(block);
             }
 
             if (skillsPlayer.getPlayerSkills().get(305)) {
