@@ -59,8 +59,13 @@ public class WoodcuttingSkillsListener implements Listener {
         }
 
         if (Tag.LEAVES.isTagged(material)) {
-            if (skillsPlayer.getPlayerSkills().get(304))
-                TrimmerOneSkill.trimmerOneSkillRun(block);
+            if (skillsPlayer.getPlayerSkills().get(304)) {
+                if (skillsPlayer.getPlayerSkills().get(307)) {
+                    TrimmerTwoSkill.trimmerTwoSkillRun(block);
+                } else {
+                    TrimmerOneSkill.trimmerOneSkillRun(block);
+                }
+            }
         }
     }
 

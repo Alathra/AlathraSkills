@@ -74,6 +74,7 @@ public class SkillsManager implements Reloadable {
         woodcuttingSkills.put(304, new TrimmerOneSkill(304));
         woodcuttingSkills.put(305, new OneSwingOneSkill(305));
         woodcuttingSkills.put(306, new CarpenterOneSkill(306));
+        woodcuttingSkills.put(307, new TrimmerTwoSkill(307));
     }
 
     public void setOneSwingActive(UUID uuid) {
