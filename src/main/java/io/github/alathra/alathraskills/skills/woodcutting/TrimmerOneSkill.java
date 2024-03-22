@@ -32,7 +32,7 @@ public class TrimmerOneSkill extends Skill {
         super.setCategory(skillsManager.skillCategories.get(3));
     }
 
-    public static void trimmerOneSkillRun(Block eventBlock) {
+    public static void runTrimmerOneSkill(Block eventBlock) {
         int random = new Random().nextInt(50);
         if (random != 0)
             return;

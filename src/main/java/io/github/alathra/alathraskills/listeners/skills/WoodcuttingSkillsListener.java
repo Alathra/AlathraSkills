@@ -37,19 +37,19 @@ public class WoodcuttingSkillsListener implements Listener {
 
         if (Tag.LOGS.isTagged(material)) {
             if (skillsPlayer.getPlayerSkills().get(301))
-                SaveTheTreesSkill.saveTheTreeSkillRun(block);
+                SaveTheTreesSkill.runSaveTheTreesSkill(block);
 
             if (skillsPlayer.getPlayerSkills().get(302)) {
                 if (skillsPlayer.getPlayerSkills().get(303)) {
-                    PreciseChopTwoSkill.preciseChopTwoSkillRun(block);
+                    PreciseChopTwoSkill.runPreciseChopTwoSkill(block);
                 } else {
-                    PreciseChopOneSkill.preciseChopOneSkillRun(block);
+                    PreciseChopOneSkill.runPreciseChopOneSkill(block);
                 }
             }
 
             if (skillsPlayer.getPlayerSkills().get(305)) {
                 if (skillsManager.oneSwingActive(player)) {
-                    OneSwingOneSkill.runOneSwingSkill(player, block);
+                    OneSwingOneSkill.runOneSwingOneSkill(player, block);
                 }
 
                 if (skillsManager.oneSwingRunning(player)) {
@@ -61,9 +61,9 @@ public class WoodcuttingSkillsListener implements Listener {
         if (Tag.LEAVES.isTagged(material)) {
             if (skillsPlayer.getPlayerSkills().get(304)) {
                 if (skillsPlayer.getPlayerSkills().get(307)) {
-                    TrimmerTwoSkill.trimmerTwoSkillRun(block);
+                    TrimmerTwoSkill.runTrimmerTwoSkill(block);
                 } else {
-                    TrimmerOneSkill.trimmerOneSkillRun(block);
+                    TrimmerOneSkill.runTrimmerOneSkill(block);
                 }
             }
         }

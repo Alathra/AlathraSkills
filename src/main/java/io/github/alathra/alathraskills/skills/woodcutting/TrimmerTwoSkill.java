@@ -32,7 +32,7 @@ public class TrimmerTwoSkill extends Skill {
         super.setCategory(skillsManager.skillCategories.get(3));
     }
 
-    public static void trimmerTwoSkillRun(Block eventBlock) {
+    public static void runTrimmerTwoSkill(Block eventBlock) {
         int random = new Random().nextInt(25);
         if (random != 0)
             return;

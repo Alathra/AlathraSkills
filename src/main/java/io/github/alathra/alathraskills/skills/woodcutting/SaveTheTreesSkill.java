@@ -29,7 +29,7 @@ public class SaveTheTreesSkill extends Skill {
         super.setCategory(skillsManager.skillCategories.get(3));
     }
 
-    public static void saveTheTreeSkillRun(Block eventBlock) {
+    public static void runSaveTheTreesSkill(Block eventBlock) {
         Material blockUnder = eventBlock.getRelative(0, -1, 0).getType();
         if (!Tag.DIRT.isTagged(blockUnder))
             return;
