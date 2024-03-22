@@ -1,5 +1,6 @@
 package io.github.alathra.alathraskills.listeners.skills;
 
+import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
@@ -105,8 +106,14 @@ public class WoodcuttingSkillsListener implements Listener {
 
         Player player = event.getPlayer();
 
-        if (skillsPlayer.getPlayerSkills().get(305))
+        if (skillsPlayer.getPlayerSkills().get(305)) {
+            if (OneSwing.hasOneSwingCooldown(player)) {
+                player.sendActionBar(ColorParser.of("<dark_red>One Swing isn't ready yet. Cooldown remaining: " + OneSwing.getRemainingCooldown(player) + " seconds.").build());
+                return;
+            }
             OneSwingOneSkill.readyOneSwingOneSkill(player);
+        }
+
     }
 
     @EventHandler

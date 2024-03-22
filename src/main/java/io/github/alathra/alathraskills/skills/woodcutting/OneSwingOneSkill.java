@@ -59,6 +59,7 @@ public class OneSwingOneSkill extends Skill {
         skillsManager.setOneSwingRunning(player);
         skillsManager.setOneSwingNotActive(player);
         Bukkit.getServer().getScheduler().cancelTask(deactivateSkillTask.getTaskId());
+        OneSwing.setOneSwingCooldown(player, 1);
 
         Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(instance, () -> skillsManager.setOneSwingNotRunning(player), 60L);
         OneSwing.fellTree(block);
