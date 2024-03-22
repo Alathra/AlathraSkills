@@ -14,8 +14,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
+import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 
 public class WoodcuttingSkillsListener implements Listener {
 
@@ -98,5 +101,21 @@ public class WoodcuttingSkillsListener implements Listener {
 
         if (skillsPlayer.getPlayerSkills().get(305))
             OneSwingOneSkill.readyOneSwingOneSkill(player);
+    }
+
+    @EventHandler
+    public void CraftingListener(CraftItemEvent event) {
+        Player player = (Player) event.getViewers().get(0);
+        SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillPlayers().get(player.getUniqueId());
+
+        Recipe recipe = event.getRecipe();
+        Material material = recipe.getResult().getType();
+
+        if(!Tag.PLANKS.isTagged(material))
+            return;
+
+        if (skillsPlayer.getPlayerSkills().get(306)) {
+            player.getInventory().addItem(new ItemStack(material, 2));
+        }
     }
 }
