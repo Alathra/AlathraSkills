@@ -12,6 +12,7 @@ import io.github.alathra.alathraskills.hooks.VaultHook;
 import io.github.alathra.alathraskills.listeners.ListenerHandler;
 import io.github.alathra.alathraskills.utility.Logger;
 
+import io.github.alathra.alathraskills.utility.PDCUtil;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -66,6 +67,9 @@ public class AlathraSkills extends JavaPlugin {
         } else {
             Logger.get().warn(ColorParser.of("<yellow>Vault is not installed on this server. Vault support has been disabled.").build());
         }
+
+        // Static initializers
+        PDCUtil.init();
         
     }
 

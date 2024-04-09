@@ -5,7 +5,7 @@ import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.Reloadable;
 
 public class CustomBlockDataHook implements Reloadable {
-	
+
 	private final AlathraSkills plugin;
 	
 	public CustomBlockDataHook(AlathraSkills plugin) {
