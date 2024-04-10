@@ -41,7 +41,7 @@ public class SkillsPlayerManager implements Reloadable {
 					public void run() {
 						saveAllPlayerInformation();
 					}
-				}, 0, 200L);
+				}, 0, 12000L);
 	}
 
 	@Override
