@@ -127,8 +127,6 @@ public class SkillsPlayerManager implements Reloadable {
 	}
 	
 	private void saveAllPlayerInformation() {
-//		skillPlayers.values().forEach((SkillsPlayer sp) -> savePlayerValues(sp));
-
 		// Delete Skill Info
 		Stream<PlayerSkillDetails> skillsToDeleteInfo = skillPlayers
 			.values()
