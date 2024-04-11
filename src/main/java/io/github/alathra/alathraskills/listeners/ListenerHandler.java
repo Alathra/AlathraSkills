@@ -3,6 +3,7 @@ package io.github.alathra.alathraskills.listeners;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.Reloadable;
 import io.github.alathra.alathraskills.listeners.exp.WoodcuttingExpListener;
+import io.github.alathra.alathraskills.listeners.pdc.PDCUnnaturalBlockHandler;
 import io.github.alathra.alathraskills.listeners.player.PlayerJoinListener;
 import io.github.alathra.alathraskills.listeners.player.PlayerLeaveListener;
 import io.github.alathra.alathraskills.listeners.skills.woodcutting.SaveTheTreesListener;
@@ -28,6 +29,7 @@ public class ListenerHandler implements Reloadable {
         plugin.getServer().getPluginManager().registerEvents(new PlayerLeaveListener(), plugin);
         plugin.getServer().getPluginManager().registerEvents(new VaultListener(), plugin);
         plugin.getServer().getPluginManager().registerEvents(new WoodcuttingExpListener(), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new PDCUnnaturalBlockHandler(), plugin);
     }
 
     @Override

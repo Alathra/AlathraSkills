@@ -30,6 +30,7 @@ repositories {
 
     maven("https://papermc.io/repo/repository/maven-public/")
     maven("https://mvn-repo.arim.space/lesser-gpl3/")
+    maven("https://maven.athyrium.eu/releases/")
 
     maven("https://jitpack.io/") {
         content {
@@ -54,8 +55,6 @@ dependencies {
     implementation("com.github.milkdrinkers:customblockdata:1.0.0")
 
     implementation("dev.jorel:commandapi-bukkit-shade:9.3.0")
-//    compileOnly("dev.jorel:commandapi-annotations:9.3.0")
-//    annotationProcessor("dev.jorel:commandapi-annotations:9.3.0")
 
     implementation("dev.triumphteam:triumph-gui:3.1.7") {
         exclude("net.kyori")
