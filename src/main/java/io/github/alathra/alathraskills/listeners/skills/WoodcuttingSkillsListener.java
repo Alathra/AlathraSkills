@@ -23,7 +23,6 @@ import org.bukkit.inventory.Recipe;
 
 public class WoodcuttingSkillsListener implements Listener {
 
-    private SkillsManager skillsManager = AlathraSkills.getSkillsManager();
     private SkillsPlayerManager skillsPlayerManager = AlathraSkills.getSkillsPlayerManager();
 
     @EventHandler
@@ -49,11 +48,11 @@ public class WoodcuttingSkillsListener implements Listener {
             }
 
             if (skillsPlayer.getPlayerSkills().get(305)) {
-                if (skillsManager.oneSwingActive(player)) {
+                if (OneSwing.oneSwingActive(player)) {
                     OneSwingOneSkill.runOneSwingOneSkill(player, block);
                 }
 
-                if (skillsManager.oneSwingRunning(player)) {
+                if (OneSwing.oneSwingRunning(player)) {
                     OneSwing.fellTree(block);
                 }
             }

@@ -107,7 +107,7 @@ public class OneSwing {
         return runningOneSwing.contains(uuid);
     }
 
-    public boolean oneSwingRunning(Player player) {
+    public static boolean oneSwingRunning(Player player) {
         return oneSwingRunning(player.getUniqueId());
     }
 
