@@ -55,8 +55,7 @@ public class GroundskeeperOneSkill extends Skill {
 
         blockList.forEach(Block::breakNaturally);
 
-        int random = new Random().nextInt(20);
-        if (random < 3)
+        if (Math.random() <= 0.15)
             location.getWorld().dropItemNaturally(location, new ItemStack(material, 2));
     }
 }

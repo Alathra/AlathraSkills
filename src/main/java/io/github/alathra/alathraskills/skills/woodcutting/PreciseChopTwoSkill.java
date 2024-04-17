@@ -33,8 +33,7 @@ public class PreciseChopTwoSkill extends Skill {
     }
 
     public static void runPreciseChopTwoSkill(Block eventBlock) {
-        int random = new Random().nextInt(20);
-        if (random > 1)
+        if (Math.random() <= 0.1)
             return;
 
         Material material = eventBlock.getType();

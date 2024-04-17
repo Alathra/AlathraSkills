@@ -33,8 +33,7 @@ public class TrimmerOneSkill extends Skill {
     }
 
     public static void runTrimmerOneSkill(Block eventBlock) {
-        int random = new Random().nextInt(50);
-        if (random != 0)
+        if (Math.random() <= 0.02)
             return;
 
         Location location = eventBlock.getLocation();

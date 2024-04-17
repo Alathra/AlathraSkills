@@ -51,7 +51,7 @@ public class GroundskeeperTwoSkill extends Skill {
 
         blockList.forEach(Block::breakNaturally);
 
-        if (Math.random() < 0.25)
+        if (Math.random() <= 0.25)
             location.getWorld().dropItemNaturally(location, new ItemStack(material, 2));
     }
 }
