@@ -1,5 +1,9 @@
 package io.github.alathra.alathraskills.db;
 
+import io.github.alathra.alathraskills.api.PlayerExperience;
+import io.github.alathra.alathraskills.api.PlayerSkillDetails;
+import io.github.alathra.alathraskills.api.SkillDetails;
+import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillcategoryinfoRecord;
 import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillinfoRecord;
 import io.github.alathra.alathraskills.utility.DB;
 import io.github.alathra.alathraskills.utility.Logger;
@@ -15,7 +19,10 @@ import org.jooq.exception.DataAccessException;
 import java.nio.ByteBuffer;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_SKILLCATEGORYINFO;
 import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_SKILLINFO;
@@ -238,6 +245,77 @@ public abstract class DatabaseQueries {
 
     public static void deletePlayerSkills(Player p) {
         deletePlayerSkills(p.getUniqueId());
+    }
+    
+    public static void deletePlayerSkillsRecordSet(
+    		Stream<PlayerSkillDetails> skillInfo) {
+        try (
+            Connection con = DB.getConnection()
+        ) {
+            DSLContext context = DB.getContext(con);
+            
+            Collection<PlayerSkillinfoRecord> records = new ArrayList<PlayerSkillinfoRecord>();
+
+            skillInfo.forEach( psd -> psd.getSkillInfo()
+            		.forEach(psi -> records.add(
+            				new PlayerSkillinfoRecord(
+            						convertUUIDToBytes(psd.getP().getUniqueId()),
+            						psi.getKey()))));
+            context
+                .batchDelete(records).execute();
+        } catch (DataAccessException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+        } catch (SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+        }
+    }
+    
+    public static void insertPlayerSkillsRecordSet(
+    		Stream<PlayerSkillDetails> skillInfo) {
+        try (
+            Connection con = DB.getConnection()
+        ) {
+            DSLContext context = DB.getContext(con);
+            
+            Collection<PlayerSkillinfoRecord> records = new ArrayList<PlayerSkillinfoRecord>();
+
+            skillInfo.forEach( psd -> psd.getSkillInfo()
+            		.forEach(psi -> records.add(
+            				new PlayerSkillinfoRecord(
+            						convertUUIDToBytes(psd.getP().getUniqueId()),
+            						psi.getKey()))));
+            context
+                .batchInsert(records).execute();
+        } catch (DataAccessException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+        } catch (SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+        }
+    }
+    
+    public static void updatePlayerExperienceRecordSet(
+    		Stream<PlayerExperience> experienceInfo) {
+        try (
+            Connection con = DB.getConnection()
+        ) {
+            DSLContext context = DB.getContext(con);
+            
+            Collection<PlayerSkillcategoryinfoRecord> records = new ArrayList<PlayerSkillcategoryinfoRecord>();
+
+            experienceInfo.forEach( eo -> eo.getExperienceValues()
+            		.entrySet()
+            		.forEach(ev -> records.add(
+            				new PlayerSkillcategoryinfoRecord(
+            						convertUUIDToBytes(eo.getP().getUniqueId()),
+            						ev.getKey(),
+            						ev.getValue().doubleValue()))));
+            context
+                .batchUpdate(records).execute();
+        } catch (DataAccessException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+        } catch (SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+        }
     }
 
     public static byte[] convertUUIDToBytes(UUID uuid) {

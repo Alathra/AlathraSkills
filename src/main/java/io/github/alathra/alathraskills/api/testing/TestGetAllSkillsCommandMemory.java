@@ -1,28 +1,25 @@
-package io.github.alathra.alathraskills.db.testing;
+package io.github.alathra.alathraskills.api.testing;
 
-import java.util.Iterator;
-import java.util.UUID;
+import java.util.Map.Entry;
+import java.util.stream.Stream;
 
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.jooq.Result;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 
 import dev.jorel.commandapi.CommandAPICommand;
-import dev.jorel.commandapi.arguments.IntegerArgument;
 import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
-import io.github.alathra.alathraskills.db.DatabaseQueries;
-import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillinfoRecord;
+import io.github.alathra.alathraskills.api.SkillDetails;
+import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 
-public class TestGetAllSkillsCommand {
+public class TestGetAllSkillsCommandMemory {
 
-    public TestGetAllSkillsCommand() {
-        new CommandAPICommand("testGetAllSkills")
+    public TestGetAllSkillsCommandMemory() {
+        new CommandAPICommand("testGetAllSkills_memory")
         	.withArguments(new PlayerArgument("targetPlayer"))
-            .withFullDescription("Get Experience For a Given Skill Category.")
-            .withShortDescription("Get Experience")
+            .withFullDescription("Get all Skills for a Given Player.")
+            .withShortDescription("Get Skills")
             .withPermission("example.command")
             .executesPlayer(this::runCommand)
             .register();
@@ -37,14 +34,12 @@ public class TestGetAllSkillsCommand {
             );
             return;
         }
-        // TODO Make Async
-        Result<PlayerSkillinfoRecord> dbReturnValue = DatabaseQueries.fetchPlayerSkills((Player) args.get("targetPlayer"));
+
+        Stream<Entry<Integer, SkillDetails>> allSkills =
+        		SkillsPlayerManager.getAllSkills((Player) args.get("targetPlayer"));
     	String finalSkillString = "";
-        if (dbReturnValue != null) {
-        	for (Iterator<PlayerSkillinfoRecord> iterator = dbReturnValue.iterator(); iterator.hasNext();) {
-				PlayerSkillinfoRecord playerSkillinfoRecord = iterator.next();
-				finalSkillString += playerSkillinfoRecord.getSkillid() + ", ";
-			}
+        if (allSkills != null) {
+        	finalSkillString = allSkills.map(skill -> skill.getKey() + ", ").reduce(finalSkillString, (a, b) -> a+b);
         	if (finalSkillString.length() > 2) {
         		finalSkillString =finalSkillString.substring(0, finalSkillString.length() - 2);
         	}
