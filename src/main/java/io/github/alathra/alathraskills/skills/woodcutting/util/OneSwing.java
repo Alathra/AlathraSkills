@@ -16,9 +16,9 @@ public class OneSwing {
 
     private static HashMap<UUID, Instant> cooldowns = new HashMap<>();
 
-    private List<UUID> activeOneSwing = new ArrayList<>();
+    private static List<UUID> activeOneSwing = new ArrayList<>();
 
-    private List<UUID> runningOneSwing = new ArrayList<>();
+    private static List<UUID> runningOneSwing = new ArrayList<>();
 
     public static void fellTree(Block block) {
         Material material = block.getType();
@@ -71,7 +71,7 @@ public class OneSwing {
         return getRemainingCooldown(player.getUniqueId());
     }
 
-    public void setOneSwingActive(UUID uuid) {
+    public static void setOneSwingActive(UUID uuid) {
         activeOneSwing.add(uuid);
     }
 
@@ -79,7 +79,7 @@ public class OneSwing {
         setOneSwingActive(player.getUniqueId());
     }
 
-    public boolean oneSwingActive(UUID uuid) {
+    public static boolean oneSwingActive(UUID uuid) {
         return activeOneSwing.contains(uuid);
     }
 
@@ -87,7 +87,7 @@ public class OneSwing {
         return oneSwingActive(player.getUniqueId());
     }
 
-    public void setOneSwingNotActive(UUID uuid) {
+    public static void setOneSwingNotActive(UUID uuid) {
         activeOneSwing.remove(uuid);
     }
 
@@ -95,7 +95,7 @@ public class OneSwing {
         setOneSwingNotActive(player.getUniqueId());
     }
 
-    public void setOneSwingRunning(UUID uuid) {
+    public static void setOneSwingRunning(UUID uuid) {
         runningOneSwing.add(uuid);
     }
 
@@ -103,7 +103,7 @@ public class OneSwing {
         setOneSwingRunning(player.getUniqueId());
     }
 
-    public boolean oneSwingRunning(UUID uuid) {
+    public static boolean oneSwingRunning(UUID uuid) {
         return runningOneSwing.contains(uuid);
     }
 
@@ -111,7 +111,7 @@ public class OneSwing {
         return oneSwingRunning(player.getUniqueId());
     }
 
-    public void setOneSwingNotRunning(UUID uuid) {
+    public static void setOneSwingNotRunning(UUID uuid) {
         runningOneSwing.remove(uuid);
     }
 

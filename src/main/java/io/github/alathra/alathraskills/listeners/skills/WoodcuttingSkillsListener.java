@@ -33,18 +33,18 @@ public class WoodcuttingSkillsListener implements Listener {
         // TODO Check if block was placed by player
 
         if (Tag.LOGS.isTagged(material)) {
-            if (skillsPlayer.getPlayerSkills().get(301))
+            if (skillsPlayer.getPlayerSkills().get(301).isSelected())
                 SaveTheTreesSkill.runSaveTheTreesSkill(block);
 
-            if (skillsPlayer.getPlayerSkills().get(302)) {
-                if (skillsPlayer.getPlayerSkills().get(303)) {
+            if (skillsPlayer.getPlayerSkills().get(302).isSelected()) {
+                if (skillsPlayer.getPlayerSkills().get(303).isSelected()) {
                     PreciseChopTwoSkill.runPreciseChopTwoSkill(block);
                 } else {
                     PreciseChopOneSkill.runPreciseChopOneSkill(block);
                 }
             }
 
-            if (skillsPlayer.getPlayerSkills().get(305)) {
+            if (skillsPlayer.getPlayerSkills().get(305).isSelected()) {
                 if (OneSwing.oneSwingActive(player)) {
                     OneSwingOneSkill.runOneSwingOneSkill(player, block);
                 }
@@ -56,15 +56,15 @@ public class WoodcuttingSkillsListener implements Listener {
         }
 
         if (Tag.LEAVES.isTagged(material)) {
-            if (skillsPlayer.getPlayerSkills().get(304)) {
-                if (skillsPlayer.getPlayerSkills().get(307)) {
+            if (skillsPlayer.getPlayerSkills().get(304).isSelected()) {
+                if (skillsPlayer.getPlayerSkills().get(307).isSelected()) {
                     TrimmerTwoSkill.runTrimmerTwoSkill(block);
                 } else {
                     TrimmerOneSkill.runTrimmerOneSkill(block);
                 }
             }
 
-            if (skillsPlayer.getPlayerSkills().get(306)) {
+            if (skillsPlayer.getPlayerSkills().get(306).isSelected()) {
                 GroundskeeperOneSkill.runGroundskeeperOneSkill(event);
             }
         }
@@ -81,7 +81,7 @@ public class WoodcuttingSkillsListener implements Listener {
         if (!Tag.ITEMS_AXES.isTagged(event.getItemInHand().getType()))
             return;
 
-        if (!skillsPlayer.getPlayerSkills().get(304))
+        if (!skillsPlayer.getPlayerSkills().get(304).isSelected())
             return;
 
         event.setInstaBreak(true);
@@ -107,7 +107,7 @@ public class WoodcuttingSkillsListener implements Listener {
 
             Player player = event.getPlayer();
 
-            if (skillsPlayer.getPlayerSkills().get(305)) {
+            if (skillsPlayer.getPlayerSkills().get(305).isSelected()) {
                 if (OneSwing.hasOneSwingCooldown(player)) {
                     player.sendActionBar(ColorParser.of("<dark_red>One Swing isn't ready yet. Cooldown remaining: " + OneSwing.getRemainingCooldown(player) + " seconds.").build());
                     return;
