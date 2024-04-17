@@ -15,8 +15,7 @@ import java.util.Collections;
 public class OneSwingTwoSkill extends Skill {
 
     private static SkillsManager skillsManager;
-    private static Plugin instance;
-    private static BukkitTask deactivateSkillTask;
+    
     public OneSwingTwoSkill(int id) {
         super(id, "One Swing 2", "Extended time, and a slower cooldown!");
 

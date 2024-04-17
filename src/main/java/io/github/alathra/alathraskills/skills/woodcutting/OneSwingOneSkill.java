@@ -19,8 +19,6 @@ import java.util.Collections;
 public class OneSwingOneSkill extends Skill {
 
     private static SkillsManager skillsManager;
-    private static Plugin instance;
-    private static BukkitTask deactivateSkillTask;
 
     public OneSwingOneSkill(int id) {
         super(id, "One Swing 1", "Chop the whole tree down, in one fell swoop!");
