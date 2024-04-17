@@ -13,6 +13,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
@@ -90,44 +91,32 @@ public class WoodcuttingSkillsListener implements Listener {
     public void RightClickListener(PlayerInteractEvent event) {
         SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillPlayers().get(event.getPlayer().getUniqueId());
 
-        if (event.getHand() == EquipmentSlot.OFF_HAND)
-            return;
-
-        if (!event.hasItem())
-            return;
-
-        if (!Tag.ITEMS_AXES.isTagged(event.getMaterial()))
-            return;
-
-        // Return if right click logs
-        if (Tag.LOGS.isTagged(event.getClickedBlock().getType()))
-            return;
-
-        Player player = event.getPlayer();
-
-        if (skillsPlayer.getPlayerSkills().get(305)) {
-            if (OneSwing.hasOneSwingCooldown(player)) {
-                player.sendActionBar(ColorParser.of("<dark_red>One Swing isn't ready yet. Cooldown remaining: " + OneSwing.getRemainingCooldown(player) + " seconds.").build());
+        if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            if (event.getHand() == EquipmentSlot.OFF_HAND)
                 return;
+
+            if (!event.hasItem())
+                return;
+
+            if (!Tag.ITEMS_AXES.isTagged(event.getMaterial()))
+                return;
+
+            // Return if right click logs
+            if (Tag.LOGS.isTagged(event.getClickedBlock().getType()))
+                return;
+
+            Player player = event.getPlayer();
+
+            if (skillsPlayer.getPlayerSkills().get(305)) {
+                if (OneSwing.hasOneSwingCooldown(player)) {
+                    player.sendActionBar(ColorParser.of("<dark_red>One Swing isn't ready yet. Cooldown remaining: " + OneSwing.getRemainingCooldown(player) + " seconds.").build());
+                    return;
+                }
+                OneSwingOneSkill.readyOneSwingOneSkill(player);
             }
-            OneSwingOneSkill.readyOneSwingOneSkill(player);
         }
 
-    }
 
-    @EventHandler
-    public void CraftingListener(CraftItemEvent event) {
-        Player player = (Player) event.getViewers().get(0);
-        SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillPlayers().get(player.getUniqueId());
 
-        Recipe recipe = event.getRecipe();
-        Material material = recipe.getResult().getType();
-
-        if(!Tag.PLANKS.isTagged(material))
-            return;
-
-        if (skillsPlayer.getPlayerSkills().get(306)) {
-            player.getInventory().addItem(new ItemStack(material, 2));
-        }
     }
 }
