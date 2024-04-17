@@ -46,15 +46,19 @@ public class WoodcuttingSkillsListener implements Listener {
                 }
             }
 
-            if (skillsPlayer.getPlayerSkills().get(305).isSelected()) {
-                if (OneSwing.oneSwingActive(player)) {
-                    OneSwingOneSkill.runOneSwingOneSkill(player, block);
-                }
-
-                if (OneSwing.oneSwingRunning(player)) {
-                    OneSwing.fellTree(block);
+            if (OneSwing.oneSwingRunning(player)) {
+                OneSwing.fellTree(block);
+            } else if (OneSwing.oneSwingActive(player)) {
+                if (skillsPlayer.getPlayerSkills().get(305).isSelected()) {
+                    if (skillsPlayer.getPlayerSkills().get(309).isSelected()) {
+                        OneSwing.runOneSwing(player, block, 2);
+                    } else {
+                        OneSwing.runOneSwing(player, block, 1);
+                    }
                 }
             }
+
+
         }
 
         if (Tag.LEAVES.isTagged(material)) {
