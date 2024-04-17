@@ -118,7 +118,7 @@ public class WoodcuttingSkillsListener implements Listener {
                     player.sendActionBar(ColorParser.of("<dark_red>One Swing isn't ready yet. Cooldown remaining: " + OneSwing.getRemainingCooldown(player) + " seconds.").build());
                     return;
                 }
-                OneSwingOneSkill.readyOneSwingOneSkill(player);
+                OneSwing.readyOneSwing(player);
             }
         }
     }

@@ -1,10 +1,15 @@
 package io.github.alathra.alathraskills.skills.woodcutting.util;
 
+import com.github.milkdrinkers.colorparser.ColorParser;
+import io.github.alathra.alathraskills.AlathraSkills;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -20,6 +25,9 @@ public class OneSwing {
 
     private static List<UUID> runningOneSwing = new ArrayList<>();
 
+    private static Plugin instance = AlathraSkills.getInstance();
+    private static BukkitTask deactivateSkillTask;
+
     public static void fellTree(Block block) {
         Material material = block.getType();
 
@@ -29,6 +37,63 @@ public class OneSwing {
         block.breakNaturally();
         for (BlockFace face : BlockFace.values())
             fellTree(block.getRelative(face));
+    }
+
+    public static void readyOneSwing(Player player) {
+        if(oneSwingActive(player)) {
+            setOneSwingActive(player);
+
+            player.sendActionBar(ColorParser.of("<dark_grey>One Swing is <green><bold>ready</bold><dark_grey>.").build());
+
+            deactivateSkillTask = Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(instance, () -> {
+                setOneSwingNotActive(player);
+                player.sendActionBar(ColorParser.of("<dark_grey>One Swing is <dark_red><bold>not ready</bold><dark_grey>.").build());
+            }, 100L);
+        } else {
+            setOneSwingNotActive(player);
+            Bukkit.getServer().getScheduler().cancelTask(deactivateSkillTask.getTaskId());
+
+            player.sendActionBar(ColorParser.of("<dark_grey>One Swing is <dark_red><bold>not ready</bold><dark_grey>.").build());
+        }
+    }
+
+    public static void runOneSwing(Player player, Block block, int oneSwingLevel) {
+        OneSwing.setOneSwingRunning(player);
+        OneSwing.setOneSwingNotActive(player);
+        Bukkit.getServer().getScheduler().cancelTask(deactivateSkillTask.getTaskId());
+        OneSwing.setOneSwingCooldown(player, oneSwingLevel);
+
+        Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(instance, () -> OneSwing.setOneSwingNotRunning(player), oneSwingDuration(oneSwingLevel));
+        OneSwing.fellTree(block);
+    }
+
+    private static long oneSwingDuration(int oneSwingLevel) {
+        switch (oneSwingLevel) {
+            case 1 -> {
+                return 60L;
+            }
+            case 2 -> {
+                return 100L;
+            }
+            case 3 -> {
+                return 200L;
+            }
+            case 4 -> {
+                return 260L;
+            }
+            case 5 -> {
+                return 300L;
+            }
+            case 6 -> {
+                return 360L;
+            }
+            case 7 -> {
+                return 600L;
+            }
+            default -> {
+                return 0;
+            }
+        }
     }
 
     public static void setOneSwingCooldown(UUID uuid, int oneSwingLevel) {
