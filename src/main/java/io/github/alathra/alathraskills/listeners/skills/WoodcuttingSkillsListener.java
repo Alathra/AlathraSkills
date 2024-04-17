@@ -6,6 +6,7 @@ import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.woodcutting.*;
 import io.github.alathra.alathraskills.skills.woodcutting.util.OneSwing;
+import io.github.alathra.alathraskills.utility.PDCUtil;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
@@ -30,7 +31,8 @@ public class WoodcuttingSkillsListener implements Listener {
 
         SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillPlayers().get(player.getUniqueId());
 
-        // TODO Check if block was placed by player
+        if (PDCUtil.isUnnatural(block))
+            return;
 
         if (Tag.LOGS.isTagged(material)) {
             if (skillsPlayer.getPlayerSkills().get(301).isSelected())
