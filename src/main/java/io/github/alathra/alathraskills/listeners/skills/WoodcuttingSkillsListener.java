@@ -2,7 +2,6 @@ package io.github.alathra.alathraskills.listeners.skills;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
-import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.woodcutting.*;
@@ -16,11 +15,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
-import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Recipe;
 
 public class WoodcuttingSkillsListener implements Listener {
 
@@ -66,6 +62,10 @@ public class WoodcuttingSkillsListener implements Listener {
                 } else {
                     TrimmerOneSkill.runTrimmerOneSkill(block);
                 }
+            }
+
+            if (skillsPlayer.getPlayerSkills().get(306)) {
+                GroundskeeperOneSkill.runGroundskeeperOneSkill(event);
             }
         }
     }
@@ -115,8 +115,5 @@ public class WoodcuttingSkillsListener implements Listener {
                 OneSwingOneSkill.readyOneSwingOneSkill(player);
             }
         }
-
-
-
     }
 }

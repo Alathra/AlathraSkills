@@ -1,9 +1,6 @@
 package io.github.alathra.alathraskills.api;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
 
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.Reloadable;
@@ -13,7 +10,6 @@ import io.github.alathra.alathraskills.skills.categories.FarmingSkillCategory;
 import io.github.alathra.alathraskills.skills.categories.MiningSkillCategory;
 import io.github.alathra.alathraskills.skills.categories.WoodcuttingSkillCategory;
 import io.github.alathra.alathraskills.skills.woodcutting.*;
-import org.bukkit.entity.Player;
 
 public class SkillsManager implements Reloadable {
 	
@@ -67,7 +63,7 @@ public class SkillsManager implements Reloadable {
         woodcuttingSkills.put(303, new PreciseChopTwoSkill(302));
         woodcuttingSkills.put(304, new TrimmerOneSkill(304));
         woodcuttingSkills.put(305, new OneSwingOneSkill(305));
-        woodcuttingSkills.put(306, new CarpenterOneSkill(306));
+        woodcuttingSkills.put(306, new GroundskeeperOneSkill(306));
         woodcuttingSkills.put(307, new TrimmerTwoSkill(307));
     }
 
