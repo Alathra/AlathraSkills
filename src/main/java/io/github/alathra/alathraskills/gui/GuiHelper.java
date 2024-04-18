@@ -2,6 +2,7 @@ package io.github.alathra.alathraskills.gui;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.triumphteam.gui.guis.Gui;
+import org.bukkit.entity.Player;
 
 public class GuiHelper {
 
@@ -15,8 +16,8 @@ public class GuiHelper {
         switch (type) {
             case MAIN -> {
                 gui = Gui.gui()
-                    .rows(6)
-                    .title(ColorParser.of("<dark_grey>[<green>AlathraSkills<dark_grey>]").build()) // TODO: config
+                    .rows(1)
+                    .title(ColorParser.of("<dark_grey>[<gradient:#ffff80:#00ff00>AlathraSkills</gradient><dark_grey>]").build()) // TODO: config
                     .disableItemDrop()
                     .disableItemPlace()
                     .disableItemSwap()
@@ -26,7 +27,7 @@ public class GuiHelper {
             case SKILL -> {
                 gui = Gui.gui()
                     .rows(3)
-                    .title(ColorParser.of("<dark_grey>[<green>AlathraSkills<dark_grey>]").build()) // TODO: config
+                    .title(ColorParser.of("<dark_grey>[<gradient:#ffff80:#00ff00>AlathraSkills</gradient><dark_grey>]").build()) // TODO: config
                     .disableItemDrop()
                     .disableItemPlace()
                     .disableItemSwap()
@@ -38,10 +39,8 @@ public class GuiHelper {
         return gui;
     }
 
-    public static void populateMainGui(Gui gui) {
-        io.github.alathra.alathraskills.gui.main.PopulateBorders.populateBorders(gui);
-        io.github.alathra.alathraskills.gui.main.PopulateButtons.populateButtons(gui);
-        io.github.alathra.alathraskills.gui.main.PopulateContent.populateContent(gui);
+    public static void populateMainGui(Gui gui, Player player) {
+        io.github.alathra.alathraskills.gui.main.PopulateContent.populateContent(gui, player);
     }
 
     public static void populateSkillGui(Gui gui) {
