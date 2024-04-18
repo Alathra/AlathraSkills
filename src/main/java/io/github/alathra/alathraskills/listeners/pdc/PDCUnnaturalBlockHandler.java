@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 public class PDCUnnaturalBlockHandler implements Listener {
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void BlockPlaceListener(BlockPlaceEvent event) {
         if (event.isCancelled()) {
             return;
@@ -25,7 +25,7 @@ public class PDCUnnaturalBlockHandler implements Listener {
         // TODO: Apply to items maybe?
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void BlockBreakListener(BlockBreakEvent event) {
         if (event.isCancelled()) {
             return;
@@ -33,7 +33,7 @@ public class PDCUnnaturalBlockHandler implements Listener {
         PDCUtil.clearUnnatural(event.getBlock());
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void BlockMovedByPistonListener(BlockPistonExtendEvent event) {
         if (event.isCancelled()) {
             return;
