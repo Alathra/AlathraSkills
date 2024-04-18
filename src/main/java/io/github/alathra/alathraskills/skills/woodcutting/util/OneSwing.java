@@ -31,7 +31,7 @@ public class OneSwing {
     public static void fellTree(Block block) {
         Material material = block.getType();
 
-        if (!Tag.LOGS.isTagged(material) && !Tag.LEAVES.isTagged(material))
+        if (!Tag.LOGS.isTagged(material))
             return;
 
         block.breakNaturally();
