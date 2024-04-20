@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Collections;
+import java.util.List;
 
 public class OneSwingThreeSkill extends Skill {
 
@@ -20,12 +21,12 @@ public class OneSwingThreeSkill extends Skill {
         ItemStack icon = new ItemStack(Material.NETHERITE_AXE);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
-        meta.lore(Collections.singletonList(ColorParser.of("<gray><italics>" + super.getDescription() + "</gray></italics>").build()));
+        meta.lore(List.of(ColorParser.of("<yellow>Level 10</yellow>").build(),
+            ColorParser.of("<red><italics>" + super.getDescription() + "</gray></italics>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
         skillsManager = AlathraSkills.getSkillsManager();
-        instance = AlathraSkills.getInstance();
         super.setCategory(skillsManager.skillCategories.get(3));
     }
 }

@@ -27,7 +27,8 @@ public class GroundskeeperTwoSkill extends Skill {
         ItemStack icon = new ItemStack(Material.SHEARS);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
-        meta.lore(Collections.singletonList(ColorParser.of("<gray><italics>" + super.getDescription() + "</gray></italics>").build()));
+        meta.lore(List.of(ColorParser.of("<yellow>Level 8</yellow>").build(),
+            ColorParser.of("<red><italics>" + super.getDescription() + "</gray></italics>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
