@@ -23,6 +23,7 @@ public class WoodcuttingSkillsListener implements Listener {
 
     private SkillsPlayerManager skillsPlayerManager = AlathraSkills.getSkillsPlayerManager();
 
+    // TODO: clean up skill check logic
     @EventHandler
     public void BlockBreakListener(BlockBreakEvent event) {
         Block block = event.getBlock();
@@ -51,7 +52,11 @@ public class WoodcuttingSkillsListener implements Listener {
             } else if (OneSwing.oneSwingActive(player)) {
                 if (skillsPlayer.getPlayerSkills().get(305).isSelected()) {
                     if (skillsPlayer.getPlayerSkills().get(309).isSelected()) {
-                        OneSwing.runOneSwing(player, block, 2);
+                        if (skillsPlayer.getPlayerSkills().get(3110).isSelected()) {
+                            OneSwing.runOneSwing(player, block, 3);
+                        } else {
+                            OneSwing.runOneSwing(player, block, 2);
+                        }
                     } else {
                         OneSwing.runOneSwing(player, block, 1);
                     }
