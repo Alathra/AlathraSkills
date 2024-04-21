@@ -228,6 +228,10 @@ public class SkillsPlayerManager implements Reloadable {
 	}
 	
 
+    public final HashMap<UUID, SkillsPlayer> getSkillPlayers() {
+        return skillPlayers;
+    }
+
 	//TODO
 	// https://github.com/Rumsfield/konquest/blob/main/api/src/main/java/com/github/rumsfield/konquest/api/manager/KonquestPlayerManager.java
 	
