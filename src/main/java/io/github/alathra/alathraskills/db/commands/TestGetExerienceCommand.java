@@ -1,4 +1,4 @@
-package io.github.alathra.alathraskills.db.testing;
+package io.github.alathra.alathraskills.db.commands;
 
 import org.bukkit.entity.Player;
 
@@ -10,14 +10,14 @@ import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
 import io.github.alathra.alathraskills.db.DatabaseQueries;
 
-public class TestHasSkillCommand {
+public class TestGetExerienceCommand {
 
-    public TestHasSkillCommand() {
-        new CommandAPICommand("testHasSkill")
-        	.withArguments(new PlayerArgument("targetPlayer"), new IntegerArgument("skill"))
+    public TestGetExerienceCommand() {
+        new CommandAPICommand("testGetExperience_db")
+        	.withArguments(new PlayerArgument("targetPlayer"), new IntegerArgument("skillCategoryID"))
             .withFullDescription("Get Experience For a Given Skill Category.")
             .withShortDescription("Get Experience")
-            .withPermission("example.command")
+            .withPermission("alathraskills.get")
             .executesPlayer(this::runCommand)
             .register();
     }
@@ -30,27 +30,23 @@ public class TestHasSkillCommand {
                         .build()
             );
             return;
-        }
-        if (args.get("skill") == null) {
+        }        if (args.get("skillCategoryID") == null) {
             player.sendMessage(
-                    ColorParser.of("Provide a value after the targetPlayer to indicate the skill to check.")
+                    ColorParser.of("Provide a value after the target player to indicate skill category.")
                         .parseLegacy() // Parse legacy color codes
                         .build()
             );
             return;
         }
         // TODO Make Async
-        boolean dbReturnValue = DatabaseQueries.doesPlayerHaveSkill((Player) args.get("targetPlayer"), (Integer) args.get("skill"));
+        float dbReturnValue = DatabaseQueries.getSkillCategoryExperienceFloat((Player) args.get("targetPlayer"), (Integer) args.get("skillCategoryID"));
         String returnString =
         		"Player with ID " +
 				((Player) args.get("targetPlayer")).getUniqueId() +
-				" does ";
-        if (!dbReturnValue) {
-        	returnString += "not ";
-        }
-        returnString +=
-        		"have the skill " +
-				args.get("skill") +
+				" has an experience value of " +
+				Float.toString(dbReturnValue) +
+				" in skill category " +
+				args.get("skillCategoryID") +
 				".";
         player.sendMessage(
                 ColorParser.of(returnString)

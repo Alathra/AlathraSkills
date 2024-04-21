@@ -1,4 +1,4 @@
-package io.github.alathra.alathraskills.db.testing;
+package io.github.alathra.alathraskills.api.commands;
 
 import org.bukkit.entity.Player;
 
@@ -8,16 +8,16 @@ import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.IntegerArgument;
 import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
-import io.github.alathra.alathraskills.db.DatabaseQueries;
+import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 
-public class TestGetExerienceCommand {
+public class TestAddSkillCommandMemory {
 
-    public TestGetExerienceCommand() {
-        new CommandAPICommand("testGetExperience")
-        	.withArguments(new PlayerArgument("targetPlayer"), new IntegerArgument("skillCategoryID"))
-            .withFullDescription("Get Experience For a Given Skill Category.")
-            .withShortDescription("Get Experience")
-            .withPermission("example.command")
+    public TestAddSkillCommandMemory() {
+        new CommandAPICommand("testAddSkill_memory")
+        	.withArguments(new PlayerArgument("targetPlayer"), new IntegerArgument("skill"))
+            .withFullDescription("Add Skill for a Given Player.")
+            .withShortDescription("Add Skill")
+            .withPermission("alathraskills.set")
             .executesPlayer(this::runCommand)
             .register();
     }
@@ -30,24 +30,21 @@ public class TestGetExerienceCommand {
                         .build()
             );
             return;
-        }        if (args.get("skillCategoryID") == null) {
+        }
+    	if (args.get("skill") == null) {
             player.sendMessage(
-                    ColorParser.of("Provide a value after the target player to indicate skill category.")
+                    ColorParser.of("Provide a value after the target player to indicate the skill to add.")
                         .parseLegacy() // Parse legacy color codes
                         .build()
             );
-            return;
         }
-        // TODO Make Async
-        float dbReturnValue = DatabaseQueries.getSkillCategoryExperienceFloat((Player) args.get("targetPlayer"), (Integer) args.get("skillCategoryID"));
+    	SkillsPlayerManager.addPlayerSkill((Player) args.get("targetPlayer"), (Integer) args.get("skill"));
         String returnString =
         		"Player with ID " +
 				((Player) args.get("targetPlayer")).getUniqueId() +
-				" has an experience value of " +
-				Float.toString(dbReturnValue) +
-				" in skill category " +
-				args.get("skillCategoryID") +
-				".";
+				" has had the skill " +
+				args.get("skill") +
+				" added in memory.";
         player.sendMessage(
                 ColorParser.of(returnString)
                     .parseLegacy() // Parse legacy color codes

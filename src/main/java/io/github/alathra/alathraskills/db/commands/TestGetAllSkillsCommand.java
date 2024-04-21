@@ -1,4 +1,4 @@
-package io.github.alathra.alathraskills.db.testing;
+package io.github.alathra.alathraskills.db.commands;
 
 import java.util.Iterator;
 import java.util.UUID;
@@ -19,11 +19,11 @@ import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillinfoR
 public class TestGetAllSkillsCommand {
 
     public TestGetAllSkillsCommand() {
-        new CommandAPICommand("testGetAllSkills")
+        new CommandAPICommand("testGetAllSkills_db")
         	.withArguments(new PlayerArgument("targetPlayer"))
             .withFullDescription("Get Experience For a Given Skill Category.")
             .withShortDescription("Get Experience")
-            .withPermission("example.command")
+            .withPermission("alathraskills.get")
             .executesPlayer(this::runCommand)
             .register();
     }

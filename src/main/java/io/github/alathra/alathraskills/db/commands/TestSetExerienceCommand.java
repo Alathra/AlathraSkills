@@ -1,4 +1,4 @@
-package io.github.alathra.alathraskills.api.testing;
+package io.github.alathra.alathraskills.db.commands;
 
 import org.bukkit.entity.Player;
 
@@ -9,16 +9,16 @@ import dev.jorel.commandapi.arguments.FloatArgument;
 import dev.jorel.commandapi.arguments.IntegerArgument;
 import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
-import io.github.alathra.alathraskills.api.SkillsPlayerManager;
+import io.github.alathra.alathraskills.db.DatabaseQueries;
 
-public class TestSetExerienceCommandMemory {
+public class TestSetExerienceCommand {
 
-    public TestSetExerienceCommandMemory() {
-        new CommandAPICommand("testSetExperience_memory")
+    public TestSetExerienceCommand() {
+        new CommandAPICommand("testSetExperience_db")
         	.withArguments(new PlayerArgument("targetPlayer"), new IntegerArgument("skillCategoryID"), new FloatArgument("Experience"))
-            .withFullDescription("Set Experience For a Given Skill Category in Memory.")
+            .withFullDescription("Set Experience For a Given Skill Category.")
             .withShortDescription("Set Experience")
-            .withPermission("example.command")
+            .withPermission("alathraskills.set")
             .executesPlayer(this::runCommand)
             .register();
     }
@@ -48,7 +48,7 @@ public class TestSetExerienceCommandMemory {
             return;
         }
         // TODO Make Async
-        SkillsPlayerManager.setPlayerExperience(player, (Integer) args.get("skillCategoryID"), (float) args.get("Experience"));
+        DatabaseQueries.saveSkillCategoryExperience(player, (Integer) args.get("skillCategoryID"), (float) args.get("Experience"));
         String returnString =
         		"Player with ID " +
 				player.getUniqueId() +
