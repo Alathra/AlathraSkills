@@ -2,6 +2,7 @@ package io.github.alathra.alathraskills.skills.woodcutting.util;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
@@ -32,7 +33,10 @@ public class Groundskeeper {
             blockList.add(block.getRelative(x2, y2, z2));
         }
 
-        blockList.forEach(Block::breakNaturally);
+        blockList.forEach(b -> {
+            if (Tag.LEAVES.isTagged(b.getType()))
+                b.breakNaturally(new ItemStack(Material.SHEARS));
+        }));
 
         if (Math.random() <= chance)
             location.getWorld().dropItemNaturally(location, new ItemStack(material, leaves));
