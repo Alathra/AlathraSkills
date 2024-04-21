@@ -1,5 +1,6 @@
 package io.github.alathra.alathraskills.skills.woodcutting.util;
 
+import io.github.alathra.alathraskills.utility.PDCUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Tag;
@@ -34,9 +35,11 @@ public class Groundskeeper {
         }
 
         blockList.forEach(b -> {
-            if (Tag.LEAVES.isTagged(b.getType()))
-                b.breakNaturally(new ItemStack(Material.SHEARS));
-        }));
+            if (!PDCUtil.isUnnatural(b)) {
+                if (Tag.LEAVES.isTagged(b.getType()))
+                    b.breakNaturally(new ItemStack(Material.SHEARS));
+            }
+        });
 
         if (Math.random() <= chance)
             location.getWorld().dropItemNaturally(location, new ItemStack(material, leaves));
