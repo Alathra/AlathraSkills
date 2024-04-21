@@ -68,6 +68,7 @@ public class SkillsManager implements Reloadable {
         woodcuttingSkills.put(308, new GroundskeeperTwoSkill(308));
         woodcuttingSkills.put(309, new OneSwingTwoSkill(309));
         woodcuttingSkills.put(3110, new OneSwingThreeSkill(3110));
+        woodcuttingSkills.put(3111, new GroundskeeperThreeSkill(3111));
     }
 
 }

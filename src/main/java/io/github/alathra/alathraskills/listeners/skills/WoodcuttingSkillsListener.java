@@ -5,6 +5,7 @@ import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.woodcutting.*;
+import io.github.alathra.alathraskills.skills.woodcutting.util.Groundskeeper;
 import io.github.alathra.alathraskills.skills.woodcutting.util.OneSwing;
 import io.github.alathra.alathraskills.utility.PDCUtil;
 import org.bukkit.Material;
@@ -77,9 +78,13 @@ public class WoodcuttingSkillsListener implements Listener {
 
             if (skillsPlayer.getPlayerSkills().get(306).isSelected()) {
                 if (skillsPlayer.getPlayerSkills().get(308).isSelected()) {
-                    GroundskeeperTwoSkill.runGroundskeeperTwoSkill(event);
+                    if (skillsPlayer.getPlayerSkills().get(3111).isSelected()) {
+                        Groundskeeper.runGroundskeeperSkill(event, 2, 3, 2, 0.35, 3);
+                    } else {
+                        Groundskeeper.runGroundskeeperSkill(event, 2, 2, 2, 0.25, 2);
+                    }
                 } else {
-                    GroundskeeperOneSkill.runGroundskeeperOneSkill(event);
+                    Groundskeeper.runGroundskeeperSkill(event, 2, 2, 2, 0.15, 2);
                 }
             }
         }
