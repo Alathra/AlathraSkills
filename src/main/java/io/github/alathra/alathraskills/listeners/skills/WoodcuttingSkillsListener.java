@@ -7,6 +7,7 @@ import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.woodcutting.*;
 import io.github.alathra.alathraskills.skills.woodcutting.util.Groundskeeper;
 import io.github.alathra.alathraskills.skills.woodcutting.util.OneSwing;
+import io.github.alathra.alathraskills.skills.woodcutting.util.PreciseChop;
 import io.github.alathra.alathraskills.utility.PDCUtil;
 import org.bukkit.Material;
 import org.bukkit.Tag;
@@ -42,9 +43,12 @@ public class WoodcuttingSkillsListener implements Listener {
 
             if (skillsPlayer.getPlayerSkills().get(302).isSelected()) {
                 if (skillsPlayer.getPlayerSkills().get(303).isSelected()) {
-                    PreciseChopTwoSkill.runPreciseChopTwoSkill(block);
+                    if (skillsPlayer.getPlayerSkills().get(310).isSelected()) {
+                        PreciseChop.runPreciseChopSkill(block, 0.2);
+                    }
+                    PreciseChop.runPreciseChopSkill(block, 0.1);
                 } else {
-                    PreciseChopOneSkill.runPreciseChopOneSkill(block);
+                    PreciseChop.runPreciseChopSkill(block, 0.05);
                 }
             }
 
