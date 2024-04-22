@@ -34,7 +34,7 @@ public class TrimmerTwoSkill extends Skill {
     }
 
     public static void runTrimmerTwoSkill(Block eventBlock) {
-        if (Math.random() <= 0.04)
+        if (Math.random() > 0.04)
             return;
 
         Location location = eventBlock.getLocation();
