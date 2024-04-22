@@ -5,6 +5,8 @@ import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.woodcutting.*;
+import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerOneSkill;
+import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerTwoSkill;
 import io.github.alathra.alathraskills.skills.woodcutting.util.Groundskeeper;
 import io.github.alathra.alathraskills.skills.woodcutting.util.OneSwing;
 import io.github.alathra.alathraskills.skills.woodcutting.util.PreciseChop;

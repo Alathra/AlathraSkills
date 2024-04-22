@@ -1,4 +1,4 @@
-package io.github.alathra.alathraskills.skills.woodcutting;
+package io.github.alathra.alathraskills.skills.woodcutting.oneswing;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
@@ -10,17 +10,17 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-public class GroundskeeperFourSkill extends Skill {
+public class OneSwingFiveSkill extends Skill {
 
     private static SkillsManager skillsManager;
 
-    public GroundskeeperFourSkill(int id) {
-        super(id, "Groundskeeper 4", "Has a greater chance at dropping more leaves.");
+    public OneSwingFiveSkill(int id) {
+        super(id, "One Swing 5", "Longer effect and lower cooldown.");
 
-        ItemStack icon = new ItemStack(Material.SHEARS);
+        ItemStack icon = new ItemStack(Material.NETHERITE_AXE);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
-        meta.lore(List.of(ColorParser.of("<yellow>Level 13</yellow>").build(),
+        meta.lore(List.of(ColorParser.of("<yellow>Level 15</yellow>").build(),
             ColorParser.of("<red><italics>" + super.getDescription() + "</gray></italics>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);

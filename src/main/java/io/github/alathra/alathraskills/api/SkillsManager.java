@@ -10,6 +10,13 @@ import io.github.alathra.alathraskills.skills.categories.FarmingSkillCategory;
 import io.github.alathra.alathraskills.skills.categories.MiningSkillCategory;
 import io.github.alathra.alathraskills.skills.categories.WoodcuttingSkillCategory;
 import io.github.alathra.alathraskills.skills.woodcutting.*;
+import io.github.alathra.alathraskills.skills.woodcutting.groundskeeper.*;
+import io.github.alathra.alathraskills.skills.woodcutting.oneswing.*;
+import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopOneSkill;
+import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopThreeSkill;
+import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopTwoSkill;
+import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerOneSkill;
+import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerTwoSkill;
 
 public class SkillsManager implements Reloadable {
 	
