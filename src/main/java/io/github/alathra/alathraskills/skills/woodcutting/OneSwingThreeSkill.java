@@ -21,7 +21,7 @@ public class OneSwingThreeSkill extends Skill {
         ItemStack icon = new ItemStack(Material.NETHERITE_AXE);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
-        meta.lore(List.of(ColorParser.of("<yellow>Level 10</yellow>").build(),
+        meta.lore(List.of(ColorParser.of("<yellow>Level 12</yellow>").build(),
             ColorParser.of("<red><italics>" + super.getDescription() + "</gray></italics>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
