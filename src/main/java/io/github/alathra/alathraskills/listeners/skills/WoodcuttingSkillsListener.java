@@ -57,8 +57,8 @@ public class WoodcuttingSkillsListener implements Listener {
             } else if (OneSwing.oneSwingActive(player)) {
                 if (skillsPlayer.getPlayerSkills().get(305).isSelected()) {
                     if (skillsPlayer.getPlayerSkills().get(309).isSelected()) {
-                        if (skillsPlayer.getPlayerSkills().get(3110).isSelected()) {
-                            if (skillsPlayer.getPlayerSkills().get(3112).isSelected()) {
+                        if (skillsPlayer.getPlayerSkills().get(3112).isSelected()) {
+                            if (skillsPlayer.getPlayerSkills().get(3114).isSelected()) {
                                 OneSwing.runOneSwing(player, block, 4);
                             } else {
                                 OneSwing.runOneSwing(player, block, 3);
