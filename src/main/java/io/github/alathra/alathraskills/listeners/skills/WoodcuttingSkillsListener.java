@@ -83,7 +83,11 @@ public class WoodcuttingSkillsListener implements Listener {
             if (skillsPlayer.getPlayerSkills().get(306).isSelected()) {
                 if (skillsPlayer.getPlayerSkills().get(308).isSelected()) {
                     if (skillsPlayer.getPlayerSkills().get(3111).isSelected()) {
-                        Groundskeeper.runGroundskeeperSkill(event, 2, 3, 2, 0.35, 3);
+                        if (skillsPlayer.getPlayerSkills().get(3113).isSelected()) {
+                            Groundskeeper.runGroundskeeperSkill(event, 2, 3, 2, 0.45, 3);
+                        } else {
+                            Groundskeeper.runGroundskeeperSkill(event, 2, 3, 2, 0.35, 3);
+                        }
                     } else {
                         Groundskeeper.runGroundskeeperSkill(event, 2, 2, 2, 0.25, 2);
                     }
