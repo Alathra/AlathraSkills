@@ -25,7 +25,7 @@ public class FarmingSkillsListener implements Listener {
 
     private SkillsPlayerManager skillsPlayerManager = AlathraSkills.getSkillsPlayerManager();
 
-    // calls "Ready to Eat" skill
+    // calls "Ready to Eat" skill and "Faster Harvest"
     @EventHandler
     public void BlockBreakListener(BlockBreakEvent event) {
 
