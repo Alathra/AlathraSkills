@@ -1,4 +1,4 @@
-package io.github.alathra.alathraskills.skills.woodcutting;
+package io.github.alathra.alathraskills.skills.woodcutting.trimmer;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
@@ -34,7 +34,7 @@ public class TrimmerOneSkill extends Skill {
     }
 
     public static void runTrimmerOneSkill(Block eventBlock) {
-        if (Math.random() <= 0.02)
+        if (Math.random() > 0.02)
             return;
 
         Location location = eventBlock.getLocation();

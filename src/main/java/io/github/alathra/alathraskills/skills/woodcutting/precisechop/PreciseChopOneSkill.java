@@ -1,4 +1,4 @@
-package io.github.alathra.alathraskills.skills.woodcutting;
+package io.github.alathra.alathraskills.skills.woodcutting.precisechop;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
@@ -15,31 +15,22 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class TrimmerTwoSkill extends Skill {
+public class PreciseChopOneSkill extends Skill {
 
     private SkillsManager skillsManager;
 
-    public TrimmerTwoSkill(int id) {
-        super(id, "Trimmer 2", "Get an even better chance at apples!");
+    public PreciseChopOneSkill(int id) {
+        super(id, "Precise Chop 1", "Get a chance at some extra logs!");
 
-        ItemStack icon = new ItemStack(Material.OAK_LEAVES);
+        ItemStack icon = new ItemStack(Material.OAK_LOG);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
-        meta.lore(List.of(ColorParser.of("<yellow>Level 7</yellow>").build(),
-            ColorParser.of("<red><italics>" + super.getDescription() + "</gray></italics>").build()));        icon.setItemMeta(meta);
+        meta.lore(List.of(ColorParser.of("<yellow>Level 2</yellow>").build(),
+            ColorParser.of("<red><italics>" + super.getDescription() + "</gray></italics>").build()));
+        icon.setItemMeta(meta);
         super.setIcon(icon);
 
         skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(3));
-    }
-
-    public static void runTrimmerTwoSkill(Block eventBlock) {
-        if (Math.random() <= 0.04)
-            return;
-
-        Location location = eventBlock.getLocation();
-        World world = eventBlock.getWorld();
-
-        world.dropItemNaturally(location, new ItemStack(Material.APPLE));
     }
 }

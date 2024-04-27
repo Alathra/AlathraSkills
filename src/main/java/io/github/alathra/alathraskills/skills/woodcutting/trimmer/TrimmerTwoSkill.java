@@ -1,4 +1,4 @@
-package io.github.alathra.alathraskills.skills.woodcutting;
+package io.github.alathra.alathraskills.skills.woodcutting.trimmer;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
@@ -15,17 +15,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class PreciseChopTwoSkill extends Skill {
+public class TrimmerTwoSkill extends Skill {
 
     private SkillsManager skillsManager;
 
-    public PreciseChopTwoSkill(int id) {
-        super(id, "Precise Chop 2", "Get a greater chance at some extra logs!");
+    public TrimmerTwoSkill(int id) {
+        super(id, "Trimmer 2", "Get an even better chance at apples!");
 
-        ItemStack icon = new ItemStack(Material.OAK_LOG);
+        ItemStack icon = new ItemStack(Material.OAK_LEAVES);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
-        meta.lore(List.of(ColorParser.of("<yellow>Level 3</yellow>").build(),
+        meta.lore(List.of(ColorParser.of("<yellow>Level 7</yellow>").build(),
             ColorParser.of("<red><italics>" + super.getDescription() + "</gray></italics>").build()));        icon.setItemMeta(meta);
         super.setIcon(icon);
 
@@ -33,14 +33,13 @@ public class PreciseChopTwoSkill extends Skill {
         super.setCategory(skillsManager.skillCategories.get(3));
     }
 
-    public static void runPreciseChopTwoSkill(Block eventBlock) {
-        if (Math.random() <= 0.1)
+    public static void runTrimmerTwoSkill(Block eventBlock) {
+        if (Math.random() > 0.04)
             return;
 
-        Material material = eventBlock.getType();
         Location location = eventBlock.getLocation();
-        World world = location.getWorld();
+        World world = eventBlock.getWorld();
 
-        world.dropItemNaturally(location, new ItemStack(material));
+        world.dropItemNaturally(location, new ItemStack(Material.APPLE));
     }
 }

@@ -10,6 +10,13 @@ import io.github.alathra.alathraskills.skills.categories.FarmingSkillCategory;
 import io.github.alathra.alathraskills.skills.categories.MiningSkillCategory;
 import io.github.alathra.alathraskills.skills.categories.WoodcuttingSkillCategory;
 import io.github.alathra.alathraskills.skills.woodcutting.*;
+import io.github.alathra.alathraskills.skills.woodcutting.groundskeeper.*;
+import io.github.alathra.alathraskills.skills.woodcutting.oneswing.*;
+import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopOneSkill;
+import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopThreeSkill;
+import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopTwoSkill;
+import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerOneSkill;
+import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerTwoSkill;
 
 public class SkillsManager implements Reloadable {
 	
@@ -67,7 +74,19 @@ public class SkillsManager implements Reloadable {
         woodcuttingSkills.put(307, new TrimmerTwoSkill(307));
         woodcuttingSkills.put(308, new GroundskeeperTwoSkill(308));
         woodcuttingSkills.put(309, new OneSwingTwoSkill(309));
-        woodcuttingSkills.put(3110, new OneSwingThreeSkill(3110));
+        woodcuttingSkills.put(310, new PreciseChopThreeSkill(310));
+
+        // Left branch
+        woodcuttingSkills.put(3111, new GroundskeeperThreeSkill(3111));
+        woodcuttingSkills.put(3112, new OneSwingThreeSkill(3112));
+        woodcuttingSkills.put(3113, new GroundskeeperFourSkill(3113));
+        woodcuttingSkills.put(3114, new OneSwingFourSkill(3114));
+        woodcuttingSkills.put(3115, new OneSwingFiveSkill(3115));
+        woodcuttingSkills.put(3116, new GroundskeeperFiveSkill(3116));
+        woodcuttingSkills.put(3117, new OneSwingSixSkill(3117));
+        woodcuttingSkills.put(3118, new GroundskeeperSixSkill(3118));
+        woodcuttingSkills.put(3119, new GroundskeeperSevenSkill(3119));
+        woodcuttingSkills.put(3120, new OneSwingSevenSkill(3120));
     }
 
 }
