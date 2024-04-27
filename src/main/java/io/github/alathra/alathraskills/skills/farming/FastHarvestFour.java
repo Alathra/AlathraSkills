@@ -37,7 +37,7 @@ public class FastHarvestFour extends Skill {
 
     // Call this on the BlockBreakEvent if instance of breakable crop
     // crop is event.getBlock()
-    public static void runFastHarvestOne(Block initialCrop, Player player) {
+    public static void run(Block initialCrop, Player player) {
         if (Math.random() >= FAST_HARVEST_FOUR_CHANCE)
             return;
 

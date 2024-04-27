@@ -37,7 +37,7 @@ public class QualityCropsSix extends Skill {
 
     // Call this on the EntityBreedEvent if LivingEntity instance of animal
     // animalBaby is `event`.getEntity()`
-    public static void runQualityCropsOne(LivingEntity animalBaby) {
+    public static void run(LivingEntity animalBaby) {
         if (Math.random() >= QUALILY_CROPS_SIX_CHANCE)
             return;
 

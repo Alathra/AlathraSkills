@@ -34,7 +34,7 @@ public class GreenThumbSix extends Skill {
     }
 
     // Called on BlockFertilizeEvent
-    public static void runFastHarvestOne(Block initialCrop) {
+    public static void run(Block initialCrop) {
         if (Math.random() >= GREEN_THUMB_SIX_CHANCE)
             return;
 
