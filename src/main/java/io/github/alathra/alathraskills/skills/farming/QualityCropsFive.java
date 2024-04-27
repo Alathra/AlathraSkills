@@ -21,12 +21,12 @@ public class QualityCropsFive extends Skill {
     private SkillsManager skillsManager;
 
     public QualityCropsFive(int id) {
-        super(id, "Quality Crops 1", "Get a chance to breed more animals!");
+        super(id, "Quality Crops 5", "Get a chance to breed more animals!");
 
         ItemStack icon = new ItemStack(Material.LEAD);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
-        meta.lore(List.of(ColorParser.of("<yellow>Level 2</yellow>").build(),
+        meta.lore(List.of(ColorParser.of("<yellow>Level 5</yellow>").build(),
             ColorParser.of("<red><italics>" + super.getDescription() + "</gray></italics>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
@@ -42,9 +42,9 @@ public class QualityCropsFive extends Skill {
             return;
 
         World world = animalBaby.getWorld();
-        Location locaiton = animalBaby.getLocation();
+        Location location = animalBaby.getLocation();
 
-        LivingEntity newBaby = (LivingEntity) world.spawnEntity(locaiton, animalBaby.getType(), CreatureSpawnEvent.SpawnReason.BREEDING);
+        LivingEntity newBaby = (LivingEntity) world.spawnEntity(location, animalBaby.getType(), CreatureSpawnEvent.SpawnReason.BREEDING);
         if(newBaby instanceof Ageable) {
             Ageable newBabyAgeable = (Ageable) newBaby;
             newBabyAgeable.setBaby();

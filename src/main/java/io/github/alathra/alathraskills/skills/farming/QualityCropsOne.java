@@ -28,7 +28,7 @@ public class QualityCropsOne extends Skill {
         ItemStack icon = new ItemStack(Material.LEAD);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
-        meta.lore(List.of(ColorParser.of("<yellow>Level 2</yellow>").build(),
+        meta.lore(List.of(ColorParser.of("<yellow>Level 1</yellow>").build(),
             ColorParser.of("<red><italics>" + super.getDescription() + "</gray></italics>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
@@ -44,11 +44,10 @@ public class QualityCropsOne extends Skill {
             return;
 
         World world = animalBaby.getWorld();
-        Location locaiton = animalBaby.getLocation();
+        Location location = animalBaby.getLocation();
 
-        LivingEntity newBaby = (LivingEntity) world.spawnEntity(locaiton, animalBaby.getType(), CreatureSpawnEvent.SpawnReason.BREEDING);
-        if(newBaby instanceof Ageable) {
-            Ageable newBabyAgeable = (Ageable) newBaby;
+        LivingEntity newBaby = (LivingEntity) world.spawnEntity(location, animalBaby.getType(), CreatureSpawnEvent.SpawnReason.BREEDING);
+        if(newBaby instanceof Ageable newBabyAgeable) {
             newBabyAgeable.setBaby();
         } else {
             // Kill the entity if it is not ageable for some reason

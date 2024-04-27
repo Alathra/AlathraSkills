@@ -21,7 +21,7 @@ public class QualityCropsTwo extends Skill {
     private SkillsManager skillsManager;
 
     public QualityCropsTwo(int id) {
-        super(id, "Quality Crops 1", "Get a chance to breed more animals!");
+        super(id, "Quality Crops 2", "Get a chance to breed more animals!");
 
         ItemStack icon = new ItemStack(Material.LEAD);
         ItemMeta meta = icon.getItemMeta();
@@ -42,9 +42,9 @@ public class QualityCropsTwo extends Skill {
             return;
 
         World world = animalBaby.getWorld();
-        Location locaiton = animalBaby.getLocation();
+        Location location = animalBaby.getLocation();
 
-        LivingEntity newBaby = (LivingEntity) world.spawnEntity(locaiton, animalBaby.getType(), CreatureSpawnEvent.SpawnReason.BREEDING);
+        LivingEntity newBaby = (LivingEntity) world.spawnEntity(location, animalBaby.getType(), CreatureSpawnEvent.SpawnReason.BREEDING);
         if(newBaby instanceof Ageable) {
             Ageable newBabyAgeable = (Ageable) newBaby;
             newBabyAgeable.setBaby();
