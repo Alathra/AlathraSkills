@@ -6,6 +6,7 @@ import org.bukkit.entity.EntityType;
 import java.util.ArrayList;
 
 public class FarmingData {
+
     public static ArrayList<Material> getBonemealableCrops() {
         ArrayList<Material> crops = new ArrayList<>();
         crops.add(Material.BAMBOO);

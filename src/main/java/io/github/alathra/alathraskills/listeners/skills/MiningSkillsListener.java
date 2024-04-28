@@ -5,6 +5,7 @@ import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.mining.*;
+import io.github.alathra.alathraskills.skills.mining.util.Spelunker;
 import io.github.alathra.alathraskills.skills.mining.util.VeinBreaker;
 import io.github.alathra.alathraskills.utility.PDCUtil;
 import org.bukkit.Material;
@@ -16,6 +17,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
@@ -120,5 +122,23 @@ public class MiningSkillsListener implements Listener {
                 VeinBreaker.readyVeinBreaker(player);
             }
         }
+    }
+
+    // Calls the "Spelunker" skill
+    @EventHandler
+    public void FallDamageListener(EntityDamageEvent event) {
+
+        // If entity is not a player
+        if (!(event.getEntity() instanceof Player player)) {
+            return;
+        }
+
+        // If the damage is not fall damage
+        if (event.getCause() != EntityDamageEvent.DamageCause.FALL) {
+            return;
+        }
+
+        Spelunker.run(event, player, 4);
+
     }
 }
