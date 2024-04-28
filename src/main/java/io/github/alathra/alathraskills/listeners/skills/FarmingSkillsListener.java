@@ -3,6 +3,7 @@ package io.github.alathra.alathraskills.listeners.skills;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.farming.util.*;
+import io.github.alathra.alathraskills.skills.farming.util.helper.FarmingData;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

@@ -13,6 +13,7 @@ public class QualityCrops {
     public static void run(LivingEntity animalBaby, int skillLevel) {
         if (Math.random() >= getChance(skillLevel))
             return;
+
         World world = animalBaby.getWorld();
         Location location = animalBaby.getLocation();
 

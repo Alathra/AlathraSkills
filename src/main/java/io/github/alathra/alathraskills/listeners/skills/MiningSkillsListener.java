@@ -4,10 +4,10 @@ import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
-import io.github.alathra.alathraskills.skills.mining.*;
+import io.github.alathra.alathraskills.skills.mining.util.OreInTheRough;
 import io.github.alathra.alathraskills.skills.mining.util.Spelunker;
 import io.github.alathra.alathraskills.skills.mining.util.VeinBreaker;
-import io.github.alathra.alathraskills.utility.PDCUtil;
+import io.github.alathra.alathraskills.skills.mining.util.helper.MiningData;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
@@ -25,7 +25,7 @@ public class MiningSkillsListener implements Listener {
 
     private SkillsPlayerManager skillsPlayerManager = AlathraSkills.getSkillsPlayerManager();
 
-    // TODO: clean up skill check logic
+    // Calls "Ore in the Rough" skill
     @EventHandler
     public void BlockBreakListener(BlockBreakEvent event) {
         Block block = event.getBlock();
@@ -33,6 +33,12 @@ public class MiningSkillsListener implements Listener {
         Player player = event.getPlayer();
 
         SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillPlayers().get(player.getUniqueId());
+
+
+        // ORE IN THE ROUGH SKILL
+        if (MiningData.getNaturalStoneBlocks().contains(material)) {
+            OreInTheRough.run(block, 5);
+        }
 
         boolean tagged = false;
         for (Tag tag : VeinBreaker.oreTags) {
