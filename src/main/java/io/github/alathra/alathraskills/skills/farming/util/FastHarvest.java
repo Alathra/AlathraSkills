@@ -99,6 +99,7 @@ public class FastHarvest {
             case 4 -> 0.40;
             case 5 -> 0.60;
             case 6 -> 0.80;
+            case 7 -> 1.00;
             default -> 0;
         };
     }

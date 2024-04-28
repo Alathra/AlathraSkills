@@ -23,32 +23,32 @@ public class GreenThumb {
 
     private static void runForPlusShape(Block initialCrop) {
         if (FarmingData.getBonemealableCrops().contains(initialCrop.getRelative(BlockFace.NORTH).getType())) {
-            initialCrop.applyBoneMeal(BlockFace.NORTH);
+            initialCrop.getRelative(BlockFace.NORTH).applyBoneMeal(BlockFace.UP);
         }
         if (FarmingData.getBonemealableCrops().contains(initialCrop.getRelative(BlockFace.SOUTH).getType())) {
-            initialCrop.applyBoneMeal(BlockFace.SOUTH);
+            initialCrop.getRelative(BlockFace.SOUTH).applyBoneMeal(BlockFace.UP);
         }
         if (FarmingData.getBonemealableCrops().contains(initialCrop.getRelative(BlockFace.EAST).getType())) {
-            initialCrop.applyBoneMeal(BlockFace.EAST);
+            initialCrop.getRelative(BlockFace.EAST).applyBoneMeal(BlockFace.UP);
         }
         if (FarmingData.getBonemealableCrops().contains(initialCrop.getRelative(BlockFace.WEST).getType())) {
-            initialCrop.applyBoneMeal(BlockFace.WEST);
+            initialCrop.getRelative(BlockFace.WEST).applyBoneMeal(BlockFace.UP);
         }
     }
 
     private static void runFor3by3Shape(Block initialCrop) {
         runForPlusShape(initialCrop);
         if (FarmingData.getBonemealableCrops().contains(initialCrop.getRelative(BlockFace.NORTH_WEST).getType())) {
-            initialCrop.applyBoneMeal(BlockFace.NORTH_WEST);
+            initialCrop.getRelative(BlockFace.NORTH_WEST).applyBoneMeal(BlockFace.UP);
         }
         if (FarmingData.getBonemealableCrops().contains(initialCrop.getRelative(BlockFace.NORTH_EAST).getType())) {
-            initialCrop.applyBoneMeal(BlockFace.NORTH_EAST);
+            initialCrop.getRelative(BlockFace.NORTH_EAST).applyBoneMeal(BlockFace.UP);
         }
         if (FarmingData.getBonemealableCrops().contains(initialCrop.getRelative(BlockFace.SOUTH_WEST).getType())) {
-            initialCrop.applyBoneMeal(BlockFace.SOUTH_WEST);
+            initialCrop.getRelative(BlockFace.SOUTH_WEST).applyBoneMeal(BlockFace.UP);
         }
         if (FarmingData.getBonemealableCrops().contains(initialCrop.getRelative(BlockFace.SOUTH_EAST).getType())) {
-            initialCrop.applyBoneMeal(BlockFace.SOUTH_EAST);
+            initialCrop.getRelative(BlockFace.SOUTH_EAST).applyBoneMeal(BlockFace.UP);
         }
     }
 

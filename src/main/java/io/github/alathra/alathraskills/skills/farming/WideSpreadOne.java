@@ -10,12 +10,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-public class SpreadingSeedOne extends Skill {
+public class WideSpreadOne extends Skill {
 
     private SkillsManager skillsManager;
 
-    public SpreadingSeedOne(int id, String name, String description) {
-        super(id, "Spreading Seed 1", "Get a chance to sow seeds in a wider area!");
+    public WideSpreadOne(int id, String name, String description) {
+        super(id, "Wide Spread 1", "Get a chance to sow seeds in a wider area!");
 
         ItemStack icon = new ItemStack(Material.IRON_HOE);
         ItemMeta meta = icon.getItemMeta();

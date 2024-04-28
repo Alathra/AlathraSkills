@@ -1,8 +1,8 @@
 package io.github.alathra.alathraskills.skills.farming.util;
 
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class FarmingData {
@@ -41,12 +41,33 @@ public class FarmingData {
         return crops;
     }
 
-    public static ArrayList<Material> getSpreadableSeeds() {
+    public static ArrayList<Material> getStandardSeeds() {
         ArrayList<Material> seeds = new ArrayList<>();
         seeds.add(Material.WHEAT_SEEDS);
         seeds.add(Material.BEETROOT_SEEDS);
         seeds.add(Material.CARROT);
         seeds.add(Material.POTATO);
         return seeds;
+    }
+
+    public static ArrayList<Material> getStandardCrops() {
+        ArrayList<Material> crops = new ArrayList<>();
+        crops.add(Material.WHEAT);
+        crops.add(Material.BEETROOTS);
+        crops.add(Material.CARROTS);
+        crops.add(Material.POTATOES);
+        return crops;
+    }
+
+    public static ArrayList<EntityType> getStandardAnimals() {
+        ArrayList<EntityType> animals = new ArrayList<>();
+        animals.add(EntityType.SHEEP);
+        animals.add(EntityType.COW);
+        animals.add(EntityType.PIG);
+        animals.add(EntityType.CHICKEN);
+        animals.add(EntityType.MUSHROOM_COW);
+        animals.add(EntityType.RABBIT);
+        animals.add(EntityType.BEE);
+        return animals;
     }
 }

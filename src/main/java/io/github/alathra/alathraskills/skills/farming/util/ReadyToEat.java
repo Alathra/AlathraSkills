@@ -1,7 +1,9 @@
 package io.github.alathra.alathraskills.skills.farming.util;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.Ageable;
 import org.bukkit.inventory.ItemStack;
 
 public class ReadyToEat {
@@ -11,6 +13,12 @@ public class ReadyToEat {
     public static void run(Block crop, int skillLevel) {
         if (Math.random() >= getChance(skillLevel))
             return;
+
+        // Crop is not fully grown, return
+        Ageable ageable = (Ageable) crop.getBlockData();
+        if (ageable.getAge() != ageable.getMaximumAge()) {
+            return;
+        }
 
         switch (crop.getType()) {
             case WHEAT, BEETROOTS:
