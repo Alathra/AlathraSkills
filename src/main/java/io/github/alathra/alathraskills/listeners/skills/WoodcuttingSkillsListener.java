@@ -10,6 +10,7 @@ import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerTwoSkil
 import io.github.alathra.alathraskills.skills.woodcutting.util.Groundskeeper;
 import io.github.alathra.alathraskills.skills.woodcutting.util.OneSwing;
 import io.github.alathra.alathraskills.skills.woodcutting.util.PreciseChop;
+import io.github.alathra.alathraskills.skills.woodcutting.util.Trimmer;
 import io.github.alathra.alathraskills.utility.PDCUtil;
 import org.bukkit.Material;
 import org.bukkit.Tag;
@@ -46,9 +47,30 @@ public class WoodcuttingSkillsListener implements Listener {
             if (skillsPlayer.getPlayerSkills().get(302).isSelected()) {
                 if (skillsPlayer.getPlayerSkills().get(303).isSelected()) {
                     if (skillsPlayer.getPlayerSkills().get(310).isSelected()) {
-                        PreciseChop.runPreciseChopSkill(block, 0.2);
+                        if (skillsPlayer.getPlayerSkills().get(3211).isSelected()) {
+                            if (skillsPlayer.getPlayerSkills().get(3212).isSelected()) {
+                                if (skillsPlayer.getPlayerSkills().get(3214).isSelected()) {
+                                    if (skillsPlayer.getPlayerSkills().get(3217).isSelected()) {
+                                        if (skillsPlayer.getPlayerSkills().get(3218).isSelected()) {
+                                            PreciseChop.runPreciseChopSkill(block, 1.0);
+                                        } else {
+                                            PreciseChop.runPreciseChopSkill(block, 0.85);
+                                        }
+                                    } else {
+                                        PreciseChop.runPreciseChopSkill(block, 0.70);
+                                    }
+                                } else {
+                                    PreciseChop.runPreciseChopSkill(block, 0.55);
+                                }
+                            } else {
+                                PreciseChop.runPreciseChopSkill(block, 0.35);
+                            }
+                        } else {
+                            PreciseChop.runPreciseChopSkill(block, 0.20);
+                        }
+                    } else {
+                        PreciseChop.runPreciseChopSkill(block, 0.10);
                     }
-                    PreciseChop.runPreciseChopSkill(block, 0.1);
                 } else {
                     PreciseChop.runPreciseChopSkill(block, 0.05);
                 }
@@ -92,9 +114,29 @@ public class WoodcuttingSkillsListener implements Listener {
         if (Tag.LEAVES.isTagged(material)) {
             if (skillsPlayer.getPlayerSkills().get(304).isSelected()) {
                 if (skillsPlayer.getPlayerSkills().get(307).isSelected()) {
-                    TrimmerTwoSkill.runTrimmerTwoSkill(block);
+                    if (skillsPlayer.getPlayerSkills().get(3213).isSelected()) {
+                        if (skillsPlayer.getPlayerSkills().get(3215).isSelected()) {
+                            if (skillsPlayer.getPlayerSkills().get(3216).isSelected()) {
+                                if (skillsPlayer.getPlayerSkills().get(3219).isSelected()) {
+                                    if (skillsPlayer.getPlayerSkills().get(3220).isSelected()) {
+                                        Trimmer.runTrimmerSkill(block, 0.20);
+                                    } else {
+                                        Trimmer.runTrimmerSkill(block, 0.15);
+                                    }
+                                } else {
+                                    Trimmer.runTrimmerSkill(block, 0.12);
+                                }
+                            } else {
+                                Trimmer.runTrimmerSkill(block, 0.10);
+                            }
+                        } else {
+                            Trimmer.runTrimmerSkill(block, 0.08);
+                        }
+                    } else {
+                        Trimmer.runTrimmerSkill(block, 0.04);
+                    }
                 } else {
-                    TrimmerOneSkill.runTrimmerOneSkill(block);
+                    Trimmer.runTrimmerSkill(block, 0.02);
                 }
             }
 

@@ -12,11 +12,8 @@ import io.github.alathra.alathraskills.skills.categories.WoodcuttingSkillCategor
 import io.github.alathra.alathraskills.skills.woodcutting.*;
 import io.github.alathra.alathraskills.skills.woodcutting.groundskeeper.*;
 import io.github.alathra.alathraskills.skills.woodcutting.oneswing.*;
-import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopOneSkill;
-import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopThreeSkill;
-import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopTwoSkill;
-import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerOneSkill;
-import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerTwoSkill;
+import io.github.alathra.alathraskills.skills.woodcutting.precisechop.*;
+import io.github.alathra.alathraskills.skills.woodcutting.trimmer.*;
 
 public class SkillsManager implements Reloadable {
 	
@@ -87,6 +84,18 @@ public class SkillsManager implements Reloadable {
         woodcuttingSkills.put(3118, new GroundskeeperSixSkill(3118));
         woodcuttingSkills.put(3119, new GroundskeeperSevenSkill(3119));
         woodcuttingSkills.put(3120, new OneSwingSevenSkill(3120));
+
+        // Right branch
+        woodcuttingSkills.put(3211, new PreciseChopFourSkill(3211));
+        woodcuttingSkills.put(3212, new PreciseChopFiveSkill(3212));
+        woodcuttingSkills.put(3213, new TrimmerThreeSkill(3213));
+        woodcuttingSkills.put(3214, new PreciseChopSixSkill(3214));
+        woodcuttingSkills.put(3215, new TrimmerFourSkill(3215));
+        woodcuttingSkills.put(3216, new TrimmerFiveSkill(3216));
+        woodcuttingSkills.put(3217, new PreciseChopSevenSkill(3217));
+        woodcuttingSkills.put(3218, new PreciseChopEightSkill(3218));
+        woodcuttingSkills.put(3219, new TrimmerSixSkill(3219));
+        woodcuttingSkills.put(3220, new TrimmerSevenSkill(3220));
     }
 
 }

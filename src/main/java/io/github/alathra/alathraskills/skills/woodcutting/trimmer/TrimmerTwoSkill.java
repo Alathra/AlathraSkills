@@ -20,7 +20,7 @@ public class TrimmerTwoSkill extends Skill {
     private SkillsManager skillsManager;
 
     public TrimmerTwoSkill(int id) {
-        super(id, "Trimmer 2", "Get an even better chance at apples!");
+        super(id, "Trimmer 2", "Get an even better chance at apples.");
 
         ItemStack icon = new ItemStack(Material.OAK_LEAVES);
         ItemMeta meta = icon.getItemMeta();
@@ -31,15 +31,5 @@ public class TrimmerTwoSkill extends Skill {
 
         skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(3));
-    }
-
-    public static void runTrimmerTwoSkill(Block eventBlock) {
-        if (Math.random() > 0.04)
-            return;
-
-        Location location = eventBlock.getLocation();
-        World world = eventBlock.getWorld();
-
-        world.dropItemNaturally(location, new ItemStack(Material.APPLE));
     }
 }
