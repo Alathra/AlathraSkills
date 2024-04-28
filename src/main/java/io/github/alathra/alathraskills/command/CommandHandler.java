@@ -2,6 +2,7 @@ package io.github.alathra.alathraskills.command;
 
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.Reloadable;
+import io.github.alathra.alathraskills.api.commands.McMMOSetExerienceCommandMemory;
 import io.github.alathra.alathraskills.api.commands.TestAddSkillCommandMemory;
 import io.github.alathra.alathraskills.api.commands.TestDeleteSkillCommandMemory;
 import io.github.alathra.alathraskills.api.commands.TestGetAllSkillsCommandMemory;
@@ -48,6 +49,7 @@ public class CommandHandler implements Reloadable {
         new TestDeleteSkillCommandMemory();
         new TestGetAllSkillsCommandMemory();
         new TestGetExerienceCommandMemory();
+        new McMMOSetExerienceCommandMemory();
     }
 
     @Override
