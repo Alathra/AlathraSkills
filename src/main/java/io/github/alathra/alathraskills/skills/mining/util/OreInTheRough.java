@@ -7,16 +7,16 @@ import org.bukkit.inventory.ItemStack;
 public class OreInTheRough {
 
     // Block is the stone block broken
-    public static void run(Block block, int skillLLevel) {
-        if (Math.random() >= getChance(skillLLevel))
+    public static void run(Block block, int skillLevel) {
+        if (Math.random() >= getChance(skillLevel))
             return;
 
         double dropChance = Math.random();
         Material drop;
 
-        if (dropChance < getGoldOreChance(skillLLevel)) {
+        if (dropChance < getGoldOreChance(skillLevel)) {
             drop = Material.RAW_GOLD;
-        } else if (dropChance < getIronOreChance(skillLLevel)) {
+        } else if (dropChance < getIronOreChance(skillLevel)) {
             drop = Material.RAW_IRON;
         } else {
             drop = Material.RAW_COPPER;
