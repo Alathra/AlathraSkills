@@ -1,4 +1,4 @@
-package io.github.alathra.alathraskills.db.testing;
+package io.github.alathra.alathraskills.db.commands;
 
 import org.bukkit.entity.Player;
 
@@ -10,14 +10,14 @@ import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
 import io.github.alathra.alathraskills.db.DatabaseQueries;
 
-public class TestDeleteAllSkillsCommand {
+public class TestHasSkillCommand {
 
-    public TestDeleteAllSkillsCommand() {
-        new CommandAPICommand("testDeleteSkills")
-        	.withArguments(new PlayerArgument("targetPlayer"))
-            .withFullDescription("Deletes all skills for this player")
+    public TestHasSkillCommand() {
+        new CommandAPICommand("testHasSkill_db")
+        	.withArguments(new PlayerArgument("targetPlayer"), new IntegerArgument("skill"))
+            .withFullDescription("Get Experience For a Given Skill Category.")
             .withShortDescription("Get Experience")
-            .withPermission("example.command")
+            .withPermission("alathraskills.get")
             .executesPlayer(this::runCommand)
             .register();
     }
@@ -31,12 +31,27 @@ public class TestDeleteAllSkillsCommand {
             );
             return;
         }
+        if (args.get("skill") == null) {
+            player.sendMessage(
+                    ColorParser.of("Provide a value after the targetPlayer to indicate the skill to check.")
+                        .parseLegacy() // Parse legacy color codes
+                        .build()
+            );
+            return;
+        }
         // TODO Make Async
-        DatabaseQueries.deletePlayerSkills((Player) args.get("targetPlayer"));
+        boolean dbReturnValue = DatabaseQueries.doesPlayerHaveSkill((Player) args.get("targetPlayer"), (Integer) args.get("skill"));
         String returnString =
         		"Player with ID " +
 				((Player) args.get("targetPlayer")).getUniqueId() +
-				" has had all of their skills deleted.";
+				" does ";
+        if (!dbReturnValue) {
+        	returnString += "not ";
+        }
+        returnString +=
+        		"have the skill " +
+				args.get("skill") +
+				".";
         player.sendMessage(
                 ColorParser.of(returnString)
                     .parseLegacy() // Parse legacy color codes

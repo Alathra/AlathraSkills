@@ -1,4 +1,4 @@
-package io.github.alathra.alathraskills.api.testing;
+package io.github.alathra.alathraskills.api.commands;
 
 import java.util.Map.Entry;
 import java.util.stream.Stream;
@@ -20,7 +20,7 @@ public class TestGetAllSkillsCommandMemory {
         	.withArguments(new PlayerArgument("targetPlayer"))
             .withFullDescription("Get all Skills for a Given Player.")
             .withShortDescription("Get Skills")
-            .withPermission("example.command")
+            .withPermission("alathraskills.get")
             .executesPlayer(this::runCommand)
             .register();
     }

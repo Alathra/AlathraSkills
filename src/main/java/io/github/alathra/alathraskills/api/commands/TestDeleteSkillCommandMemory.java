@@ -1,24 +1,23 @@
-package io.github.alathra.alathraskills.db.testing;
+package io.github.alathra.alathraskills.api.commands;
 
 import org.bukkit.entity.Player;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 
 import dev.jorel.commandapi.CommandAPICommand;
-import dev.jorel.commandapi.arguments.FloatArgument;
 import dev.jorel.commandapi.arguments.IntegerArgument;
 import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
-import io.github.alathra.alathraskills.db.DatabaseQueries;
+import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 
-public class TestSetSkillCommand {
+public class TestDeleteSkillCommandMemory {
 
-    public TestSetSkillCommand() {
-        new CommandAPICommand("testSetSkill")
+    public TestDeleteSkillCommandMemory() {
+        new CommandAPICommand("testDeleteSkill_memory")
         	.withArguments(new PlayerArgument("targetPlayer"), new IntegerArgument("skill"))
-            .withFullDescription("Set Experience For a Given Skill Category.")
-            .withShortDescription("Set Experience")
-            .withPermission("example.command")
+            .withFullDescription("Delete Skill for a Given Player.")
+            .withShortDescription("Delete Skill")
+            .withPermission("alathraskills.set")
             .executesPlayer(this::runCommand)
             .register();
     }
@@ -39,14 +38,13 @@ public class TestSetSkillCommand {
                         .build()
             );
         }
-        // TODO Make Async
-        DatabaseQueries.saveSkillInfo((Player) args.get("targetPlayer"), (Integer) args.get("skill"));
+    	SkillsPlayerManager.deletePlayerSkill((Player) args.get("targetPlayer"), (Integer) args.get("skill"));
         String returnString =
         		"Player with ID " +
 				((Player) args.get("targetPlayer")).getUniqueId() +
 				" has had the skill " +
 				args.get("skill") +
-				" added in the DB.";
+				" deleted in memory.";
         player.sendMessage(
                 ColorParser.of(returnString)
                     .parseLegacy() // Parse legacy color codes
