@@ -89,12 +89,7 @@ public class VeinBreaker {
         long delay = (long)((veinBreakerDuration(7)/2)-(veinBreakerDuration(level)/2))+5;
         HashSet<Block> veins = findVein(block,10*level);
         for (final Block iterBlock : veins) {
-            BlockBreakEvent event = new BlockBreakEvent(iterBlock, player);
-            Bukkit.getPluginManager().callEvent(event);
-            if (event.isCancelled()) return;
-            Bukkit.getServer().getScheduler().runTaskLater(instance, () -> {
-                iterBlock.breakNaturally();
-            }, delay);
+            iterBlock.breakNaturally();
         }
     }
 
