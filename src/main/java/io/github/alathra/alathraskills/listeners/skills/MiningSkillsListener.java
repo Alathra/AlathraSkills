@@ -8,6 +8,7 @@ import io.github.alathra.alathraskills.skills.mining.util.OreInTheRough;
 import io.github.alathra.alathraskills.skills.mining.util.Spelunker;
 import io.github.alathra.alathraskills.skills.mining.util.VeinBreaker;
 import io.github.alathra.alathraskills.skills.mining.util.helper.MiningData;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
@@ -40,72 +41,10 @@ public class MiningSkillsListener implements Listener {
             OreInTheRough.run(block, 5);
         }
 
-        boolean tagged = false;
-        for (Tag tag : VeinBreaker.oreTags) {
-            if (tag.isTagged(material)) {
-                tagged = true;
-                break;
-            }
+        // VEIN BREAKER SKILL
+        if (MiningData.getOres().contains(material)) {
+            VeinBreaker.run(block, player, 7);
         }
-        if (tagged) {
-            if (skillsPlayer.getPlayerSkills().get(201).isSelected()) {
-                if (skillsPlayer.getPlayerSkills().get(202).isSelected()) {
-                    if (skillsPlayer.getPlayerSkills().get(204).isSelected()) {
-                        if (skillsPlayer.getPlayerSkills().get(2110).isSelected()) {
-                            VeinBreaker.runVeinBreaker(player, block, 3);
-                        } else {
-                            VeinBreaker.runVeinBreaker(player, block, 2);
-                        }
-                    } else {
-                        VeinBreaker.runVeinBreaker(player, block, 2);
-                    }
-                } else {
-                    VeinBreaker.runVeinBreaker(player, block, 2);
-                }
-            }
-        }
-    }
-
-
-    @EventHandler
-    public void BlockDamageListener(BlockDamageEvent event) {
-        SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillPlayers().get(event.getPlayer().getUniqueId());
-
-        if (!Tag.ITEMS_PICKAXES.isTagged(event.getItemInHand().getType()))
-            return;
-
-        boolean tagged = false;
-        for (Tag tag : VeinBreaker.oreTags) {
-            if (tag.isTagged(event.getBlock().getType())) {
-                tagged = true;
-                break;
-            }
-        }
-        if (!tagged)
-            return;
-
-        if (!skillsPlayer.getPlayerSkills().get(204).isSelected())
-            return;
-
-        event.setInstaBreak(true);
-    }
-
-    // Calls the "Spelunker" skill
-    @EventHandler
-    public void FallDamageListener(EntityDamageEvent event) {
-
-        // If entity is not a player
-        if (!(event.getEntity() instanceof Player player)) {
-            return;
-        }
-
-        // If the damage is not fall damage
-        if (event.getCause() != EntityDamageEvent.DamageCause.FALL) {
-            return;
-        }
-
-        Spelunker.run(event, player, 4);
-
     }
 
     // Calls the "Spelunker" skill
