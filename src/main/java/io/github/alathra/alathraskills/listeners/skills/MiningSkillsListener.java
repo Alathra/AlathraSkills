@@ -49,20 +49,18 @@ public class MiningSkillsListener implements Listener {
         }
         if (tagged) {
             if (skillsPlayer.getPlayerSkills().get(201).isSelected()) {
-                if (VeinBreaker.veinBreakerRunning(player)) {
-                    VeinBreaker.breakVein(block, player, 1);
-                } else if (VeinBreaker.veinBreakerActive(player)) {
-                    if (skillsPlayer.getPlayerSkills().get(202).isSelected()) {
-                        if (skillsPlayer.getPlayerSkills().get(204).isSelected()) {
-                            if (skillsPlayer.getPlayerSkills().get(2110).isSelected()) {
-                                VeinBreaker.runVeinBreaker(player, block, 3);
-                            } else {
-                                VeinBreaker.runVeinBreaker(player, block, 2);
-                            }
+                if (skillsPlayer.getPlayerSkills().get(202).isSelected()) {
+                    if (skillsPlayer.getPlayerSkills().get(204).isSelected()) {
+                        if (skillsPlayer.getPlayerSkills().get(2110).isSelected()) {
+                            VeinBreaker.runVeinBreaker(player, block, 3);
                         } else {
-                            VeinBreaker.runVeinBreaker(player, block, 1);
+                            VeinBreaker.runVeinBreaker(player, block, 2);
                         }
+                    } else {
+                        VeinBreaker.runVeinBreaker(player, block, 2);
                     }
+                } else {
+                    VeinBreaker.runVeinBreaker(player, block, 2);
                 }
             }
         }
@@ -92,42 +90,22 @@ public class MiningSkillsListener implements Listener {
         event.setInstaBreak(true);
     }
 
+    // Calls the "Spelunker" skill
     @EventHandler
-    public void RightClickListener(PlayerInteractEvent event) {
-        SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillPlayers().get(event.getPlayer().getUniqueId());
+    public void FallDamageListener(EntityDamageEvent event) {
 
-        if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            if (event.getHand() == EquipmentSlot.OFF_HAND)
-                return;
-
-            if (!event.hasItem())
-                return;
-
-            if (!Tag.ITEMS_PICKAXES.isTagged(event.getMaterial()))
-                return;
-
-            // Return if right click logs
-
-            Player player = event.getPlayer();
-
-            boolean tagged = false;
-            for (Tag tag : VeinBreaker.oreTags) {
-                if (tag.isTagged(event.getClickedBlock().getType())) {
-                    tagged = true;
-                    break;
-                }
-            }
-            if (!tagged)
-                return;
-
-            if (skillsPlayer.getPlayerSkills().get(202).isSelected()) {
-                if (VeinBreaker.hasVeinBreakerCooldown(player)) {
-                    player.sendActionBar(ColorParser.of("<dark_red>Vein Breaker isn't ready yet. Cooldown remaining: " + VeinBreaker.getRemainingCooldown(player) + " seconds.").build());
-                    return;
-                }
-                VeinBreaker.readyVeinBreaker(player);
-            }
+        // If entity is not a player
+        if (!(event.getEntity() instanceof Player player)) {
+            return;
         }
+
+        // If the damage is not fall damage
+        if (event.getCause() != EntityDamageEvent.DamageCause.FALL) {
+            return;
+        }
+
+        Spelunker.run(event, player, 4);
+
     }
 
     // Calls the "Spelunker" skill
