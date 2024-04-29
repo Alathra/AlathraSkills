@@ -48,7 +48,7 @@ public class TestSetExerienceCommandMemory {
             return;
         }
         // TODO Make Async
-        SkillsPlayerManager.setPlayerExperience(player, (Integer) args.get("skillCategoryID"), (float) args.get("Experience"));
+        SkillsPlayerManager.setPlayerExperience((Player) args.get("targetPlayer"), (Integer) args.get("skillCategoryID"), (float) args.get("Experience"));
         String returnString =
         		"Player with ID " +
 				player.getUniqueId() +
