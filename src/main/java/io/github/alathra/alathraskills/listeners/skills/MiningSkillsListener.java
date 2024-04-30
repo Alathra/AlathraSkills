@@ -5,6 +5,7 @@ import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.mining.util.OreInTheRough;
+import io.github.alathra.alathraskills.skills.mining.util.ProudProspector;
 import io.github.alathra.alathraskills.skills.mining.util.Spelunker;
 import io.github.alathra.alathraskills.skills.mining.util.VeinBreaker;
 import io.github.alathra.alathraskills.skills.mining.util.helper.MiningData;
@@ -35,14 +36,14 @@ public class MiningSkillsListener implements Listener {
 
         SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillPlayers().get(player.getUniqueId());
 
-
         // ORE IN THE ROUGH SKILL
         if (MiningData.getNaturalStoneBlocks().contains(material)) {
             OreInTheRough.run(block, 5);
         }
 
-        // VEIN BREAKER SKILL
+        // PROUD PROSPECTOR & VEIN BREAKER SKILL
         if (MiningData.getOres().contains(material)) {
+            ProudProspector.run(event, 6);
             VeinBreaker.run(block, player, 7);
         }
     }

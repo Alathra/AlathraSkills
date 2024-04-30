@@ -8,6 +8,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
@@ -36,7 +37,7 @@ public class VeinBreaker {
     private static void exploreVein(Block currentBlock, Material oreMaterial, Set<Block> veinBlocks, Set<Location> visitedLocations, int level) {
 
         // Put a cap on how big the mined vein can be based on skill level
-        if (veinBlocks.size() >= level*4) {
+        if (veinBlocks.size() >= level * 4) {
             return;
         }
 
@@ -57,16 +58,16 @@ public class VeinBreaker {
 
     public static void breakVein(Block block, Player player, int level) {
 
-        if (MiningData.getOres().contains(block.getType())) {
-            Set<Block> veins = findVein(block, level);
-            for (final Block iterBlock : veins) {
-                BlockBreakEvent event = new BlockBreakEvent(block,player);
-                Bukkit.getPluginManager().callEvent(event);
-                if (event.isCancelled()) {
-                    break;
-                }
-                iterBlock.breakNaturally();
+        ItemStack tool = player.getInventory().getItemInMainHand();
+
+        Set<Block> veins = findVein(block, level);
+        for (final Block iterBlock : veins) {
+            BlockBreakEvent event = new BlockBreakEvent(block, player);
+            Bukkit.getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                break;
             }
+            iterBlock.breakNaturally(tool);
         }
 
     }
