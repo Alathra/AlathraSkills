@@ -14,7 +14,7 @@ public class GreenThumbOne extends Skill {
 
     private SkillsManager skillsManager;
 
-    public GreenThumbOne(int id, String name, String description) {
+    public GreenThumbOne(int id) {
         super(id, "Spreading Seed 1", "Get a chance to plant seeds in a wider area!");
 
         ItemStack icon = new ItemStack(Material.IRON_HOE);

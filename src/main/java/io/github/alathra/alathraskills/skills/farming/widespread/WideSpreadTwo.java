@@ -14,14 +14,14 @@ public class WideSpreadTwo extends Skill {
 
     private SkillsManager skillsManager;
 
-    public WideSpreadTwo(int id, String name, String description) {
+    public WideSpreadTwo(int id) {
         super(id, "Wide Spread 2", "Get a chance to sow seeds in a wider area!");
 
         ItemStack icon = new ItemStack(Material.IRON_HOE);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 1</yellow>").build(),
-            ColorParser.of("<red><italics>" + super.getDescription() + "</gray></italics>").build()));
+            ColorParser.of("<red><italics>" + super.getDescription() + "</red></italics>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
