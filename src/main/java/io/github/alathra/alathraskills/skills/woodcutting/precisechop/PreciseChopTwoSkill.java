@@ -1,4 +1,4 @@
-package io.github.alathra.alathraskills.skills.woodcutting;
+package io.github.alathra.alathraskills.skills.woodcutting.precisechop;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
@@ -31,16 +31,5 @@ public class PreciseChopTwoSkill extends Skill {
 
         skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(3));
-    }
-
-    public static void runPreciseChopTwoSkill(Block eventBlock) {
-        if (Math.random() <= 0.1)
-            return;
-
-        Material material = eventBlock.getType();
-        Location location = eventBlock.getLocation();
-        World world = location.getWorld();
-
-        world.dropItemNaturally(location, new ItemStack(material));
     }
 }

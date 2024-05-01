@@ -1,4 +1,4 @@
-package io.github.alathra.alathraskills.skills.woodcutting;
+package io.github.alathra.alathraskills.skills.farming.fastharvest;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
@@ -8,20 +8,19 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.Collections;
 import java.util.List;
 
-public class OneSwingThreeSkill extends Skill {
+public class FastHarvestSeven extends Skill {
 
-    private static SkillsManager skillsManager;
+    private SkillsManager skillsManager;
 
-    public OneSwingThreeSkill(int id) {
-        super(id, "One Swing 3", "Even more time, and even lower cooldown.");
+    public FastHarvestSeven(int id, String name, String description) {
+        super(id, "Fast Harvest 7", "Get a chance to harvest crops in a wider area!");
 
-        ItemStack icon = new ItemStack(Material.NETHERITE_AXE);
+        ItemStack icon = new ItemStack(Material.IRON_HOE);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
-        meta.lore(List.of(ColorParser.of("<yellow>Level 10</yellow>").build(),
+        meta.lore(List.of(ColorParser.of("<yellow>Level 7</yellow>").build(),
             ColorParser.of("<red><italics>" + super.getDescription() + "</gray></italics>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
@@ -29,4 +28,5 @@ public class OneSwingThreeSkill extends Skill {
         skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(3));
     }
+
 }

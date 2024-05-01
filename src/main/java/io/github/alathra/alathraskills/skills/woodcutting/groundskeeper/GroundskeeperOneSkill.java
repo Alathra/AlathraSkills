@@ -1,4 +1,4 @@
-package io.github.alathra.alathraskills.skills.woodcutting;
+package io.github.alathra.alathraskills.skills.woodcutting.groundskeeper;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
@@ -35,28 +35,5 @@ public class GroundskeeperOneSkill extends Skill {
 
         skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(3));
-    }
-
-
-
-    // TODO: possibly refactor this skill run
-    public static void runGroundskeeperOneSkill(BlockBreakEvent event) {
-        Block block = event.getBlock();
-        Material material = block.getType();
-        Location location = block.getLocation();
-
-        List<Block> blockList = new ArrayList<>();
-        blockList.add(block.getRelative(1, 0, 0));
-        blockList.add(block.getRelative(0, 1, 0));
-        blockList.add(block.getRelative(0, 0, 1));
-        blockList.add(block.getRelative(1, 0, 1));
-        blockList.add(block.getRelative(1, 1, 0));
-        blockList.add(block.getRelative(0, 1, 1));
-        blockList.add(block.getRelative(1, 1, 1));
-
-        blockList.forEach(Block::breakNaturally);
-
-        if (Math.random() <= 0.15)
-            location.getWorld().dropItemNaturally(location, new ItemStack(material, 2));
     }
 }
