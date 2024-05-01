@@ -5,9 +5,11 @@ import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.mining.util.OreInTheRough;
+import io.github.alathra.alathraskills.skills.mining.util.ProudProspector;
 import io.github.alathra.alathraskills.skills.mining.util.Spelunker;
 import io.github.alathra.alathraskills.skills.mining.util.VeinBreaker;
 import io.github.alathra.alathraskills.skills.mining.util.helper.MiningData;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
@@ -34,60 +36,16 @@ public class MiningSkillsListener implements Listener {
 
         SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillPlayers().get(player.getUniqueId());
 
-
         // ORE IN THE ROUGH SKILL
         if (MiningData.getNaturalStoneBlocks().contains(material)) {
             OreInTheRough.run(block, 5);
         }
 
-        boolean tagged = false;
-        for (Tag tag : VeinBreaker.oreTags) {
-            if (tag.isTagged(material)) {
-                tagged = true;
-                break;
-            }
+        // PROUD PROSPECTOR & VEIN BREAKER SKILL
+        if (MiningData.getOres().contains(material)) {
+            ProudProspector.run(event, 6);
+            VeinBreaker.run(block, player, 7);
         }
-        if (tagged) {
-            if (skillsPlayer.getPlayerSkills().get(201).isSelected()) {
-                if (skillsPlayer.getPlayerSkills().get(202).isSelected()) {
-                    if (skillsPlayer.getPlayerSkills().get(204).isSelected()) {
-                        if (skillsPlayer.getPlayerSkills().get(2110).isSelected()) {
-                            VeinBreaker.runVeinBreaker(player, block, 3);
-                        } else {
-                            VeinBreaker.runVeinBreaker(player, block, 2);
-                        }
-                    } else {
-                        VeinBreaker.runVeinBreaker(player, block, 2);
-                    }
-                } else {
-                    VeinBreaker.runVeinBreaker(player, block, 2);
-                }
-            }
-        }
-    }
-
-
-    @EventHandler
-    public void BlockDamageListener(BlockDamageEvent event) {
-        SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillPlayers().get(event.getPlayer().getUniqueId());
-
-        if (!Tag.ITEMS_PICKAXES.isTagged(event.getItemInHand().getType()))
-            return;
-
-        boolean tagged = false;
-        for (Tag tag : VeinBreaker.oreTags) {
-            if (tag.isTagged(event.getBlock().getType())) {
-                tagged = true;
-                break;
-            }
-        }
-        if (!tagged)
-            return;
-
-        if (!skillsPlayer.getPlayerSkills().get(204).isSelected())
-            return;
-
-        event.setInstaBreak(true);
     }
 
     // Calls the "Spelunker" skill
