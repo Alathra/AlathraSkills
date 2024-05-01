@@ -38,6 +38,10 @@ repositories {
             includeGroup("com.github.MilkBowl")
         }
     }
+
+	// mcMMO
+    maven("https://maven.enginehub.org/repo/")
+    maven("https://nexus.neetgames.com/repository/maven-releases/")
 }
 
 dependencies {
@@ -59,6 +63,7 @@ dependencies {
     implementation("dev.triumphteam:triumph-gui:3.1.7") {
         exclude("net.kyori")
     }
+
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
 
     // Database Dependencies
@@ -74,6 +79,12 @@ dependencies {
     library("com.h2database:h2:2.2.224")
     library("com.mysql:mysql-connector-j:8.3.0")
     library("org.mariadb.jdbc:mariadb-java-client:3.3.3")
+    
+	// mcMMO
+    compileOnly("com.gmail.nossr50.mcMMO:mcMMO:2.2.004") {
+		exclude("com.sk89q.worldguard", "worldguard-bukkit")
+		exclude("org.bstats", "bstats-bukkit")
+    }
 }
 
 tasks {
@@ -123,6 +134,9 @@ tasks {
         mergeServiceFiles {
             setPath("META-INF/services/org.flywaydb.core.extensibility.Plugin") // Fix Flyway overriding its own files
         }
+
+		// mcMMO
+        reloc("com.gmail.nossr50.mcMMO", "mcmmo")
 
         minimize()
     }

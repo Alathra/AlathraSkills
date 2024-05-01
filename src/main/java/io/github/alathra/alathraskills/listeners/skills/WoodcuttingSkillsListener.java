@@ -5,7 +5,11 @@ import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.woodcutting.*;
+import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerOneSkill;
+import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerTwoSkill;
+import io.github.alathra.alathraskills.skills.woodcutting.util.Groundskeeper;
 import io.github.alathra.alathraskills.skills.woodcutting.util.OneSwing;
+import io.github.alathra.alathraskills.skills.woodcutting.util.PreciseChop;
 import io.github.alathra.alathraskills.utility.PDCUtil;
 import org.bukkit.Material;
 import org.bukkit.Tag;
@@ -41,9 +45,12 @@ public class WoodcuttingSkillsListener implements Listener {
 
             if (skillsPlayer.getPlayerSkills().get(302).isSelected()) {
                 if (skillsPlayer.getPlayerSkills().get(303).isSelected()) {
-                    PreciseChopTwoSkill.runPreciseChopTwoSkill(block);
+                    if (skillsPlayer.getPlayerSkills().get(310).isSelected()) {
+                        PreciseChop.runPreciseChopSkill(block, 0.2);
+                    }
+                    PreciseChop.runPreciseChopSkill(block, 0.1);
                 } else {
-                    PreciseChopOneSkill.runPreciseChopOneSkill(block);
+                    PreciseChop.runPreciseChopSkill(block, 0.05);
                 }
             }
 
@@ -52,8 +59,24 @@ public class WoodcuttingSkillsListener implements Listener {
             } else if (OneSwing.oneSwingActive(player)) {
                 if (skillsPlayer.getPlayerSkills().get(305).isSelected()) {
                     if (skillsPlayer.getPlayerSkills().get(309).isSelected()) {
-                        if (skillsPlayer.getPlayerSkills().get(3110).isSelected()) {
-                            OneSwing.runOneSwing(player, block, 3);
+                        if (skillsPlayer.getPlayerSkills().get(3112).isSelected()) {
+                            if (skillsPlayer.getPlayerSkills().get(3114).isSelected()) {
+                                if (skillsPlayer.getPlayerSkills().get(3115).isSelected()) {
+                                    if (skillsPlayer.getPlayerSkills().get(3117).isSelected()) {
+                                        if (skillsPlayer.getPlayerSkills().get(3120).isSelected()) {
+                                            OneSwing.runOneSwing(player, block, 7);
+                                        } else {
+                                            OneSwing.runOneSwing(player, block, 6);
+                                        }
+                                    } else {
+                                        OneSwing.runOneSwing(player, block, 5);
+                                    }
+                                } else {
+                                    OneSwing.runOneSwing(player, block, 4);
+                                }
+                            } else {
+                                OneSwing.runOneSwing(player, block, 3);
+                            }
                         } else {
                             OneSwing.runOneSwing(player, block, 2);
                         }
@@ -77,9 +100,29 @@ public class WoodcuttingSkillsListener implements Listener {
 
             if (skillsPlayer.getPlayerSkills().get(306).isSelected()) {
                 if (skillsPlayer.getPlayerSkills().get(308).isSelected()) {
-                    GroundskeeperTwoSkill.runGroundskeeperTwoSkill(event);
+                    if (skillsPlayer.getPlayerSkills().get(3111).isSelected()) {
+                        if (skillsPlayer.getPlayerSkills().get(3113).isSelected()) {
+                            if (skillsPlayer.getPlayerSkills().get(3116).isSelected()) {
+                                if (skillsPlayer.getPlayerSkills().get(3118).isSelected()) {
+                                    if (skillsPlayer.getPlayerSkills().get(3119).isSelected()) {
+                                        Groundskeeper.runGroundskeeperSkill(event, 4, 4, 4, 0.75, 16);
+                                    } else {
+                                        Groundskeeper.runGroundskeeperSkill(event, 3, 3, 3, 0.65, 7);
+                                    }
+                                } else {
+                                    Groundskeeper.runGroundskeeperSkill(event, 3, 3, 3, 0.55, 7);
+                                }
+                            } else {
+                                Groundskeeper.runGroundskeeperSkill(event, 2, 3, 2, 0.45, 3);
+                            }
+                        } else {
+                            Groundskeeper.runGroundskeeperSkill(event, 2, 3, 2, 0.35, 3);
+                        }
+                    } else {
+                        Groundskeeper.runGroundskeeperSkill(event, 2, 2, 2, 0.25, 2);
+                    }
                 } else {
-                    GroundskeeperOneSkill.runGroundskeeperOneSkill(event);
+                    Groundskeeper.runGroundskeeperSkill(event, 2, 2, 2, 0.15, 2);
                 }
             }
         }
