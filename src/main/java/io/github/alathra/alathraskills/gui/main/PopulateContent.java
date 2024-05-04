@@ -6,6 +6,7 @@ import dev.triumphteam.gui.guis.Gui;
 import dev.triumphteam.gui.guis.GuiItem;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
+import io.github.alathra.alathraskills.gui.GuiHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -59,9 +60,11 @@ public class PopulateContent {
 
         gui.setItem(0, ItemBuilder.from(expToNext).asGuiItem());
         gui.setItem(1, ItemBuilder.from(availableSkillPoints).asGuiItem());
-        gui.setItem(4, ItemBuilder.from(openSkillTrees).asGuiItem());
+        gui.setItem(4, ItemBuilder.from(openSkillTrees).asGuiItem(event -> {
+            GuiHelper.openSkillGui(player);
+        }));
         gui.setItem(7, ItemBuilder.from(totalExpItem).asGuiItem());
-        gui.setItem(8, ItemBuilder.from(exit).asGuiItem(event -> gui.close(gui.getInventory().getViewers().get(0))));
+        gui.setItem(8, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
     }
 
 }

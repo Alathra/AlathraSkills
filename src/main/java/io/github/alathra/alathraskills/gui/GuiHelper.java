@@ -1,7 +1,9 @@
 package io.github.alathra.alathraskills.gui;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
+import dev.triumphteam.gui.builder.gui.PaginatedBuilder;
 import dev.triumphteam.gui.guis.Gui;
+import dev.triumphteam.gui.guis.PaginatedGui;
 import org.bukkit.entity.Player;
 
 public class GuiHelper {
@@ -39,14 +41,32 @@ public class GuiHelper {
         return gui;
     }
 
+    public static void openSkillGui(Player player) {
+        Gui gui = GuiHelper.buildGui(GuiHelper.GuiType.SKILL);
+        GuiHelper.populateSkillGui(gui, player);
+        gui.open(player);
+    }
+
+    public static PaginatedGui buildSkillGui() {
+        PaginatedGui gui;
+        gui = Gui.paginated()
+            .rows(6)
+            .title(ColorParser.of("<dark_grey>[<gradient:#ffff80:#00ff00>AlathraSkills</gradient><dark_grey>]").build())
+            .disableItemDrop()
+            .disableItemPlace()
+            .disableItemSwap().
+            disableItemTake()
+            .create();
+        return gui;
+    }
+
     public static void populateMainGui(Gui gui, Player player) {
         io.github.alathra.alathraskills.gui.main.PopulateContent.populateContent(gui, player);
     }
 
-    public static void populateSkillGui(Gui gui) {
-        io.github.alathra.alathraskills.gui.skill.PopulateBorders.populateBorders(gui);
-        io.github.alathra.alathraskills.gui.skill.PopulateButtons.populateButtons(gui);
-        io.github.alathra.alathraskills.gui.skill.PopulateContent.populateContent(gui);
+    public static void populateSkillGui(Gui gui, Player player) {
+        io.github.alathra.alathraskills.gui.skill.PopulateButtons.populateButtons(gui, player);
+        io.github.alathra.alathraskills.gui.skill.PopulateContent.populateContent(gui, player);
     }
 
 }
