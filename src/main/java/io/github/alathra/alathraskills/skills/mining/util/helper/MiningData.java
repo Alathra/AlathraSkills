@@ -40,4 +40,15 @@ public class MiningData {
         ores.add(Material.DEEPSLATE_REDSTONE_ORE);
         return ores;
     }
+
+    public static ArrayList<Material> getPickaxes() {
+        ArrayList<Material> pickaxes = new ArrayList<>();
+        pickaxes.add(Material.DIAMOND_PICKAXE);
+        pickaxes.add(Material.IRON_PICKAXE);
+        pickaxes.add(Material.GOLDEN_PICKAXE);
+        pickaxes.add(Material.NETHERITE_PICKAXE);
+        pickaxes.add(Material.STONE_PICKAXE);
+        pickaxes.add(Material.WOODEN_PICKAXE);
+        return pickaxes;
+    }
 }
