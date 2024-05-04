@@ -1,6 +1,5 @@
 package io.github.alathra.alathraskills.listeners.skills;
 
-import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
@@ -8,23 +7,19 @@ import io.github.alathra.alathraskills.skills.mining.util.OreInTheRough;
 import io.github.alathra.alathraskills.skills.mining.util.ProudProspector;
 import io.github.alathra.alathraskills.skills.mining.util.Spelunker;
 import io.github.alathra.alathraskills.skills.mining.util.VeinBreaker;
-import io.github.alathra.alathraskills.skills.mining.util.helper.EasyPicking;
+import io.github.alathra.alathraskills.skills.mining.util.EasyPicking;
 import io.github.alathra.alathraskills.skills.mining.util.helper.MiningData;
 import io.github.alathra.alathraskills.utility.PDCUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
 
 public class MiningSkillsListener implements Listener {
 

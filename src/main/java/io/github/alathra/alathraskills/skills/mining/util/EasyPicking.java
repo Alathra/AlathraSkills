@@ -1,8 +1,7 @@
-package io.github.alathra.alathraskills.skills.mining.util.helper;
+package io.github.alathra.alathraskills.skills.mining.util;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
-import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
