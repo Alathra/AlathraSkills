@@ -37,6 +37,7 @@ public class WoodcuttingSkillsListener implements Listener {
             return;
 
         if (Tag.LOGS.isTagged(block.getType())) {
+            PreciseChop.run(block, 7);
             if (Tag.DIRT.isTagged(block.getRelative(BlockFace.DOWN).getType())) {
                 SaveTheTrees.run(block, player);
             }
