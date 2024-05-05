@@ -61,7 +61,7 @@ public class PopulateContent {
         gui.setItem(0, ItemBuilder.from(expToNext).asGuiItem());
         gui.setItem(1, ItemBuilder.from(availableSkillPoints).asGuiItem());
         gui.setItem(4, ItemBuilder.from(openSkillTrees).asGuiItem(event -> {
-            GuiHelper.openSkillGui(player);
+            GuiHelper.openSkillCategoryGui(player);
         }));
         gui.setItem(7, ItemBuilder.from(totalExpItem).asGuiItem());
         gui.setItem(8, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));

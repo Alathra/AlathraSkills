@@ -39,6 +39,7 @@ public class SkillsManager implements Reloadable {
     // Id, Skill
     public HashMap<Integer, Skill> woodcuttingSkills = new HashMap<>();
     public HashMap<Integer, Skill> farmingSkills = new HashMap<>();
+    public HashMap<Integer, Skill> miningSkills = new HashMap<>();
 
 
     public SkillsManager(AlathraSkills plugin) {
@@ -71,6 +72,7 @@ public class SkillsManager implements Reloadable {
 
     public void loadSkills() {
         loadWoodcuttingSkills();
+        loadFarmingSkills();
     }
 
     public void loadWoodcuttingSkills() {
