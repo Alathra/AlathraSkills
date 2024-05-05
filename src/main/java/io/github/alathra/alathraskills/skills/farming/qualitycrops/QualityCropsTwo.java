@@ -17,11 +17,11 @@ public class QualityCropsTwo extends Skill {
     public QualityCropsTwo(int id) {
         super(id, "Quality Crops 2", "Get a chance to breed more animals!");
 
-        ItemStack icon = new ItemStack(Material.LEAD);
+        ItemStack icon = new ItemStack(Material.LEAD, 2);
         ItemMeta meta = icon.getItemMeta();
-        meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
+        meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 2</yellow>").build(),
-            ColorParser.of("<red><italics>" + super.getDescription() + "</red></italics>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
