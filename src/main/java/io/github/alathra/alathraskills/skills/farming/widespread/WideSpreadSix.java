@@ -17,7 +17,7 @@ public class WideSpreadSix extends Skill {
     public WideSpreadSix(int id) {
         super(id, "Wide Spread 6", "Get a chance to sow seeds in a wider area!");
 
-        ItemStack icon = new ItemStack(Material.IRON_HOE, 6);
+        ItemStack icon = new ItemStack(Material.WHEAT_SEEDS, 6);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 6</yellow>").build(),
@@ -26,7 +26,7 @@ public class WideSpreadSix extends Skill {
         super.setIcon(icon);
 
         skillsManager = AlathraSkills.getSkillsManager();
-        super.setCategory(skillsManager.skillCategories.get(3));
+        super.setCategory(skillsManager.skillCategories.get(1));
     }
 
 }

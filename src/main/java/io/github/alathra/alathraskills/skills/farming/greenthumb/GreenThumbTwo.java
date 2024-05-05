@@ -17,7 +17,7 @@ public class GreenThumbTwo extends Skill {
     public GreenThumbTwo(int id) {
         super(id, "Green Thumb 2", "Get a chance to bone meal crops in a wider area!");
 
-        ItemStack icon = new ItemStack(Material.IRON_HOE, 2);
+        ItemStack icon = new ItemStack(Material.BONE_MEAL, 2);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 2</yellow>").build(),
@@ -26,6 +26,6 @@ public class GreenThumbTwo extends Skill {
         super.setIcon(icon);
 
         skillsManager = AlathraSkills.getSkillsManager();
-        super.setCategory(skillsManager.skillCategories.get(3));
+        super.setCategory(skillsManager.skillCategories.get(1));
     }
 }

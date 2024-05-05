@@ -26,7 +26,7 @@ public class FastHarvestSix extends Skill {
         super.setIcon(icon);
 
         skillsManager = AlathraSkills.getSkillsManager();
-        super.setCategory(skillsManager.skillCategories.get(3));
+        super.setCategory(skillsManager.skillCategories.get(1));
     }
 
 }
