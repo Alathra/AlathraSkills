@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class PreciseChop {
 
-    public static void runPreciseChopSkill(Block block, double chance) {
+    public static void run(Block block, double chance) {
         if (Math.random() > chance)
             return;
 

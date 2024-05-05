@@ -1,4 +1,4 @@
-package io.github.alathra.alathraskills.skills.mining.EasyPicking;
+package io.github.alathra.alathraskills.skills.mining.easypicking;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
@@ -10,17 +10,17 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-public class EasyPickingOne extends Skill {
+public class EasyPickingThree extends Skill {
 
     private static SkillsManager skillsManager;
 
-    public EasyPickingOne(int id) {
-        super(id, "Easy Picking 1", "Have a chance to get double drops from ores.");
+    public EasyPickingThree(int id) {
+        super(id, "Easy Picking 3", "Have a chance to get double drops from ores.");
 
         ItemStack icon = new ItemStack(Material.IRON_HELMET);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<cyan><bold>" + super.getName() + "</cyan></bold>").build());
-        meta.lore(List.of(ColorParser.of("<yellow>Level 1</yellow>").build(),
+        meta.lore(List.of(ColorParser.of("<yellow>Level 3</yellow>").build(),
             ColorParser.of("<orange><italics>" + super.getDescription() + "</orange></italics>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);

@@ -79,6 +79,7 @@ public class MiningSkillsListener implements Listener {
 
     }
 
+    // calls "Easy Picking" skill
     @EventHandler
     public void PlayerInteractListener(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
