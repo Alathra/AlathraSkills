@@ -4,6 +4,7 @@ import io.github.alathra.alathraskills.utility.PDCUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -12,6 +13,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.world.StructureGrowEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 public class PDCUnnaturalBlockHandler implements Listener {
@@ -44,8 +46,21 @@ public class PDCUnnaturalBlockHandler implements Listener {
         }
     }
 
-    @EventHandler()
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void BlockGrownByTreeListener(StructureGrowEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
+        for (BlockState blockState : event.getBlocks()) {
+            PDCUtil.clearUnnatural(blockState.getBlock());
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void PDCTest(PlayerInteractEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (event.getHand() == EquipmentSlot.HAND) {
                 if (event.getPlayer().getInventory().getItemInMainHand() == null || event.getPlayer().getInventory().getItemInMainHand().getType() == Material.AIR)
