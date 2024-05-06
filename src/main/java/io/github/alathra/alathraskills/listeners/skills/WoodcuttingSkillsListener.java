@@ -27,7 +27,7 @@ public class WoodcuttingSkillsListener implements Listener {
 
     private SkillsPlayerManager skillsPlayerManager = AlathraSkills.getSkillsPlayerManager();
 
-    // TODO: clean up skill check logic
+    // calls "Precise Chop", "Save the Trees" and "Groundskeeper"
     @EventHandler
     public void BlockBreakListener(BlockBreakEvent event) {
         Block block = event.getBlock();
@@ -40,6 +40,12 @@ public class WoodcuttingSkillsListener implements Listener {
             PreciseChop.run(block, 7);
             if (Tag.DIRT.isTagged(block.getRelative(BlockFace.DOWN).getType())) {
                 SaveTheTrees.run(block, player);
+            }
+        }
+
+        if (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.SHEARS) {
+            if (Tag.LEAVES.isTagged(block.getType())) {
+                Groundskeeper.run(block, 7);
             }
         }
 

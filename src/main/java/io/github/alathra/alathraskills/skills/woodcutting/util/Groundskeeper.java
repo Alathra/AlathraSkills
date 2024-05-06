@@ -5,7 +5,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -13,36 +12,87 @@ import java.util.List;
 
 public class Groundskeeper {
 
-    public static void runGroundskeeperSkill(BlockBreakEvent event, int x1, int y1, int z1, double chance, int leaves) {
-        Block block = event.getBlock();
+    public static void run(Block block, int skillLevel) {
         Material material = block.getType();
         Location location = block.getLocation();
 
         List<Block> blockList = new ArrayList<>();
 
-        int x2, y2, z2 = 0;
-        for (x2 = 0; x2 < x1; x2++) {
-            for (y2 = 0; y2 < y1; y2++) {
-                for (z2 = 0; z2 < z1; z2++) {
-                    if (x2 == 0 || y2 == 0 || z2 == 0)
+        int x, y, z = 0;
+        for (x = 0; x < getXLimit(skillLevel); x++) {
+            for (y = 0; y < getYLimit(skillLevel); y++) {
+                for (z = 0; z < getZLimit(skillLevel); z++) {
+                    if (x == 0 || y == 0 || z == 0) {
                         continue;
-
-                    blockList.add(block.getRelative(x2, y2, z2));
+                    }
+                    blockList.add(block.getRelative(x, y, z));
                 }
-                blockList.add(block.getRelative(x2, y2, z2));
+                blockList.add(block.getRelative(x, y, z));
             }
-            blockList.add(block.getRelative(x2, y2, z2));
+            blockList.add(block.getRelative(x, y, z));
         }
 
         blockList.forEach(b -> {
             if (!PDCUtil.isUnnatural(b)) {
-                if (Tag.LEAVES.isTagged(b.getType()))
+                if (Tag.LEAVES.isTagged(b.getType())) {
                     b.breakNaturally(new ItemStack(Material.SHEARS));
+                }
             }
         });
 
-        if (Math.random() <= chance)
-            location.getWorld().dropItemNaturally(location, new ItemStack(material, leaves));
+        // Extra drops
+        if (Math.random() <= getExtraDropsChance(skillLevel))
+            location.getWorld().dropItemNaturally(location, new ItemStack(material, getExtraDrops(skillLevel)));
+    }
+
+    private static int getExtraDrops(int skillLevel) {
+        return switch (skillLevel) {
+            case 1, 2 -> 2;
+            case 3, 4 -> 3;
+            case 5, 6 -> 7;
+            case 7 -> 16;
+            default -> 0;
+        };
+    }
+
+    private static double getExtraDropsChance(int skillLevel) {
+        return switch (skillLevel) {
+            case 1 -> 0.15;
+            case 2 -> 0.25;
+            case 3 -> 0.35;
+            case 4 -> 0.45;
+            case 5 -> 0.55;
+            case 6 -> 0.65;
+            case 7 -> 0.75;
+            default -> 0;
+        };
+    }
+
+    private static int getXLimit(int skillLevel) {
+        return switch (skillLevel) {
+            case 1, 2, 3, 4 -> 2;
+            case 5, 6 -> 3;
+            case 7 -> 4;
+            default -> 0;
+        };
+    }
+
+    private static int getYLimit(int skillLevel) {
+        return switch (skillLevel) {
+            case 1, 2 -> 2;
+            case 3, 4, 5, 6 -> 3;
+            case 7 -> 4;
+            default -> 0;
+        };
+    }
+
+    private static int getZLimit(int skillLevel) {
+        return switch (skillLevel) {
+            case 1, 2, 3, 4 -> 2;
+            case 5, 6 -> 3;
+            case 7 -> 4;
+            default -> 0;
+        };
     }
 
 }
