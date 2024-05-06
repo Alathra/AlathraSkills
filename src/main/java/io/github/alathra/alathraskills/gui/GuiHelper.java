@@ -39,12 +39,6 @@ public class GuiHelper {
         return gui;
     }
 
-    public static void openSkillCategoryGui(Player player) {
-        Gui gui = GuiHelper.buildGui(GuiHelper.GuiType.SKILL);
-        GuiHelper.populateSkillCategoryGui(gui, player);
-        gui.open(player);
-    }
-
     public static Gui buildSkillGui() {
         Gui gui;
         gui = Gui.gui()
@@ -52,10 +46,41 @@ public class GuiHelper {
             .title(ColorParser.of("<dark_grey>[<gradient:#ffff80:#00ff00>AlathraSkills</gradient><dark_grey>]").build())
             .disableItemDrop()
             .disableItemPlace()
-            .disableItemSwap().
-            disableItemTake()
+            .disableItemSwap()
+            .disableItemTake()
             .create();
         return gui;
+    }
+
+    public static Gui buildConfirmGui() {
+        Gui gui;
+        gui = Gui.gui()
+            .rows(1)
+            .title(ColorParser.of("<dark_grey>[<gradient:#ffff80:#00ff00>AlathraSkills</gradient><dark_grey>]").build())
+            .disableItemDrop()
+            .disableItemPlace()
+            .disableItemSwap()
+            .disableItemTake()
+            .create();
+        return gui;
+    }
+
+    public static void openSkillCategoryGui(Player player) {
+        Gui gui = buildGui(GuiHelper.GuiType.SKILL);
+        populateSkillCategoryGui(gui, player);
+        gui.open(player);
+    }
+
+    public static void openSkillGui(Player player, int skillCategoryId, int page) {
+        Gui gui = buildSkillGui();
+        populateSkillGui(gui, player, skillCategoryId, page);
+        gui.open(player);
+    }
+
+    public static void openConfirmGui(Player player, int skill, int skillCategoryId, int page) {
+        Gui gui = buildConfirmGui();
+        populateConfirmGui(gui, player, skill, skillCategoryId, page);
+        gui.open(player);
     }
 
     public static void populateMainGui(Gui gui, Player player) {
@@ -72,10 +97,8 @@ public class GuiHelper {
         io.github.alathra.alathraskills.gui.skill.PopulateContent.populateContent(gui, player, skillCategoryId, page);
     }
 
-    public static void openSkillGui(Player player, int skillCategoryId, int page) {
-        Gui gui = buildSkillGui();
-        populateSkillGui(gui, player, skillCategoryId, page);
-        gui.open(player);
+    public static void populateConfirmGui(Gui gui, Player player, int skill, int skillCategoryId, int page) {
+        io.github.alathra.alathraskills.gui.confirm.PopulateContent.populateContent(gui, player, skill, skillCategoryId, page);
     }
 
 }
