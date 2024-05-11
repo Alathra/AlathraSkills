@@ -1,13 +1,9 @@
 package io.github.alathra.alathraskills.listeners.skills;
 
-import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
-import io.github.alathra.alathraskills.api.SkillDetails;
-import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.woodcutting.util.*;
 import io.github.alathra.alathraskills.utility.PDCUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
@@ -19,9 +15,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
-
-import java.util.HashMap;
 
 public class WoodcuttingSkillsListener implements Listener {
 
@@ -73,32 +66,11 @@ public class WoodcuttingSkillsListener implements Listener {
 
     @EventHandler
     public void RightClickListener(PlayerInteractEvent event) {
-        SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillPlayers().get(event.getPlayer().getUniqueId());
-        HashMap<Integer, SkillDetails> playerSkills = new HashMap<>(skillsPlayer.getPlayerSkills());
-
-        if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            if (event.getHand() == EquipmentSlot.OFF_HAND)
-                return;
-
-            if (!event.hasItem())
-                return;
-
-            if (!Tag.ITEMS_AXES.isTagged(event.getMaterial()))
-                return;
-
-            // Return if right click logs
-            if (Tag.LOGS.isTagged(event.getClickedBlock().getType()))
-                return;
-
-            Player player = event.getPlayer();
-
-            if (playerSkills.get(305).isSelected()) {
-                if (OneSwing.hasOneSwingCooldown(player)) {
-                    player.sendActionBar(ColorParser.of("<dark_red>One Swing isn't ready yet. Cooldown remaining: " + OneSwing.getRemainingCooldown(player) + " seconds.").build());
-                    return;
-                }
-                OneSwing.readyOneSwing(player);
-            }
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
+            return;
+        }
+        Block block = event.getClickedBlock();
+        if (Tag.LOGS.isTagged(block.getType())) {
         }
     }
 }

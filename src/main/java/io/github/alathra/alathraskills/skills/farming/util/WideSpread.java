@@ -28,7 +28,7 @@ public class WideSpread {
                         break;
                 }
             }
-        }.runTaskLater(AlathraSkills.getInstance(), 2);
+        }.runTaskLaterAsynchronously(AlathraSkills.getInstance(), 2);
 
     }
 
