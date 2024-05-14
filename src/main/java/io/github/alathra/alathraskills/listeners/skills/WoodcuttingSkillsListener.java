@@ -4,7 +4,6 @@ import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.woodcutting.util.*;
 import io.github.alathra.alathraskills.utility.PDCUtil;
-import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -15,6 +14,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 public class WoodcuttingSkillsListener implements Listener {
 
@@ -31,14 +31,9 @@ public class WoodcuttingSkillsListener implements Listener {
 
         if (Tag.LOGS.isTagged(block.getType())) {
             PreciseChop.run(block, 7);
+            OneSwing.run(player, block, 7);
             if (Tag.DIRT.isTagged(block.getRelative(BlockFace.DOWN).getType())) {
                 SaveTheTrees.run(block, player);
-            }
-        }
-
-        if (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.SHEARS) {
-            if (Tag.LEAVES.isTagged(block.getType())) {
-                Groundskeeper.run(block, 7);
             }
         }
 
@@ -64,13 +59,30 @@ public class WoodcuttingSkillsListener implements Listener {
         Trimmer.run(event, 7);
     }
 
+    // used to activate "One Swing"
     @EventHandler
     public void RightClickListener(PlayerInteractEvent event) {
-        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
+        // event only needs to be run once
+        if (event.getHand() == EquipmentSlot.OFF_HAND) {
             return;
         }
-        Block block = event.getClickedBlock();
-        if (Tag.LOGS.isTagged(block.getType())) {
+        // if no item in main hand
+        if (!event.hasItem()) {
+            return;
+        }
+        // if the item in main hand is not an axe
+        if (!Tag.ITEMS_AXES.isTagged(event.getItem().getType())) {
+            return;
+        }
+        // if not a right click, return;
+        if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
+            // make sure stripping logs does not activate skill
+            if (event.getClickedBlock() != null) {
+                if (Tag.LOGS.isTagged(event.getClickedBlock().getType())) {
+                    return;
+                }
+            }
+            OneSwing.activate(event.getPlayer(), 7);
         }
     }
 }
