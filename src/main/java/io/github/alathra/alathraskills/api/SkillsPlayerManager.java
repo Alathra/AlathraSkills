@@ -116,7 +116,7 @@ public class SkillsPlayerManager implements Reloadable {
 		currentPlayer.setExperience(skillCategory, experienceValue);
 	}
 
-    //TODO: check if player has previous skill unlocked 
+    //TODO: check if player has previous skill unlocked
     public static boolean buySkill(Player p, Integer skill) {
         SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
         float totalExp = currentPlayer.getSkillCategoryExperience(1);
@@ -132,6 +132,50 @@ public class SkillsPlayerManager implements Reloadable {
             return false;
         addPlayerSkill(p, skill);
         return true;
+    }
+
+    public static boolean canSkillBeUnlocked(Player p, int skillCategoryId, int skill) {
+        if (skill == 101 || skill == 201 || skill == 301)
+            return true;
+
+        if (skill < 1000)
+            return playerHasSkill(p, skill - 1);
+
+        switch (skillCategoryId) {
+            case 1 -> {
+                if (skill == 1111 || skill == 1211)
+                    return playerHasSkill(p, 110);
+
+                if (skill > 1200)
+                    return playerHasSkill(p, skill - 1) && !playerHasSkill(p, 1111);
+                else
+                    return playerHasSkill(p, skill - 1) && !playerHasSkill(p, 1211);
+
+            }
+            case 2 -> {
+                if (skill == 2111 || skill == 2211)
+                    return playerHasSkill(p, 210);
+
+                if (skill > 2200)
+                    return playerHasSkill(p, skill - 1) && !playerHasSkill(p, 2111);
+                else
+                    return playerHasSkill(p, skill - 1) && !playerHasSkill(p, 2211);
+
+            }
+            case 3 -> {
+                if (skill == 3111 || skill == 3211)
+                    return playerHasSkill(p, 310);
+
+                if (skill > 3200)
+                    return playerHasSkill(p, skill - 1) && !playerHasSkill(p, 3111);
+                else
+                    return playerHasSkill(p, skill - 1) && !playerHasSkill(p, 3211);
+
+            }
+            default -> {
+                return false;
+            }
+        }
     }
 	
 	public static void addPlayerSkill(Player p, Integer skill) {

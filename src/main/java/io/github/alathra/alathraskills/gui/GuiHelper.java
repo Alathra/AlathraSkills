@@ -2,6 +2,9 @@ package io.github.alathra.alathraskills.gui;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.triumphteam.gui.guis.Gui;
+import io.github.alathra.alathraskills.api.SkillsPlayerManager;
+import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
 import org.bukkit.entity.Player;
 
 public class GuiHelper {
@@ -78,9 +81,13 @@ public class GuiHelper {
     }
 
     public static void openConfirmGui(Player player, int skill, int skillCategoryId, int page) {
-        Gui gui = buildConfirmGui();
-        populateConfirmGui(gui, player, skill, skillCategoryId, page);
-        gui.open(player);
+        if (SkillsPlayerManager.canSkillBeUnlocked(player, skillCategoryId, skill)) {
+            Gui gui = buildConfirmGui();
+            populateConfirmGui(gui, player, skill, skillCategoryId, page);
+            gui.open(player);
+            return;
+        }
+        player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.AMBIENT, 1, 1);
     }
 
     public static void populateMainGui(Gui gui, Player player) {

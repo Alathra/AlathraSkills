@@ -8,6 +8,8 @@ import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.gui.GuiHelper;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -30,8 +32,10 @@ public class PopulateContent {
         gui.setItem(6, ItemBuilder.from(confirm).asGuiItem(event -> {
             boolean buySkill = SkillsPlayerManager.buySkill(player, skill);
 
-            if (buySkill)
+            if (buySkill) {
                 GuiHelper.openSkillGui(player, skillCategoryId, page);
+                player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, SoundCategory.AMBIENT, 1, 1);
+            }
         }));
         gui.setItem(2, ItemBuilder.from(deny).asGuiItem(event -> GuiHelper.openSkillGui(player, skillCategoryId, page)));
 
