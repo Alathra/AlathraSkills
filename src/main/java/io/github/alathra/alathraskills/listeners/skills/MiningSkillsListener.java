@@ -42,6 +42,9 @@ public class MiningSkillsListener implements Listener {
             return;
         }
 
+        if (!event.isDropItems())
+            return;
+
         SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillPlayers().get(player.getUniqueId());
 
         // ORE IN THE ROUGH SKILL

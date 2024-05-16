@@ -28,6 +28,10 @@ public class WoodcuttingSkillsListener implements Listener {
 
         if (PDCUtil.isUnnatural(block))
             return;
+        if (event.isCancelled())    
+            return;
+        if (!event.isDropItems())
+            return;
 
         if (Tag.LOGS.isTagged(block.getType())) {
             PreciseChop.run(block, 7);
