@@ -86,12 +86,12 @@ public class PopulateContent {
     private static void populateMiningContent(Gui gui, Player player, int page) {
         switch (page) {
             case 1 -> {
-                gui.setItem(1, 5, ItemBuilder.from(skillsManager.miningSkills.get(201).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 201, 2, page));
-                gui.setItem(2, 5, ItemBuilder.from(skillsManager.miningSkills.get(202).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 202, 2, page));
-                gui.setItem(3, 5, ItemBuilder.from(skillsManager.miningSkills.get(203).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 203, 2, page));
-                gui.setItem(4, 5, ItemBuilder.from(skillsManager.miningSkills.get(204).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 204, 2, page));
-                gui.setItem(5, 5, ItemBuilder.from(skillsManager.miningSkills.get(205).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 205, 2, page));
-                gui.setItem(6, 5, ItemBuilder.from(skillsManager.miningSkills.get(206).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 206, 2, page));
+                gui.setItem(1, 5, ItemBuilder.from(skillsManager.miningSkills.get(201).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 201, 2, page)));
+                gui.setItem(2, 5, ItemBuilder.from(skillsManager.miningSkills.get(202).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 202, 2, page)));
+                gui.setItem(3, 5, ItemBuilder.from(skillsManager.miningSkills.get(203).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 203, 2, page)));
+                gui.setItem(4, 5, ItemBuilder.from(skillsManager.miningSkills.get(204).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 204, 2, page)));
+                gui.setItem(5, 5, ItemBuilder.from(skillsManager.miningSkills.get(205).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 205, 2, page)));
+                gui.setItem(6, 5, ItemBuilder.from(skillsManager.miningSkills.get(206).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 206, 2, page)));
             }
             case 2 -> {
                 gui.setItem(1, 5, ItemBuilder.from(skillsManager.miningSkills.get(206).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 206, 2, page)));
@@ -139,12 +139,12 @@ public class PopulateContent {
     private static void populateFarmingContent(Gui gui, Player player, int page) {
         switch (page) {
             case 1 -> {
-                gui.setItem(1, 5, ItemBuilder.from(skillsManager.farmingSkills.get(101).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 101, 1, page));
-                gui.setItem(2, 5, ItemBuilder.from(skillsManager.farmingSkills.get(102).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 102, 1, page));
-                gui.setItem(3, 5, ItemBuilder.from(skillsManager.farmingSkills.get(103).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 103, 1, page));
-                gui.setItem(4, 5, ItemBuilder.from(skillsManager.farmingSkills.get(104).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 104, 1, page));
-                gui.setItem(5, 5, ItemBuilder.from(skillsManager.farmingSkills.get(105).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 105, 1, page));
-                gui.setItem(6, 5, ItemBuilder.from(skillsManager.farmingSkills.get(106).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 106, 1, page));
+                gui.setItem(1, 5, ItemBuilder.from(skillsManager.farmingSkills.get(101).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 101, 1, page)));
+                gui.setItem(2, 5, ItemBuilder.from(skillsManager.farmingSkills.get(102).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 102, 1, page)));
+                gui.setItem(3, 5, ItemBuilder.from(skillsManager.farmingSkills.get(103).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 103, 1, page)));
+                gui.setItem(4, 5, ItemBuilder.from(skillsManager.farmingSkills.get(104).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 104, 1, page)));
+                gui.setItem(5, 5, ItemBuilder.from(skillsManager.farmingSkills.get(105).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 105, 1, page)));
+                gui.setItem(6, 5, ItemBuilder.from(skillsManager.farmingSkills.get(106).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 106, 1, page)));
             }
             case 2 -> {
                 gui.setItem(1, 5, ItemBuilder.from(skillsManager.farmingSkills.get(106).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, 106, 1, page)));
