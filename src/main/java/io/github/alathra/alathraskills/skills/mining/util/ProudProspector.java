@@ -12,14 +12,15 @@ public class ProudProspector {
         if (Math.random() >= getChance(skillLevel))
             return;
 
-        if (event.isCancelled()) {
+        if (event.isCancelled())
             return;
-        }
 
         // If there are no drops, return
-        if (event.getBlock().getDrops().isEmpty()) {
+        if (event.getBlock().getDrops().isEmpty())
             return;
-        }
+
+        if (!event.isDropItems())
+            return;
 
         // If tool is silk touch, drop an ore block
         ItemStack tool = event.getPlayer().getInventory().getItemInMainHand();

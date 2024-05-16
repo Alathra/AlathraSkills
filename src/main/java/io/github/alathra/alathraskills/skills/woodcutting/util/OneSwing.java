@@ -1,15 +1,26 @@
 package io.github.alathra.alathraskills.skills.woodcutting.util;
 
+import io.github.alathra.alathraskills.skills.woodcutting.util.helper.ChopWorker;
+import io.github.alathra.alathraskills.utility.PDCUtil;
+
+
 import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.Bukkit;
+
 
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.UUID;
+import org.bukkit.Sound;
 
 public class OneSwing {
 
@@ -26,6 +37,48 @@ public class OneSwing {
             return;
         }
         // TODO: Choppity chop!
+        if (ChopWorker.isLog(block) && ChopWorker.isTree(block)) {
+            ArrayList<Block> blocks = new ArrayList<>(ChopWorker.getLogsToPop(block));
+			BlockBreakEvent event = new BlockBreakEvent(block, player);
+            event.setDropItems(false);
+			Bukkit.getPluginManager().callEvent(event);
+			if (event.isCancelled()) {
+                return;
+			}
+            ItemStack tool = player.getInventory().getItemInMainHand();
+			block.breakNaturally();
+            for (Block log : blocks) {
+			    BlockBreakEvent event2 = new BlockBreakEvent(log, player);
+                event2.setDropItems(false);
+                Bukkit.getPluginManager().callEvent(event2);
+                if (event2.isCancelled()) {
+                    continue;
+                }
+                if (PDCUtil.isUnnatural(log)) {
+                    continue;
+                }
+                log.getWorld().playSound(block.getLocation(), Sound.BLOCK_WOOD_BREAK, 0.95F, 0.6F + Math.min(0.015F*(float)(8-skillLevel), 1.8F));
+                log.breakNaturally(tool);
+                for (BlockFace face : ChopWorker.leaffaces) {
+                    Block neighbor = log.getRelative(face);
+                    if (ChopWorker.isLeavesOrVines(neighbor)) {
+                        BlockBreakEvent event3 = new BlockBreakEvent(neighbor, player);
+                        event3.setDropItems(false);
+                        Bukkit.getPluginManager().callEvent(event3);
+                        if (event3.isCancelled()) {
+                            continue;
+                        }
+                        if (PDCUtil.isUnnatural(neighbor)) {
+                            continue;
+                        }
+                        neighbor.breakNaturally(tool);
+
+                    }
+                }
+
+            }
+        }
+        actives.remove(player.getUniqueId());
     }
 
     // Either pre-activate, activate or do nothing depending on current state

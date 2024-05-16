@@ -5,21 +5,22 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Groundskeeper {
-
     
 
-    public static void run(Block block, int skillLevel) {
+    public static void run(Player player, Block block, int skillLevel, ItemStack tool) {
         Material material = block.getType();
         Location location = block.getLocation();
-
+        if (tool.getType() == Material.AIR || tool == null) {
+            tool = new ItemStack(Material.SHEARS);
+        }
         List<Block> blockList = new ArrayList<>();
-
         int x, y, z = 0;
         for (x = 0; x < getXLimit(skillLevel); x++) {
             for (y = 0; y < getYLimit(skillLevel); y++) {
@@ -33,11 +34,12 @@ public class Groundskeeper {
             }
             blockList.add(block.getRelative(x, y, z));
         }
+        final ItemStack finalTool = tool;
 
         blockList.forEach(b -> {
             if (!PDCUtil.isUnnatural(b)) {
                 if (Tag.LEAVES.isTagged(b.getType())) {
-                    b.breakNaturally(new ItemStack(Material.SHEARS));
+                    b.breakNaturally(finalTool);
                 }
             }
         });
