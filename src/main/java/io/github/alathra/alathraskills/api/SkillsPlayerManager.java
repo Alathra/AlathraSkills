@@ -125,6 +125,14 @@ public class SkillsPlayerManager implements Reloadable {
 		SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
 		currentPlayer.removeSkill(skill);
 	}
+
+    public static boolean playerHasSkill(Player p, Integer skill) {
+        SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
+        SkillDetails skillDetails = currentPlayer.getPlayerSkills().get(skill);
+        if (skillDetails == null)
+            return false;
+        return currentPlayer.getPlayerSkills().get(skill).isSelected();
+    }
 	
 	private void saveAllPlayerInformation() {
 		// Delete Skill Info
