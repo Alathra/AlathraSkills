@@ -115,6 +115,24 @@ public class SkillsPlayerManager implements Reloadable {
 		SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
 		currentPlayer.setExperience(skillCategory, experienceValue);
 	}
+
+    //TODO: check if player has previous skill unlocked 
+    public static boolean buySkill(Player p, Integer skill) {
+        SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
+        float totalExp = currentPlayer.getSkillCategoryExperience(1);
+        totalExp += currentPlayer.getSkillCategoryExperience(2);
+        totalExp += currentPlayer.getSkillCategoryExperience(3);
+
+        float remainingExp = totalExp % 5000;
+        int skillPointsAvailable = (int) ((totalExp - remainingExp) / 5000);
+        int unlockedSkills = (int) SkillsPlayerManager.getAllSkills(p).count();
+        skillPointsAvailable -= unlockedSkills;
+
+        if (skillPointsAvailable < 1)
+            return false;
+        addPlayerSkill(p, skill);
+        return true;
+    }
 	
 	public static void addPlayerSkill(Player p, Integer skill) {
 		SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());

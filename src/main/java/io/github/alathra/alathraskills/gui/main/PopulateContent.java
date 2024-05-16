@@ -25,9 +25,15 @@ public class PopulateContent {
         float miningExp = SkillsPlayerManager.getSkillCategoryExperience(offlinePlayer, 2);
         float woodcuttingExp = SkillsPlayerManager.getSkillCategoryExperience(offlinePlayer, 3);
         float totalExp = farmingExp + miningExp + woodcuttingExp;
+
         float remainingExp = totalExp % 5000;
+        if (totalExp < 5000) {
+            remainingExp = 5000 - totalExp;
+        }
+
         int skillPointsAvailable = (int) ((totalExp - remainingExp) / 5000);
         int unlockedSkills = (int) SkillsPlayerManager.getAllSkills(offlinePlayer).count();
+
         skillPointsAvailable -= unlockedSkills;
 
         ItemStack expToNext = new ItemStack(Material.EMERALD);

@@ -28,8 +28,10 @@ public class PopulateContent {
         deny.setItemMeta(denyMeta);
 
         gui.setItem(6, ItemBuilder.from(confirm).asGuiItem(event -> {
-            SkillsPlayerManager.addPlayerSkill(player, skill);
-            GuiHelper.openSkillGui(player, skillCategoryId, page);
+            boolean buySkill = SkillsPlayerManager.buySkill(player, skill);
+
+            if (buySkill)
+                GuiHelper.openSkillGui(player, skillCategoryId, page);
         }));
         gui.setItem(2, ItemBuilder.from(deny).asGuiItem(event -> GuiHelper.openSkillGui(player, skillCategoryId, page)));
 
