@@ -3,6 +3,7 @@ package io.github.alathra.alathraskills.listeners.skills;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.woodcutting.util.*;
+import io.github.alathra.alathraskills.skills.woodcutting.util.helper.WoodcuttingData;
 import io.github.alathra.alathraskills.utility.PDCUtil;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
@@ -14,6 +15,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.world.StructureGrowEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 public class WoodcuttingSkillsListener implements Listener {
@@ -88,5 +90,28 @@ public class WoodcuttingSkillsListener implements Listener {
             }
             OneSwing.activate(event.getPlayer(), 7);
         }
+    }
+
+    // used to call "One with the Forest"
+    @EventHandler
+    public void onTreeGrow(StructureGrowEvent event) {
+
+        // if naturally grown
+        if (!event.isFromBonemeal()) {
+            return;
+        }
+
+        // if a non-player grows the tree with bonemeal
+        if (event.getPlayer() == null) {
+            return;
+        }
+
+        // if structure grown is not a tree
+        if (WoodcuttingData.getNonTrees().contains(event.getSpecies())) {
+            return;
+        }
+
+        OneWithTheForrest.run(event.getLocation().getBlock(), 7);
+
     }
 }

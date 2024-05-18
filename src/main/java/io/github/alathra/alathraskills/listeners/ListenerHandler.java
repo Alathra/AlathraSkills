@@ -32,7 +32,7 @@ public class ListenerHandler implements Reloadable {
         plugin.getServer().getPluginManager().registerEvents(new PlayerLeaveListener(), plugin);
         plugin.getServer().getPluginManager().registerEvents(new VaultListener(), plugin);
         plugin.getServer().getPluginManager().registerEvents(new WoodcuttingExpListener(), plugin);
-        plugin.getServer().getPluginManager().registerEvents(new PDCUnnaturalBlockHandler(), plugin);
+        //plugin.getServer().getPluginManager().registerEvents(new PDCUnnaturalBlockHandler(), plugin);
         plugin.getServer().getPluginManager().registerEvents(new FarmingSkillsListener(), plugin);
         plugin.getServer().getPluginManager().registerEvents(new MiningSkillsListener(), plugin);
         plugin.getServer().getPluginManager().registerEvents(new WoodcuttingSkillsListener(), plugin);
