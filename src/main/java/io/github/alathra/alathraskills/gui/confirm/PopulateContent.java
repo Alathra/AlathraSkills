@@ -24,9 +24,9 @@ public class PopulateContent {
         confirmMeta.displayName(ColorParser.of("<dark_green><bold>Confirm").build());
         confirm.setItemMeta(confirmMeta);
 
-        ItemStack deny = new ItemStack(Material.BARRIER);
+        ItemStack deny = new ItemStack(Material.REDSTONE_BLOCK);
         ItemMeta denyMeta = confirm.getItemMeta();
-        denyMeta.displayName(ColorParser.of("<dark_red><bold>Go back").build());
+        denyMeta.displayName(ColorParser.of("<red><bold>Cancel").build());
         deny.setItemMeta(denyMeta);
 
         gui.setItem(6, ItemBuilder.from(confirm).asGuiItem(event -> {

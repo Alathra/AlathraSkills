@@ -21,7 +21,7 @@ public class VeinBreakerOne extends Skill {
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<dark_aqua><bold>" + super.getName() + "</dark_aqua>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 2</yellow>").build(),
-            ColorParser.of("<orange>" + super.getDescription() + "</orange>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 

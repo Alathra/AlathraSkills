@@ -21,7 +21,7 @@ public class ProudProspectorFive extends Skill {
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<dark_aqua><bold>" + super.getName() + "</dark_aqua>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 18</yellow>").build(),
-            ColorParser.of("<orange><italics>" + super.getDescription() + "</orange></italics>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 

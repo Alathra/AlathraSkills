@@ -17,7 +17,7 @@ public class OneSwingSix extends Skill {
     public OneSwingSix(int id) {
         super(id, "One Swing 6", "Longer effect and lower cooldown.");
 
-        ItemStack icon = new ItemStack(Material.NETHERITE_AXE, 6);
+        ItemStack icon = new ItemStack(Material.DIAMOND_AXE, 6);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 17</yellow>").build(),

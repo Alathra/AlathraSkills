@@ -17,7 +17,7 @@ public class OneWithTheForestSeven extends Skill {
     public OneWithTheForestSeven(int id) {
         super(id, "One With the Forest 7", "Growing a sapling with bonemeal grows nearby saplings and gives bonuses.");
 
-        ItemStack icon = new ItemStack(Material.NETHERITE_AXE, 7);
+        ItemStack icon = new ItemStack(Material.POPPY, 7);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 20</yellow>").build(),
