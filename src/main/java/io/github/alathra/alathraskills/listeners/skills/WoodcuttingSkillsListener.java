@@ -5,6 +5,7 @@ import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.woodcutting.util.*;
 import io.github.alathra.alathraskills.skills.woodcutting.util.helper.WoodcuttingData;
 import io.github.alathra.alathraskills.utility.PDCUtil;
+import org.bukkit.GameMode;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -28,6 +29,8 @@ public class WoodcuttingSkillsListener implements Listener {
         Block block = event.getBlock();
         Player player = event.getPlayer();
 
+        if (player.getGameMode() == GameMode.CREATIVE)
+            return;
         if (PDCUtil.isUnnatural(block))
             return;
         if (event.isCancelled())    
@@ -49,6 +52,11 @@ public class WoodcuttingSkillsListener implements Listener {
     @EventHandler
     public void BlockDamageListener(BlockDamageEvent event) {
 
+
+        if (event.getPlayer().getGameMode() == GameMode.CREATIVE) {
+            return;
+        }
+
         if (!Tag.LEAVES.isTagged(event.getBlock().getType())) {
             return;
         }
@@ -68,6 +76,11 @@ public class WoodcuttingSkillsListener implements Listener {
     // used to activate "One Swing"
     @EventHandler
     public void RightClickListener(PlayerInteractEvent event) {
+
+        if (event.getPlayer().getGameMode() == GameMode.CREATIVE) {
+            return;
+        }
+
         // event only needs to be run once
         if (event.getHand() == EquipmentSlot.OFF_HAND) {
             return;
@@ -104,6 +117,10 @@ public class WoodcuttingSkillsListener implements Listener {
         // if a non-player grows the tree with bonemeal
         if (event.getPlayer() == null) {
             return;
+        } else {
+            if (event.getPlayer().getGameMode() == GameMode.CREATIVE) {
+                return;
+            }
         }
 
         // if structure grown is not a tree
