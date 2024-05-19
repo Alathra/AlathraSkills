@@ -1,6 +1,7 @@
 package io.github.alathra.alathraskills.skills.woodcutting.util;
 
 import io.github.alathra.alathraskills.skills.woodcutting.util.helper.ChopWorker;
+import io.github.alathra.alathraskills.utility.Cfg;
 import io.github.alathra.alathraskills.utility.PDCUtil;
 
 
@@ -152,25 +153,25 @@ public class OneSwing {
     private static int getDuration(int skillLevel) {
         switch (skillLevel) {
             case 1 -> {
-                return 3;
+                return Cfg.get().get("skills.woodcutting.oneSwing.duration.l1", 3);
             }
             case 2 -> {
-                return 5;
+                return Cfg.get().get("skills.woodcutting.oneSwing.duration.l2", 5);
             }
             case 3 -> {
-                return 10;
+                return Cfg.get().get("skills.woodcutting.oneSwing.duration.l3", 10);
             }
             case 4 -> {
-                return 13;
+                return Cfg.get().get("skills.woodcutting.oneSwing.duration.l4", 13);
             }
             case 5 -> {
-                return 17;
+                return Cfg.get().get("skills.woodcutting.oneSwing.duration.l5", 17);
             }
             case 6 -> {
-                return 21;
+                return Cfg.get().get("skills.woodcutting.oneSwing.duration.l6", 21);
             }
             case 7 -> {
-                return 30;
+                return Cfg.get().get("skills.woodcutting.oneSwing.duration.l7", 30);
             }
             default -> {
                 return 0;
@@ -182,25 +183,25 @@ public class OneSwing {
     private static long getCooldownTime(int skillLevel) {
         switch (skillLevel) {
             case 1 -> {
-                return 600L;
+                return Cfg.get().get("skills.woodcutting.oneSwing.cooldown.l1", 600L);
             }
             case 2 -> {
-                return 570L;
+                return Cfg.get().get("skills.woodcutting.oneSwing.cooldown.l2", 570L);
             }
             case 3 -> {
-                return 540L;
+                return Cfg.get().get("skills.woodcutting.oneSwing.cooldown.l3", 540L);
             }
             case 4 -> {
-                return 510L;
+                return Cfg.get().get("skills.woodcutting.oneSwing.cooldown.l4", 510L);
             }
             case 5 -> {
-                return 480L;
+                return Cfg.get().get("skills.woodcutting.oneSwing.cooldown.l5", 480L);
             }
             case 6 -> {
-                return 420L;
+                return Cfg.get().get("skills.woodcutting.oneSwing.cooldown.l6", 420L);
             }
             case 7 -> {
-                return 300L;
+                return Cfg.get().get("skills.woodcutting.oneSwing.cooldown.l7", 300L);
             }
             default -> {
                 return 0;

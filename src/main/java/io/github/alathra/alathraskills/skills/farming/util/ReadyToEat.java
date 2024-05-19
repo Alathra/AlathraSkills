@@ -6,6 +6,8 @@ import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.inventory.ItemStack;
 
+import io.github.alathra.alathraskills.utility.Cfg;
+
 public class ReadyToEat {
 
     // Call this on the BlockBreakEvent if wheat, carrots, potatoes or beetroot broken
@@ -36,8 +38,8 @@ public class ReadyToEat {
 
     private static double getChance(int skillLevel) {
         return switch (skillLevel) {
-            case 1 -> 0.025;
-            case 2 -> 0.05;
+            case 1 -> Cfg.get().get("skills.farming.readyToEat.chance.l1", 0.025);
+            case 2 -> Cfg.get().get("skills.farming.readyToEat.chance.l2", 0.05);
             default -> 0;
         };
     }

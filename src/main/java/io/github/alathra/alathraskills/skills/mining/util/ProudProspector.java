@@ -5,6 +5,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
+import io.github.alathra.alathraskills.utility.Cfg;
+
 public class ProudProspector {
 
     // Called on BlockBreakEvent
@@ -41,12 +43,12 @@ public class ProudProspector {
 
     private static double getChance(int skillLevel) {
         return switch (skillLevel) {
-            case 1 -> 0.05;
-            case 2 -> 0.10;
-            case 3 -> 0.15;
-            case 4 -> 0.20;
-            case 5 -> 0.25;
-            case 6 -> 0.30;
+            case 1 -> Cfg.get().get("skills.mining.proudProspector.chance.l1", 0.05);
+            case 2 -> Cfg.get().get("skills.mining.proudProspector.chance.l2", 0.10);
+            case 3 -> Cfg.get().get("skills.mining.proudProspector.chance.l3", 0.15);
+            case 4 -> Cfg.get().get("skills.mining.proudProspector.chance.l4", 0.20);
+            case 5 -> Cfg.get().get("skills.mining.proudProspector.chance.l5", 0.25);
+            case 6 -> Cfg.get().get("skills.mining.proudProspector.chance.l6", 0.30);
             default -> 0;
         };
     }

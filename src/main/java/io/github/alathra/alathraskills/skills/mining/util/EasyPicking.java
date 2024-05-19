@@ -2,6 +2,8 @@ package io.github.alathra.alathraskills.skills.mining.util;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
+import io.github.alathra.alathraskills.utility.Cfg;
+
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -40,25 +42,25 @@ public class EasyPicking {
     private static int getDuration(int skillLevel) {
         switch (skillLevel) {
             case 1 -> {
-                return 10;
+                return Cfg.get().get("skills.mining.easyPickings.duration.l1", 10);
             }
             case 2 -> {
-                return 20;
+                return Cfg.get().get("skills.mining.easyPickings.duration.l2", 20);
             }
             case 3 -> {
-                return 30;
+                return Cfg.get().get("skills.mining.easyPickings.duration.l3", 30);
             }
             case 4 -> {
-                return 40;
+                return Cfg.get().get("skills.mining.easyPickings.duration.l4", 40);
             }
             case 5 -> {
-                return 50;
+                return Cfg.get().get("skills.mining.easyPickings.duration.l5", 50);
             }
             case 6 -> {
-                return 60;
+                return Cfg.get().get("skills.mining.easyPickings.duration.l6", 60);
             }
             case 7 -> {
-                return 80;
+                return Cfg.get().get("skills.mining.easyPickings.duration.l7", 80);
             }
             default -> {
                 return 0;
@@ -70,25 +72,25 @@ public class EasyPicking {
     private static long getCooldownTime(int skillLevel) {
         switch (skillLevel) {
             case 1 -> {
-                return 600L;
+                return Cfg.get().get("skills.mining.easyPickings.cooldown.l1", 600L);
             }
             case 2 -> {
-                return 570L;
+                return Cfg.get().get("skills.mining.easyPickings.cooldown.l2", 570L);
             }
             case 3 -> {
-                return 540L;
+                return Cfg.get().get("skills.mining.easyPickings.cooldown.l3", 540L);
             }
             case 4 -> {
-                return 510L;
+                return Cfg.get().get("skills.mining.easyPickings.cooldown.l4", 510L);
             }
             case 5 -> {
-                return 480L;
+                return Cfg.get().get("skills.mining.easyPickings.cooldown.l5", 480L);
             }
             case 6 -> {
-                return 420L;
+                return Cfg.get().get("skills.mining.easyPickings.cooldown.l6", 420L);
             }
             case 7 -> {
-                return 300L;
+                return Cfg.get().get("skills.mining.easyPickings.cooldown.l7", 300L);
             }
             default -> {
                 return 0;

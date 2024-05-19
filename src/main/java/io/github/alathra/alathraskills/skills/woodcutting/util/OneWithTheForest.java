@@ -1,6 +1,7 @@
 package io.github.alathra.alathraskills.skills.woodcutting.util;
 
 import io.github.alathra.alathraskills.AlathraSkills;
+import io.github.alathra.alathraskills.utility.Cfg;
 import io.github.alathra.alathraskills.utility.RandomUtil;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -169,25 +170,25 @@ public class OneWithTheForest {
     private static int getRadius(int skillLevel) {
         switch (skillLevel) {
             case 1 -> {
-                return 3;
+                return Cfg.get().get("skills.woodcutting.oneWithTheForest.radius.l1", 3);
             }
             case 2 -> {
-                return 5;
+                return Cfg.get().get("skills.woodcutting.oneWithTheForest.radius.l2", 5);
             }
             case 3 -> {
-                return 7;
+                return Cfg.get().get("skills.woodcutting.oneWithTheForest.radius.l3", 7);
             }
             case 4 -> {
-                return 9;
+                return Cfg.get().get("skills.woodcutting.oneWithTheForest.radius.l4", 9);
             }
             case 5 -> {
-                return 11;
+                return Cfg.get().get("skills.woodcutting.oneWithTheForest.radius.l5", 11);
             }
             case 6 -> {
-                return 13;
+                return Cfg.get().get("skills.woodcutting.oneWithTheForest.radius.l6", 13);
             }
             case 7 -> {
-                return 15;
+                return Cfg.get().get("skills.woodcutting.oneWithTheForest.radius.l7", 15);
             }
             default -> {
                 return 0;
@@ -198,25 +199,25 @@ public class OneWithTheForest {
     private static double getBeehiveChance(int skillLevel) {
         switch (skillLevel) {
             case 1 -> {
-                return 0.01;
+                return Cfg.get().get("skills.woodcutting.oneWithTheForest.beehiveChance.l1", 0.01);
             }
             case 2 -> {
-                return 0.02;
+                return Cfg.get().get("skills.woodcutting.oneWithTheForest.beehiveChance.l2", 0.02);
             }
             case 3 -> {
-                return 0.03;
+                return Cfg.get().get("skills.woodcutting.oneWithTheForest.beehiveChance.l3", 0.03);
             }
             case 4 -> {
-                return 0.04;
+                return Cfg.get().get("skills.woodcutting.oneWithTheForest.beehiveChance.l4", 0.04);
             }
             case 5 -> {
-                return 0.5;
+                return Cfg.get().get("skills.woodcutting.oneWithTheForest.beehiveChance.l5", 0.50);
             }
             case 6 -> {
-                return 0.06;
+                return Cfg.get().get("skills.woodcutting.oneWithTheForest.beehiveChance.l6", 0.06);
             }
             case 7 -> {
-                return 0.07;
+                return Cfg.get().get("skills.woodcutting.oneWithTheForest.beehiveChance.l7", 0.07);
             }
             default -> {
                 return 0;
