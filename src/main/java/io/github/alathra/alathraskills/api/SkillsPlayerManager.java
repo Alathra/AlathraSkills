@@ -143,8 +143,11 @@ public class SkillsPlayerManager implements Reloadable {
 
         switch (skillCategoryId) {
             case 1 -> {
-                if (skill == 1111 || skill == 1211)
-                    return playerHasSkill(p, 110);
+                if (skill == 1111)
+                    return playerHasSkill(p, 110) && !playerHasSkill(p, 1211);
+
+                if (skill == 1211)
+                    return playerHasSkill(p, 110) && !playerHasSkill(p, 1111);
 
                 if (skill > 1200)
                     return playerHasSkill(p, skill - 1) && !playerHasSkill(p, 1111);
@@ -153,8 +156,11 @@ public class SkillsPlayerManager implements Reloadable {
 
             }
             case 2 -> {
-                if (skill == 2111 || skill == 2211)
-                    return playerHasSkill(p, 210);
+                if (skill == 2111)
+                    return playerHasSkill(p, 210) && !playerHasSkill(p, 2211);
+
+                if (skill == 2211)
+                    return playerHasSkill(p, 210) && !playerHasSkill(p, 2111);
 
                 if (skill > 2200)
                     return playerHasSkill(p, skill - 1) && !playerHasSkill(p, 2111);
@@ -163,8 +169,11 @@ public class SkillsPlayerManager implements Reloadable {
 
             }
             case 3 -> {
-                if (skill == 3111 || skill == 3211)
-                    return playerHasSkill(p, 310);
+                if (skill == 3111)
+                    return playerHasSkill(p, 310) && !playerHasSkill(p, 3211);
+
+                if (skill == 3211)
+                    return playerHasSkill(p, 310) && !playerHasSkill(p, 3111);
 
                 if (skill > 3200)
                     return playerHasSkill(p, skill - 1) && !playerHasSkill(p, 3111);
