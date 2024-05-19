@@ -1,6 +1,8 @@
 package io.github.alathra.alathraskills.skills.mining.util;
 
 import io.github.alathra.alathraskills.skills.mining.util.helper.MiningData;
+import io.github.alathra.alathraskills.utility.Cfg;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -74,13 +76,13 @@ public class VeinBreaker {
 
     private static double getChance(int skillLevel) {
         return switch (skillLevel) {
-            case 1 -> 0.05;
-            case 2 -> 0.10;
-            case 3 -> 0.20;
-            case 4 -> 0.30;
-            case 5 -> 0.40;
-            case 6 -> 0.50;
-            case 7 -> 0.60;
+            case 1 -> Cfg.get().get("skills.mining.veinBreaker.chance.l1", 0.05);
+            case 2 -> Cfg.get().get("skills.mining.veinBreaker.chance.l2", 0.10);
+            case 3 -> Cfg.get().get("skills.mining.veinBreaker.chance.l3", 0.20);
+            case 4 -> Cfg.get().get("skills.mining.veinBreaker.chance.l4", 0.30);
+            case 5 -> Cfg.get().get("skills.mining.veinBreaker.chance.l5", 0.40);
+            case 6 -> Cfg.get().get("skills.mining.veinBreaker.chance.l6", 0.50);
+            case 7 -> Cfg.get().get("skills.mining.veinBreaker.chance.l7", 0.60);
             default -> 0;
         };
     }

@@ -2,6 +2,8 @@ package io.github.alathra.alathraskills.skills.farming.util;
 
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.skills.farming.util.helper.FarmingBlockUtil;
+import io.github.alathra.alathraskills.utility.Cfg;
+
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -61,13 +63,13 @@ public class WideSpread {
 
     private static double getChance(int skillLevel) {
         return switch (skillLevel) {
-            case 1 -> 0.15;
-            case 2 -> 0.3;
-            case 3 -> 0.5;
-            case 4 -> 0.2;
-            case 5 -> 0.4;
-            case 6 -> 0.6;
-            case 7 -> 1.00;
+            case 1 -> Cfg.get().get("skills.farming.wideSpread.chance.l1", 0.15);
+            case 2 -> Cfg.get().get("skills.farming.wideSpread.chance.l2", 0.3);
+            case 3 -> Cfg.get().get("skills.farming.wideSpread.chance.l3", 0.5);
+            case 4 -> Cfg.get().get("skills.farming.wideSpread.chance.l4", 0.2);
+            case 5 -> Cfg.get().get("skills.farming.wideSpread.chance.l5", 0.4);
+            case 6 -> Cfg.get().get("skills.farming.wideSpread.chance.l6", 0.6);
+            case 7 -> Cfg.get().get("skills.farming.wideSpread.chance.l7", 1.00);
             default -> 0;
         };
     }

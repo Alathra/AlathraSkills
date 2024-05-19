@@ -8,3 +8,156 @@ db:
   user: "root"
   pass: ""
   repair: false
+skills:
+   farming:
+      fastHarvest:
+         chance:
+            l1: 0.10
+            l2: 0.50
+            l3: 0.20
+            l4: 0.40
+            l5: 0.60
+            l6: 0.80
+            l7: 1.00
+      greenThumb:
+         chance:
+            l1: 0.10
+            l2: 0.50
+            l3: 0.20
+            l4: 0.40
+            l5: 0.60
+            l6: 0.80            
+      qualityCrops:
+         chance:
+            l1: 0.10
+            l2: 0.20
+            l3: 0.30
+            l4: 0.40
+            l5: 0.50
+            l6: 0.60            
+      readyToEat:
+         chance:
+            l1: 0.025
+            l2: 0.05
+      wideSpread:
+         chance:
+            l1: 0.15
+            l2: 0.30
+            l3: 0.50
+            l4: 0.20
+            l5: 0.40
+            l6: 0.60
+            l7: 1.00
+   mining:
+      easyPickings:
+         duration:
+            l1: 10
+            l2: 20
+            l3: 30
+            l4: 40
+            l5: 50
+            l6: 60
+            l7: 80
+         cooldown:
+            l1: 600
+            l2: 570
+            l3: 540
+            l4: 510
+            l5: 480
+            l6: 420
+            l7: 300
+      oreInTheRough:
+         chance:
+            l1: 0.03
+            l2: 0.06
+            l3: 0.09
+            l4: 0.12
+            l5: 0.15
+         goldChance:
+            l1: 0.02
+            l2: 0.04
+            l3: 0.06
+            l4: 0.08
+            l5: 0.10
+         ironChance:
+            l1: 0.08
+            l2: 0.11
+            l3: 0.14
+            l4: 0.17
+            l5: 0.20
+      proudProspector:
+         chance:
+            l1: 0.10
+            l2: 0.15
+            l3: 0.20
+            l4: 0.25
+            l5: 0.30
+      spelunker:
+         damageReduction:
+            l1: 2.0
+            l2: 4.0
+            l3: 6.0
+            l4: 8.0
+      veinBreaker:
+         chance:
+            l1: 0.05
+            l2: 0.10
+            l3: 0.20
+            l4: 0.30
+            l5: 0.40
+            l6: 0.50
+            l7: 0.60
+   woodcutting:
+     oneSwing:
+         duration:
+            l1: 3
+            l2: 5
+            l3: 10
+            l4: 13
+            l5: 17
+            l6: 21
+            l7: 30
+         cooldown:
+            l1: 600
+            l2: 570
+            l3: 540
+            l4: 510
+            l5: 480
+            l6: 420
+            l7: 300
+     oneWithTheForest:
+        radius:
+            l1: 3
+            l2: 5
+            l3: 7
+            l4: 19
+            l5: 11
+            l6: 13
+            l7: 15
+        beehiveChance:
+            l1: 0.01
+            l2: 0.02
+            l3: 0.03
+            l4: 0.04
+            l5: 0.05
+            l6: 0.06
+            l7: 0.07
+     preciseChop:
+         chance:
+            l1: 0.05
+            l2: 0.10
+            l3: 0.20
+            l4: 0.35
+            l5: 0.55
+            l6: 0.70
+            l7: 0.85
+            l8: 1.00
+     trimmer:
+         chance:
+            l1: 0.02
+            l2: 0.04
+            l3: 0.08
+            l4: 0.10
+            l5: 0.12
+            l6: 0.15
+            l7: 0.20

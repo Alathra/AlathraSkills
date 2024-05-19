@@ -6,6 +6,8 @@ import org.bukkit.entity.Ageable;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
+import io.github.alathra.alathraskills.utility.Cfg;
+
 public class QualityCrops {
 
     // Call this on the EntityBreedEvent if LivingEntity instance of animal
@@ -28,12 +30,12 @@ public class QualityCrops {
 
     private static double getChance(int skillLevel) {
         return switch (skillLevel) {
-            case 1 -> 0.10;
-            case 2 -> 0.20;
-            case 3 -> 0.30;
-            case 4 -> 0.40;
-            case 5 -> 0.50;
-            case 6 -> 0.60;
+            case 1 -> Cfg.get().get("skills.farming.qualityCrops.chance.l1", 0.10);
+            case 2 -> Cfg.get().get("skills.farming.qualityCrops.chance.l2", 0.20);
+            case 3 -> Cfg.get().get("skills.farming.qualityCrops.chance.l3", 0.30);
+            case 4 -> Cfg.get().get("skills.farming.qualityCrops.chance.l4", 0.40);
+            case 5 -> Cfg.get().get("skills.farming.qualityCrops.chance.l5", 0.50);
+            case 6 -> Cfg.get().get("skills.farming.qualityCrops.chance.l6", 0.60);
             default -> 0;
         };
     }

@@ -2,6 +2,8 @@ package io.github.alathra.alathraskills.skills.farming.util;
 
 import io.github.alathra.alathraskills.skills.farming.util.helper.FarmingBlockUtil;
 import io.github.alathra.alathraskills.skills.farming.util.helper.FarmingData;
+import io.github.alathra.alathraskills.utility.Cfg;
+
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Player;
@@ -95,13 +97,13 @@ public class FastHarvest {
 
     private static double getChance(int skillLevel) {
         return switch (skillLevel) {
-            case 1 -> 0.10;
-            case 2 -> 0.50;
-            case 3 -> 0.20;
-            case 4 -> 0.40;
-            case 5 -> 0.60;
-            case 6 -> 0.80;
-            case 7 -> 1.00;
+            case 1 -> Cfg.get().get("skills.farming.fastHarvest.chance.l1", 0.10);
+            case 2 -> Cfg.get().get("skills.farming.fastHarvest.chance.l2", 0.50);
+            case 3 -> Cfg.get().get("skills.farming.fastHarvest.chance.l3", 0.20);
+            case 4 -> Cfg.get().get("skills.farming.fastHarvest.chance.l4", 0.40);
+            case 5 -> Cfg.get().get("skills.farming.fastHarvest.chance.l5", 0.60);
+            case 6 -> Cfg.get().get("skills.farming.fastHarvest.chance.l6", 0.80);
+            case 7 -> Cfg.get().get("skills.farming.fastHarvest.chance.l7", 1.00);
             default -> 0;
         };
     }
