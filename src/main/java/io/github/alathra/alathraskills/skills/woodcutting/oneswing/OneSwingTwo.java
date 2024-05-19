@@ -17,11 +17,11 @@ public class OneSwingTwo extends Skill {
     public OneSwingTwo(int id) {
         super(id, "One Swing 2", "Extended time, and a slower cooldown!");
 
-        ItemStack icon = new ItemStack(Material.NETHERITE_AXE);
+        ItemStack icon = new ItemStack(Material.DIAMOND_AXE, 2);
         ItemMeta meta = icon.getItemMeta();
-        meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
+        meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 9</yellow>").build(),
-            ColorParser.of("<red><italics>" + super.getDescription() + "</gray></italics>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 

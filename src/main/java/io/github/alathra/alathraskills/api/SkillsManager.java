@@ -14,24 +14,21 @@ import io.github.alathra.alathraskills.skills.farming.greenthumb.*;
 import io.github.alathra.alathraskills.skills.farming.qualitycrops.*;
 import io.github.alathra.alathraskills.skills.farming.readytoeat.ReadyToEatOne;
 import io.github.alathra.alathraskills.skills.farming.readytoeat.ReadyToEatTwo;
-import io.github.alathra.alathraskills.skills.farming.util.FastHarvest;
 import io.github.alathra.alathraskills.skills.farming.widespread.*;
-import io.github.alathra.alathraskills.skills.woodcutting.*;
-import io.github.alathra.alathraskills.skills.woodcutting.groundskeeper.*;
+import io.github.alathra.alathraskills.skills.mining.easypicking.*;
+import io.github.alathra.alathraskills.skills.mining.oreintherough.*;
+import io.github.alathra.alathraskills.skills.mining.proudprospector.*;
+import io.github.alathra.alathraskills.skills.mining.spelunker.SpelunkerFour;
+import io.github.alathra.alathraskills.skills.mining.spelunker.SpelunkerOne;
+import io.github.alathra.alathraskills.skills.mining.spelunker.SpelunkerThree;
+import io.github.alathra.alathraskills.skills.mining.spelunker.SpelunkerTwo;
+import io.github.alathra.alathraskills.skills.mining.veinbreaker.*;
 import io.github.alathra.alathraskills.skills.woodcutting.oneswing.*;
-import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopOneSkill;
-import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopThreeSkill;
-import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopTwoSkill;
-import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerOneSkill;
-import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerTwoSkill;
-import io.github.alathra.alathraskills.skills.farming.widespread.*;
-import io.github.alathra.alathraskills.skills.woodcutting.groundskeeper.*;
-import io.github.alathra.alathraskills.skills.woodcutting.oneswing.*;
-import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopOne;
-import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopThree;
-import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopTwo;
-import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerOne;
-import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerTwo;
+import io.github.alathra.alathraskills.skills.woodcutting.onewiththeforest.*;
+import io.github.alathra.alathraskills.skills.woodcutting.precisechop.*;
+import io.github.alathra.alathraskills.skills.woodcutting.savethetrees.SaveTheTreesOne;
+import io.github.alathra.alathraskills.skills.woodcutting.trimmer.*;
+
 
 public class SkillsManager implements Reloadable {
 	
@@ -63,6 +60,7 @@ public class SkillsManager implements Reloadable {
 	@Override
 	public void onEnable() {
 		loadSkillCategories();
+        loadSkills();
 	}
 
 	@Override
@@ -79,33 +77,82 @@ public class SkillsManager implements Reloadable {
 
     public void loadSkills() {
         loadWoodcuttingSkills();
+        loadMiningSkills();
         loadFarmingSkills();
     }
 
     public void loadWoodcuttingSkills() {
-        woodcuttingSkills.put(301, new SaveTheTreesSkill(301));
-        woodcuttingSkills.put(302, new PreciseChopOneSkill(302));
-        woodcuttingSkills.put(303, new PreciseChopTwoSkill(302));
-        woodcuttingSkills.put(304, new TrimmerOneSkill(304));
-        woodcuttingSkills.put(305, new OneSwingOneSkill(305));
-        woodcuttingSkills.put(306, new GroundskeeperOneSkill(306));
-        woodcuttingSkills.put(307, new TrimmerTwoSkill(307));
-        woodcuttingSkills.put(308, new GroundskeeperTwoSkill(308));
-        woodcuttingSkills.put(309, new OneSwingTwoSkill(309));
-        woodcuttingSkills.put(310, new PreciseChopThreeSkill(310));
+        woodcuttingSkills.put(301, new SaveTheTreesOne(301));
+        woodcuttingSkills.put(302, new PreciseChopOne(302));
+        woodcuttingSkills.put(303, new PreciseChopTwo(302));
+        woodcuttingSkills.put(304, new TrimmerOne(304));
+        woodcuttingSkills.put(305, new OneSwingOne(305));
+        woodcuttingSkills.put(306, new OneWithTheForestOne(306));
+        woodcuttingSkills.put(307, new TrimmerTwo(307));
+        woodcuttingSkills.put(308, new OneWithTheForestTwo(308));
+        woodcuttingSkills.put(309, new OneSwingTwo(309));
+        woodcuttingSkills.put(310, new PreciseChopThree(310));
 
         // Left branch
-        woodcuttingSkills.put(3111, new GroundskeeperThreeSkill(3111));
-        woodcuttingSkills.put(3112, new OneSwingThreeSkill(3112));
-        woodcuttingSkills.put(3113, new GroundskeeperFourSkill(3113));
-        woodcuttingSkills.put(3114, new OneSwingFourSkill(3114));
-        woodcuttingSkills.put(3115, new OneSwingFiveSkill(3115));
-        woodcuttingSkills.put(3116, new GroundskeeperFiveSkill(3116));
-        woodcuttingSkills.put(3117, new OneSwingSixSkill(3117));
-        woodcuttingSkills.put(3118, new GroundskeeperSixSkill(3118));
-        woodcuttingSkills.put(3119, new GroundskeeperSevenSkill(3119));
-        woodcuttingSkills.put(3120, new OneSwingSevenSkill(3120));
+        woodcuttingSkills.put(3111, new OneWithTheForestThree(3111));
+        woodcuttingSkills.put(3112, new OneSwingThree(3112));
+        woodcuttingSkills.put(3113, new OneWithTheForestFour(3113));
+        woodcuttingSkills.put(3114, new OneSwingFour(3114));
+        woodcuttingSkills.put(3115, new OneSwingFive(3115));
+        woodcuttingSkills.put(3116, new OneWithTheForestFive(3116));
+        woodcuttingSkills.put(3117, new OneSwingSix(3117));
+        woodcuttingSkills.put(3118, new OneWithTheForestSix(3118));
+        woodcuttingSkills.put(3119, new OneWithTheForestSeven(3119));
+        woodcuttingSkills.put(3120, new OneSwingSeven(3120));
 
+        // Right branch
+        woodcuttingSkills.put(3211, new PreciseChopFour(3211));
+        woodcuttingSkills.put(3212, new PreciseChopFive(3212));
+        woodcuttingSkills.put(3213, new TrimmerThree(3213));
+        woodcuttingSkills.put(3214, new PreciseChopSix(3214));
+        woodcuttingSkills.put(3215, new TrimmerFour(3215));
+        woodcuttingSkills.put(3216, new TrimmerFive(3216));
+        woodcuttingSkills.put(3217, new PreciseChopSeven(3217));
+        woodcuttingSkills.put(3218, new PreciseChopEight(3218));
+        woodcuttingSkills.put(3219, new TrimmerSix(3219));
+        woodcuttingSkills.put(3220, new TrimmerSeven(3220));
+    }
+
+    private void loadMiningSkills() {
+        miningSkills.put(201, new SpelunkerOne(201));
+        miningSkills.put(202, new VeinBreakerOne(202));
+        miningSkills.put(203, new ProudProspectorOne(202));
+        miningSkills.put(204, new VeinBreakerTwo(204));
+        miningSkills.put(205, new EasyPickingOne(205));
+        miningSkills.put(206, new SpelunkerTwo(206));
+        miningSkills.put(207, new VeinBreakerThree(207));
+        miningSkills.put(208, new ProudProspectorTwo(208));
+        miningSkills.put(209, new SpelunkerThree(209));
+        miningSkills.put(210, new EasyPickingTwo(210));
+
+        // Left branch
+        miningSkills.put(2111, new OreInTheRoughOne(2111));
+        miningSkills.put(2112, new ProudProspectorThree(2112));
+        miningSkills.put(2113, new SpelunkerFour(2113));
+        miningSkills.put(2114, new OreInTheRoughTwo(2114));
+        miningSkills.put(2115, new ProudProspectorFour(2115));
+        miningSkills.put(2116, new OreInTheRoughThree(2116));
+        miningSkills.put(2117, new OreInTheRoughFour(2117));
+        miningSkills.put(2118, new ProudProspectorFive(2118));
+        miningSkills.put(2119, new OreInTheRoughFive(2119));
+        miningSkills.put(2120, new ProudProspectorSix(2120));
+
+        // Right branch
+        miningSkills.put(2211, new VeinBreakerFour(2211));
+        miningSkills.put(2212, new EasyPickingThree(2212));
+        miningSkills.put(2213, new SpelunkerFour(2213));
+        miningSkills.put(2214, new VeinBreakerFive(2214));
+        miningSkills.put(2215, new EasyPickingFour(2215));
+        miningSkills.put(2216, new EasyPickingFive(2216));
+        miningSkills.put(2217, new VeinBreakerSix(2217));
+        miningSkills.put(2218, new VeinBreakerSeven(2218));
+        miningSkills.put(2219, new EasyPickingSix(2219));
+        miningSkills.put(2220, new EasyPickingSeven(2220));
     }
 
     public void loadFarmingSkills() {

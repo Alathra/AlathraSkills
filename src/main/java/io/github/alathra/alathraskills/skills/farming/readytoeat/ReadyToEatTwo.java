@@ -17,7 +17,7 @@ public class ReadyToEatTwo extends Skill {
     public ReadyToEatTwo(int id) {
         super(id, "Ready to Eat 2", "Get a chance to drop extra food when harvesting!");
 
-        ItemStack icon = new ItemStack(Material.APPLE, 2);
+        ItemStack icon = new ItemStack(Material.BREAD, 2);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 2</yellow>").build(),

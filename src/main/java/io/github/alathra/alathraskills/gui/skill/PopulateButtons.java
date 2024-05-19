@@ -46,16 +46,31 @@ public class PopulateButtons {
         nextMeta.displayName(ColorParser.of("<bold><green>Next").build());
         nextStack.setItemMeta(nextMeta);
 
+        ItemStack openSkillTrees = new ItemStack(Material.EXPERIENCE_BOTTLE);
+        ItemMeta openSkillTreesMeta = openSkillTrees.getItemMeta();
+        openSkillTreesMeta.displayName(ColorParser.of("<yellow><bold>Open Skill Trees").build());
+        openSkillTrees.setItemMeta(openSkillTreesMeta);
+
+        ItemStack exit = new ItemStack(Material.BARRIER);
+        ItemMeta exitMeta = exit.getItemMeta();
+        exitMeta.displayName(ColorParser.of("<dark_red><bold>Exit").build());
+        exit.setItemMeta(exitMeta);
+
         switch (page) {
             case 1 -> {
-                gui.setItem(6, 1, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(1, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(1, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
                 gui.setItem(6, 9, ItemBuilder.from(nextStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 3, page + 1)));
             }
             case 2, 3 -> {
+                gui.setItem(1, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(1, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
                 gui.setItem(6, 1, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 3, page - 1)));
                 gui.setItem(6, 9, ItemBuilder.from(nextStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 3, page + 1)));
             }
             case 4 -> {
+                gui.setItem(1, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(1, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
                 gui.setItem(6, 1, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 3, page - 1)));
             }
         }
@@ -72,16 +87,31 @@ public class PopulateButtons {
         nextMeta.displayName(ColorParser.of("<bold><green>Next").build());
         nextStack.setItemMeta(nextMeta);
 
+        ItemStack openSkillTrees = new ItemStack(Material.EXPERIENCE_BOTTLE);
+        ItemMeta openSkillTreesMeta = openSkillTrees.getItemMeta();
+        openSkillTreesMeta.displayName(ColorParser.of("<yellow><bold>Open Skill Trees").build());
+        openSkillTrees.setItemMeta(openSkillTreesMeta);
+
+        ItemStack exit = new ItemStack(Material.BARRIER);
+        ItemMeta exitMeta = exit.getItemMeta();
+        exitMeta.displayName(ColorParser.of("<dark_red><bold>Exit").build());
+        exit.setItemMeta(exitMeta);
+
         switch (page) {
             case 1 -> {
-                gui.setItem(6, 1, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(1, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(1, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
                 gui.setItem(6, 9, ItemBuilder.from(nextStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 2, page + 1)));
             }
             case 2, 3 -> {
+                gui.setItem(1, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(1, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
                 gui.setItem(6, 1, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 2, page - 1)));
                 gui.setItem(6, 9, ItemBuilder.from(nextStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 2, page + 1)));
             }
             case 4 -> {
+                gui.setItem(1, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(1, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
                 gui.setItem(6, 1, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 2, page - 1)));
             }
         }
@@ -98,16 +128,31 @@ public class PopulateButtons {
         nextMeta.displayName(ColorParser.of("<bold><green>Next").build());
         nextStack.setItemMeta(nextMeta);
 
+        ItemStack openSkillTrees = new ItemStack(Material.EXPERIENCE_BOTTLE);
+        ItemMeta openSkillTreesMeta = openSkillTrees.getItemMeta();
+        openSkillTreesMeta.displayName(ColorParser.of("<yellow><bold>Open Skill Trees").build());
+        openSkillTrees.setItemMeta(openSkillTreesMeta);
+
+        ItemStack exit = new ItemStack(Material.BARRIER);
+        ItemMeta exitMeta = exit.getItemMeta();
+        exitMeta.displayName(ColorParser.of("<dark_red><bold>Exit").build());
+        exit.setItemMeta(exitMeta);
+
         switch (page) {
             case 1 -> {
-                gui.setItem(6, 1, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(1, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(1, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
                 gui.setItem(6, 9, ItemBuilder.from(nextStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 1, page + 1)));
             }
             case 2, 3 -> {
+                gui.setItem(1, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(1, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
                 gui.setItem(6, 1, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 1, page - 1)));
                 gui.setItem(6, 9, ItemBuilder.from(nextStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 1, page + 1)));
             }
             case 4 -> {
+                gui.setItem(1, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(1, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
                 gui.setItem(6, 1, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 1, page - 1)));
             }
         }

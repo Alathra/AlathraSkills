@@ -17,11 +17,12 @@ public class PreciseChopTwo extends Skill {
     public PreciseChopTwo(int id) {
         super(id, "Precise Chop 2", "Get a greater chance at some extra logs!");
 
-        ItemStack icon = new ItemStack(Material.OAK_LOG);
+        ItemStack icon = new ItemStack(Material.OAK_LOG, 2);
         ItemMeta meta = icon.getItemMeta();
-        meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
+        meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 3</yellow>").build(),
-            ColorParser.of("<red><italics>" + super.getDescription() + "</gray></italics>").build()));        icon.setItemMeta(meta);
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
+        icon.setItemMeta(meta);
         super.setIcon(icon);
 
         skillsManager = AlathraSkills.getSkillsManager();

@@ -17,11 +17,11 @@ public class ProudProspectorSix extends Skill {
     public ProudProspectorSix(int id) {
         super(id, "Proud Prospector 5", "Have a small chance to get double drops from ore.");
 
-        ItemStack icon = new ItemStack(Material.IRON_HELMET);
+        ItemStack icon = new ItemStack(Material.DIAMOND, 6);
         ItemMeta meta = icon.getItemMeta();
-        meta.displayName(ColorParser.of("<cyan><bold>" + super.getName() + "</cyan></bold>").build());
+        meta.displayName(ColorParser.of("<dark_aqua><bold>" + super.getName() + "</dark_aqua>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 20</yellow>").build(),
-            ColorParser.of("<orange><italics>" + super.getDescription() + "</orange></italics>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 

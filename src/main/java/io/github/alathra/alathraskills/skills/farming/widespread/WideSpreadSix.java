@@ -20,7 +20,7 @@ public class WideSpreadSix extends Skill {
         ItemStack icon = new ItemStack(Material.WHEAT_SEEDS, 6);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
-        meta.lore(List.of(ColorParser.of("<yellow>Level 6</yellow>").build(),
+        meta.lore(List.of(ColorParser.of("<yellow>Level 17</yellow>").build(),
             ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);

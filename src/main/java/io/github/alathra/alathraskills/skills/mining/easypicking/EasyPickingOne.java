@@ -15,13 +15,13 @@ public class EasyPickingOne extends Skill {
     private static SkillsManager skillsManager;
 
     public EasyPickingOne(int id) {
-        super(id, "Easy Picking 1", "Have a chance to get double drops from ores.");
+        super(id, "Easy Picking 1", "Right click to get haste.");
 
-        ItemStack icon = new ItemStack(Material.IRON_HELMET);
+        ItemStack icon = new ItemStack(Material.GOLDEN_PICKAXE);
         ItemMeta meta = icon.getItemMeta();
-        meta.displayName(ColorParser.of("<cyan><bold>" + super.getName() + "</cyan></bold>").build());
+        meta.displayName(ColorParser.of("<dark_aqua><bold>" + super.getName() + "</dark_aqua>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 5</yellow>").build(),
-            ColorParser.of("<orange><italics>" + super.getDescription() + "</orange></italics>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
