@@ -30,6 +30,9 @@ public class FarmingSkillsListener implements Listener {
             return;
         }
 
+        if (!event.isDropItems())
+            return;
+
         // if potato, carrot, beetroot or wheat crop
         if (FarmingData.getStandardCrops().contains(block.getType())) {
             ReadyToEat.run(block, 2);

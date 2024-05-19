@@ -1,4 +1,4 @@
-package io.github.alathra.alathraskills.skills.woodcutting.groundskeeper;
+package io.github.alathra.alathraskills.skills.woodcutting.precisechop;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
@@ -10,18 +10,17 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-public class GroundskeeperSevenSkill extends Skill {
+public class PreciseChopFiveSkill extends Skill {
 
-    private static SkillsManager skillsManager;
+    private SkillsManager skillsManager;
 
+    public PreciseChopFiveSkill(int id) {
+        super(id, "Precise Chop 5", "Even greater chance at extra logs.");
 
-    public GroundskeeperSevenSkill(int id) {
-        super(id, "Groundskeeper 1", "Even larger area, and even greater chance at more leaves.");
-
-        ItemStack icon = new ItemStack(Material.SHEARS);
+        ItemStack icon = new ItemStack(Material.OAK_LOG);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
-        meta.lore(List.of(ColorParser.of("<yellow>Level 19</yellow>").build(),
+        meta.lore(List.of(ColorParser.of("<yellow>Level 12</yellow>").build(),
             ColorParser.of("<red><italics>" + super.getDescription() + "</gray></italics>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);

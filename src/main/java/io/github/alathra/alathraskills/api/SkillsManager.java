@@ -55,7 +55,6 @@ public class SkillsManager implements Reloadable {
 	@Override
 	public void onEnable() {
 		loadSkillCategories();
-        loadSkills();
 	}
 
 	@Override
@@ -137,5 +136,5 @@ public class SkillsManager implements Reloadable {
         farmingSkills.put(1220, new ReadyToEatTwo(1220));
 
     }
-
+	
 }
