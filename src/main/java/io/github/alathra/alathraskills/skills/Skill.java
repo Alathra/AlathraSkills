@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 public abstract class Skill {
 	
 	private int id;
+    private int cost;
 	private String name;
 	private String description;
 	
@@ -21,7 +22,15 @@ public abstract class Skill {
 		this.id = id;
 		this.name = name;
 		this.description = description;
+        this.cost = 1;
 	}
+
+    public Skill(int id, String name, String description, int cost) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.cost = cost;
+    }
 	
 	public SkillCategory getCategory() {
 		return category;
@@ -53,6 +62,8 @@ public abstract class Skill {
 	public void setId(int id) {
 		this.id = id;
 	}
+    public int getCost() { return cost; }
+    public void setCost(int cost) { this.cost = cost; }
 
 	public ArrayList<Skill> getParents() {
 		return parents;
