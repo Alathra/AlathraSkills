@@ -14,19 +14,19 @@ public class GreenThumbFive extends Skill {
 
     private SkillsManager skillsManager;
 
-    public GreenThumbFive(int id, String name, String description) {
+    public GreenThumbFive(int id) {
         super(id, "Green Thumb 5", "Get a chance to bone meal crops in a wider area!");
 
-        ItemStack icon = new ItemStack(Material.IRON_HOE);
+        ItemStack icon = new ItemStack(Material.BONE_MEAL, 5);
         ItemMeta meta = icon.getItemMeta();
-        meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
+        meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 5</yellow>").build(),
-            ColorParser.of("<red><italics>" + super.getDescription() + "</gray></italics>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
         skillsManager = AlathraSkills.getSkillsManager();
-        super.setCategory(skillsManager.skillCategories.get(3));
+        super.setCategory(skillsManager.skillCategories.get(1));
     }
 
 }

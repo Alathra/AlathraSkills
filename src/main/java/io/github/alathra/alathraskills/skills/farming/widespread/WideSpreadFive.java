@@ -14,19 +14,19 @@ public class WideSpreadFive extends Skill {
 
     private SkillsManager skillsManager;
 
-    public WideSpreadFive(int id, String name, String description) {
+    public WideSpreadFive(int id) {
         super(id, "Wide Spread 5", "Get a chance to sow seeds in a wider area!");
 
-        ItemStack icon = new ItemStack(Material.IRON_HOE);
+        ItemStack icon = new ItemStack(Material.WHEAT_SEEDS, 5);
         ItemMeta meta = icon.getItemMeta();
-        meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
+        meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 5</yellow>").build(),
-            ColorParser.of("<red><italics>" + super.getDescription() + "</gray></italics>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
         skillsManager = AlathraSkills.getSkillsManager();
-        super.setCategory(skillsManager.skillCategories.get(3));
+        super.setCategory(skillsManager.skillCategories.get(1));
     }
 
 }

@@ -42,7 +42,7 @@ public class CommandHandler implements Reloadable {
         new TestGetAllSkillsCommand();
         new TestSetSkillCommand();
         new TestHasSkillCommand();
-        new ExampleCommand();
+        new AlathraSkillsCommand();
         new TestSetExerienceCommandMemory();
         new TestAddSkillCommandMemory();
         new TestDeleteSkillCommandMemory();

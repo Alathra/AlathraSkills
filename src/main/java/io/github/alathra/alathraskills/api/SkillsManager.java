@@ -9,6 +9,13 @@ import io.github.alathra.alathraskills.skills.SkillCategory;
 import io.github.alathra.alathraskills.skills.categories.FarmingSkillCategory;
 import io.github.alathra.alathraskills.skills.categories.MiningSkillCategory;
 import io.github.alathra.alathraskills.skills.categories.WoodcuttingSkillCategory;
+import io.github.alathra.alathraskills.skills.farming.fastharvest.*;
+import io.github.alathra.alathraskills.skills.farming.greenthumb.*;
+import io.github.alathra.alathraskills.skills.farming.qualitycrops.*;
+import io.github.alathra.alathraskills.skills.farming.readytoeat.ReadyToEatOne;
+import io.github.alathra.alathraskills.skills.farming.readytoeat.ReadyToEatTwo;
+import io.github.alathra.alathraskills.skills.farming.util.FastHarvest;
+import io.github.alathra.alathraskills.skills.farming.widespread.*;
 import io.github.alathra.alathraskills.skills.woodcutting.*;
 import io.github.alathra.alathraskills.skills.woodcutting.groundskeeper.*;
 import io.github.alathra.alathraskills.skills.woodcutting.oneswing.*;
@@ -31,8 +38,11 @@ public class SkillsManager implements Reloadable {
 
     // Id, Skill
     public HashMap<Integer, Skill> woodcuttingSkills = new HashMap<>();
-	
-	public SkillsManager(AlathraSkills plugin) {
+    public HashMap<Integer, Skill> farmingSkills = new HashMap<>();
+    public HashMap<Integer, Skill> miningSkills = new HashMap<>();
+
+
+    public SkillsManager(AlathraSkills plugin) {
 		this.plugin = plugin;
 	}
 
@@ -62,6 +72,7 @@ public class SkillsManager implements Reloadable {
 
     public void loadSkills() {
         loadWoodcuttingSkills();
+        loadFarmingSkills();
     }
 
     public void loadWoodcuttingSkills() {
@@ -87,6 +98,44 @@ public class SkillsManager implements Reloadable {
         woodcuttingSkills.put(3118, new GroundskeeperSixSkill(3118));
         woodcuttingSkills.put(3119, new GroundskeeperSevenSkill(3119));
         woodcuttingSkills.put(3120, new OneSwingSevenSkill(3120));
+    }
+
+    public void loadFarmingSkills() {
+        farmingSkills.put(101, new QualityCropsOne(101));
+        farmingSkills.put(102, new FastHarvestOne(102));
+        farmingSkills.put(103, new GreenThumbOne(103));
+        farmingSkills.put(104, new FastHarvestTwo(104));
+        farmingSkills.put(105, new WideSpreadOne(105));
+        farmingSkills.put(106, new QualityCropsTwo(106));
+        farmingSkills.put(107, new WideSpreadTwo(107));
+        farmingSkills.put(108, new GreenThumbTwo(108));
+        farmingSkills.put(109, new FastHarvestThree(109));
+        farmingSkills.put(110, new WideSpreadThree(110));
+
+        // Left branch
+        farmingSkills.put(1111, new GreenThumbThree(1111));
+        farmingSkills.put(1112, new WideSpreadFour(1112));
+        farmingSkills.put(1113, new ReadyToEatOne(1113));
+        farmingSkills.put(1114, new GreenThumbFour(1114));
+        farmingSkills.put(1115, new WideSpreadFive(1115));
+        farmingSkills.put(1116, new GreenThumbFive(1116));
+        farmingSkills.put(1117, new WideSpreadSix(1117));
+        farmingSkills.put(1118, new GreenThumbSix(1118));
+        farmingSkills.put(1119, new WideSpreadSeven(1119));
+        farmingSkills.put(1120, new ReadyToEatTwo(1120));
+
+        // Right branch
+        farmingSkills.put(1211, new QualityCropsThree(1211));
+        farmingSkills.put(1212, new FastHarvestFour(1212));
+        farmingSkills.put(1213, new ReadyToEatOne(1213));
+        farmingSkills.put(1214, new QualityCropsFour(1214));
+        farmingSkills.put(1215, new FastHarvestFive(1215));
+        farmingSkills.put(1216, new QualityCropsFive(1216));
+        farmingSkills.put(1217, new FastHarvestSix(1217));
+        farmingSkills.put(1218, new QualityCropsSix(1218));
+        farmingSkills.put(1219, new FastHarvestSeven(1219));
+        farmingSkills.put(1220, new ReadyToEatTwo(1220));
+
     }
 
 }
