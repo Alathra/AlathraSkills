@@ -1,6 +1,8 @@
 package io.github.alathra.alathraskills.skills.mining.util;
 
 import io.github.alathra.alathraskills.skills.mining.util.helper.MiningData;
+import io.github.alathra.alathraskills.utility.Cfg;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

@@ -1,33 +1,26 @@
-package io.github.alathra.alathraskills.skills.woodcutting.oneswing;
+package io.github.alathra.alathraskills.skills.woodcutting.precisechop;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.skills.Skill;
-import io.github.alathra.alathraskills.skills.woodcutting.util.OneSwing;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitTask;
 
-import java.util.Collections;
 import java.util.List;
 
-public class OneSwingOneSkill extends Skill {
+public class PreciseChopThree extends Skill {
 
-    private static SkillsManager skillsManager;
+    private SkillsManager skillsManager;
 
-    public OneSwingOneSkill(int id) {
-        super(id, "One Swing 1", "Chop the whole tree down, in one fell swoop!");
+    public PreciseChopThree(int id) {
+        super(id, "Precise Chop 3", "Even greater chance at extra logs.");
 
-        ItemStack icon = new ItemStack(Material.NETHERITE_AXE);
+        ItemStack icon = new ItemStack(Material.OAK_LOG);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
-        meta.lore(List.of(ColorParser.of("<yellow>Level 5</yellow>").build(),
+        meta.lore(List.of(ColorParser.of("<yellow>Level 10</yellow>").build(),
             ColorParser.of("<red><italics>" + super.getDescription() + "</gray></italics>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);

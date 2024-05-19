@@ -10,17 +10,17 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-public class PreciseChopSixSkill extends Skill {
+public class PreciseChopFour extends Skill {
 
     private SkillsManager skillsManager;
 
-    public PreciseChopSixSkill(int id) {
-        super(id, "Precise Chop 6", "Even greater chance at extra logs.");
+    public PreciseChopFour(int id) {
+        super(id, "Precise Chop 4", "Even greater chance at extra logs");
 
         ItemStack icon = new ItemStack(Material.OAK_LOG);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
-        meta.lore(List.of(ColorParser.of("<yellow>Level 14</yellow>").build(),
+        meta.lore(List.of(ColorParser.of("<yellow>Level 11</yellow>").build(),
             ColorParser.of("<red><italics>" + super.getDescription() + "</gray></italics>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
