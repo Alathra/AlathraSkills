@@ -17,9 +17,9 @@ public class ProudProspectorThree extends Skill {
     public ProudProspectorThree(int id) {
         super(id, "Proud Prospector 3", "Have a small chance to get double drops from ore.");
 
-        ItemStack icon = new ItemStack(Material.IRON_HELMET);
+        ItemStack icon = new ItemStack(Material.DIAMOND, 3);
         ItemMeta meta = icon.getItemMeta();
-        meta.displayName(ColorParser.of("<cyan><bold>" + super.getName() + "</cyan></bold>").build());
+        meta.displayName(ColorParser.of("<dark_aqua><bold>" + super.getName() + "</dark_aqua>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 12</yellow>").build(),
             ColorParser.of("<orange><italics>" + super.getDescription() + "</orange></italics>").build()));
         icon.setItemMeta(meta);

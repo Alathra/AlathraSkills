@@ -17,9 +17,9 @@ public class VeinBreakerFive extends Skill {
     public VeinBreakerFive(int id) {
         super(id, "Vein Breaker 5", "40% chance to break all adjacent ores of the same kind.");
 
-        ItemStack icon = new ItemStack(Material.DIAMOND_PICKAXE);
+        ItemStack icon = new ItemStack(Material.DIAMOND_PICKAXE, 5);
         ItemMeta meta = icon.getItemMeta();
-        meta.displayName(ColorParser.of("<cyan><bold>" + super.getName() + "</cyan>").build());
+        meta.displayName(ColorParser.of("<dark_aqua><bold>" + super.getName() + "</dark_aqua>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 14</yellow>").build(),
             ColorParser.of("<orange>" + super.getDescription() + "</orange>").build()));
         icon.setItemMeta(meta);

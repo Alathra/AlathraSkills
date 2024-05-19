@@ -60,6 +60,7 @@ public class SkillsManager implements Reloadable {
 	@Override
 	public void onEnable() {
 		loadSkillCategories();
+        loadSkills();
 	}
 
 	@Override
