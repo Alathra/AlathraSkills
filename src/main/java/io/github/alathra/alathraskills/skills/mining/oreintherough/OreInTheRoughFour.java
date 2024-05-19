@@ -20,7 +20,7 @@ public class OreInTheRoughFour extends Skill {
         ItemStack icon = new ItemStack(Material.IRON_HELMET);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<cyan><bold>" + super.getName() + "</cyan>").build());
-        meta.lore(List.of(ColorParser.of("<yellow>Level 4</yellow>").build(),
+        meta.lore(List.of(ColorParser.of("<yellow>Level 17</yellow>").build(),
             ColorParser.of("<orange>" + super.getDescription() + "</orange>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);

@@ -20,7 +20,7 @@ public class GreenThumbFive extends Skill {
         ItemStack icon = new ItemStack(Material.BONE_MEAL, 5);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
-        meta.lore(List.of(ColorParser.of("<yellow>Level 5</yellow>").build(),
+        meta.lore(List.of(ColorParser.of("<yellow>Level 16</yellow>").build(),
             ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);

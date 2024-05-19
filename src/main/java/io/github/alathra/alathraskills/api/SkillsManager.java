@@ -24,6 +24,14 @@ import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseCho
 import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopTwoSkill;
 import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerOneSkill;
 import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerTwoSkill;
+import io.github.alathra.alathraskills.skills.farming.widespread.*;
+import io.github.alathra.alathraskills.skills.woodcutting.groundskeeper.*;
+import io.github.alathra.alathraskills.skills.woodcutting.oneswing.*;
+import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopOne;
+import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopThree;
+import io.github.alathra.alathraskills.skills.woodcutting.precisechop.PreciseChopTwo;
+import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerOne;
+import io.github.alathra.alathraskills.skills.woodcutting.trimmer.TrimmerTwo;
 
 public class SkillsManager implements Reloadable {
 	
@@ -97,6 +105,7 @@ public class SkillsManager implements Reloadable {
         woodcuttingSkills.put(3118, new GroundskeeperSixSkill(3118));
         woodcuttingSkills.put(3119, new GroundskeeperSevenSkill(3119));
         woodcuttingSkills.put(3120, new OneSwingSevenSkill(3120));
+
     }
 
     public void loadFarmingSkills() {

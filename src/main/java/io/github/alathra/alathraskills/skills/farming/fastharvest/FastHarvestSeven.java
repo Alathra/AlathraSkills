@@ -20,7 +20,7 @@ public class FastHarvestSeven extends Skill {
         ItemStack icon = new ItemStack(Material.IRON_HOE, 7);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green></bold>").build());
-        meta.lore(List.of(ColorParser.of("<yellow>Level 7</yellow>").build(),
+        meta.lore(List.of(ColorParser.of("<yellow>Level 19</yellow>").build(),
             ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);

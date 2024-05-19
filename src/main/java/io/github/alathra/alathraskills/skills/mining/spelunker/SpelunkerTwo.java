@@ -20,7 +20,7 @@ public class SpelunkerTwo extends Skill {
         ItemStack icon = new ItemStack(Material.IRON_HELMET);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<cyan><bold>" + super.getName() + "</cyan>").build());
-        meta.lore(List.of(ColorParser.of("<yellow>Level 2</yellow>").build(),
+        meta.lore(List.of(ColorParser.of("<yellow>Level 6</yellow>").build(),
             ColorParser.of("<orange>" + super.getDescription() + "</orange>").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
