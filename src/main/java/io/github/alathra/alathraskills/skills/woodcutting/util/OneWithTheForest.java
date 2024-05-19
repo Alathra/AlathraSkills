@@ -1,6 +1,7 @@
 package io.github.alathra.alathraskills.skills.woodcutting.util;
 
 import io.github.alathra.alathraskills.AlathraSkills;
+import io.github.alathra.alathraskills.utility.RandomUtil;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -13,7 +14,9 @@ import java.util.*;
 public class OneWithTheForest {
 
     private static final Set<Block> saplings = new HashSet<>();
-    private static final HashMap<Block, BlockFace> possibleBeeNestBlocks = new HashMap<>();
+    private static final ArrayList<Location> treeBlockLocations = new ArrayList<>();
+    private static final ArrayList<Location> possibleBeeNestLocations = new ArrayList<>();
+
 
     // Get called on StructureGrowEvent
     public static void run(StructureGrowEvent event, int skillLevel) {
@@ -29,26 +32,56 @@ public class OneWithTheForest {
             }
         }
 
-        //if (Math.random() > getBeehiveChance(skillLevel)) {
-            //return;
-        //}
+        if (Math.random() > getBeehiveChance(skillLevel)) {
+            return;
+        }
         // check tree type
         if (event.getSpecies() == TreeType.TALL_BIRCH ||
             event.getSpecies() == TreeType.BIRCH ||
             event.getSpecies() == TreeType.BIG_TREE ||
             event.getSpecies() == TreeType.TREE) {
+            recordTreeBlockLocations(event.getBlocks());
             // Place bee nest after 2 tick delay (to let tree grow)
-            possibleBeeNestBlocks.clear();
-            findPossibleBeeNestBlocks(event);
-            Map.Entry<Block, BlockFace> entry = getRandomEntry(possibleBeeNestBlocks);
-            Location loc = entry.getKey().getLocation();
             new BukkitRunnable() {
                 public void run() {
-                    loc.getBlock().setType(Material.BEE_NEST);
+                    findPossibleBeeNestLocations();
+                    if (possibleBeeNestLocations.isEmpty()) {
+                        return;
+                    }
+                    Block beeNestBlock = RandomUtil.getRandomElementInList(possibleBeeNestLocations).getBlock();
+                    beeNestBlock.setType(Material.BEE_NEST);
                 }
             }.runTaskLater(AlathraSkills.getInstance(), 2);
         }
 
+    }
+
+    private static void recordTreeBlockLocations(List<BlockState> blocks) {
+        treeBlockLocations.clear();
+        for (BlockState blockState : blocks) {
+            treeBlockLocations.add(blockState.getLocation());
+        }
+    }
+
+    private static void findPossibleBeeNestLocations() {
+        possibleBeeNestLocations.clear();
+        for (Location location : treeBlockLocations) {
+            Block block = location.getBlock();
+            if (Tag.LEAVES.isTagged(block.getType())) {
+                block = block.getRelative(BlockFace.DOWN);
+                if (block.getType().isAir()) {
+                    if (Tag.LOGS.isTagged(block.getRelative(BlockFace.NORTH).getType())) {
+                        possibleBeeNestLocations.add(block.getLocation());
+                    } else if (Tag.LOGS.isTagged(block.getRelative(BlockFace.SOUTH).getType())) {
+                        possibleBeeNestLocations.add(block.getLocation());
+                    } else if (Tag.LOGS.isTagged(block.getRelative(BlockFace.EAST).getType())) {
+                        possibleBeeNestLocations.add(block.getLocation());
+                    } else if (Tag.LOGS.isTagged(block.getRelative(BlockFace.WEST).getType())) {
+                        possibleBeeNestLocations.add(block.getLocation());
+                    }
+                }
+            }
+        }
     }
 
     private static void bonemealGround(Block origin) {
@@ -133,51 +166,28 @@ public class OneWithTheForest {
         }
     }
 
-    public static void findPossibleBeeNestBlocks(StructureGrowEvent event) {
-        for (BlockState blockState : event.getBlocks()) {
-            Block block = blockState.getBlock();
-            if (Tag.LEAVES.isTagged(block.getType()) && block.getRelative(BlockFace.DOWN).getType().isAir()) {
-                if (Tag.LOGS.isTagged(block.getRelative(BlockFace.NORTH).getType())) {
-                    possibleBeeNestBlocks.put(block.getRelative(BlockFace.DOWN), BlockFace.NORTH);
-                } else if (Tag.LOGS.isTagged(block.getRelative(BlockFace.SOUTH).getType())) {
-                    possibleBeeNestBlocks.put(block.getRelative(BlockFace.DOWN), BlockFace.SOUTH);
-                } else if (Tag.LOGS.isTagged(block.getRelative(BlockFace.EAST).getType())) {
-                    possibleBeeNestBlocks.put(block.getRelative(BlockFace.DOWN), BlockFace.EAST);
-                } else if (Tag.LOGS.isTagged(block.getRelative(BlockFace.WEST).getType())) {
-                    possibleBeeNestBlocks.put(block.getRelative(BlockFace.DOWN), BlockFace.WEST);
-                }
-            }
-        }
-    }
-
-    public static <K, V> Map.Entry<K, V> getRandomEntry(HashMap<K, V> map) {
-        Random rand = new Random();
-        List<Map.Entry<K, V>> entries = new ArrayList<>(map.entrySet());
-        return entries.get(rand.nextInt(entries.size()));
-    }
-
     private static int getRadius(int skillLevel) {
         switch (skillLevel) {
             case 1 -> {
                 return 3;
             }
             case 2 -> {
-                return 4;
-            }
-            case 3 -> {
                 return 5;
             }
-            case 4 -> {
-                return 6;
-            }
-            case 5 -> {
+            case 3 -> {
                 return 7;
             }
+            case 4 -> {
+                return 9;
+            }
+            case 5 -> {
+                return 11;
+            }
             case 6 -> {
-                return 8;
+                return 13;
             }
             case 7 -> {
-                return 9;
+                return 15;
             }
             default -> {
                 return 0;
@@ -188,25 +198,25 @@ public class OneWithTheForest {
     private static double getBeehiveChance(int skillLevel) {
         switch (skillLevel) {
             case 1 -> {
-                return 0.02;
+                return 0.01;
             }
             case 2 -> {
-                return 0.04;
+                return 0.02;
             }
             case 3 -> {
-                return 0.06;
+                return 0.03;
             }
             case 4 -> {
-                return 0.08;
+                return 0.04;
             }
             case 5 -> {
-                return 0.10;
+                return 0.5;
             }
             case 6 -> {
-                return 0.12;
+                return 0.06;
             }
             case 7 -> {
-                return 0.14;
+                return 0.07;
             }
             default -> {
                 return 0;
