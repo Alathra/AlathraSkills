@@ -111,7 +111,8 @@ public class WoodcuttingSkillsListener implements Listener {
             return;
         }
 
-        OneWithTheForrest.run(event.getLocation().getBlock(), 7);
+        OneWithTheForest.run(event, 7);
 
     }
+
 }
