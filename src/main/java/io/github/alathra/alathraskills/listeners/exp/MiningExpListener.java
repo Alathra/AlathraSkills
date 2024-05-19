@@ -1,5 +1,6 @@
 package io.github.alathra.alathraskills.listeners.exp;
 
+import io.github.alathra.alathraskills.utility.PDCUtil;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,9 +15,14 @@ public class MiningExpListener implements Listener {
 	@EventHandler
 	public void BlockMiningListener(BlockBreakEvent event) {
 		Block block = event.getBlock();
+
+        // PDC check for unnatural block
+        if (PDCUtil.isUnnatural(block)) {
+            return;
+        }
+
 		float expAmount = 0.0f;
 
-		// TODO: CHECK FOR PCD DATA
 		switch (block.getType()) {
 		case ANCIENT_DEBRIS:
 			expAmount = 100.0f;
