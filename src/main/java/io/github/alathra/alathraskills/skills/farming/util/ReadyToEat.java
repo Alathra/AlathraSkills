@@ -38,8 +38,8 @@ public class ReadyToEat {
 
     private static double getChance(int skillLevel) {
         return switch (skillLevel) {
-            case 1 -> Cfg.get().get("skills.farming.readyToEat.chance.l1", 0.025);
-            case 2 -> Cfg.get().get("skills.farming.readyToEat.chance.l2", 0.05);
+            case 1 -> Double.parseDouble(Cfg.getValue("skills.farming.readyToEat.chance.l1").toString());
+            case 2 -> Double.parseDouble(Cfg.getValue("skills.farming.readyToEat.chance.l2").toString());
             default -> 0;
         };
     }

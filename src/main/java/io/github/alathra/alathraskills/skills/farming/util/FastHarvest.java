@@ -97,13 +97,13 @@ public class FastHarvest {
 
     private static double getChance(int skillLevel) {
         return switch (skillLevel) {
-            case 1 -> Cfg.get().get("skills.farming.fastHarvest.chance.l1", 0.10);
-            case 2 -> Cfg.get().get("skills.farming.fastHarvest.chance.l2", 0.50);
-            case 3 -> Cfg.get().get("skills.farming.fastHarvest.chance.l3", 0.20);
-            case 4 -> Cfg.get().get("skills.farming.fastHarvest.chance.l4", 0.40);
-            case 5 -> Cfg.get().get("skills.farming.fastHarvest.chance.l5", 0.60);
-            case 6 -> Cfg.get().get("skills.farming.fastHarvest.chance.l6", 0.80);
-            case 7 -> Cfg.get().get("skills.farming.fastHarvest.chance.l7", 1.00);
+            case 1 -> Double.parseDouble(Cfg.getValue("skills.farming.fastHarvest.chance.l1").toString());
+            case 2 -> Double.parseDouble(Cfg.getValue("skills.farming.fastHarvest.chance.l2").toString());
+            case 3 -> Double.parseDouble(Cfg.getValue("skills.farming.fastHarvest.chance.l3").toString());
+            case 4 -> Double.parseDouble(Cfg.getValue("skills.farming.fastHarvest.chance.l4").toString());
+            case 5 -> Double.parseDouble(Cfg.getValue("skills.farming.fastHarvest.chance.l5").toString());
+            case 6 -> Double.parseDouble(Cfg.getValue("skills.farming.fastHarvest.chance.l6").toString());
+            case 7 -> Double.parseDouble(Cfg.getValue("skills.farming.fastHarvest.chance.l7").toString());
             default -> 0;
         };
     }
