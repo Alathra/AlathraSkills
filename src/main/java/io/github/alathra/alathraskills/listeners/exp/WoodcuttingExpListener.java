@@ -19,7 +19,7 @@ public class WoodcuttingExpListener implements Listener {
 	public static ArrayList<Material> logs = new ArrayList<>(Tag.LOGS.getValues());
 
 	// Completely arbitrary right now
-	private float expAmount = 5.0f;
+	private float logExpAmount = 3.0f;
 	
 	@EventHandler
 	public void LogBreakingListener(BlockBreakEvent event) {
@@ -36,6 +36,6 @@ public class WoodcuttingExpListener implements Listener {
         // Block broken is a log
 		Player player = event.getPlayer();
 		SkillsPlayer skillsPlayer = new SkillsPlayer(player.getUniqueId());
-		skillsPlayer.addExp(SkillsManager.WOODCUTTING_SKILL_ID, expAmount);
+		skillsPlayer.addExp(SkillsManager.WOODCUTTING_SKILL_ID, logExpAmount);
 	}
 }
