@@ -17,14 +17,14 @@ public class PreciseChop {
 
     private static double getChance(int skillLevel) {
         return switch (skillLevel) {
-            case 1 -> Cfg.get().get("skills.woodcutting.preciseChop.chance.l1", 0.05);
-            case 2 -> Cfg.get().get("skills.woodcutting.preciseChop.chance.l2", 0.10);
-            case 3 -> Cfg.get().get("skills.woodcutting.preciseChop.chance.l3", 0.20);
-            case 4 -> Cfg.get().get("skills.woodcutting.preciseChop.chance.l4", 0.35);
-            case 5 -> Cfg.get().get("skills.woodcutting.preciseChop.chance.l5", 0.55);
-            case 6 -> Cfg.get().get("skills.woodcutting.preciseChop.chance.l6", 0.70);
-            case 7 -> Cfg.get().get("skills.woodcutting.preciseChop.chance.l7", 0.85);
-            case 8 -> Cfg.get().get("skills.woodcutting.preciseChop.chance.l8", 1.00);
+            case 1 -> Double.parseDouble(Cfg.getValue("skills.woodcutting.preciseChop.chance.l1").toString());
+            case 2 -> Double.parseDouble(Cfg.getValue("skills.woodcutting.preciseChop.chance.l2").toString());
+            case 3 -> Double.parseDouble(Cfg.getValue("skills.woodcutting.preciseChop.chance.l3").toString());
+            case 4 -> Double.parseDouble(Cfg.getValue("skills.woodcutting.preciseChop.chance.l4").toString());
+            case 5 -> Double.parseDouble(Cfg.getValue("skills.woodcutting.preciseChop.chance.l5").toString());
+            case 6 -> Double.parseDouble(Cfg.getValue("skills.woodcutting.preciseChop.chance.l6").toString());
+            case 7 -> Double.parseDouble(Cfg.getValue("skills.woodcutting.preciseChop.chance.l7").toString());
+            case 8 -> Double.parseDouble(Cfg.getValue("skills.woodcutting.preciseChop.chance.l8").toString());
             default -> 0;
         };
     }

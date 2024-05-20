@@ -29,33 +29,33 @@ public class OreInTheRough {
 
     private static double getChance(int skillLevel) {
         return switch (skillLevel) {
-            case 1 -> Cfg.get().get("skills.mining.oreInTheRough.chance.l1", 0.03);
-            case 2 -> Cfg.get().get("skills.mining.oreInTheRough.chance.l2", 0.06);
-            case 3 -> Cfg.get().get("skills.mining.oreInTheRough.chance.l3", 0.09);
-            case 4 -> Cfg.get().get("skills.mining.oreInTheRough.chance.l4", 0.12);
-            case 5 -> Cfg.get().get("skills.mining.oreInTheRough.chance.l5", 0.15);
+            case 1 -> Double.parseDouble(Cfg.getValue("skills.mining.oreInTheRough.chance.l1").toString());
+            case 2 -> Double.parseDouble(Cfg.getValue("skills.mining.oreInTheRough.chance.l2").toString());
+            case 3 -> Double.parseDouble(Cfg.getValue("skills.mining.oreInTheRough.chance.l3").toString());
+            case 4 -> Double.parseDouble(Cfg.getValue("skills.mining.oreInTheRough.chance.l4").toString());
+            case 5 -> Double.parseDouble(Cfg.getValue("skills.mining.oreInTheRough.chance.l5").toString());
             default -> 0;
         };
     }
 
     private static double getGoldOreChance(int skillLevel) {
         return switch (skillLevel) {
-            case 1 -> Cfg.get().get("skills.mining.oreInTheRough.goldChance.l1", 0.02);
-            case 2 -> Cfg.get().get("skills.mining.oreInTheRough.goldChance.l2", 0.04);
-            case 3 -> Cfg.get().get("skills.mining.oreInTheRough.goldChance.l3", 0.06);
-            case 4 -> Cfg.get().get("skills.mining.oreInTheRough.goldChance.l4", 0.08);
-            case 5 -> Cfg.get().get("skills.mining.oreInTheRough.goldChance.l5", 0.10);
+            case 1 -> Double.parseDouble(Cfg.getValue("skills.mining.oreInTheRough.goldChance.l1").toString());
+            case 2 -> Double.parseDouble(Cfg.getValue("skills.mining.oreInTheRough.goldChance.l2").toString());
+            case 3 -> Double.parseDouble(Cfg.getValue("skills.mining.oreInTheRough.goldChance.l3").toString());
+            case 4 -> Double.parseDouble(Cfg.getValue("skills.mining.oreInTheRough.goldChance.l4").toString());
+            case 5 -> Double.parseDouble(Cfg.getValue("skills.mining.oreInTheRough.goldChance.l5").toString());
             default -> 0;
         };
     }
 
     private static double getIronOreChance(int skillLevel) {
         return switch (skillLevel) {
-            case 1 -> Cfg.get().get("skills.mining.oreInTheRough.ironChance.l1", 0.08);
-            case 2 -> Cfg.get().get("skills.mining.oreInTheRough.ironChance.l2", 0.11);
-            case 3 -> Cfg.get().get("skills.mining.oreInTheRough.ironChance.l3", 0.14);
-            case 4 -> Cfg.get().get("skills.mining.oreInTheRough.ironChance.l4", 0.17);
-            case 5 -> Cfg.get().get("skills.mining.oreInTheRough.ironChance.l5", 0.20);
+            case 1 -> Double.parseDouble(Cfg.getValue("skills.mining.oreInTheRough.ironChance.l1").toString());
+            case 2 -> Double.parseDouble(Cfg.getValue("skills.mining.oreInTheRough.ironChance.l2").toString());
+            case 3 -> Double.parseDouble(Cfg.getValue("skills.mining.oreInTheRough.ironChance.l3").toString());
+            case 4 -> Double.parseDouble(Cfg.getValue("skills.mining.oreInTheRough.ironChance.l4").toString());
+            case 5 -> Double.parseDouble(Cfg.getValue("skills.mining.oreInTheRough.ironChance.l5").toString());
             default -> 0;
         };
     }

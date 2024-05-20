@@ -170,25 +170,25 @@ public class OneWithTheForest {
     private static int getRadius(int skillLevel) {
         switch (skillLevel) {
             case 1 -> {
-                return Cfg.get().get("skills.woodcutting.oneWithTheForest.radius.l1", 3);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneWithTheForest.radius.l1").toString());
             }
             case 2 -> {
-                return Cfg.get().get("skills.woodcutting.oneWithTheForest.radius.l2", 5);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneWithTheForest.radius.l2").toString());
             }
             case 3 -> {
-                return Cfg.get().get("skills.woodcutting.oneWithTheForest.radius.l3", 7);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneWithTheForest.radius.l3").toString());
             }
             case 4 -> {
-                return Cfg.get().get("skills.woodcutting.oneWithTheForest.radius.l4", 9);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneWithTheForest.radius.l4").toString());
             }
             case 5 -> {
-                return Cfg.get().get("skills.woodcutting.oneWithTheForest.radius.l5", 11);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneWithTheForest.radius.l5").toString());
             }
             case 6 -> {
-                return Cfg.get().get("skills.woodcutting.oneWithTheForest.radius.l6", 13);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneWithTheForest.radius.l6").toString());
             }
             case 7 -> {
-                return Cfg.get().get("skills.woodcutting.oneWithTheForest.radius.l7", 15);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneWithTheForest.radius.l7").toString());
             }
             default -> {
                 return 0;
@@ -199,25 +199,25 @@ public class OneWithTheForest {
     private static double getBeehiveChance(int skillLevel) {
         switch (skillLevel) {
             case 1 -> {
-                return Cfg.get().get("skills.woodcutting.oneWithTheForest.beehiveChance.l1", 0.01);
+                return Double.parseDouble(Cfg.getValue("skills.woodcutting.oneWithTheForest.beehiveChance.l1").toString());
             }
             case 2 -> {
-                return Cfg.get().get("skills.woodcutting.oneWithTheForest.beehiveChance.l2", 0.02);
+                return Double.parseDouble(Cfg.getValue("skills.woodcutting.oneWithTheForest.beehiveChance.l2").toString());
             }
             case 3 -> {
-                return Cfg.get().get("skills.woodcutting.oneWithTheForest.beehiveChance.l3", 0.03);
+                return Double.parseDouble(Cfg.getValue("skills.woodcutting.oneWithTheForest.beehiveChance.l3").toString());
             }
             case 4 -> {
-                return Cfg.get().get("skills.woodcutting.oneWithTheForest.beehiveChance.l4", 0.04);
+                return Double.parseDouble(Cfg.getValue("skills.woodcutting.oneWithTheForest.beehiveChance.l4").toString());
             }
             case 5 -> {
-                return Cfg.get().get("skills.woodcutting.oneWithTheForest.beehiveChance.l5", 0.50);
+                return Double.parseDouble(Cfg.getValue("skills.woodcutting.oneWithTheForest.beehiveChance.l5").toString());
             }
             case 6 -> {
-                return Cfg.get().get("skills.woodcutting.oneWithTheForest.beehiveChance.l6", 0.06);
+                return Double.parseDouble(Cfg.getValue("skills.woodcutting.oneWithTheForest.beehiveChance.l6").toString());
             }
             case 7 -> {
-                return Cfg.get().get("skills.woodcutting.oneWithTheForest.beehiveChance.l7", 0.07);
+                return Double.parseDouble(Cfg.getValue("skills.woodcutting.oneWithTheForest.beehiveChance.l7").toString());
             }
             default -> {
                 return 0;

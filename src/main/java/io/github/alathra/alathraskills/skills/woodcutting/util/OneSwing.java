@@ -153,25 +153,25 @@ public class OneSwing {
     private static int getDuration(int skillLevel) {
         switch (skillLevel) {
             case 1 -> {
-                return Cfg.get().get("skills.woodcutting.oneSwing.duration.l1", 3);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.duration.l1").toString());
             }
             case 2 -> {
-                return Cfg.get().get("skills.woodcutting.oneSwing.duration.l2", 5);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.duration.l2").toString());
             }
             case 3 -> {
-                return Cfg.get().get("skills.woodcutting.oneSwing.duration.l3", 10);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.duration.l3").toString());
             }
             case 4 -> {
-                return Cfg.get().get("skills.woodcutting.oneSwing.duration.l4", 13);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.duration.l4").toString());
             }
             case 5 -> {
-                return Cfg.get().get("skills.woodcutting.oneSwing.duration.l5", 17);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.duration.l5").toString());
             }
             case 6 -> {
-                return Cfg.get().get("skills.woodcutting.oneSwing.duration.l6", 21);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.duration.l6").toString());
             }
             case 7 -> {
-                return Cfg.get().get("skills.woodcutting.oneSwing.duration.l7", 30);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.duration.l7").toString());
             }
             default -> {
                 return 0;
@@ -183,25 +183,25 @@ public class OneSwing {
     private static long getCooldownTime(int skillLevel) {
         switch (skillLevel) {
             case 1 -> {
-                return Cfg.get().get("skills.woodcutting.oneSwing.cooldown.l1", 600L);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.cooldown.l1").toString());
             }
             case 2 -> {
-                return Cfg.get().get("skills.woodcutting.oneSwing.cooldown.l2", 570L);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.cooldown.l2").toString());
             }
             case 3 -> {
-                return Cfg.get().get("skills.woodcutting.oneSwing.cooldown.l3", 540L);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.cooldown.l3").toString());
             }
             case 4 -> {
-                return Cfg.get().get("skills.woodcutting.oneSwing.cooldown.l4", 510L);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.cooldown.l4").toString());
             }
             case 5 -> {
-                return Cfg.get().get("skills.woodcutting.oneSwing.cooldown.l5", 480L);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.cooldown.l5").toString());
             }
             case 6 -> {
-                return Cfg.get().get("skills.woodcutting.oneSwing.cooldown.l6", 420L);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.cooldown.l6").toString());
             }
             case 7 -> {
-                return Cfg.get().get("skills.woodcutting.oneSwing.cooldown.l7", 300L);
+                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.cooldown.l7").toString());
             }
             default -> {
                 return 0;
