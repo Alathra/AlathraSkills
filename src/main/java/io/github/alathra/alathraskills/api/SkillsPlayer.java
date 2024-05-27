@@ -11,12 +11,14 @@ public class SkillsPlayer {
 	private OfflinePlayer p;
 	private HashMap<Integer, SkillDetails> playerSkills;
 	private HashMap<Integer, Float> playerExperienceValues;
+	private Integer usedSkillPoints;
 	
 	public SkillsPlayer(OfflinePlayer p, HashMap<Integer, SkillDetails> playerSkills,
-			HashMap<Integer, Float> playerExperienceValues) {
+			HashMap<Integer, Float> playerExperienceValues, Integer usedSkillPoints) {
 		this.p = p;
 		this.playerSkills = playerSkills;
 		this.playerExperienceValues = playerExperienceValues;
+		this.usedSkillPoints = usedSkillPoints;
 	}
 	
 	public OfflinePlayer getPlayer() {
@@ -89,5 +91,13 @@ public class SkillsPlayer {
 	public void cleanUpInsertedSkills() {
 		getSkillsToInsertToDB().forEach(sd -> playerSkills.put(
 				sd.getKey(), new SkillDetails(true, true)));
+	}
+
+	public Integer getUsedSkillPoints() {
+		return usedSkillPoints;
+	}
+
+	public void setUsedSkillPoints(Integer usedSkillPoints) {
+		this.usedSkillPoints = usedSkillPoints;
 	}
 }

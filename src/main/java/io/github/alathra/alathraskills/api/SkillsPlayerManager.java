@@ -6,6 +6,7 @@ import java.util.UUID;
 import java.util.Map.Entry;
 import java.util.stream.Stream;
 
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
@@ -30,8 +31,8 @@ public class SkillsPlayerManager implements Reloadable {
 	
 	@Override
 	public void onLoad() {
-		// TODO Auto-generated method stub
-		
+		// Handle populating player data on server reload
+		Bukkit.getOnlinePlayers().forEach((Player p) -> handlePlayerJoin(p));
 	}
 
 	@Override
@@ -47,6 +48,7 @@ public class SkillsPlayerManager implements Reloadable {
 
 	@Override
 	public void onDisable() {
+		Bukkit.getOnlinePlayers().forEach((Player p) -> handlePlayerLeave(p));
 		// TODO Auto-generated method stub
 		this.plugin.getServer().getScheduler()
 			.cancelTask(storePlayerSkillInfoTask.getTaskId());
@@ -62,6 +64,7 @@ public class SkillsPlayerManager implements Reloadable {
 			DatabaseQueries.saveSkillCategoryExperience(p, 1, 0);
 			DatabaseQueries.saveSkillCategoryExperience(p, 2, 0);
 			DatabaseQueries.saveSkillCategoryExperience(p, 3, 0);
+			DatabaseQueries.setUsedSkillPoints(p, 0);
 		}
 		//TODO Make Async
 		Result<PlayerSkillinfoRecord> skillsDBReturn = DatabaseQueries.fetchPlayerSkills(p);
@@ -81,11 +84,13 @@ public class SkillsPlayerManager implements Reloadable {
         float dbExperienceReturnValue3 = DatabaseQueries.getSkillCategoryExperienceFloat(
         		p, 3);
         
+        Integer usedSkillPoints = DatabaseQueries.getUsedSkillPoints(p).value1();
+        
         playerExperienceValues.put(1, dbExperienceReturnValue1);
         playerExperienceValues.put(2, dbExperienceReturnValue2);
         playerExperienceValues.put(3, dbExperienceReturnValue3);
 
-		SkillsPlayer newPlayer = new SkillsPlayer(p, playerSkills, playerExperienceValues);
+		SkillsPlayer newPlayer = new SkillsPlayer(p, playerSkills, playerExperienceValues, usedSkillPoints);
 		skillPlayers.put(p.getUniqueId(), newPlayer);
 	}
 
@@ -109,12 +114,20 @@ public class SkillsPlayerManager implements Reloadable {
 					currentPlayer.getPlayer(), currentPlayer.getPlayerExperienceValues()));
 		DatabaseQueries.updatePlayerExperienceRecordSet(experienceValues);
 		
-		skillPlayers.remove(p.getUniqueId());
+        Integer usedSkillPoints = currentPlayer.getUsedSkillPoints();
+        DatabaseQueries.setUsedSkillPoints(p, usedSkillPoints);
+
+        skillPlayers.remove(p.getUniqueId());
 	}
 	
 	public static void setPlayerExperience(Player p, Integer skillCategory, Float experienceValue) {
 		SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
 		currentPlayer.setExperience(skillCategory, experienceValue);
+	}
+
+	public static void setPlayerUsedSkillPoints(Player p, Integer usedSkillPoints) {
+		SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
+		currentPlayer.setUsedSkillPoints(usedSkillPoints);
 	}
 
     //TODO: check if player has previous skill unlocked
@@ -307,7 +320,11 @@ public class SkillsPlayerManager implements Reloadable {
 		return currPlayer.getSkillCategoryExperience(skillCategory);
 	}
 	
-
+	public static Integer getUsedSkillPoints(OfflinePlayer p) {
+		SkillsPlayer currPlayer = fetchCurrPlayer(p);
+		return currPlayer.getUsedSkillPoints();
+	}
+	
     public final HashMap<UUID, SkillsPlayer> getSkillPlayers() {
         return skillPlayers;
     }
