@@ -125,6 +125,12 @@ public class SkillsPlayerManager implements Reloadable {
 		currentPlayer.setExperience(skillCategory, experienceValue);
 	}
 
+    public static void addPlayerExperience(Player p, Integer skillCategory, Float experienceValue) {
+        SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
+        float currentExp = currentPlayer.getSkillCategoryExperience(skillCategory);
+        currentPlayer.setExperience(skillCategory, currentExp + experienceValue);
+    }
+
 	public static void setPlayerUsedSkillPoints(Player p, Integer usedSkillPoints) {
 		SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
 		currentPlayer.setUsedSkillPoints(usedSkillPoints);

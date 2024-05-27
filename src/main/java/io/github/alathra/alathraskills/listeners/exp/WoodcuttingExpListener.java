@@ -2,28 +2,32 @@ package io.github.alathra.alathraskills.listeners.exp;
 
 import java.util.ArrayList;
 
+import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.utility.Cfg;
 import io.github.alathra.alathraskills.utility.PDCUtil;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 import io.github.alathra.alathraskills.api.SkillsManager;
-import io.github.alathra.alathraskills.skills.SkillsPlayer;
 
 public class WoodcuttingExpListener implements Listener {
 	
 	public static ArrayList<Material> logs = new ArrayList<>(Tag.LOGS.getValues());
 
 	// Completely arbitrary right now
-	private float logExpAmount = Float.parseFloat(Cfg.getValue("experience.woodcutting.log").toString());
+	private float expAmount = Float.parseFloat(Cfg.getValue("experience.woodcutting.log").toString());
 	
 	@EventHandler
 	public void LogBreakingListener(BlockBreakEvent event) {
+
+        if (event.getPlayer() == null) {
+            return;
+        }
+
 		Block block = event.getBlock();
 		if (!logs.contains(block.getType())) {
 			return;
@@ -35,8 +39,7 @@ public class WoodcuttingExpListener implements Listener {
         }
 
         // Block broken is a log
-		Player player = event.getPlayer();
-		SkillsPlayer skillsPlayer = new SkillsPlayer(player.getUniqueId());
-		skillsPlayer.addExp(SkillsManager.WOODCUTTING_SKILL_ID, logExpAmount);
+
+        SkillsPlayerManager.addPlayerExperience(event.getPlayer(), SkillsManager.WOODCUTTING_SKILL_ID, expAmount);
 	}
 }
