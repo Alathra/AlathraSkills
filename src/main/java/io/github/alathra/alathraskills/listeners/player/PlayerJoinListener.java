@@ -16,6 +16,7 @@ import com.gmail.nossr50.util.player.UserManager;
 
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
+import io.github.alathra.alathraskills.utility.Cfg;
 
 public class PlayerJoinListener implements Listener {
 	
@@ -37,8 +38,8 @@ public class PlayerJoinListener implements Listener {
                     return;        	
                 }
 
-                float maxSkillLevel = 200.0f;
-                float conversionFactor = 7000.0f;
+                float maxSkillLevel = Float.parseFloat(Cfg.getValue("mcmmo.maxSkillLevel").toString());
+                float conversionFactor = Float.parseFloat(Cfg.getValue("mcmmo.conversionFactor").toString());
 
                 float skillLevelFarming = 1.0f * playerMcMMO.getHerbalismManager().getSkillLevel();
                 float skillLevelMining = 1.0f * playerMcMMO.getMiningManager().getSkillLevel();
