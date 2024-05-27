@@ -1,18 +1,25 @@
 package io.github.alathra.alathraskills.listeners.exp;
 
+import io.github.alathra.alathraskills.api.SkillsManager;
+import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.type.CaveVines;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerHarvestBlockEvent;
 
 import io.github.alathra.alathraskills.utility.Cfg;
 
-public class FarmingExpListener {
+public class FarmingExpListener implements Listener {
 
     @EventHandler
     public void BerriesHarvestingListener(PlayerHarvestBlockEvent event) {
+        if (event.getPlayer() == null) {
+            return;
+        }
+
         Block block = event.getHarvestedBlock();
 
         float expAmount = 0.0f;
@@ -27,10 +34,16 @@ public class FarmingExpListener {
             default:
                 return;
         }
+
+        SkillsPlayerManager.addPlayerExperience(event.getPlayer(), SkillsManager.FARMING_SKILL_ID, expAmount);
     }
 
     @EventHandler
     public void FarmHarvestingListener(BlockBreakEvent event) {
+
+        if (event.getPlayer() == null) {
+            return;
+        }
 
         Block block = event.getBlock();
         float expAmount = 0.0f;
@@ -100,5 +113,7 @@ public class FarmingExpListener {
             default:
                 return;
         }
+
+        SkillsPlayerManager.addPlayerExperience(event.getPlayer(), SkillsManager.FARMING_SKILL_ID, expAmount);
     }
 }

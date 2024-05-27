@@ -1,20 +1,24 @@
 package io.github.alathra.alathraskills.listeners.exp;
 
+import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.utility.Cfg;
 import io.github.alathra.alathraskills.utility.PDCUtil;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 import io.github.alathra.alathraskills.api.SkillsManager;
-import io.github.alathra.alathraskills.skills.SkillsPlayer;
 
 public class MiningExpListener implements Listener {
 
     @EventHandler
     public void BlockMiningListener(BlockBreakEvent event) {
+
+        if (event.getPlayer() == null) {
+            return;
+        }
+
         Block block = event.getBlock();
 
         // PDC check for unnatural block
@@ -37,8 +41,6 @@ public class MiningExpListener implements Listener {
             default -> 0.0f;
         };
 
-        Player player = event.getPlayer();
-        SkillsPlayer skillsPlayer = new SkillsPlayer(player.getUniqueId());
-        skillsPlayer.addExp(SkillsManager.MINING_SKILL_ID, expAmount);
+        SkillsPlayerManager.addPlayerExperience(event.getPlayer(), SkillsManager.MINING_SKILL_ID, expAmount);
     }
 }
