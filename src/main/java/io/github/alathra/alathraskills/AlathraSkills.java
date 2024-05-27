@@ -74,13 +74,13 @@ public class AlathraSkills extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        skillsManager.onDisable();
+        skillsPlayerManager.onDisable();
         configHandler.onDisable();
         databaseHandler.onDisable();
         commandHandler.onDisable();
         listenerHandler.onDisable();
         vaultHook.onDisable();
-        skillsManager.onDisable();
-        skillsPlayerManager.onDisable();
     }
 
     /**

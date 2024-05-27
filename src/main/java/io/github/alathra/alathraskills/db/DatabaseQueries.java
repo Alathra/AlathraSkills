@@ -5,6 +5,7 @@ import io.github.alathra.alathraskills.api.PlayerSkillDetails;
 import io.github.alathra.alathraskills.api.SkillDetails;
 import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillcategoryinfoRecord;
 import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillinfoRecord;
+import io.github.alathra.alathraskills.db.schema.tables.records.PlayerUsedSkillPointsRecord;
 import io.github.alathra.alathraskills.utility.DB;
 import io.github.alathra.alathraskills.utility.Logger;
 import org.bukkit.entity.Player;
@@ -26,6 +27,7 @@ import java.util.stream.Stream;
 
 import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_SKILLCATEGORYINFO;
 import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_SKILLINFO;
+import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_USED_SKILL_POINTS;;
 
 /**
  * A holder class for all SQL queries
@@ -136,6 +138,72 @@ public abstract class DatabaseQueries {
 
     public static Record1<Double> getSkillCategoryExperience(Player p, int skillCategoryId) {
         return getSkillCategoryExperience(p.getUniqueId(), skillCategoryId);
+    }
+
+    /**
+     * Fetches the number of skills a player has used
+     *
+     * @param uuid
+     * @return record containing used number of skills
+     */
+
+    public static Record1<Integer> getUsedSkillPoints(UUID uuid) {
+        try (
+            Connection con = DB.getConnection()
+        ) {
+            DSLContext context = DB.getContext(con);
+
+            return context
+                .select(PLAYER_USED_SKILL_POINTS.SKILLS_USED)
+                .from(PLAYER_USED_SKILL_POINTS)
+                .where(PLAYER_USED_SKILL_POINTS.UUID.equal(convertUUIDToBytes(uuid)))
+                .fetchOne();
+        } catch (DataAccessException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+            return null;
+        } catch (SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+            return null;        	
+        }
+    }
+
+    public static Record1<Integer> getUsedSkillPoints(Player p) {
+        return getUsedSkillPoints(p.getUniqueId());
+    }
+
+    /**
+     * Sets the number of skills points a player has used
+     *
+     * @param uuid
+     * @param usedSkillPoints
+     */
+
+    public static void setUsedSkillPoints(UUID uuid, Integer usedSkillPoints) {
+        try (
+                Connection con = DB.getConnection()
+            ) {
+                DSLContext context = DB.getContext(con);
+
+                context
+                    .insertInto(PLAYER_USED_SKILL_POINTS,
+                		PLAYER_USED_SKILL_POINTS.UUID,
+                        PLAYER_USED_SKILL_POINTS.SKILLS_USED)
+                    .values(
+                        convertUUIDToBytes(uuid),
+                        usedSkillPoints
+                    )
+                    .onDuplicateKeyUpdate()
+                    .set(PLAYER_USED_SKILL_POINTS.SKILLS_USED, usedSkillPoints)
+                    .execute();
+            } catch (DataAccessException e) {
+                Logger.get().error("SQL Query threw an error!", e);
+            } catch (SQLException e) {
+                Logger.get().error("SQL Query threw an error!", e);
+            }
+    }
+
+    public static void setUsedSkillPoints(Player p, Integer usedSkillPoints) {
+        setUsedSkillPoints(p.getUniqueId(), usedSkillPoints);
     }
 
     /**
