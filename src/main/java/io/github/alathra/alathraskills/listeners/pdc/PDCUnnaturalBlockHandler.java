@@ -22,7 +22,7 @@ public class PDCUnnaturalBlockHandler implements Listener {
         if (event.isCancelled()) {
             return;
         }
-        PDCUtil.setUnnnatural(event.getBlock(), true);
+        PDCUtil.setUnnatural(event.getBlock(), true);
 
         // TODO: Apply to items maybe?
     }
@@ -42,7 +42,7 @@ public class PDCUnnaturalBlockHandler implements Listener {
         }
         for (Block block : event.getBlocks()) {
             block = block.getRelative(event.getDirection());
-            PDCUtil.setUnnnatural(block, true);
+            PDCUtil.setUnnatural(block, true);
         }
     }
 

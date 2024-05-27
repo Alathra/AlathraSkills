@@ -21,7 +21,7 @@ public class PDCUtil {
         unnaturalKey = new NamespacedKey(AlathraSkills.getInstance(), "alathraskills_unnatural");
     }
 
-    public static void setUnnnatural(Block block, boolean value) {
+    public static void setUnnatural(Block block, boolean value) {
         PersistentDataContainer pdc = getPDC(block);
         pdc.set(unnaturalKey, PersistentDataType.BOOLEAN, value);
     }
