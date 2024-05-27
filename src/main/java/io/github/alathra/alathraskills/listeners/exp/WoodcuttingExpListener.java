@@ -2,6 +2,7 @@ package io.github.alathra.alathraskills.listeners.exp;
 
 import java.util.ArrayList;
 
+import io.github.alathra.alathraskills.utility.Cfg;
 import io.github.alathra.alathraskills.utility.PDCUtil;
 import org.bukkit.Material;
 import org.bukkit.Tag;
@@ -19,7 +20,7 @@ public class WoodcuttingExpListener implements Listener {
 	public static ArrayList<Material> logs = new ArrayList<>(Tag.LOGS.getValues());
 
 	// Completely arbitrary right now
-	private float logExpAmount = 3.0f;
+	private float logExpAmount = Float.parseFloat(Cfg.getValue("experience.woodcutting.log").toString());
 	
 	@EventHandler
 	public void LogBreakingListener(BlockBreakEvent event) {

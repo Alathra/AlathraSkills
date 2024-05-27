@@ -7,6 +7,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerHarvestBlockEvent;
 
+import io.github.alathra.alathraskills.utility.Cfg;
+
 public class FarmingExpListener {
 
     @EventHandler
@@ -17,10 +19,10 @@ public class FarmingExpListener {
 
         switch (block.getType()) {
             case CAVE_VINES:
-                expAmount = 0.3f;
+                expAmount = Float.parseFloat(Cfg.getValue("experience.farming.caveVine").toString());
                 break;
             case SWEET_BERRY_BUSH:
-                expAmount = 0.1f;
+                expAmount = Float.parseFloat(Cfg.getValue("experience.farming.sweetBerryBush").toString());
                 break;
             default:
                 return;
@@ -42,43 +44,58 @@ public class FarmingExpListener {
 
         switch (block.getType()) {
             case BAMBOO:
-                expAmount = 0.06f;
+                expAmount = Float.parseFloat(Cfg.getValue("experience.farming.bamboo").toString());
                 break;
             case BROWN_MUSHROOM, RED_MUSHROOM:
-                expAmount = 1.0f;
+                expAmount = Float.parseFloat(Cfg.getValue("experience.farming.mushroom").toString());
                 break;
             case CACTUS:
-                expAmount = 1.0f;
+                expAmount = Float.parseFloat(Cfg.getValue("experience.farming.cactus").toString());
                 break;
-            case CARROTS, POTATOES, BEETROOTS, WHEAT:
+            case CARROTS:
                 if (ageable.getMaximumAge() == ageable.getAge())
-                    expAmount = 1.0f;
+                    expAmount = Float.parseFloat(Cfg.getValue("experience.farming.carrot").toString());
+                break;
+            case POTATOES:
+                if (ageable.getMaximumAge() == ageable.getAge())
+                    expAmount = Float.parseFloat(Cfg.getValue("experience.farming.potato").toString());
+                break;
+            case BEETROOTS:
+                if (ageable.getMaximumAge() == ageable.getAge())
+                    expAmount = Float.parseFloat(Cfg.getValue("experience.farming.beetroot").toString());
+                break;
+            case WHEAT:
+                if (ageable.getMaximumAge() == ageable.getAge())
+                    expAmount = Float.parseFloat(Cfg.getValue("experience.farming.wheat").toString());
                 break;
             case CAVE_VINES:
                 CaveVines caveVines = (CaveVines) block.getBlockData();
                 if (caveVines.isBerries())
-                    expAmount = 0.3f;
+                    expAmount = Float.parseFloat(Cfg.getValue("experience.farming.caveVineBlock").toString());
                 break;
             case COCOA:
                 if (ageable.getMaximumAge() == ageable.getAge())
-                    expAmount = 4.0f;
+                    expAmount = Float.parseFloat(Cfg.getValue("experience.farming.cocoa").toString());
                 break;
             case KELP:
-                expAmount = 0.1f;
+                expAmount = Float.parseFloat(Cfg.getValue("experience.farming.kelp").toString());
                 break;
-            case MELON, PUMPKIN:
-                expAmount = 1.0f;
+            case MELON:
+                expAmount = Float.parseFloat(Cfg.getValue("experience.farming.melon").toString());
+                break;
+            case PUMPKIN:
+                expAmount = Float.parseFloat(Cfg.getValue("experience.farming.pumpkin").toString());
                 break;
             case NETHER_WART:
                 if (ageable.getMaximumAge() == ageable.getAge())
-                    expAmount = 0.5f;
+                    expAmount = Float.parseFloat(Cfg.getValue("experience.farming.netherWart").toString());
                 break;
             case SUGAR_CANE:
-                expAmount = 0.2f;
+                expAmount = Float.parseFloat(Cfg.getValue("experience.farming.sugarCane").toString());
                 break;
             case SWEET_BERRY_BUSH:
                 if (ageable.getMaximumAge() == ageable.getAge())
-                    expAmount = 0.1f;
+                    expAmount = Float.parseFloat(Cfg.getValue("experience.farming.sweetBerryBushBlock").toString());
                 break;
             default:
                 return;

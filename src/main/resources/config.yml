@@ -161,3 +161,40 @@ skills:
             l5: 0.12
             l6: 0.15
             l7: 0.20
+experience:
+   perLevel: 5000
+   farming:
+      caveVine: 0.3
+      sweetBerryBush: 0.1
+      bamboo: 0.06
+      mushroom: 1.0
+      cactus: 1.0
+      carrot: 1.0
+      potato: 1.0
+      beetroot: 1.0
+      wheat: 1.0
+      caveVineBlock: 0.3
+      cocoa: 4.0
+      kelp: 0.1
+      melon: 1.0
+      pumpkin: 1.0
+      netherWart: 0.5
+      sugarCane: 0.2
+      sweetBerryBushBlock: 0.1
+   woodcutting:
+      log: 3.0
+   mining:
+      amethyst: 4.0
+      coal: 1.5
+      copper: 0.6
+      diamond: 15.0
+      emerald: 30.0
+      gold: 7.5
+      iron: 3.0
+      lapis: 2.0
+      redstone: 1.2
+      quartz: 1.0
+      debris: 100.0
+mcmmo:
+   maxSkillLevel: 200.0
+   conversionFactor: 7000.0

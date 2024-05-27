@@ -15,6 +15,7 @@ import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.Reloadable;
 import io.github.alathra.alathraskills.db.DatabaseQueries;
 import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillinfoRecord;
+import io.github.alathra.alathraskills.utility.Cfg;
 
 public class SkillsPlayerManager implements Reloadable {
 	
@@ -123,8 +124,8 @@ public class SkillsPlayerManager implements Reloadable {
         totalExp += currentPlayer.getSkillCategoryExperience(2);
         totalExp += currentPlayer.getSkillCategoryExperience(3);
 
-        float remainingExp = totalExp % 5000;
-        int skillPointsAvailable = (int) ((totalExp - remainingExp) / 5000);
+        float remainingExp = totalExp % Float.parseFloat(Cfg.getValue("experience.perLevel").toString());
+        int skillPointsAvailable = (int) ((totalExp - remainingExp) / Float.parseFloat(Cfg.getValue("experience.perLevel").toString()));
         int unlockedSkills = (int) SkillsPlayerManager.getAllSkills(p).count();
         skillPointsAvailable -= unlockedSkills;
 
