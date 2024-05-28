@@ -192,5 +192,23 @@ public class SkillsManager implements Reloadable {
         farmingSkills.put(1220, new ReadyToEatTwo(1220));
 
     }
-	
+
+    public Skill getSkill(Integer skillID) {
+        String idString = skillID.toString();
+        switch (idString.charAt(0)) {
+            case 1 -> {
+                return farmingSkills.get(skillID);
+            }
+            case 2 -> {
+                return miningSkills.get(skillID);
+            }
+            case 3 -> {
+                return woodcuttingSkills.get(skillID);
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
+
 }

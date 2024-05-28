@@ -32,7 +32,7 @@ public class PopulateContent {
         }
 
         int skillPointsAvailable = (int) ((totalExp - remainingExp) / 5000);
-        int unlockedSkills = (int) SkillsPlayerManager.getAllSkills(offlinePlayer).count();
+        int unlockedSkills = SkillsPlayerManager.getUsedSkillPoints(offlinePlayer);
 
         skillPointsAvailable -= unlockedSkills;
 

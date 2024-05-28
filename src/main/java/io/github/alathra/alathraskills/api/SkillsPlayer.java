@@ -100,4 +100,8 @@ public class SkillsPlayer {
 	public void setUsedSkillPoints(Integer usedSkillPoints) {
 		this.usedSkillPoints = usedSkillPoints;
 	}
+
+    public void addUsedSkillPoints(Integer addedPoints) {
+        this.usedSkillPoints += addedPoints;
+    }
 }

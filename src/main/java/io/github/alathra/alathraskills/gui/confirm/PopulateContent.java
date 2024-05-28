@@ -14,6 +14,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.List;
+
 public class PopulateContent {
 
     static SkillsManager skillsManager = AlathraSkills.getSkillsManager();
@@ -22,6 +24,7 @@ public class PopulateContent {
         ItemStack confirm = new ItemStack(Material.EMERALD_BLOCK);
         ItemMeta confirmMeta = confirm.getItemMeta();
         confirmMeta.displayName(ColorParser.of("<dark_green><bold>Confirm").build());
+        confirmMeta.lore(List.of(ColorParser.of("<yellow>Cost: " + skillsManager.getSkill(skill).getCost()).build()));
         confirm.setItemMeta(confirmMeta);
 
         ItemStack deny = new ItemStack(Material.REDSTONE_BLOCK);

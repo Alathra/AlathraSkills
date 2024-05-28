@@ -6,6 +6,7 @@ import java.util.UUID;
 import java.util.Map.Entry;
 import java.util.stream.Stream;
 
+import io.github.alathra.alathraskills.skills.Skill;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -136,21 +137,28 @@ public class SkillsPlayerManager implements Reloadable {
 		currentPlayer.setUsedSkillPoints(usedSkillPoints);
 	}
 
-    //TODO: check if player has previous skill unlocked
     public static boolean buySkill(Player p, Integer skill) {
         SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
         float totalExp = currentPlayer.getSkillCategoryExperience(1);
         totalExp += currentPlayer.getSkillCategoryExperience(2);
         totalExp += currentPlayer.getSkillCategoryExperience(3);
 
+        // Gets remaining exp to next skill
         float remainingExp = totalExp % Float.parseFloat(Cfg.getValue("experience.perLevel").toString());
+
+        // Calculates total skill points based on exp and exp required for points
         int skillPointsAvailable = (int) ((totalExp - remainingExp) / Float.parseFloat(Cfg.getValue("experience.perLevel").toString()));
-        int unlockedSkills = (int) SkillsPlayerManager.getAllSkills(p).count();
-        skillPointsAvailable -= unlockedSkills;
+
+        // Subtracts used skill points
+        skillPointsAvailable -= skillPlayers.get(p.getUniqueId()).getUsedSkillPoints();
 
         if (skillPointsAvailable < 1)
             return false;
         addPlayerSkill(p, skill);
+
+        Skill skillObject = AlathraSkills.getSkillsManager().getSkill(skill);
+        currentPlayer.addUsedSkillPoints(skillObject.getCost());
+
         return true;
     }
 
