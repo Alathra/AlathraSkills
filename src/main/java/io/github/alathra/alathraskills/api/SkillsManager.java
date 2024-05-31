@@ -29,9 +29,6 @@ import io.github.alathra.alathraskills.skills.woodcutting.precisechop.*;
 import io.github.alathra.alathraskills.skills.woodcutting.savethetrees.SaveTheTreesOne;
 import io.github.alathra.alathraskills.skills.woodcutting.trimmer.*;
 
-import static jdk.vm.ci.meta.JavaKind.Char;
-
-
 public class SkillsManager implements Reloadable {
 	
 	public static int FARMING_SKILL_ID = 1;
