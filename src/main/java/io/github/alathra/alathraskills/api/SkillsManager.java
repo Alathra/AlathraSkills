@@ -29,6 +29,8 @@ import io.github.alathra.alathraskills.skills.woodcutting.precisechop.*;
 import io.github.alathra.alathraskills.skills.woodcutting.savethetrees.SaveTheTreesOne;
 import io.github.alathra.alathraskills.skills.woodcutting.trimmer.*;
 
+import static jdk.vm.ci.meta.JavaKind.Char;
+
 
 public class SkillsManager implements Reloadable {
 	
@@ -194,15 +196,20 @@ public class SkillsManager implements Reloadable {
     }
 
     public Skill getSkill(Integer skillID) {
-        String idString = skillID.toString();
-        switch (idString.charAt(0)) {
-            case 1 -> {
+        switch (skillID) {
+            case 101, 102, 103, 104, 105, 106, 107, 108, 109, 110,
+                1111, 1112, 1113, 1114, 1115, 1116, 1117, 1118, 1119, 1120,
+                1211, 1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220 -> {
                 return farmingSkills.get(skillID);
             }
-            case 2 -> {
+            case 201, 202, 203, 204, 205, 206, 207, 208, 209, 210,
+                2111, 2112, 2113, 2114, 2115, 2116, 2117, 2118, 2119, 2120,
+                2211, 2212, 2213, 2214, 2215, 2216, 2217, 2218, 2219, 2220 -> {
                 return miningSkills.get(skillID);
             }
-            case 3 -> {
+            case 301, 302, 303, 304, 305, 306, 307, 308, 309, 310,
+                3111, 3112, 3113, 3114, 3115, 3116, 3117, 3118, 3119, 3120,
+                3211, 3212, 3213, 3214, 3215, 3216, 3217, 3218, 3219, 3220 -> {
                 return woodcuttingSkills.get(skillID);
             }
             default -> {
