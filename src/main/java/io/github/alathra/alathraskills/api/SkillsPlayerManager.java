@@ -85,7 +85,7 @@ public class SkillsPlayerManager implements Reloadable {
         float dbExperienceReturnValue3 = DatabaseQueries.getSkillCategoryExperienceFloat(
         		p, 3);
         
-        Integer usedSkillPoints = DatabaseQueries.getUsedSkillPoints(p).value1();
+        Integer usedSkillPoints = DatabaseQueries.getUsedSkillPoints(p);
         
         playerExperienceValues.put(1, dbExperienceReturnValue1);
         playerExperienceValues.put(2, dbExperienceReturnValue2);
