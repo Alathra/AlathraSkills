@@ -121,12 +121,29 @@ public abstract class DatabaseQueries {
         ) {
             DSLContext context = DB.getContext(con);
 
-            return context
+            Record1<Double> returnContext = context
                 .select(PLAYER_SKILLCATEGORYINFO.EXPERIENCE)
                 .from(PLAYER_SKILLCATEGORYINFO)
                 .where(PLAYER_SKILLCATEGORYINFO.UUID.equal(convertUUIDToBytes(uuid)))
                 .and(PLAYER_SKILLCATEGORYINFO.SKILLCATEGORYID.equal(skillCategoryId))
                 .fetchOne();
+            
+            if(returnContext == null) {
+            	 context
+	                 .insertInto(PLAYER_SKILLCATEGORYINFO,
+                		 PLAYER_SKILLCATEGORYINFO.UUID,
+                		 PLAYER_SKILLCATEGORYINFO.SKILLCATEGORYID,
+                		 PLAYER_SKILLCATEGORYINFO.EXPERIENCE)
+	                 .values(
+	                     convertUUIDToBytes(uuid),
+	                     skillCategoryId,
+	                     0.00
+	                 )
+	                 .onDuplicateKeyIgnore()
+	                 .execute();
+            }
+            
+            return returnContext;
         } catch (DataAccessException e) {
             Logger.get().error("SQL Query threw an error!", e);
             return null;
@@ -167,8 +184,12 @@ public abstract class DatabaseQueries {
         }
     }
 
-    public static Record1<Integer> getUsedSkillPoints(Player p) {
-        return getUsedSkillPoints(p.getUniqueId());
+    public static Integer getUsedSkillPoints(Player p) {
+    	Record1<Integer> returnRecord = getUsedSkillPoints(p.getUniqueId());
+    	if (returnRecord == null) {
+    		return 0;
+    	}
+        return (Integer) returnRecord.getValue("SKILLS_USED");
     }
 
     /**

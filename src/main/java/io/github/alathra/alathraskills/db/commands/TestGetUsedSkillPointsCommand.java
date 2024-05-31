@@ -32,7 +32,7 @@ public class TestGetUsedSkillPointsCommand {
             return;
         }
         // TODO Make Async
-        Integer dbReturnValue = DatabaseQueries.getUsedSkillPoints((Player) args.get("targetPlayer")).value1();
+        Integer dbReturnValue = DatabaseQueries.getUsedSkillPoints((Player) args.get("targetPlayer"));
         String returnString =
         		"Player with ID " +
 				((Player) args.get("targetPlayer")).getUniqueId() +
