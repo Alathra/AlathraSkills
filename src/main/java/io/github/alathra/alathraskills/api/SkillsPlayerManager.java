@@ -38,7 +38,6 @@ public class SkillsPlayerManager implements Reloadable {
 
 	@Override
 	public void onEnable() {
-		// TODO Auto-generated method stub
 		storePlayerSkillInfoTask = this.plugin.getServer().getScheduler()
 				.runTaskTimerAsynchronously(plugin, new Runnable() {
 					public void run() {
@@ -50,7 +49,7 @@ public class SkillsPlayerManager implements Reloadable {
 	@Override
 	public void onDisable() {
 		Bukkit.getOnlinePlayers().forEach((Player p) -> handlePlayerLeave(p));
-		// TODO Auto-generated method stub
+
 		this.plugin.getServer().getScheduler()
 			.cancelTask(storePlayerSkillInfoTask.getTaskId());
 	}
@@ -343,7 +342,4 @@ public class SkillsPlayerManager implements Reloadable {
         return skillPlayers;
     }
 
-	//TODO
-	// https://github.com/Rumsfield/konquest/blob/main/api/src/main/java/com/github/rumsfield/konquest/api/manager/KonquestPlayerManager.java
-	
 }

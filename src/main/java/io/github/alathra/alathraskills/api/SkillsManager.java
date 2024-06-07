@@ -52,8 +52,7 @@ public class SkillsManager implements Reloadable {
 
 	@Override
 	public void onLoad() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -64,8 +63,7 @@ public class SkillsManager implements Reloadable {
 
 	@Override
 	public void onDisable() {
-		// TODO Auto-generated method stub
-		
+
 	}
 	
 	public void loadSkillCategories() {

@@ -14,21 +14,18 @@ public class CustomBlockDataHook implements Reloadable {
 	
 	@Override
 	public void onLoad() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onEnable() {
 		CustomBlockData.registerListener(plugin);
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onDisable() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }
