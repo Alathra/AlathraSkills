@@ -332,6 +332,14 @@ public class SkillsPlayerManager implements Reloadable {
 		SkillsPlayer currPlayer = fetchCurrPlayer(p);
 		return currPlayer.getSkillCategoryExperience(skillCategory);
 	}
+
+    public static float getTotalExperience(OfflinePlayer p) {
+        float farmingExp = getSkillCategoryExperience(p, 1);
+        float miningExp = getSkillCategoryExperience(p, 2);
+        float woodcuttingExp = getSkillCategoryExperience(p, 3);
+
+        return farmingExp + miningExp + woodcuttingExp;
+    }
 	
 	public static Integer getUsedSkillPoints(OfflinePlayer p) {
 		SkillsPlayer currPlayer = fetchCurrPlayer(p);

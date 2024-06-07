@@ -7,6 +7,7 @@ import dev.triumphteam.gui.guis.GuiItem;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.gui.GuiHelper;
+import io.github.alathra.alathraskills.utility.Cfg;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -18,20 +19,19 @@ import java.util.Collections;
 
 public class PopulateContent {
 
-    // TODO: all of this math should probably be refactored out of this class
     public static void populateContent(Gui gui, Player player) {
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(player.getUniqueId());
-        float farmingExp = SkillsPlayerManager.getSkillCategoryExperience(offlinePlayer, 1);
-        float miningExp = SkillsPlayerManager.getSkillCategoryExperience(offlinePlayer, 2);
-        float woodcuttingExp = SkillsPlayerManager.getSkillCategoryExperience(offlinePlayer, 3);
-        float totalExp = farmingExp + miningExp + woodcuttingExp;
 
-        float remainingExp = totalExp % 5000;
-        if (totalExp < 5000) {
-            remainingExp = 5000 - totalExp;
+        float totalExp = SkillsPlayerManager.getTotalExperience(offlinePlayer);
+
+        float expPerLevel = Cfg.get().getFloat("experience.perLevel");
+
+        float remainingExp = totalExp % expPerLevel;
+        if (totalExp < expPerLevel) {
+            remainingExp = expPerLevel - totalExp;
         }
 
-        int skillPointsAvailable = (int) ((totalExp - remainingExp) / 5000);
+        int skillPointsAvailable = (int) ((totalExp - remainingExp) / expPerLevel);
         int unlockedSkills = SkillsPlayerManager.getUsedSkillPoints(offlinePlayer);
 
         skillPointsAvailable -= unlockedSkills;
