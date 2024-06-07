@@ -2,6 +2,7 @@ package io.github.alathra.alathraskills.listeners.exp;
 
 import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
+import io.github.alathra.alathraskills.utility.PDCUtil;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.type.CaveVines;
@@ -57,12 +58,18 @@ public class FarmingExpListener implements Listener {
 
         switch (block.getType()) {
             case BAMBOO:
+                if (PDCUtil.isUnnatural(block)) return;
+
                 expAmount = Float.parseFloat(Cfg.getValue("experience.farming.bamboo").toString());
                 break;
             case BROWN_MUSHROOM, RED_MUSHROOM:
+                if (PDCUtil.isUnnatural(block)) return;
+
                 expAmount = Float.parseFloat(Cfg.getValue("experience.farming.mushroom").toString());
                 break;
             case CACTUS:
+                if (PDCUtil.isUnnatural(block)) return;
+
                 expAmount = Float.parseFloat(Cfg.getValue("experience.farming.cactus").toString());
                 break;
             case CARROTS:
@@ -91,12 +98,18 @@ public class FarmingExpListener implements Listener {
                     expAmount = Float.parseFloat(Cfg.getValue("experience.farming.cocoa").toString());
                 break;
             case KELP:
+                if (PDCUtil.isUnnatural(block)) return;
+
                 expAmount = Float.parseFloat(Cfg.getValue("experience.farming.kelp").toString());
                 break;
             case MELON:
+                if (PDCUtil.isUnnatural(block)) return;
+
                 expAmount = Float.parseFloat(Cfg.getValue("experience.farming.melon").toString());
                 break;
             case PUMPKIN:
+                if (PDCUtil.isUnnatural(block)) return;
+
                 expAmount = Float.parseFloat(Cfg.getValue("experience.farming.pumpkin").toString());
                 break;
             case NETHER_WART:
@@ -104,6 +117,8 @@ public class FarmingExpListener implements Listener {
                     expAmount = Float.parseFloat(Cfg.getValue("experience.farming.netherWart").toString());
                 break;
             case SUGAR_CANE:
+                if (PDCUtil.isUnnatural(block)) return;
+
                 expAmount = Float.parseFloat(Cfg.getValue("experience.farming.sugarCane").toString());
                 break;
             case SWEET_BERRY_BUSH:
