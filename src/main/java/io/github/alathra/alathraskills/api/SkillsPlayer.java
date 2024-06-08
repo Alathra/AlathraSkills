@@ -29,6 +29,10 @@ public class SkillsPlayer {
 		return playerSkills;
 	}
 
+    public boolean doesPlayerHaveSkill(int id) {
+        return playerSkills.get(id).isSelected();
+    }
+
 	public Stream<Entry<Integer, SkillDetails>> getPlayerActiveSkills() {
 		return playerSkills
 				.entrySet()

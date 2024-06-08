@@ -346,8 +346,16 @@ public class SkillsPlayerManager implements Reloadable {
 		return currPlayer.getUsedSkillPoints();
 	}
 	
-    public final HashMap<UUID, SkillsPlayer> getSkillPlayers() {
+    public final HashMap<UUID, SkillsPlayer> getSkillsPlayers() {
         return skillPlayers;
+    }
+
+    public static SkillsPlayer getSkillsPlayer(UUID uuid){
+        return skillPlayers.get(uuid);
+    }
+
+    public static SkillsPlayer getSkillsPlayer(Player p) {
+        return getSkillsPlayer(p.getUniqueId());
     }
 
 }

@@ -1,6 +1,8 @@
 package io.github.alathra.alathraskills.listeners.skills;
 
 import io.github.alathra.alathraskills.AlathraSkills;
+import io.github.alathra.alathraskills.api.SkillsManager;
+import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.woodcutting.util.*;
 import io.github.alathra.alathraskills.skills.woodcutting.util.helper.WoodcuttingData;
@@ -23,7 +25,7 @@ public class WoodcuttingSkillsListener implements Listener {
 
     private SkillsPlayerManager skillsPlayerManager = AlathraSkills.getSkillsPlayerManager();
 
-    // calls "Precise Chop", "Save the Trees" and "Groundskeeper"
+    // calls "Precise Chop", "Save the Trees" and "One Swing"
     @EventHandler
     public void BlockBreakListener(BlockBreakEvent event) {
         Block block = event.getBlock();
@@ -38,12 +40,48 @@ public class WoodcuttingSkillsListener implements Listener {
         if (!event.isDropItems())
             return;
 
+        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+
+        boolean[] preciseChop = new boolean[8];
+        boolean[] oneSwing = new boolean[7];
+
+        int i = 0;
+
+        for (int id : SkillsManager.preciseChopIds) {
+            preciseChop[i] = skillsPlayer.doesPlayerHaveSkill(id);
+            i++;
+        }
+
+        i = 0;
+
+        for (int id : SkillsManager.oneSwingIds) {
+            oneSwing[i] = skillsPlayer.doesPlayerHaveSkill(id);
+            i++;
+        }
+
         if (Tag.LOGS.isTagged(block.getType())) {
-            PreciseChop.run(block, 7);
-            OneSwing.run(player, block, 7);
-            if (Tag.DIRT.isTagged(block.getRelative(BlockFace.DOWN).getType())) {
-                SaveTheTrees.run(block, player);
+            i = 0;
+            for (boolean hasSkill : preciseChop) {
+                if (hasSkill) {
+                    PreciseChop.run(block, 7 - i);
+                    break;
+                }
+                i++;
             }
+
+            i = 0;
+            for (boolean hasSkill : oneSwing) {
+                if (hasSkill) {
+                    OneSwing.run(player, block, 7 - i);
+                    break;
+                }
+                i++;
+            }
+        }
+
+        if (Tag.DIRT.isTagged(block.getRelative(BlockFace.DOWN).getType())) {
+            if (!skillsPlayer.doesPlayerHaveSkill(301)) return;
+            SaveTheTrees.run(block, player);
         }
 
     }

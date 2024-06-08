@@ -45,7 +45,7 @@ public class MiningSkillsListener implements Listener {
         if (!event.isDropItems())
             return;
 
-        SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillPlayers().get(player.getUniqueId());
+        SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillsPlayers().get(player.getUniqueId());
 
         // ORE IN THE ROUGH SKILL
         if (MiningData.getNaturalStoneBlocks().contains(material)) {

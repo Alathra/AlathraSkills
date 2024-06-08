@@ -34,6 +34,12 @@ public class SkillsManager implements Reloadable {
 	public static int FARMING_SKILL_ID = 1;
 	public static int MINING_SKILL_ID = 2;
 	public static int WOODCUTTING_SKILL_ID = 3;
+
+    public static int saveTheTreesId = 301;
+    public static int[] preciseChopIds = new int[]{3218, 3217, 3214, 3212, 3211, 310, 303, 302};
+    public static int[] trimmerIds = new int[]{3220, 3219, 3216, 3215, 3213, 307, 304};
+    public static int[] oneSwingIds = new int[]{3120, 3117, 3115, 3114, 3112, 309, 305};
+    public static int[] oneWithTheForestIds = new int[]{3119, 3118, 3116, 3113, 3111, 308, 306};
 	
 	private final AlathraSkills plugin;
 	
@@ -81,7 +87,7 @@ public class SkillsManager implements Reloadable {
     public void loadWoodcuttingSkills() {
         woodcuttingSkills.put(301, new SaveTheTreesOne(301));
         woodcuttingSkills.put(302, new PreciseChopOne(302));
-        woodcuttingSkills.put(303, new PreciseChopTwo(302));
+        woodcuttingSkills.put(303, new PreciseChopTwo(303));
         woodcuttingSkills.put(304, new TrimmerOne(304));
         woodcuttingSkills.put(305, new OneSwingOne(305));
         woodcuttingSkills.put(306, new OneWithTheForestOne(306));
