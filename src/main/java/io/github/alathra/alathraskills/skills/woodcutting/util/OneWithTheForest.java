@@ -18,6 +18,8 @@ public class OneWithTheForest {
     private static final ArrayList<Location> treeBlockLocations = new ArrayList<>();
     private static final ArrayList<Location> possibleBeeNestLocations = new ArrayList<>();
 
+    public static int MAX_LEVEL = 7;
+
 
     // Get called on StructureGrowEvent
     public static void run(StructureGrowEvent event, int skillLevel) {

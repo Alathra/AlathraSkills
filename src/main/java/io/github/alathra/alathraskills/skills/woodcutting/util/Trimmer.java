@@ -8,6 +8,8 @@ import io.github.alathra.alathraskills.utility.Cfg;
 
 public class Trimmer {
 
+    public static int MAX_LEVEL =  7;
+
     public static void run(BlockDamageEvent event, int skillLevel) {
 
         if (event.isCancelled()) {

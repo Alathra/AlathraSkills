@@ -42,8 +42,8 @@ public class WoodcuttingSkillsListener implements Listener {
 
         SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
 
-        boolean[] preciseChop = new boolean[8];
-        boolean[] oneSwing = new boolean[7];
+        boolean[] preciseChop = new boolean[PreciseChop.MAX_LEVEL];
+        boolean[] oneSwing = new boolean[OneSwing.MAX_LEVEL];
 
         int i = 0;
 
@@ -63,7 +63,7 @@ public class WoodcuttingSkillsListener implements Listener {
             i = 0;
             for (boolean hasSkill : preciseChop) {
                 if (hasSkill) {
-                    PreciseChop.run(block, 7 - i);
+                    PreciseChop.run(block, PreciseChop.MAX_LEVEL - i);
                     break;
                 }
                 i++;
@@ -72,7 +72,7 @@ public class WoodcuttingSkillsListener implements Listener {
             i = 0;
             for (boolean hasSkill : oneSwing) {
                 if (hasSkill) {
-                    OneSwing.run(player, block, 7 - i);
+                    OneSwing.run(player, block, OneSwing.MAX_LEVEL - i);
                     break;
                 }
                 i++;
@@ -107,15 +107,33 @@ public class WoodcuttingSkillsListener implements Listener {
             return;
         }
 
-        // run Trimmer
-        Trimmer.run(event, 7);
+        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(event.getPlayer());
+
+        boolean[] trimmer = new boolean[Trimmer.MAX_LEVEL];
+
+        int i = 0;
+
+        for (int id : SkillsManager.trimmerIds) {
+            trimmer[i] = skillsPlayer.doesPlayerHaveSkill(id);
+            i++;
+        }
+
+        for (boolean hasSkill : trimmer) {
+            if (hasSkill) {
+                Trimmer.run(event, Trimmer.MAX_LEVEL - i);
+                break;
+            }
+            i++;
+        }
     }
 
     // used to activate "One Swing"
     @EventHandler
     public void RightClickListener(PlayerInteractEvent event) {
 
-        if (event.getPlayer().getGameMode() == GameMode.CREATIVE) {
+        Player player = event.getPlayer();
+
+        if (player.getGameMode() == GameMode.CREATIVE) {
             return;
         }
 
@@ -139,13 +157,32 @@ public class WoodcuttingSkillsListener implements Listener {
                     return;
                 }
             }
-            OneSwing.activate(event.getPlayer(), 7);
+
+            boolean[] oneSwing = new boolean[OneSwing.MAX_LEVEL];
+
+            SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+
+            int i = 0;
+            for (int id : SkillsManager.oneSwingIds) {
+                oneSwing[i] = skillsPlayer.doesPlayerHaveSkill(id);
+                i++;
+            }
+
+            i = 0;
+            for (boolean hasSkill : oneSwing) {
+                if (hasSkill) {
+                    OneSwing.activate(player, OneSwing.MAX_LEVEL - i);
+                    break;
+                }
+                i++;
+            }
         }
     }
 
     // used to call "One with the Forest"
     @EventHandler
     public void onTreeGrow(StructureGrowEvent event) {
+        Player player = event.getPlayer();
 
         // if naturally grown
         if (!event.isFromBonemeal()) {
@@ -153,10 +190,10 @@ public class WoodcuttingSkillsListener implements Listener {
         }
 
         // if a non-player grows the tree with bonemeal
-        if (event.getPlayer() == null) {
+        if (player == null) {
             return;
         } else {
-            if (event.getPlayer().getGameMode() == GameMode.CREATIVE) {
+            if (player.getGameMode() == GameMode.CREATIVE) {
                 return;
             }
         }
@@ -166,8 +203,24 @@ public class WoodcuttingSkillsListener implements Listener {
             return;
         }
 
-        OneWithTheForest.run(event, 7);
+        boolean[] oneWithTheForest = new boolean[OneWithTheForest.MAX_LEVEL];
 
+        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+
+        int i = 0;
+        for (int id : SkillsManager.oneWithTheForestIds) {
+            oneWithTheForest[i] = skillsPlayer.doesPlayerHaveSkill(id);
+            i++;
+        }
+
+        i = 0;
+        for (boolean hasSkill : oneWithTheForest) {
+            if (hasSkill) {
+                OneWithTheForest.run(event, OneWithTheForest.MAX_LEVEL - i);
+                break;
+            }
+            i++;
+        }
     }
 
 }
