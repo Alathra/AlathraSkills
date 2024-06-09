@@ -1,5 +1,7 @@
 package io.github.alathra.alathraskills.db.commands;
 
+import io.github.alathra.alathraskills.AlathraSkills;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
@@ -31,16 +33,20 @@ public class TestDeleteAllSkillsCommand {
             );
             return;
         }
-        // TODO Make Async
-        DatabaseQueries.deletePlayerSkills((Player) args.get("targetPlayer"));
-        String returnString =
-        		"Player with ID " +
-				((Player) args.get("targetPlayer")).getUniqueId() +
-				" has had all of their skills deleted.";
-        player.sendMessage(
+
+        AlathraSkills instance = AlathraSkills.getInstance();
+
+        Bukkit.getScheduler().runTaskAsynchronously(instance, () -> {
+            DatabaseQueries.deletePlayerSkills((Player) args.get("targetPlayer"));
+            String returnString =
+                "Player with ID " +
+                    ((Player) args.get("targetPlayer")).getUniqueId() +
+                    " has had all of their skills deleted.";
+            player.sendMessage(
                 ColorParser.of(returnString)
                     .parseLegacy() // Parse legacy color codes
                     .build()
-        );
+            );
+        });
     }
 }

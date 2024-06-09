@@ -3,6 +3,8 @@ package io.github.alathra.alathraskills.db.commands;
 import java.util.Iterator;
 import java.util.UUID;
 
+import io.github.alathra.alathraskills.AlathraSkills;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.jooq.Result;
@@ -37,33 +39,37 @@ public class TestGetAllSkillsCommand {
             );
             return;
         }
-        // TODO Make Async
-        Result<PlayerSkillinfoRecord> dbReturnValue = DatabaseQueries.fetchPlayerSkills((Player) args.get("targetPlayer"));
-    	String finalSkillString = "";
-        if (dbReturnValue != null) {
-        	for (Iterator<PlayerSkillinfoRecord> iterator = dbReturnValue.iterator(); iterator.hasNext();) {
-				PlayerSkillinfoRecord playerSkillinfoRecord = iterator.next();
-				finalSkillString += playerSkillinfoRecord.getSkillid() + ", ";
-			}
-        	if (finalSkillString.length() > 2) {
-        		finalSkillString =finalSkillString.substring(0, finalSkillString.length() - 2);
-        	}
-        }
-        String returnString =
-        	"Player with ID " +
-        	((Player) args.get("targetPlayer")).getUniqueId();
-        if (finalSkillString.length() > 0) {
-			returnString +=
-				" has the following skills: " +
-				finalSkillString;			
-        } else {
-			returnString +=
-				" does not have any skills.";			
-        }
-        player.sendMessage(
+
+        AlathraSkills instance = AlathraSkills.getInstance();
+
+        Bukkit.getScheduler().runTaskAsynchronously(instance, () -> {
+            Result<PlayerSkillinfoRecord> dbReturnValue = DatabaseQueries.fetchPlayerSkills((Player) args.get("targetPlayer"));
+            String finalSkillString = "";
+            if (dbReturnValue != null) {
+                for (Iterator<PlayerSkillinfoRecord> iterator = dbReturnValue.iterator(); iterator.hasNext();) {
+                    PlayerSkillinfoRecord playerSkillinfoRecord = iterator.next();
+                    finalSkillString += playerSkillinfoRecord.getSkillid() + ", ";
+                }
+                if (finalSkillString.length() > 2) {
+                    finalSkillString =finalSkillString.substring(0, finalSkillString.length() - 2);
+                }
+            }
+            String returnString =
+                "Player with ID " +
+                    ((Player) args.get("targetPlayer")).getUniqueId();
+            if (finalSkillString.length() > 0) {
+                returnString +=
+                    " has the following skills: " +
+                        finalSkillString;
+            } else {
+                returnString +=
+                    " does not have any skills.";
+            }
+            player.sendMessage(
                 ColorParser.of(returnString)
                     .parseLegacy() // Parse legacy color codes
                     .build()
-        );
+            );
+        });
     }
 }
