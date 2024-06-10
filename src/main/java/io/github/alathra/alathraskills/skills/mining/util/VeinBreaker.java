@@ -16,6 +16,8 @@ import java.util.*;
 
 public class VeinBreaker {
 
+    public static int MAX_LEVEL = 7;
+
     public static void run(Block block, Player player, int skillLevel) {
 
         if (Math.random() >= getChance(skillLevel))

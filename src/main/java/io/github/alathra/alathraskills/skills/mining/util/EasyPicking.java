@@ -19,6 +19,8 @@ public class EasyPicking {
 
     private static final HashMap<UUID, Long> cooldowns = new HashMap<>();
 
+    public static int MAX_LEVEL = 7;
+
     public static void run(Player player, Block block, int skillLevel) {
         if (!isOnCooldown(player, skillLevel)) {
             addCooldown(player);

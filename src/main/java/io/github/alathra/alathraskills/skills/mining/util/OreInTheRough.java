@@ -8,6 +8,8 @@ import io.github.alathra.alathraskills.utility.Cfg;
 
 public class OreInTheRough {
 
+    public static int MAX_LEVEL = 5;
+
     // Block is the stone block broken
     public static void run(Block block, int skillLevel) {
         if (Math.random() >= getChance(skillLevel))

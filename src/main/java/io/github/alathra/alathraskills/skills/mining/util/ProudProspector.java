@@ -9,6 +9,8 @@ import io.github.alathra.alathraskills.utility.Cfg;
 
 public class ProudProspector {
 
+    public static int MAX_LEVEL = 6;
+
     // Called on BlockBreakEvent
     public static void run(BlockBreakEvent event, int skillLevel) {
         if (Math.random() >= getChance(skillLevel))

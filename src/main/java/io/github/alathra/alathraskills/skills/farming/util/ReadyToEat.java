@@ -9,6 +9,8 @@ import org.bukkit.inventory.ItemStack;
 import io.github.alathra.alathraskills.utility.Cfg;
 
 public class ReadyToEat {
+    // TODO MAX LEVEL
+    public static int MAX_LEVEL = 2;
 
     // Call this on the BlockBreakEvent if wheat, carrots, potatoes or beetroot broken
     // crop is the block being broken

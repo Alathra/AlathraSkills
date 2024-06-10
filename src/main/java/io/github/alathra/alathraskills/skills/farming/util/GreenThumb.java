@@ -8,6 +8,8 @@ import org.bukkit.block.BlockFace;
 
 public class GreenThumb {
 
+    public static int MAX_LEVEL = 6;
+
     // Called on BlockFertilizeEvent
     public static void run(Block initialCrop, int skillLevel) {
         if (Math.random() >= getChance(skillLevel))

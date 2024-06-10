@@ -10,6 +10,8 @@ import io.github.alathra.alathraskills.utility.Cfg;
 
 public class QualityCrops {
 
+    public static int MAX_LEVEL = 6;
+
     // Call this on the EntityBreedEvent if LivingEntity instance of animal
     // animalBaby is `event`.getEntity()`
     public static void run(LivingEntity animalBaby, int skillLevel) {

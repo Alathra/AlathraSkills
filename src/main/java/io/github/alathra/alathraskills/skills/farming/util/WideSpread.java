@@ -14,6 +14,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class WideSpread {
 
+    public static int MAX_LEVEL = 7;
+
     // Called on BlockPlaceEvent on an instance of farmland when the player places a seed
     public static void run(Block initialCrop, Player player, int skillLevel) {
         if (Math.random() >= getChance(skillLevel))

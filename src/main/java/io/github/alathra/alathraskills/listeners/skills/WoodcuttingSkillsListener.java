@@ -23,8 +23,6 @@ import org.bukkit.inventory.EquipmentSlot;
 
 public class WoodcuttingSkillsListener implements Listener {
 
-    private SkillsPlayerManager skillsPlayerManager = AlathraSkills.getSkillsPlayerManager();
-
     // calls "Precise Chop", "Save the Trees" and "One Swing"
     @EventHandler
     public void BlockBreakListener(BlockBreakEvent event) {
@@ -42,24 +40,24 @@ public class WoodcuttingSkillsListener implements Listener {
 
         SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
 
-        boolean[] preciseChop = new boolean[PreciseChop.MAX_LEVEL];
-        boolean[] oneSwing = new boolean[OneSwing.MAX_LEVEL];
-
-        int i = 0;
-
-        for (int id : SkillsManager.preciseChopIds) {
-            preciseChop[i] = skillsPlayer.doesPlayerHaveSkill(id);
-            i++;
-        }
-
-        i = 0;
-
-        for (int id : SkillsManager.oneSwingIds) {
-            oneSwing[i] = skillsPlayer.doesPlayerHaveSkill(id);
-            i++;
-        }
-
         if (Tag.LOGS.isTagged(block.getType())) {
+            boolean[] preciseChop = new boolean[SkillsManager.preciseChopIds.length];
+            boolean[] oneSwing = new boolean[SkillsManager.oneSwingIds.length];
+
+            int i = 0;
+
+            for (int id : SkillsManager.preciseChopIds) {
+                preciseChop[i] = skillsPlayer.doesPlayerHaveSkill(id);
+                i++;
+            }
+
+            i = 0;
+
+            for (int id : SkillsManager.oneSwingIds) {
+                oneSwing[i] = skillsPlayer.doesPlayerHaveSkill(id);
+                i++;
+            }
+
             i = 0;
             for (boolean hasSkill : preciseChop) {
                 if (hasSkill) {
@@ -109,7 +107,7 @@ public class WoodcuttingSkillsListener implements Listener {
 
         SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(event.getPlayer());
 
-        boolean[] trimmer = new boolean[Trimmer.MAX_LEVEL];
+        boolean[] trimmer = new boolean[SkillsManager.trimmerIds.length];
 
         int i = 0;
 
@@ -158,7 +156,7 @@ public class WoodcuttingSkillsListener implements Listener {
                 }
             }
 
-            boolean[] oneSwing = new boolean[OneSwing.MAX_LEVEL];
+            boolean[] oneSwing = new boolean[SkillsManager.oneSwingIds.length];
 
             SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
 
@@ -203,7 +201,7 @@ public class WoodcuttingSkillsListener implements Listener {
             return;
         }
 
-        boolean[] oneWithTheForest = new boolean[OneWithTheForest.MAX_LEVEL];
+        boolean[] oneWithTheForest = new boolean[SkillsManager.oneWithTheForestIds.length];
 
         SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
 

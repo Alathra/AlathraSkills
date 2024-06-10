@@ -7,6 +7,9 @@ import io.github.alathra.alathraskills.utility.Cfg;
 
 public class Spelunker {
 
+    // TODO EXTRA LEVEL?
+    public static int MAX_LEVEL = 4;
+
     public static void run(EntityDamageEvent event, Player player, int skilLLevel) {
         double damageReduction = getDamageReduction(skilLLevel);
         if (event.getFinalDamage() <= damageReduction) {

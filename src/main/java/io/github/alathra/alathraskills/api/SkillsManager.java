@@ -35,6 +35,21 @@ public class SkillsManager implements Reloadable {
 	public static int MINING_SKILL_ID = 2;
 	public static int WOODCUTTING_SKILL_ID = 3;
 
+    // Farming IDs
+    public static int[] qualityCropsIds = new int[]{1218, 1216, 1214, 1211, 106, 101};
+    public static int[] fastHarvestIds = new int[]{1219, 1217, 1215, 1212, 109, 104, 102};
+    public static int[] greenThumbIds = new int[]{1118, 1116, 1114, 1111, 108, 103};
+    public static int[] wideSpread = new int[]{1119, 1117, 1115, 1112, 110, 107, 105};
+    public static int[] readyToEatIds = new int[]{1220, 1120, 1213, 1113};
+
+    // Mining IDs
+    public static int[] spelunkerIds = new int[]{2213, 2113, 209, 206, 201};
+    public static int[] veinBreakerIds = new int[]{2218, 2217, 2214, 2211, 207, 204, 202};
+    public static int[] proudProspectorIds = new int[]{2120, 2118, 2115, 2112, 208, 203};
+    public static int[] easyPickingIds = new int[]{2220, 2219, 2216, 2215, 2212, 210, 205};
+    public static int[] oreInTheRoughIds = new int[]{2119, 2117, 2116, 2114, 2111};
+
+    // Woodcutting IDs
     public static int saveTheTreesId = 301;
     public static int[] preciseChopIds = new int[]{3218, 3217, 3214, 3212, 3211, 310, 303, 302};
     public static int[] trimmerIds = new int[]{3220, 3219, 3216, 3215, 3213, 307, 304};
@@ -124,7 +139,7 @@ public class SkillsManager implements Reloadable {
     private void loadMiningSkills() {
         miningSkills.put(201, new SpelunkerOne(201));
         miningSkills.put(202, new VeinBreakerOne(202));
-        miningSkills.put(203, new ProudProspectorOne(202));
+        miningSkills.put(203, new ProudProspectorOne(203));
         miningSkills.put(204, new VeinBreakerTwo(204));
         miningSkills.put(205, new EasyPickingOne(205));
         miningSkills.put(206, new SpelunkerTwo(206));

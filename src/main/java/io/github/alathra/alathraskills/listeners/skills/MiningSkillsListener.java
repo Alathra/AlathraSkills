@@ -1,6 +1,7 @@
 package io.github.alathra.alathraskills.listeners.skills;
 
 import io.github.alathra.alathraskills.AlathraSkills;
+import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.mining.util.OreInTheRough;
@@ -23,8 +24,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class MiningSkillsListener implements Listener {
 
-    private SkillsPlayerManager skillsPlayerManager = AlathraSkills.getSkillsPlayerManager();
-
     // Calls "Ore in the Rough", "VeinBreaker" and "Proud Prospector" skills
     @EventHandler
     public void BlockBreakListener(BlockBreakEvent event) {
@@ -45,17 +44,63 @@ public class MiningSkillsListener implements Listener {
         if (!event.isDropItems())
             return;
 
-        SkillsPlayer skillsPlayer = skillsPlayerManager.getSkillsPlayers().get(player.getUniqueId());
+        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+
+        int i = 0;
 
         // ORE IN THE ROUGH SKILL
         if (MiningData.getNaturalStoneBlocks().contains(material)) {
-            OreInTheRough.run(block, 5);
+            boolean[] oreInTheRough = new boolean[SkillsManager.oreInTheRoughIds.length];
+
+            for (int id : SkillsManager.oreInTheRoughIds) {
+                oreInTheRough[i] = skillsPlayer.doesPlayerHaveSkill(id);
+                i++;
+            }
+
+            i = 0;
+            for (boolean hasSkill : oreInTheRough) {
+                if (hasSkill) {
+                    OreInTheRough.run(block, OreInTheRough.MAX_LEVEL - i);
+                    break;
+                }
+                i++;
+            }
         }
 
         // PROUD PROSPECTOR & VEIN BREAKER SKILL
         if (MiningData.getOres().contains(material)) {
-            ProudProspector.run(event, 6);
-            VeinBreaker.run(block, player, 7);
+            boolean[] proudProspector = new boolean[SkillsManager.proudProspectorIds.length];
+            boolean[] veinBreaker = new boolean[SkillsManager.veinBreakerIds.length];
+
+            i = 0;
+            for (int id : SkillsManager.proudProspectorIds) {
+                proudProspector[i] = skillsPlayer.doesPlayerHaveSkill(id);
+                i++;
+            }
+
+            i = 0;
+            for (int id : SkillsManager.veinBreakerIds) {
+                veinBreaker[i] = skillsPlayer.doesPlayerHaveSkill(id);
+                i++;
+            }
+
+            i = 0;
+            for (boolean hasSkill : proudProspector) {
+                if (hasSkill) {
+                    ProudProspector.run(event, ProudProspector.MAX_LEVEL - i);
+                    break;
+                }
+                i++;
+            }
+
+            i = 0;
+            for (boolean hasSkill : veinBreaker) {
+                if (hasSkill) {
+                    VeinBreaker.run(block, player, OreInTheRough.MAX_LEVEL - i);
+                    break;
+                }
+                i++;
+            }
         }
     }
 

@@ -11,6 +11,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class FastHarvest {
 
+    public static int MAX_LEVEL = 7;
+
     // Call this on the BlockBreakEvent if instance of breakable crop
     // crop is event.getBlock()
     public static void run(Block initialCrop, Player player, int skillLevel) {
