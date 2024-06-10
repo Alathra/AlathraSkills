@@ -21,12 +21,12 @@ import io.github.alathra.alathraskills.utility.Cfg;
 
 public class SkillsPlayerManager implements Reloadable {
 	
-	private final AlathraSkills plugin;
+	private final AlathraSkills instance;
 	private static HashMap<UUID, SkillsPlayer> skillPlayers = new HashMap<UUID, SkillsPlayer>();
 	private BukkitTask storePlayerSkillInfoTask;
 	
-	public SkillsPlayerManager(AlathraSkills plugin) {
-		this.plugin = plugin;
+	public SkillsPlayerManager(AlathraSkills instance) {
+		this.instance = instance;
 		SkillsPlayerManager.skillPlayers = new HashMap<UUID, SkillsPlayer>();
 	}
 	
@@ -38,8 +38,8 @@ public class SkillsPlayerManager implements Reloadable {
 
 	@Override
 	public void onEnable() {
-		storePlayerSkillInfoTask = this.plugin.getServer().getScheduler()
-				.runTaskTimerAsynchronously(plugin, new Runnable() {
+		storePlayerSkillInfoTask = this.instance.getServer().getScheduler()
+				.runTaskTimerAsynchronously(instance, new Runnable() {
 					public void run() {
 						saveAllPlayerInformation();
 					}
@@ -50,7 +50,7 @@ public class SkillsPlayerManager implements Reloadable {
 	public void onDisable() {
 		Bukkit.getOnlinePlayers().forEach((Player p) -> handlePlayerLeave(p));
 
-		this.plugin.getServer().getScheduler()
+		this.instance.getServer().getScheduler()
 			.cancelTask(storePlayerSkillInfoTask.getTaskId());
 	}
 	
@@ -61,36 +61,37 @@ public class SkillsPlayerManager implements Reloadable {
 
 		if (!p.hasPlayedBefore()) {
 			// TODO Make this a single DB command that initializes all skills
-			DatabaseQueries.saveSkillCategoryExperience(p, 1, 0);
-			DatabaseQueries.saveSkillCategoryExperience(p, 2, 0);
-			DatabaseQueries.saveSkillCategoryExperience(p, 3, 0);
-			DatabaseQueries.setUsedSkillPoints(p, 0);
+                DatabaseQueries.saveSkillCategoryExperience(p, 1, 0);
+                DatabaseQueries.saveSkillCategoryExperience(p, 2, 0);
+                DatabaseQueries.saveSkillCategoryExperience(p, 3, 0);
+                DatabaseQueries.setUsedSkillPoints(p, 0);
 		}
-		//TODO Make Async
-		Result<PlayerSkillinfoRecord> skillsDBReturn = DatabaseQueries.fetchPlayerSkills(p);
+
+        final Result<PlayerSkillinfoRecord>[] skillsDBReturn = new Result<PlayerSkillinfoRecord>[1];
+        Bukkit.getScheduler().runTaskAsynchronously(instance, () -> skillsDBReturn[0] = DatabaseQueries.fetchPlayerSkills(p));
 		
-        if (skillsDBReturn != null) {
-        	for (Iterator<PlayerSkillinfoRecord> iterator = skillsDBReturn.iterator(); iterator.hasNext();) {
+        if (skillsDBReturn[0] != null) {
+        	for (Iterator<PlayerSkillinfoRecord> iterator = skillsDBReturn[0].iterator(); iterator.hasNext();) {
 				PlayerSkillinfoRecord playerSkillinfoRecord = iterator.next();
 				playerSkills.put(playerSkillinfoRecord.getSkillid(), new SkillDetails(true, true));
 			}
         }
-        
-        // TODO Make Async and make this a single command that uses a loop similar to above
-        float dbExperienceReturnValue1 = DatabaseQueries.getSkillCategoryExperienceFloat(
-        		p, 1);
-        float dbExperienceReturnValue2 = DatabaseQueries.getSkillCategoryExperienceFloat(
-        		p, 2);
-        float dbExperienceReturnValue3 = DatabaseQueries.getSkillCategoryExperienceFloat(
-        		p, 3);
-        
-        Integer usedSkillPoints = DatabaseQueries.getUsedSkillPoints(p);
-        
-        playerExperienceValues.put(1, dbExperienceReturnValue1);
-        playerExperienceValues.put(2, dbExperienceReturnValue2);
-        playerExperienceValues.put(3, dbExperienceReturnValue3);
 
-		SkillsPlayer newPlayer = new SkillsPlayer(p, playerSkills, playerExperienceValues, usedSkillPoints);
+        float[] dbExperienceReturnValues = new float[3];
+        for (int i = 0; i <= 2; i++) {
+            int iterate = i;
+            Bukkit.getScheduler().runTaskAsynchronously(instance, () ->
+                dbExperienceReturnValues[iterate] = DatabaseQueries.getSkillCategoryExperienceFloat(p, iterate + 1));
+        }
+        
+        playerExperienceValues.put(1, dbExperienceReturnValues[0]);
+        playerExperienceValues.put(2, dbExperienceReturnValues[1]);
+        playerExperienceValues.put(3, dbExperienceReturnValues[2]);
+
+        final int[] usedSkillPoints = new int[1];
+        Bukkit.getScheduler().runTaskAsynchronously(instance, () -> usedSkillPoints[0] = DatabaseQueries.getUsedSkillPoints(p));
+
+		SkillsPlayer newPlayer = new SkillsPlayer(p, playerSkills, playerExperienceValues, usedSkillPoints[0]);
 		skillPlayers.put(p.getUniqueId(), newPlayer);
 	}
 
