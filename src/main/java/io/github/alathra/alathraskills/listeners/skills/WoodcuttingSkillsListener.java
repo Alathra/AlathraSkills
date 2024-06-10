@@ -1,6 +1,5 @@
 package io.github.alathra.alathraskills.listeners.skills;
 
-import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
@@ -47,14 +46,14 @@ public class WoodcuttingSkillsListener implements Listener {
             int i = 0;
 
             for (int id : SkillsManager.preciseChopIds) {
-                preciseChop[i] = skillsPlayer.doesPlayerHaveSkill(id);
+                preciseChop[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }
 
             i = 0;
 
             for (int id : SkillsManager.oneSwingIds) {
-                oneSwing[i] = skillsPlayer.doesPlayerHaveSkill(id);
+                oneSwing[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }
 
@@ -78,7 +77,7 @@ public class WoodcuttingSkillsListener implements Listener {
         }
 
         if (Tag.DIRT.isTagged(block.getRelative(BlockFace.DOWN).getType())) {
-            if (!skillsPlayer.doesPlayerHaveSkill(301)) return;
+            if (!skillsPlayer.playerHasSkill(301)) return;
             SaveTheTrees.run(block, player);
         }
 
@@ -112,7 +111,7 @@ public class WoodcuttingSkillsListener implements Listener {
         int i = 0;
 
         for (int id : SkillsManager.trimmerIds) {
-            trimmer[i] = skillsPlayer.doesPlayerHaveSkill(id);
+            trimmer[i] = skillsPlayer.playerHasSkill(id);
             i++;
         }
 
@@ -162,7 +161,7 @@ public class WoodcuttingSkillsListener implements Listener {
 
             int i = 0;
             for (int id : SkillsManager.oneSwingIds) {
-                oneSwing[i] = skillsPlayer.doesPlayerHaveSkill(id);
+                oneSwing[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }
 
@@ -207,7 +206,7 @@ public class WoodcuttingSkillsListener implements Listener {
 
         int i = 0;
         for (int id : SkillsManager.oneWithTheForestIds) {
-            oneWithTheForest[i] = skillsPlayer.doesPlayerHaveSkill(id);
+            oneWithTheForest[i] = skillsPlayer.playerHasSkill(id);
             i++;
         }
 

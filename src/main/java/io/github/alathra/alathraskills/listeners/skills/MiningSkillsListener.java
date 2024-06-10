@@ -1,6 +1,5 @@
 package io.github.alathra.alathraskills.listeners.skills;
 
-import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
@@ -53,7 +52,7 @@ public class MiningSkillsListener implements Listener {
             boolean[] oreInTheRough = new boolean[SkillsManager.oreInTheRoughIds.length];
 
             for (int id : SkillsManager.oreInTheRoughIds) {
-                oreInTheRough[i] = skillsPlayer.doesPlayerHaveSkill(id);
+                oreInTheRough[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }
 
@@ -74,13 +73,13 @@ public class MiningSkillsListener implements Listener {
 
             i = 0;
             for (int id : SkillsManager.proudProspectorIds) {
-                proudProspector[i] = skillsPlayer.doesPlayerHaveSkill(id);
+                proudProspector[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }
 
             i = 0;
             for (int id : SkillsManager.veinBreakerIds) {
-                veinBreaker[i] = skillsPlayer.doesPlayerHaveSkill(id);
+                veinBreaker[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }
 
@@ -123,8 +122,28 @@ public class MiningSkillsListener implements Listener {
             return;
         }
 
-        Spelunker.run(event, player, 4);
+        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
 
+        boolean[] spelunker = new boolean[SkillsManager.spelunkerIds.length];
+
+        int i = 0;
+        for (int id : SkillsManager.spelunkerIds) {
+            spelunker[i] = skillsPlayer.playerHasSkill(id);
+            i++;
+        }
+
+        i = 0;
+        int j = 0;
+        for (boolean hasSkill : spelunker) {
+            if (hasSkill) {
+                Spelunker.run(event, player, Spelunker.MAX_LEVEL - j);
+                break;
+            }
+
+            // Handles Spelunker being in both branches
+            if (i != 0) j++;
+            i++;
+        }
     }
 
     // calls "Easy Picking" skill
@@ -145,8 +164,27 @@ public class MiningSkillsListener implements Listener {
             return;
         }
 
-        if (MiningData.getPickaxes().contains(player.getInventory().getItemInMainHand().getType())) {
-            EasyPicking.run(player, event.getClickedBlock(), 7);
+        if (!MiningData.getPickaxes().contains(player.getInventory().getItemInMainHand().getType())) {
+            return;
+        }
+
+        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+
+        boolean[] easyPicking = new boolean[SkillsManager.easyPickingIds.length];
+
+        int i = 0;
+        for (int id : SkillsManager.easyPickingIds) {
+            easyPicking[i] = skillsPlayer.playerHasSkill(id);
+            i++;
+        }
+
+        i = 0;
+        for (boolean hasSkill : easyPicking) {
+            if (hasSkill) {
+                EasyPicking.run(player, event.getClickedBlock(), EasyPicking.MAX_LEVEL - i);
+                break;
+            }
+            i++;
         }
     }
 }

@@ -39,7 +39,7 @@ public class OneSwing {
         if (!isActive(player)) {
             return;
         }
-        // TODO: Choppity chop!
+
         if (ChopWorker.isLog(block) && ChopWorker.isTree(block)) {
             ArrayList<Block> blocks = new ArrayList<>(ChopWorker.getLogsToPop(block));
 			BlockBreakEvent event = new BlockBreakEvent(block, player);

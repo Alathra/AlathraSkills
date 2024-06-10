@@ -1,6 +1,5 @@
 package io.github.alathra.alathraskills.listeners.skills;
 
-import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
@@ -41,7 +40,7 @@ public class FarmingSkillsListener implements Listener {
 
             int i = 0;
             for (int id : SkillsManager.readyToEatIds) {
-                readyToEat[i] = skillsPlayer.doesPlayerHaveSkill(id);
+                readyToEat[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }
 
@@ -65,7 +64,7 @@ public class FarmingSkillsListener implements Listener {
 
             int i = 0;
             for (int id : SkillsManager.fastHarvestIds) {
-                fastHarvest[i] = skillsPlayer.doesPlayerHaveSkill(id);
+                fastHarvest[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }
 
@@ -104,7 +103,7 @@ public class FarmingSkillsListener implements Listener {
 
             int i = 0;
             for (int id : SkillsManager.wideSpread) {
-                wideSpread[i] = skillsPlayer.doesPlayerHaveSkill(id);
+                wideSpread[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }
 
@@ -145,7 +144,7 @@ public class FarmingSkillsListener implements Listener {
 
             int i = 0;
             for (int id : SkillsManager.greenThumbIds) {
-                greenThumb[i] = skillsPlayer.doesPlayerHaveSkill(id);
+                greenThumb[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }
 
@@ -179,7 +178,7 @@ public class FarmingSkillsListener implements Listener {
 
             int i = 0;
             for (int id : SkillsManager.qualityCropsIds) {
-                qualityCrops[i] = skillsPlayer.doesPlayerHaveSkill(id);
+                qualityCrops[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }
 

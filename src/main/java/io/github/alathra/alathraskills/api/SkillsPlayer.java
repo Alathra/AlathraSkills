@@ -29,7 +29,7 @@ public class SkillsPlayer {
 		return playerSkills;
 	}
 
-    public boolean doesPlayerHaveSkill(int id) {
+    public boolean playerHasSkill(int id) {
         return playerSkills.get(id).isSelected();
     }
 
