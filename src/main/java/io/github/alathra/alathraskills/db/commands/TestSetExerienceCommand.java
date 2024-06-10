@@ -1,5 +1,7 @@
 package io.github.alathra.alathraskills.db.commands;
 
+import io.github.alathra.alathraskills.AlathraSkills;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
@@ -47,20 +49,25 @@ public class TestSetExerienceCommand {
             );
             return;
         }
-        // TODO Make Async
-        DatabaseQueries.saveSkillCategoryExperience(player, (Integer) args.get("skillCategoryID"), (float) args.get("Experience"));
-        String returnString =
-        		"Player with ID " +
-				player.getUniqueId() +
-				" has had an experience value of " +
-				args.get("Experience") +
-				" set in skill category " +
-				args.get("skillCategoryID") +
-				".";
-        player.sendMessage(
+
+        AlathraSkills instance = AlathraSkills.getInstance();
+
+        Bukkit.getScheduler().runTaskAsynchronously(instance, () -> {
+            DatabaseQueries.saveSkillCategoryExperience(player, (Integer) args.get("skillCategoryID"), (float) args.get("Experience"));
+            String returnString =
+                "Player with ID " +
+                    player.getUniqueId() +
+                    " has had an experience value of " +
+                    args.get("Experience") +
+                    " set in skill category " +
+                    args.get("skillCategoryID") +
+                    ".";
+            player.sendMessage(
                 ColorParser.of(returnString)
                     .parseLegacy() // Parse legacy color codes
                     .build()
-        );
+            );
+        });
+
     }
 }

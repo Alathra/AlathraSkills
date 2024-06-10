@@ -1,5 +1,7 @@
 package io.github.alathra.alathraskills.db.commands;
 
+import io.github.alathra.alathraskills.AlathraSkills;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
@@ -39,23 +41,27 @@ public class TestHasSkillCommand {
             );
             return;
         }
-        // TODO Make Async
-        boolean dbReturnValue = DatabaseQueries.doesPlayerHaveSkill((Player) args.get("targetPlayer"), (Integer) args.get("skill"));
-        String returnString =
-        		"Player with ID " +
-				((Player) args.get("targetPlayer")).getUniqueId() +
-				" does ";
-        if (!dbReturnValue) {
-        	returnString += "not ";
-        }
-        returnString +=
-        		"have the skill " +
-				args.get("skill") +
-				".";
-        player.sendMessage(
+
+        AlathraSkills instance = AlathraSkills.getInstance();
+
+        Bukkit.getScheduler().runTaskAsynchronously(instance, () -> {
+            boolean dbReturnValue = DatabaseQueries.doesPlayerHaveSkill((Player) args.get("targetPlayer"), (Integer) args.get("skill"));
+            String returnString =
+                "Player with ID " +
+                    ((Player) args.get("targetPlayer")).getUniqueId() +
+                    " does ";
+            if (!dbReturnValue) {
+                returnString += "not ";
+            }
+            returnString +=
+                "have the skill " +
+                    args.get("skill") +
+                    ".";
+            player.sendMessage(
                 ColorParser.of(returnString)
                     .parseLegacy() // Parse legacy color codes
                     .build()
-        );
+            );
+        });
     }
 }
