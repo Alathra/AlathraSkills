@@ -1,5 +1,7 @@
 package io.github.alathra.alathraskills.api.commands;
 
+import io.github.alathra.alathraskills.AlathraSkills;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
@@ -40,18 +42,21 @@ public class TestSetUsedSkillPointsCommandMemory {
             );
         }
 
-        // TODO Make Async
-        SkillsPlayerManager.setPlayerUsedSkillPoints((Player) args.get("targetPlayer"), (Integer) args.get("usedSkillPoints"));
-        String returnString =
-        		"Player with ID " +
-				player.getUniqueId() +
-				" has had an used skill pionts value of " +
-				args.get("usedSkillPoints") +
-				" set.";
-        player.sendMessage(
+        AlathraSkills instance = AlathraSkills.getInstance();
+
+        Bukkit.getScheduler().runTaskAsynchronously(instance, () -> {
+            SkillsPlayerManager.setPlayerUsedSkillPoints((Player) args.get("targetPlayer"), (Integer) args.get("usedSkillPoints"));
+            String returnString =
+                "Player with ID " +
+                    player.getUniqueId() +
+                    " has had an used skill pionts value of " +
+                    args.get("usedSkillPoints") +
+                    " set.";
+            player.sendMessage(
                 ColorParser.of(returnString)
                     .parseLegacy() // Parse legacy color codes
                     .build()
-        );
+            );
+        });
     }
 }
