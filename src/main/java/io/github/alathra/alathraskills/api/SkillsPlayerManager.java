@@ -1,8 +1,6 @@
 package io.github.alathra.alathraskills.api;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.UUID;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Stream;
 
@@ -67,11 +65,11 @@ public class SkillsPlayerManager implements Reloadable {
                 DatabaseQueries.setUsedSkillPoints(p, 0);
 		}
 
-        final Result<PlayerSkillinfoRecord>[] skillsDBReturn = new Result<PlayerSkillinfoRecord>[1];
-        Bukkit.getScheduler().runTaskAsynchronously(instance, () -> skillsDBReturn[0] = DatabaseQueries.fetchPlayerSkills(p));
+        final ArrayList<Result<PlayerSkillinfoRecord>> skillsDBReturn = new ArrayList<>(); ;
+        Bukkit.getScheduler().runTaskAsynchronously(instance, () -> skillsDBReturn.add(DatabaseQueries.fetchPlayerSkills(p)));
 		
-        if (skillsDBReturn[0] != null) {
-        	for (Iterator<PlayerSkillinfoRecord> iterator = skillsDBReturn[0].iterator(); iterator.hasNext();) {
+        if (skillsDBReturn.get(0) != null) {
+        	for (Iterator<PlayerSkillinfoRecord> iterator = skillsDBReturn.get(0).iterator(); iterator.hasNext();) {
 				PlayerSkillinfoRecord playerSkillinfoRecord = iterator.next();
 				playerSkills.put(playerSkillinfoRecord.getSkillid(), new SkillDetails(true, true));
 			}
