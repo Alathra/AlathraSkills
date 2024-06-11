@@ -65,11 +65,11 @@ public class SkillsPlayerManager implements Reloadable {
                 DatabaseQueries.setUsedSkillPoints(p, 0);
 		}
 
-        final ArrayList<Result<PlayerSkillinfoRecord>> skillsDBReturn = new ArrayList<>(); ;
-        Bukkit.getScheduler().runTaskAsynchronously(instance, () -> skillsDBReturn.add(DatabaseQueries.fetchPlayerSkills(p)));
+        // TODO make async
+        Result<PlayerSkillinfoRecord> skillsDBReturn = DatabaseQueries.fetchPlayerSkills(p);
 		
-        if (skillsDBReturn.get(0) != null) {
-        	for (Iterator<PlayerSkillinfoRecord> iterator = skillsDBReturn.get(0).iterator(); iterator.hasNext();) {
+        if (skillsDBReturn != null) {
+        	for (Iterator<PlayerSkillinfoRecord> iterator = skillsDBReturn.iterator(); iterator.hasNext();) {
 				PlayerSkillinfoRecord playerSkillinfoRecord = iterator.next();
 				playerSkills.put(playerSkillinfoRecord.getSkillid(), new SkillDetails(true, true));
 			}
