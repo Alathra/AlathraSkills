@@ -19,8 +19,8 @@ public class GuiHelper {
         switch (type) {
             case MAIN -> {
                 gui = Gui.gui()
-                    .rows(1)
-                    .title(ColorParser.of("<dark_grey>[<gradient:#ffff80:#00ff00>AlathraSkills</gradient><dark_grey>]").build()) // TODO: config
+                    .rows(5)
+                    .title(ColorParser.of("<color:#00B300>AlathraSkills").build()) // TODO: config
                     .disableItemDrop()
                     .disableItemPlace()
                     .disableItemSwap()
@@ -29,8 +29,8 @@ public class GuiHelper {
             }
             case SKILL -> {
                 gui = Gui.gui()
-                    .rows(3)
-                    .title(ColorParser.of("<dark_grey>[<gradient:#ffff80:#00ff00>AlathraSkills</gradient><dark_grey>]").build()) // TODO: config
+                    .rows(4)
+                    .title(ColorParser.of("<white>Choose skill tree").build()) // TODO: config
                     .disableItemDrop()
                     .disableItemPlace()
                     .disableItemSwap()
@@ -42,11 +42,20 @@ public class GuiHelper {
         return gui;
     }
 
-    public static Gui buildSkillGui() {
+    public static Gui buildSkillGui(int skillCategoryId) {
+        String skillCategoryString;
+
+        switch (skillCategoryId) {
+            case 1 -> skillCategoryString = "Farming";
+            case 2 -> skillCategoryString = "Mining";
+            case 3 -> skillCategoryString = "Woodcutting";
+            default -> skillCategoryString = null;
+        }
+
         Gui gui;
         gui = Gui.gui()
-            .rows(6)
-            .title(ColorParser.of("<dark_grey>[<gradient:#ffff80:#00ff00>AlathraSkills</gradient><dark_grey>]").build())
+            .rows(5)
+            .title(ColorParser.of("<white>" + skillCategoryString).build())
             .disableItemDrop()
             .disableItemPlace()
             .disableItemSwap()
@@ -59,7 +68,7 @@ public class GuiHelper {
         Gui gui;
         gui = Gui.gui()
             .rows(1)
-            .title(ColorParser.of("<dark_grey>[<gradient:#ffff80:#00ff00>AlathraSkills</gradient><dark_grey>]").build())
+            .title(ColorParser.of("<white>Are you sure?").build())
             .disableItemDrop()
             .disableItemPlace()
             .disableItemSwap()
@@ -75,7 +84,7 @@ public class GuiHelper {
     }
 
     public static void openSkillGui(Player player, int skillCategoryId, int page) {
-        Gui gui = buildSkillGui();
+        Gui gui = buildSkillGui(skillCategoryId);
         populateSkillGui(gui, player, skillCategoryId, page);
         gui.open(player);
     }

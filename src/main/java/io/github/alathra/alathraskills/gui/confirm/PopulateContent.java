@@ -28,7 +28,7 @@ public class PopulateContent {
         confirm.setItemMeta(confirmMeta);
 
         ItemStack deny = new ItemStack(Material.REDSTONE_BLOCK);
-        ItemMeta denyMeta = confirm.getItemMeta();
+        ItemMeta denyMeta = deny.getItemMeta();
         denyMeta.displayName(ColorParser.of("<red><bold>Cancel").build());
         deny.setItemMeta(denyMeta);
 

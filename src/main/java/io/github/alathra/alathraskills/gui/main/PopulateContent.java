@@ -8,12 +8,14 @@ import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.gui.GuiHelper;
 import io.github.alathra.alathraskills.utility.Cfg;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.Collections;
 
@@ -64,13 +66,27 @@ public class PopulateContent {
         exitMeta.displayName(ColorParser.of("<dark_red><bold>Exit").build());
         exit.setItemMeta(exitMeta);
 
-        gui.setItem(0, ItemBuilder.from(expToNext).asGuiItem());
-        gui.setItem(1, ItemBuilder.from(availableSkillPoints).asGuiItem());
-        gui.setItem(4, ItemBuilder.from(openSkillTrees).asGuiItem(event -> {
+        ItemStack playerHead = new ItemStack(Material.PLAYER_HEAD);
+        SkullMeta skullMeta = (SkullMeta) playerHead.getItemMeta();
+        skullMeta.setOwningPlayer(offlinePlayer);
+        skullMeta.displayName(ColorParser.of("<color:#00B300>Reset skills").build());
+        playerHead.setItemMeta(skullMeta);
+
+        ItemStack border = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
+        ItemMeta borderMeta = border.getItemMeta();
+        borderMeta.displayName(Component.text(""));
+        border.setItemMeta(borderMeta);
+
+        gui.getFiller().fill(ItemBuilder.from(border).asGuiItem());
+
+        gui.setItem(2, 5, ItemBuilder.from(totalExpItem).asGuiItem());
+        gui.setItem(3, 4, ItemBuilder.from(availableSkillPoints).asGuiItem());
+        gui.setItem(3, 5, ItemBuilder.from(openSkillTrees).asGuiItem(event -> {
             GuiHelper.openSkillCategoryGui(player);
         }));
-        gui.setItem(7, ItemBuilder.from(totalExpItem).asGuiItem());
-        gui.setItem(8, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
+        gui.setItem(3, 6, ItemBuilder.from(expToNext).asGuiItem());
+        gui.setItem(5, 5, ItemBuilder.from(playerHead).asGuiItem());
+        gui.setItem(5, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
     }
 
 }
