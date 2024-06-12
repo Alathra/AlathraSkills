@@ -14,14 +14,15 @@ public class GreenThumbSix extends Skill {
 
     private SkillsManager skillsManager;
 
-    public GreenThumbSix(int id) {
-        super(id, "Green Thumb 6", "Get a chance to bone meal crops in a wider area!");
+    public GreenThumbSix(int id, int cost) {
+        super(id, "Green Thumb 6", "Get a chance to bone meal crops in a wider area!", cost);
 
         ItemStack icon = new ItemStack(Material.BONE_MEAL, 6);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 18</yellow>").build(),
-            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build(),
+            ColorParser.of("<yellow>Cost: " + super.getCost() + " skill points").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 

@@ -14,14 +14,15 @@ public class PreciseChopThree extends Skill {
 
     private SkillsManager skillsManager;
 
-    public PreciseChopThree(int id) {
-        super(id, "Precise Chop 3", "Even greater chance at extra logs.");
+    public PreciseChopThree(int id, int cost) {
+        super(id, "Precise Chop 3", "Even greater chance at extra logs.", cost);
 
         ItemStack icon = new ItemStack(Material.OAK_LOG, 3);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 10</yellow>").build(),
-            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build(),
+            ColorParser.of("<yellow>Cost: " + super.getCost() + " skill points").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 

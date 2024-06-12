@@ -14,14 +14,15 @@ public class SaveTheTreesOne extends Skill {
 
     private SkillsManager skillsManager;
 
-    public SaveTheTreesOne(int id) {
-        super(id, "Save the Trees", "Save the trees and your time with automatic replanting!");
+    public SaveTheTreesOne(int id, int cost) {
+        super(id, "Save the Trees", "Save the trees and your time with automatic replanting!", cost);
 
         ItemStack icon = new ItemStack(Material.OAK_SAPLING);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 1</yellow>").build(),
-            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build(),
+            ColorParser.of("<yellow>Cost: " + super.getCost() + " skill points").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 

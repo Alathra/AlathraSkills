@@ -14,14 +14,15 @@ public class ReadyToEatOne extends Skill {
 
     private SkillsManager skillsManager;
 
-    public ReadyToEatOne(int id) {
-        super(id, "Ready to Eat 1", "Get a chance to drop extra food when harvesting!");
+    public ReadyToEatOne(int id, int cost) {
+        super(id, "Ready to Eat 1", "Get a chance to drop extra food when harvesting!", cost);
 
         ItemStack icon = new ItemStack(Material.BREAD);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 1</yellow>").build(),
-            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build(),
+            ColorParser.of("<yellow>Cost: " + super.getCost() + " skill points").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 

@@ -14,14 +14,15 @@ public class FastHarvestTwo extends Skill {
 
     private SkillsManager skillsManager;
 
-    public FastHarvestTwo(int id) {
-        super(id, "Fast Harvest 2", "Get a chance to harvest crops in a wider area!");
+    public FastHarvestTwo(int id, int cost) {
+        super(id, "Fast Harvest 2", "Get a chance to harvest crops in a wider area!", cost);
 
         ItemStack icon = new ItemStack(Material.IRON_HOE, 2);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 4</yellow>").build(),
-            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build(),
+            ColorParser.of("<yellow>Cost: " + super.getCost() + " skill points").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 

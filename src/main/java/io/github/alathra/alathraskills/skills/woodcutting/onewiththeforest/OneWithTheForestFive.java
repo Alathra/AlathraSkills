@@ -14,14 +14,15 @@ public class OneWithTheForestFive extends Skill {
 
     private static SkillsManager skillsManager;
 
-    public OneWithTheForestFive(int id) {
-        super(id, "One With the Forest 5", "Growing a sapling with bonemeal grows nearby saplings and gives bonuses.");
+    public OneWithTheForestFive(int id, int cost) {
+        super(id, "One With the Forest 5", "Growing a sapling with bonemeal grows nearby saplings and gives bonuses.", cost);
 
         ItemStack icon = new ItemStack(Material.POPPY, 5);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 16</yellow>").build(),
-            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build(),
+            ColorParser.of("<yellow>Cost: " + super.getCost() + " skill points").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 

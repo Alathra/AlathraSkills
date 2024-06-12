@@ -14,14 +14,15 @@ public class WideSpreadThree extends Skill {
 
     private SkillsManager skillsManager;
 
-    public WideSpreadThree(int id) {
-        super(id, "Wide Spread 3", "Get a chance to sow seeds in a wider area!");
+    public WideSpreadThree(int id, int cost) {
+        super(id, "Wide Spread 3", "Get a chance to sow seeds in a wider area!", cost);
 
         ItemStack icon = new ItemStack(Material.WHEAT_SEEDS, 3);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 10</yellow>").build(),
-            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build(),
+            ColorParser.of("<yellow>Cost: " + super.getCost() + " skill points").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 

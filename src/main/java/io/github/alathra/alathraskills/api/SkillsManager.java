@@ -100,114 +100,114 @@ public class SkillsManager implements Reloadable {
     }
 
     public void loadWoodcuttingSkills() {
-        woodcuttingSkills.put(301, new SaveTheTreesOne(301));
-        woodcuttingSkills.put(302, new PreciseChopOne(302));
-        woodcuttingSkills.put(303, new PreciseChopTwo(303));
-        woodcuttingSkills.put(304, new TrimmerOne(304));
-        woodcuttingSkills.put(305, new OneSwingOne(305));
-        woodcuttingSkills.put(306, new OneWithTheForestOne(306));
-        woodcuttingSkills.put(307, new TrimmerTwo(307));
-        woodcuttingSkills.put(308, new OneWithTheForestTwo(308));
-        woodcuttingSkills.put(309, new OneSwingTwo(309));
-        woodcuttingSkills.put(310, new PreciseChopThree(310));
+        woodcuttingSkills.put(301, new SaveTheTreesOne(301, 5));
+        woodcuttingSkills.put(302, new PreciseChopOne(302, 5));
+        woodcuttingSkills.put(303, new PreciseChopTwo(303,5 ));
+        woodcuttingSkills.put(304, new TrimmerOne(304, 5));
+        woodcuttingSkills.put(305, new OneSwingOne(305, 5));
+        woodcuttingSkills.put(306, new OneWithTheForestOne(306, 6));
+        woodcuttingSkills.put(307, new TrimmerTwo(307, 7));
+        woodcuttingSkills.put(308, new OneWithTheForestTwo(308, 8));
+        woodcuttingSkills.put(309, new OneSwingTwo(309, 9));
+        woodcuttingSkills.put(310, new PreciseChopThree(310, 10));
 
         // Left branch
-        woodcuttingSkills.put(3111, new OneWithTheForestThree(3111));
-        woodcuttingSkills.put(3112, new OneSwingThree(3112));
-        woodcuttingSkills.put(3113, new OneWithTheForestFour(3113));
-        woodcuttingSkills.put(3114, new OneSwingFour(3114));
-        woodcuttingSkills.put(3115, new OneSwingFive(3115));
-        woodcuttingSkills.put(3116, new OneWithTheForestFive(3116));
-        woodcuttingSkills.put(3117, new OneSwingSix(3117));
-        woodcuttingSkills.put(3118, new OneWithTheForestSix(3118));
-        woodcuttingSkills.put(3119, new OneWithTheForestSeven(3119));
-        woodcuttingSkills.put(3120, new OneSwingSeven(3120));
+        woodcuttingSkills.put(3111, new OneWithTheForestThree(3111, 10));
+        woodcuttingSkills.put(3112, new OneSwingThree(3112, 10));
+        woodcuttingSkills.put(3113, new OneWithTheForestFour(3113, 10));
+        woodcuttingSkills.put(3114, new OneSwingFour(3114, 10));
+        woodcuttingSkills.put(3115, new OneSwingFive(3115, 10));
+        woodcuttingSkills.put(3116, new OneWithTheForestFive(3116, 10));
+        woodcuttingSkills.put(3117, new OneSwingSix(3117, 10));
+        woodcuttingSkills.put(3118, new OneWithTheForestSix(3118, 10));
+        woodcuttingSkills.put(3119, new OneWithTheForestSeven(3119, 10));
+        woodcuttingSkills.put(3120, new OneSwingSeven(3120, 10));
 
         // Right branch
-        woodcuttingSkills.put(3211, new PreciseChopFour(3211));
-        woodcuttingSkills.put(3212, new PreciseChopFive(3212));
-        woodcuttingSkills.put(3213, new TrimmerThree(3213));
-        woodcuttingSkills.put(3214, new PreciseChopSix(3214));
-        woodcuttingSkills.put(3215, new TrimmerFour(3215));
-        woodcuttingSkills.put(3216, new TrimmerFive(3216));
-        woodcuttingSkills.put(3217, new PreciseChopSeven(3217));
-        woodcuttingSkills.put(3218, new PreciseChopEight(3218));
-        woodcuttingSkills.put(3219, new TrimmerSix(3219));
-        woodcuttingSkills.put(3220, new TrimmerSeven(3220));
+        woodcuttingSkills.put(3211, new PreciseChopFour(3211, 10));
+        woodcuttingSkills.put(3212, new PreciseChopFive(3212, 10));
+        woodcuttingSkills.put(3213, new TrimmerThree(3213, 10));
+        woodcuttingSkills.put(3214, new PreciseChopSix(3214, 10));
+        woodcuttingSkills.put(3215, new TrimmerFour(3215, 10));
+        woodcuttingSkills.put(3216, new TrimmerFive(3216, 10));
+        woodcuttingSkills.put(3217, new PreciseChopSeven(3217, 10));
+        woodcuttingSkills.put(3218, new PreciseChopEight(3218, 10));
+        woodcuttingSkills.put(3219, new TrimmerSix(3219, 10));
+        woodcuttingSkills.put(3220, new TrimmerSeven(3220, 10));
     }
 
     private void loadMiningSkills() {
-        miningSkills.put(201, new SpelunkerOne(201));
-        miningSkills.put(202, new VeinBreakerOne(202));
-        miningSkills.put(203, new ProudProspectorOne(203));
-        miningSkills.put(204, new VeinBreakerTwo(204));
-        miningSkills.put(205, new EasyPickingOne(205));
-        miningSkills.put(206, new SpelunkerTwo(206));
-        miningSkills.put(207, new VeinBreakerThree(207));
-        miningSkills.put(208, new ProudProspectorTwo(208));
-        miningSkills.put(209, new SpelunkerThree(209));
-        miningSkills.put(210, new EasyPickingTwo(210));
+        miningSkills.put(201, new SpelunkerOne(201, 5));
+        miningSkills.put(202, new VeinBreakerOne(202, 5));
+        miningSkills.put(203, new ProudProspectorOne(203, 5));
+        miningSkills.put(204, new VeinBreakerTwo(204, 5));
+        miningSkills.put(205, new EasyPickingOne(205, 5));
+        miningSkills.put(206, new SpelunkerTwo(206, 6));
+        miningSkills.put(207, new VeinBreakerThree(207, 7));
+        miningSkills.put(208, new ProudProspectorTwo(208, 8));
+        miningSkills.put(209, new SpelunkerThree(209, 9));
+        miningSkills.put(210, new EasyPickingTwo(210, 10));
 
         // Left branch
-        miningSkills.put(2111, new OreInTheRoughOne(2111));
-        miningSkills.put(2112, new ProudProspectorThree(2112));
-        miningSkills.put(2113, new SpelunkerFour(2113));
-        miningSkills.put(2114, new OreInTheRoughTwo(2114));
-        miningSkills.put(2115, new ProudProspectorFour(2115));
-        miningSkills.put(2116, new OreInTheRoughThree(2116));
-        miningSkills.put(2117, new OreInTheRoughFour(2117));
-        miningSkills.put(2118, new ProudProspectorFive(2118));
-        miningSkills.put(2119, new OreInTheRoughFive(2119));
-        miningSkills.put(2120, new ProudProspectorSix(2120));
+        miningSkills.put(2111, new OreInTheRoughOne(2111, 10));
+        miningSkills.put(2112, new ProudProspectorThree(2112, 10));
+        miningSkills.put(2113, new SpelunkerFour(2113, 10));
+        miningSkills.put(2114, new OreInTheRoughTwo(2114, 10));
+        miningSkills.put(2115, new ProudProspectorFour(2115, 10));
+        miningSkills.put(2116, new OreInTheRoughThree(2116, 10));
+        miningSkills.put(2117, new OreInTheRoughFour(2117, 10));
+        miningSkills.put(2118, new ProudProspectorFive(2118, 10));
+        miningSkills.put(2119, new OreInTheRoughFive(2119, 10));
+        miningSkills.put(2120, new ProudProspectorSix(2120, 10));
 
         // Right branch
-        miningSkills.put(2211, new VeinBreakerFour(2211));
-        miningSkills.put(2212, new EasyPickingThree(2212));
-        miningSkills.put(2213, new SpelunkerFour(2213));
-        miningSkills.put(2214, new VeinBreakerFive(2214));
-        miningSkills.put(2215, new EasyPickingFour(2215));
-        miningSkills.put(2216, new EasyPickingFive(2216));
-        miningSkills.put(2217, new VeinBreakerSix(2217));
-        miningSkills.put(2218, new VeinBreakerSeven(2218));
-        miningSkills.put(2219, new EasyPickingSix(2219));
-        miningSkills.put(2220, new EasyPickingSeven(2220));
+        miningSkills.put(2211, new VeinBreakerFour(2211, 10));
+        miningSkills.put(2212, new EasyPickingThree(2212, 10));
+        miningSkills.put(2213, new SpelunkerFour(2213, 10));
+        miningSkills.put(2214, new VeinBreakerFive(2214, 10));
+        miningSkills.put(2215, new EasyPickingFour(2215, 10));
+        miningSkills.put(2216, new EasyPickingFive(2216, 10));
+        miningSkills.put(2217, new VeinBreakerSix(2217, 10));
+        miningSkills.put(2218, new VeinBreakerSeven(2218, 10));
+        miningSkills.put(2219, new EasyPickingSix(2219, 10));
+        miningSkills.put(2220, new EasyPickingSeven(2220, 10));
     }
 
     public void loadFarmingSkills() {
-        farmingSkills.put(101, new QualityCropsOne(101));
-        farmingSkills.put(102, new FastHarvestOne(102));
-        farmingSkills.put(103, new GreenThumbOne(103));
-        farmingSkills.put(104, new FastHarvestTwo(104));
-        farmingSkills.put(105, new WideSpreadOne(105));
-        farmingSkills.put(106, new QualityCropsTwo(106));
-        farmingSkills.put(107, new WideSpreadTwo(107));
-        farmingSkills.put(108, new GreenThumbTwo(108));
-        farmingSkills.put(109, new FastHarvestThree(109));
-        farmingSkills.put(110, new WideSpreadThree(110));
+        farmingSkills.put(101, new QualityCropsOne(101, 5));
+        farmingSkills.put(102, new FastHarvestOne(102, 5));
+        farmingSkills.put(103, new GreenThumbOne(103, 5));
+        farmingSkills.put(104, new FastHarvestTwo(104, 5));
+        farmingSkills.put(105, new WideSpreadOne(105, 5));
+        farmingSkills.put(106, new QualityCropsTwo(106, 6));
+        farmingSkills.put(107, new WideSpreadTwo(107, 7));
+        farmingSkills.put(108, new GreenThumbTwo(108, 8));
+        farmingSkills.put(109, new FastHarvestThree(109, 9));
+        farmingSkills.put(110, new WideSpreadThree(110, 10));
 
         // Left branch
-        farmingSkills.put(1111, new GreenThumbThree(1111));
-        farmingSkills.put(1112, new WideSpreadFour(1112));
-        farmingSkills.put(1113, new ReadyToEatOne(1113));
-        farmingSkills.put(1114, new GreenThumbFour(1114));
-        farmingSkills.put(1115, new WideSpreadFive(1115));
-        farmingSkills.put(1116, new GreenThumbFive(1116));
-        farmingSkills.put(1117, new WideSpreadSix(1117));
-        farmingSkills.put(1118, new GreenThumbSix(1118));
-        farmingSkills.put(1119, new WideSpreadSeven(1119));
-        farmingSkills.put(1120, new ReadyToEatTwo(1120));
+        farmingSkills.put(1111, new GreenThumbThree(1111, 10));
+        farmingSkills.put(1112, new WideSpreadFour(1112, 10));
+        farmingSkills.put(1113, new ReadyToEatOne(1113, 10));
+        farmingSkills.put(1114, new GreenThumbFour(1114, 10));
+        farmingSkills.put(1115, new WideSpreadFive(1115, 10));
+        farmingSkills.put(1116, new GreenThumbFive(1116, 10));
+        farmingSkills.put(1117, new WideSpreadSix(1117, 10));
+        farmingSkills.put(1118, new GreenThumbSix(1118, 10));
+        farmingSkills.put(1119, new WideSpreadSeven(1119, 10));
+        farmingSkills.put(1120, new ReadyToEatTwo(1120, 10));
 
         // Right branch
-        farmingSkills.put(1211, new QualityCropsThree(1211));
-        farmingSkills.put(1212, new FastHarvestFour(1212));
-        farmingSkills.put(1213, new ReadyToEatOne(1213));
-        farmingSkills.put(1214, new QualityCropsFour(1214));
-        farmingSkills.put(1215, new FastHarvestFive(1215));
-        farmingSkills.put(1216, new QualityCropsFive(1216));
-        farmingSkills.put(1217, new FastHarvestSix(1217));
-        farmingSkills.put(1218, new QualityCropsSix(1218));
-        farmingSkills.put(1219, new FastHarvestSeven(1219));
-        farmingSkills.put(1220, new ReadyToEatTwo(1220));
+        farmingSkills.put(1211, new QualityCropsThree(1211, 10));
+        farmingSkills.put(1212, new FastHarvestFour(1212, 10));
+        farmingSkills.put(1213, new ReadyToEatOne(1213, 10));
+        farmingSkills.put(1214, new QualityCropsFour(1214, 10));
+        farmingSkills.put(1215, new FastHarvestFive(1215, 10));
+        farmingSkills.put(1216, new QualityCropsFive(1216, 10));
+        farmingSkills.put(1217, new FastHarvestSix(1217, 10));
+        farmingSkills.put(1218, new QualityCropsSix(1218, 10));
+        farmingSkills.put(1219, new FastHarvestSeven(1219, 10));
+        farmingSkills.put(1220, new ReadyToEatTwo(1220, 10));
 
     }
 

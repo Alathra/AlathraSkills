@@ -14,14 +14,15 @@ public class TrimmerFour extends Skill {
 
     private SkillsManager skillsManager;
 
-    public TrimmerFour(int id) {
-        super(id, "Trimmer 4", "Get an even better chance at apples.");
+    public TrimmerFour(int id, int cost) {
+        super(id, "Trimmer 4", "Get an even better chance at apples.", cost);
 
         ItemStack icon = new ItemStack(Material.OAK_LEAVES, 4);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 15</yellow>").build(),
-            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build(),
+            ColorParser.of("<yellow>Cost: " + super.getCost() + " skill points").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 

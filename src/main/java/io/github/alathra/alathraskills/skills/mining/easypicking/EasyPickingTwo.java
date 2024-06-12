@@ -14,14 +14,15 @@ public class EasyPickingTwo extends Skill {
 
     private static SkillsManager skillsManager;
 
-    public EasyPickingTwo(int id) {
-        super(id, "Easy Picking 2", "Right click to get haste.");
+    public EasyPickingTwo(int id, int cost) {
+        super(id, "Easy Picking 2", "Right click to get haste.", cost);
 
         ItemStack icon = new ItemStack(Material.IRON_HELMET);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<dark_aqua><bold>" + super.getName() + "</dark_aqua>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 10</yellow>").build(),
-            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build(),
+            ColorParser.of("<yellow>Cost: " + super.getCost() + " skill points").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 

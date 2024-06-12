@@ -14,14 +14,15 @@ public class SpelunkerOne extends Skill {
 
     private static SkillsManager skillsManager;
 
-    public SpelunkerOne(int id) {
+    public SpelunkerOne(int id, int cost) {
         super(id, "Spelunker 1", "Reduce incoming fall damage.");
 
         ItemStack icon = new ItemStack(Material.IRON_BOOTS);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<dark_aqua><bold>" + super.getName() + "</dark_aqua>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 1</yellow>").build(),
-            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build(),
+            ColorParser.of("<yellow>Cost: " + super.getCost() + " skill points").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 

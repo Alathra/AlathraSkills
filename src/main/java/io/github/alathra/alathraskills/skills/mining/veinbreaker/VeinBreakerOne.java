@@ -14,14 +14,15 @@ public class VeinBreakerOne extends Skill {
 
     private static SkillsManager skillsManager;
 
-    public VeinBreakerOne(int id) {
-        super(id, "Vein Breaker 1", "5% chance to break all adjacent ores of the same kind.");
+    public VeinBreakerOne(int id, int cost) {
+        super(id, "Vein Breaker 1", "5% chance to break all adjacent ores of the same kind.", cost);
 
         ItemStack icon = new ItemStack(Material.DIAMOND_PICKAXE);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<dark_aqua><bold>" + super.getName() + "</dark_aqua>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 2</yellow>").build(),
-            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build(),
+            ColorParser.of("<yellow>Cost: " + super.getCost() + " skill points").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 

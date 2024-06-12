@@ -14,14 +14,15 @@ public class OreInTheRoughThree extends Skill {
 
     private static SkillsManager skillsManager;
 
-    public OreInTheRoughThree(int id) {
-        super(id, "Ore in the Rough 3", "Have a small chance to find precious metals when mining stone type blocks.");
+    public OreInTheRoughThree(int id, int cost) {
+        super(id, "Ore in the Rough 3", "Have a small chance to find precious metals when mining stone type blocks.", cost);
 
         ItemStack icon = new ItemStack(Material.RAW_GOLD, 3);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<dark_aqua><bold>" + super.getName() + "</dark_aqua>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 16</yellow>").build(),
-            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build(),
+            ColorParser.of("<yellow>Cost: " + super.getCost() + " skill points").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 

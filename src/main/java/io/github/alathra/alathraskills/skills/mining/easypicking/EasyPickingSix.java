@@ -14,14 +14,15 @@ public class EasyPickingSix extends Skill {
 
     private static SkillsManager skillsManager;
 
-    public EasyPickingSix(int id) {
-        super(id, "Easy Picking 6", "Right click to get haste.");
+    public EasyPickingSix(int id, int cost) {
+        super(id, "Easy Picking 6", "Right click to get haste.", cost);
 
         ItemStack icon = new ItemStack(Material.GOLDEN_PICKAXE, 6);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<dark_aqua><bold>" + super.getName() + "</dark_aqua>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 19</yellow>").build(),
-            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build(),
+            ColorParser.of("<yellow>Cost: " + super.getCost() + " skill points").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 

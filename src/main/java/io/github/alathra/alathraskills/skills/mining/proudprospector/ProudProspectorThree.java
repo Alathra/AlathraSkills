@@ -14,14 +14,15 @@ public class ProudProspectorThree extends Skill {
 
     private static SkillsManager skillsManager;
 
-    public ProudProspectorThree(int id) {
-        super(id, "Proud Prospector 3", "Have a small chance to get double drops from ore.");
+    public ProudProspectorThree(int id, int cost) {
+        super(id, "Proud Prospector 3", "Have a small chance to get double drops from ore.", cost);
 
         ItemStack icon = new ItemStack(Material.DIAMOND, 3);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<dark_aqua><bold>" + super.getName() + "</dark_aqua>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 12</yellow>").build(),
-            ColorParser.of("<orange>" + super.getDescription() + "</orange>").build()));
+            ColorParser.of("<orange>" + super.getDescription() + "</orange>").build(),
+            ColorParser.of("<yellow>Cost: " + super.getCost() + " skill points").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 

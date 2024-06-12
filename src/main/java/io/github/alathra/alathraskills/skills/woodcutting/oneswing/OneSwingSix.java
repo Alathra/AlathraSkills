@@ -14,14 +14,15 @@ public class OneSwingSix extends Skill {
 
     private static SkillsManager skillsManager;
 
-    public OneSwingSix(int id) {
-        super(id, "One Swing 6", "Longer effect and lower cooldown.");
+    public OneSwingSix(int id, int cost) {
+        super(id, "One Swing 6", "Longer effect and lower cooldown.", cost);
 
         ItemStack icon = new ItemStack(Material.DIAMOND_AXE, 6);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<green><bold>" + super.getName() + "</green>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 17</yellow>").build(),
-            ColorParser.of("<red>" + super.getDescription() + "</red>").build()));
+            ColorParser.of("<red>" + super.getDescription() + "</red>").build(),
+            ColorParser.of("<yellow>Cost: " + super.getCost() + " skill points").build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
