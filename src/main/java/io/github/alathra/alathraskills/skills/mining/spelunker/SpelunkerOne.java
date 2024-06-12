@@ -15,7 +15,7 @@ public class SpelunkerOne extends Skill {
     private static SkillsManager skillsManager;
 
     public SpelunkerOne(int id, int cost) {
-        super(id, "Spelunker 1", "Reduce incoming fall damage.");
+        super(id, "Spelunker 1", "Take reduced fall damage.");
 
         ItemStack icon = new ItemStack(Material.IRON_BOOTS);
         ItemMeta meta = icon.getItemMeta();

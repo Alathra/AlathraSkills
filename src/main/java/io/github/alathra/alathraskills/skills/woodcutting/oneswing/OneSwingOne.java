@@ -15,7 +15,7 @@ public class OneSwingOne extends Skill {
     private static SkillsManager skillsManager;
 
     public OneSwingOne(int id, int cost) {
-        super(id, "One Swing 1", "Chop the whole tree down, in one fell swoop!", cost);
+        super(id, "One Swing 1", "When you activate your ax you cut down an entire tree by breaking its trunk.", cost);
 
         ItemStack icon = new ItemStack(Material.DIAMOND_AXE);
         ItemMeta meta = icon.getItemMeta();

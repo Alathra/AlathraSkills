@@ -15,7 +15,7 @@ public class GreenThumbOne extends Skill {
     private SkillsManager skillsManager;
 
     public GreenThumbOne(int id, int cost) {
-        super(id, "Green Thumb 1", "Get a chance to bone meal crops in a wider area!", cost);
+        super(id, "Green Thumb 1", "Bone meal applies to multiple crops in a radius.", cost);
 
         ItemStack icon = new ItemStack(Material.BONE_MEAL);
         ItemMeta meta = icon.getItemMeta();

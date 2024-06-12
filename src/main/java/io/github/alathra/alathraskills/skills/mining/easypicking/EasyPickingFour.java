@@ -15,7 +15,7 @@ public class EasyPickingFour extends Skill {
     private static SkillsManager skillsManager;
 
     public EasyPickingFour(int id, int cost) {
-        super(id, "Easy Picking 4", "Right click to get haste.", cost);
+        super(id, "Easy Picking 4", "When you activate your pickaxe your mining speed greatly increases.", cost);
 
         ItemStack icon = new ItemStack(Material.GOLDEN_PICKAXE, 4);
         ItemMeta meta = icon.getItemMeta();

@@ -15,7 +15,7 @@ public class SaveTheTreesOne extends Skill {
     private SkillsManager skillsManager;
 
     public SaveTheTreesOne(int id, int cost) {
-        super(id, "Save the Trees", "Save the trees and your time with automatic replanting!", cost);
+        super(id, "Save the Trees", "Replant the trees you cut down.", cost);
 
         ItemStack icon = new ItemStack(Material.OAK_SAPLING);
         ItemMeta meta = icon.getItemMeta();

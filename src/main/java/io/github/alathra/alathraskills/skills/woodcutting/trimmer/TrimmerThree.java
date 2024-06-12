@@ -15,7 +15,7 @@ public class TrimmerThree extends Skill {
     private SkillsManager skillsManager;
 
     public TrimmerThree(int id, int cost) {
-        super(id, "Trimmer 3", "Get an even better chance at apples.", cost);
+        super(id, "Trimmer 3", "Your ax cuts straight through leaves and you can find apples on the branches of all trees.", cost);
 
         ItemStack icon = new ItemStack(Material.OAK_LEAVES, 3);
         ItemMeta meta = icon.getItemMeta();

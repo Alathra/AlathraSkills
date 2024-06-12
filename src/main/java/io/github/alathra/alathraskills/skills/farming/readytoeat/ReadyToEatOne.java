@@ -15,7 +15,7 @@ public class ReadyToEatOne extends Skill {
     private SkillsManager skillsManager;
 
     public ReadyToEatOne(int id, int cost) {
-        super(id, "Ready to Eat 1", "Get a chance to drop extra food when harvesting!", cost);
+        super(id, "Ready to Eat 1", "Breaking a fully grown crop has a chance to have it also drop its full food counter part . Wheat drops bread, potatoes drop cooked potatoes, carrots drop golden carrots, and beetroot drops bread.", cost);
 
         ItemStack icon = new ItemStack(Material.BREAD);
         ItemMeta meta = icon.getItemMeta();

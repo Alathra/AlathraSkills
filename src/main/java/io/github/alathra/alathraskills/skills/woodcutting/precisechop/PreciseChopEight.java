@@ -15,7 +15,7 @@ public class PreciseChopEight extends Skill {
     private SkillsManager skillsManager;
 
     public PreciseChopEight(int id, int cost) {
-        super(id, "Precise Chop 8", "Guaranteed extra logs.", cost);
+        super(id, "Precise Chop 8", "Sometimes you gain more logs from cutting trees down.", cost);
 
         ItemStack icon = new ItemStack(Material.OAK_LOG, 8);
         ItemMeta meta = icon.getItemMeta();

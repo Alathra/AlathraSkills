@@ -15,7 +15,7 @@ public class WideSpreadSix extends Skill {
     private SkillsManager skillsManager;
 
     public WideSpreadSix(int id, int cost) {
-        super(id, "Wide Spread 6", "Get a chance to sow seeds in a wider area!", cost);
+        super(id, "Wide Spread 6", "Seeds plant in a radius. Must have enough seeds in your inventory to fill the area you are planting.", cost);
 
         ItemStack icon = new ItemStack(Material.WHEAT_SEEDS, 6);
         ItemMeta meta = icon.getItemMeta();

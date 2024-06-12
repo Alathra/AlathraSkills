@@ -15,7 +15,7 @@ public class VeinBreakerFour extends Skill {
     private static SkillsManager skillsManager;
 
     public VeinBreakerFour(int id, int cost) {
-        super(id, "Vein Breaker 4", "30% chance to break all adjacent ores of the same kind.", cost);
+        super(id, "Vein Breaker 4", "Sometimes you mine the entire vein of an ore by breaking just one ore.", cost);
 
         ItemStack icon = new ItemStack(Material.DIAMOND_PICKAXE, 4);
         ItemMeta meta = icon.getItemMeta();

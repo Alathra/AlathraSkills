@@ -15,7 +15,7 @@ public class QualityCropsOne extends Skill {
     private SkillsManager skillsManager;
 
     public QualityCropsOne(int id, int cost) {
-        super(id, "Quality Crops 1", "Get a chance to breed more animals!", cost);
+        super(id, "Quality Crops 1", "ance to have a second baby animal spawn when breeding animals.", cost);
 
         ItemStack icon = new ItemStack(Material.LEAD);
         ItemMeta meta = icon.getItemMeta();

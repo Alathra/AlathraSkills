@@ -15,7 +15,7 @@ public class OneWithTheForestThree extends Skill {
     private static SkillsManager skillsManager;
 
     public OneWithTheForestThree(int id, int cost) {
-        super(id, "One With the Forest 3", "Growing a sapling with bonemeal grows nearby saplings and gives bonuses.", cost);
+        super(id, "One With the Forest 3", "Your bone meal affects multiple saplings, you find the saplings of other trees in leaves, and bees are more likely to appear on the trees you grow.", cost);
 
         ItemStack icon = new ItemStack(Material.POPPY, 3);
         ItemMeta meta = icon.getItemMeta();

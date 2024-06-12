@@ -15,7 +15,7 @@ public class OreInTheRoughThree extends Skill {
     private static SkillsManager skillsManager;
 
     public OreInTheRoughThree(int id, int cost) {
-        super(id, "Ore in the Rough 3", "Have a small chance to find precious metals when mining stone type blocks.", cost);
+        super(id, "Ore in the Rough 3", "Sometimes you find raw ores when breaking stone or deepslate.", cost);
 
         ItemStack icon = new ItemStack(Material.RAW_GOLD, 3);
         ItemMeta meta = icon.getItemMeta();

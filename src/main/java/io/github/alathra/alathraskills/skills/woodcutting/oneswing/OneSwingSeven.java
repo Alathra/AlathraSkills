@@ -15,7 +15,7 @@ public class OneSwingSeven extends Skill {
     private static SkillsManager skillsManager;
 
     public OneSwingSeven(int id, int cost) {
-        super(id, "One Swing 7", "Longer effect and lower cooldown.", cost);
+        super(id, "One Swing 7", "When you activate your ax you cut down an entire tree by breaking its trunk.", cost);
 
         ItemStack icon = new ItemStack(Material.DIAMOND_AXE, 7);
         ItemMeta meta = icon.getItemMeta();
