@@ -18,3 +18,8 @@ CREATE TABLE IF NOT EXISTS ${tablePrefix}player_used_skill_points (
     PRIMARY KEY (uuid)
 )${tableDefaults};
 
+CREATE TABLE IF NOT EXISTS ${tablePrefix}player_latest_skill (
+    uuid ${uuidType} NOT NULL,
+    skillid INT NOT NULL,
+    PRIMARY KEY (uuid)
+)${tableDefaults};

@@ -27,7 +27,8 @@ import java.util.stream.Stream;
 
 import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_SKILLCATEGORYINFO;
 import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_SKILLINFO;
-import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_USED_SKILL_POINTS;;
+import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_USED_SKILL_POINTS;
+import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_LATEST_SKILL;
 
 /**
  * A holder class for all SQL queries
@@ -405,6 +406,94 @@ public abstract class DatabaseQueries {
         } catch (SQLException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
+    }
+
+    /**
+     * Sets the latest unlocked skill
+     *
+     * @param uuid
+     * @param id
+     */
+
+    public static void setLatestSkillUnlocked(UUID uuid, int id) {
+        try (
+            Connection con = DB.getConnection()
+            ) {
+            DSLContext context = DB.getContext(con);
+
+            context
+                .insertInto(PLAYER_LATEST_SKILL, PLAYER_LATEST_SKILL.UUID, PLAYER_LATEST_SKILL.SKILLID)
+                .values(
+                    convertUUIDToBytes(uuid),
+                    id
+                )
+                .onDuplicateKeyUpdate()
+                .set(PLAYER_LATEST_SKILL.UUID, convertUUIDToBytes(uuid))
+                .set(PLAYER_LATEST_SKILL.SKILLID, id)
+                .execute();
+        } catch (SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+        }
+    }
+
+    public static void setLatestSkillUnlocked(Player p, int id) {
+        setLatestSkillUnlocked(p.getUniqueId(), id);
+    }
+
+    /**
+     * Gets a player's latest unlocked skill.
+     *
+     * @param uuid
+     * @return - skill ID, or -1 on fail/null.
+     */
+
+    public static int getLatestSkillUnlocked(UUID uuid) {
+        try (
+            Connection con = DB.getConnection()
+            ) {
+            DSLContext context = DB.getContext(con);
+
+            Record1<Integer> record = context
+                .select(PLAYER_LATEST_SKILL.SKILLID)
+                .from(PLAYER_LATEST_SKILL)
+                .where(PLAYER_LATEST_SKILL.UUID.equal(convertUUIDToBytes(uuid)))
+                .fetchOne();
+
+            if (record.component1() == null) return -1;
+
+            return record.component1();
+        }catch (SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+        }
+        return -1;
+    }
+
+    public static int getLatestSkillUnlocked(Player p) {
+        return getLatestSkillUnlocked(p.getUniqueId());
+    }
+
+    /**
+     * Deletes the latest unlocked skill from DB.
+     *
+     * @param uuid
+     */
+    public static void deleteLatestSkillUnlocked(UUID uuid) {
+        try (
+            Connection con = DB.getConnection()
+            ) {
+            DSLContext context = DB.getContext(con);
+
+            context
+                .delete(PLAYER_LATEST_SKILL)
+                .where(PLAYER_LATEST_SKILL.UUID.equal(convertUUIDToBytes(uuid)))
+                .execute();
+        } catch (SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+        }
+    }
+
+    public static void deleteLatestSkillUnlocked(Player p) {
+        deleteLatestSkillUnlocked(p.getUniqueId());
     }
 
     public static byte[] convertUUIDToBytes(UUID uuid) {

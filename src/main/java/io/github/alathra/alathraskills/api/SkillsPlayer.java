@@ -12,13 +12,21 @@ public class SkillsPlayer {
 	private HashMap<Integer, SkillDetails> playerSkills;
 	private HashMap<Integer, Float> playerExperienceValues;
 	private Integer usedSkillPoints;
+
+    private int totalSkillsUnlocked;
+
+    private int latestSkillUnlocked;
 	
 	public SkillsPlayer(OfflinePlayer p, HashMap<Integer, SkillDetails> playerSkills,
-			HashMap<Integer, Float> playerExperienceValues, Integer usedSkillPoints) {
+			HashMap<Integer, Float> playerExperienceValues, Integer usedSkillPoints, int latestSkillUnlocked) {
 		this.p = p;
 		this.playerSkills = playerSkills;
 		this.playerExperienceValues = playerExperienceValues;
 		this.usedSkillPoints = usedSkillPoints;
+        this.latestSkillUnlocked = latestSkillUnlocked;
+
+        for (SkillDetails skillDetails : playerSkills.values())
+            if (skillDetails.isSelected()) this.totalSkillsUnlocked++;
 	}
 	
 	public OfflinePlayer getPlayer() {
@@ -107,5 +115,17 @@ public class SkillsPlayer {
 
     public void addUsedSkillPoints(Integer addedPoints) {
         this.usedSkillPoints += addedPoints;
+    }
+
+    public int getTotalSkillsUnlocked() {
+        return totalSkillsUnlocked;
+    }
+
+    public void setTotalSkillsUnlocked(int totalSkillsUnlocked) {
+        this.totalSkillsUnlocked = totalSkillsUnlocked;
+    }
+
+    public void addOneSkillUnlocked() {
+        this.totalSkillsUnlocked++;
     }
 }

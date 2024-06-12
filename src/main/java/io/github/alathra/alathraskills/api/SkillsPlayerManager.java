@@ -89,7 +89,10 @@ public class SkillsPlayerManager implements Reloadable {
         final int[] usedSkillPoints = new int[1];
         Bukkit.getScheduler().runTaskAsynchronously(instance, () -> usedSkillPoints[0] = DatabaseQueries.getUsedSkillPoints(p));
 
-		SkillsPlayer newPlayer = new SkillsPlayer(p, playerSkills, playerExperienceValues, usedSkillPoints[0]);
+        final int[] latestSkillUnlocked = new int[1];
+        Bukkit.getScheduler().runTaskAsynchronously(instance, () -> latestSkillUnlocked[0] = DatabaseQueries.getLatestSkillUnlocked(p));
+
+		SkillsPlayer newPlayer = new SkillsPlayer(p, playerSkills, playerExperienceValues, usedSkillPoints[0], latestSkillUnlocked[0]);
 		skillPlayers.put(p.getUniqueId(), newPlayer);
 	}
 
