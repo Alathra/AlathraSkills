@@ -162,7 +162,7 @@ skills:
             l6: 0.15
             l7: 0.20
 experience:
-   perLevel: 5000
+   perLevel: 1000
    farming:
       caveVine: 0.3
       sweetBerryBush: 0.1
@@ -182,7 +182,16 @@ experience:
       sugarCane: 0.2
       sweetBerryBushBlock: 0.1
    woodcutting:
-      log: 3.0
+      oak: 3.0
+      spruce: 0.2
+      birch: 3
+      jungle: 0.2
+      acacia: 3
+      darkOak: 0.75
+      mangrove: 1.5
+      cherry: 1.5
+      crimson: 2
+      warped: 2
    mining:
       amethyst: 4.0
       coal: 1.5

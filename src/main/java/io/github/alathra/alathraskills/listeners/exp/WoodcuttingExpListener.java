@@ -18,8 +18,6 @@ public class WoodcuttingExpListener implements Listener {
 	
 	public static ArrayList<Material> logs = new ArrayList<>(Tag.LOGS.getValues());
 
-	// Completely arbitrary right now
-	private float expAmount = Float.parseFloat(Cfg.getValue("experience.woodcutting.log").toString());
 	
 	@EventHandler
 	public void LogBreakingListener(BlockBreakEvent event) {
@@ -37,6 +35,20 @@ public class WoodcuttingExpListener implements Listener {
         if (PDCUtil.isUnnatural(block)) {
             return;
         }
+
+        float expAmount = switch (block.getType()) {
+            case OAK_LOG, STRIPPED_OAK_LOG -> Cfg.get().getFloat("experience.woodcutting.oak");
+            case SPRUCE_LOG, STRIPPED_SPRUCE_LOG -> Cfg.get().getFloat("experience.woodcutting.spruce");
+            case BIRCH_LOG, STRIPPED_BIRCH_LOG -> Cfg.get().getFloat("experience.woodcutting.birch");
+            case JUNGLE_LOG, STRIPPED_JUNGLE_LOG -> Cfg.get().getFloat("experience.woodcutting.jungle");
+            case ACACIA_LOG, STRIPPED_ACACIA_LOG -> Cfg.get().getFloat("experience.woodcutting.acacia");
+            case DARK_OAK_LOG, STRIPPED_DARK_OAK_LOG -> Cfg.get().getFloat("experience.woodcutting.darkOak");
+            case MANGROVE_LOG, STRIPPED_MANGROVE_LOG -> Cfg.get().getFloat("experience.woodcutting.mangrove");
+            case CHERRY_LOG, STRIPPED_CHERRY_LOG -> Cfg.get().getFloat("experience.woodcutting.cherry");
+            case CRIMSON_STEM, STRIPPED_CRIMSON_STEM -> Cfg.get().getFloat("experience.woodcutting.crimson");
+            case WARPED_STEM, STRIPPED_WARPED_STEM -> Cfg.get().getFloat("experience.woodcutting.warped");
+            default -> 0.0f;
+        };
 
         // Block broken is a log
 
