@@ -3,6 +3,7 @@ package io.github.alathra.alathraskills.gui;
 import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.triumphteam.gui.guis.Gui;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
+import io.github.alathra.alathraskills.skills.Skill;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
 import org.bukkit.entity.Player;
@@ -90,6 +91,12 @@ public class GuiHelper {
         return gui;
     }
 
+    public static void openMainGui(Player player) {
+        Gui gui = buildGui(GuiType.MAIN);
+        populateMainGui(gui, player);
+        gui.open(player);
+    }
+
     public static void openSkillCategoryGui(Player player) {
         Gui gui = buildGui(GuiHelper.GuiType.SKILL);
         populateSkillCategoryGui(gui, player);
@@ -118,6 +125,24 @@ public class GuiHelper {
         gui.open(player);
     }
 
+    public static void openResetProgressConfirmGui(Player player, int cost, float expRetained) {
+        Gui gui = buildConfirmGui();
+        populateResetProgressConfirmGui(gui, player, cost, expRetained);
+        gui.open(player);
+    }
+
+    public static void openResetProgressFreeConfirmGui(Player player) {
+        Gui gui = buildConfirmGui();
+        populateResetProgressConfirmFreeGui(gui, player);
+        gui.open(player);
+    }
+
+    public static void openRefundSkillGui(Player player, Skill skill) {
+        Gui gui = buildConfirmGui();
+        populateRefundSkillGui(gui, player, skill);
+        gui.open(player);
+    }
+
     public static void populateMainGui(Gui gui, Player player) {
         io.github.alathra.alathraskills.gui.main.PopulateContent.populateContent(gui, player);
     }
@@ -139,6 +164,18 @@ public class GuiHelper {
     public static void populateResetGui(Gui gui, Player player) {
         io.github.alathra.alathraskills.gui.reset.PopulateButtons.populateButtons(gui, player);
         io.github.alathra.alathraskills.gui.reset.PopulateContent.populateContent(gui, player);
+    }
+
+    public static void populateResetProgressConfirmGui(Gui gui, Player player, int cost, float expRetained) {
+        io.github.alathra.alathraskills.gui.reset.confirm.PopulateContent.populateResetProgressContent(gui, player, cost, expRetained);
+    }
+
+    public static void populateResetProgressConfirmFreeGui(Gui gui, Player player) {
+        io.github.alathra.alathraskills.gui.reset.confirm.PopulateContent.populateResetProgressFreeContent(gui, player);
+    }
+
+    public static void populateRefundSkillGui(Gui gui, Player player, Skill skill) {
+        io.github.alathra.alathraskills.gui.reset.confirm.PopulateContent.populateRefundSkillContent(gui, player, skill);
     }
 
 }

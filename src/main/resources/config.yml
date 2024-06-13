@@ -10,6 +10,7 @@ db:
   repair: false
 skills:
    maximumSkills: 30
+   resetCooldown: 86400 # In seconds
    farming:
       fastHarvest:
          chance:

@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.stream.Stream;
 
+import io.github.alathra.alathraskills.AlathraSkills;
+import io.github.alathra.alathraskills.skills.Skill;
+import io.github.alathra.alathraskills.utility.Cfg;
 import org.bukkit.OfflinePlayer;
 
 public class SkillsPlayer {
@@ -19,6 +22,8 @@ public class SkillsPlayer {
     private int latestSkillUnlocked;
 
     private Instant cooldown;
+
+    private SkillsManager skillsManager;
 	
 	public SkillsPlayer(OfflinePlayer p, HashMap<Integer, SkillDetails> playerSkills,
 			HashMap<Integer, Float> playerExperienceValues, Integer usedSkillPoints, int latestSkillUnlocked, Instant cooldown) {
@@ -28,6 +33,7 @@ public class SkillsPlayer {
 		this.usedSkillPoints = usedSkillPoints;
         this.latestSkillUnlocked = latestSkillUnlocked;
         this.cooldown = cooldown;
+        this.skillsManager = AlathraSkills.getSkillsManager();
 
         for (SkillDetails skillDetails : playerSkills.values())
             if (skillDetails.isSelected()) this.totalSkillsUnlocked++;
@@ -155,5 +161,30 @@ public class SkillsPlayer {
 
     public boolean isOnCooldown() {
         return this.cooldown.isAfter(Instant.now());
+    }
+
+    public void refundLatestSkill() {
+        Skill skill = skillsManager.getSkill(getLatestSkillUnlocked());
+        this.clearLatestSkillUnlocked();
+        this.setTotalSkillsUnlocked(this.getTotalSkillsUnlocked() - 1);
+        this.addUsedSkillPoints(skill.getCost() * -1);
+        this.removeSkill(skill.getId());
+        this.cleanUpDeletedSkills();
+    }
+
+    public boolean resetProgress(int cost, float expRetained) {
+        if (AlathraSkills.getVaultHook().isVaultLoaded())
+            if (cost > 0 && AlathraSkills.getVaultHook().getEconomy().getBalance(this.p) < cost)
+                return false;
+
+        playerSkills.keySet().forEach(this::removeSkill);
+        this.cleanUpDeletedSkills();
+        this.setExperience(1, this.getSkillCategoryExperience(1) * expRetained);
+        this.setExperience(2, this.getSkillCategoryExperience(2) * expRetained);
+        this.setExperience(3, this.getSkillCategoryExperience(3) * expRetained);
+        this.clearLatestSkillUnlocked();
+        this.setCooldown(Instant.now().plusSeconds(Cfg.get().getLong("skills.resetCooldown")));
+        if (AlathraSkills.getVaultHook().isVaultLoaded()) AlathraSkills.getVaultHook().getEconomy().withdrawPlayer(this.p, cost);
+        return true;
     }
 }
