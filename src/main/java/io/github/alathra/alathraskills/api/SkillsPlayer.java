@@ -128,4 +128,16 @@ public class SkillsPlayer {
     public void addOneSkillUnlocked() {
         this.totalSkillsUnlocked++;
     }
+
+    public int getLatestSkillUnlocked() {
+        return latestSkillUnlocked;
+    }
+
+    public void clearLatestSkillUnlocked() {
+        this.latestSkillUnlocked = -1;
+    }
+
+    public void setLatestSkillUnlocked(int latestSkillUnlocked) {
+        this.latestSkillUnlocked = latestSkillUnlocked;
+    }
 }
