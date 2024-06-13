@@ -77,6 +77,19 @@ public class GuiHelper {
         return gui;
     }
 
+    public static Gui buildResetGui() {
+        Gui gui;
+        gui = Gui.gui()
+            .rows(3)
+            .title(ColorParser.of("<white>Reset options").build())
+            .disableItemDrop()
+            .disableItemPlace()
+            .disableItemSwap()
+            .disableItemTake()
+            .create();
+        return gui;
+    }
+
     public static void openSkillCategoryGui(Player player) {
         Gui gui = buildGui(GuiHelper.GuiType.SKILL);
         populateSkillCategoryGui(gui, player);
@@ -99,6 +112,12 @@ public class GuiHelper {
         player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.AMBIENT, 1, 1);
     }
 
+    public static void openResetGui(Player player) {
+        Gui gui = buildResetGui();
+        populateResetGui(gui, player);
+        gui.open(player);
+    }
+
     public static void populateMainGui(Gui gui, Player player) {
         io.github.alathra.alathraskills.gui.main.PopulateContent.populateContent(gui, player);
     }
@@ -116,6 +135,10 @@ public class GuiHelper {
     public static void populateConfirmGui(Gui gui, Player player, int skill, int skillCategoryId, int page) {
         io.github.alathra.alathraskills.gui.skill.confirm.PopulateContent.populateContent(gui, player, skill, skillCategoryId, page);
     }
+
+    public static void populateResetGui(Gui gui, Player player) {
+        io.github.alathra.alathraskills.gui.reset.PopulateButtons.populateButtons(gui, player);
+        io.github.alathra.alathraskills.gui.reset.PopulateContent.populateContent(gui, player);
     }
 
 }

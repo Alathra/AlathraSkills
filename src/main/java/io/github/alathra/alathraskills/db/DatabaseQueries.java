@@ -459,7 +459,7 @@ public abstract class DatabaseQueries {
                 .where(PLAYER_LATEST_SKILL.UUID.equal(convertUUIDToBytes(uuid)))
                 .fetchOne();
 
-            if (record.component1() == null) return -1;
+            if (record == null || record.component1() == null) return -1;
 
             return record.component1();
         }catch (SQLException e) {

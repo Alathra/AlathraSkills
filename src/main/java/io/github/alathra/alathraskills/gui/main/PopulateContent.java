@@ -72,7 +72,7 @@ public class PopulateContent {
         ItemStack playerHead = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta skullMeta = (SkullMeta) playerHead.getItemMeta();
         skullMeta.setOwningPlayer(offlinePlayer);
-        skullMeta.displayName(ColorParser.of("<color:#00B300>Reset skills").build());
+        skullMeta.displayName(ColorParser.of("<color:#00B300><bold>Reset skills").build());
         playerHead.setItemMeta(skullMeta);
 
         ItemStack border = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
@@ -88,7 +88,7 @@ public class PopulateContent {
             GuiHelper.openSkillCategoryGui(player);
         }));
         gui.setItem(3, 6, ItemBuilder.from(expToNext).asGuiItem());
-        gui.setItem(5, 5, ItemBuilder.from(playerHead).asGuiItem());
+        gui.setItem(5, 5, ItemBuilder.from(playerHead).asGuiItem(event -> GuiHelper.openResetGui(player)));
         gui.setItem(5, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
     }
 
