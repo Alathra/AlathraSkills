@@ -114,7 +114,8 @@ public class GuiHelper {
     }
 
     public static void populateConfirmGui(Gui gui, Player player, int skill, int skillCategoryId, int page) {
-        io.github.alathra.alathraskills.gui.confirm.PopulateContent.populateContent(gui, player, skill, skillCategoryId, page);
+        io.github.alathra.alathraskills.gui.skill.confirm.PopulateContent.populateContent(gui, player, skill, skillCategoryId, page);
+    }
     }
 
 }

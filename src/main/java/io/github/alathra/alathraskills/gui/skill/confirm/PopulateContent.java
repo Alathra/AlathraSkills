@@ -1,4 +1,4 @@
-package io.github.alathra.alathraskills.gui.confirm;
+package io.github.alathra.alathraskills.gui.skill.confirm;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
