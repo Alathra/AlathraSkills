@@ -1,5 +1,6 @@
 package io.github.alathra.alathraskills.api;
 
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.stream.Stream;
@@ -16,14 +17,17 @@ public class SkillsPlayer {
     private int totalSkillsUnlocked;
 
     private int latestSkillUnlocked;
+
+    private Instant cooldown;
 	
 	public SkillsPlayer(OfflinePlayer p, HashMap<Integer, SkillDetails> playerSkills,
-			HashMap<Integer, Float> playerExperienceValues, Integer usedSkillPoints, int latestSkillUnlocked) {
+			HashMap<Integer, Float> playerExperienceValues, Integer usedSkillPoints, int latestSkillUnlocked, Instant cooldown) {
 		this.p = p;
 		this.playerSkills = playerSkills;
 		this.playerExperienceValues = playerExperienceValues;
 		this.usedSkillPoints = usedSkillPoints;
         this.latestSkillUnlocked = latestSkillUnlocked;
+        this.cooldown = cooldown;
 
         for (SkillDetails skillDetails : playerSkills.values())
             if (skillDetails.isSelected()) this.totalSkillsUnlocked++;
@@ -139,5 +143,17 @@ public class SkillsPlayer {
 
     public void setLatestSkillUnlocked(int latestSkillUnlocked) {
         this.latestSkillUnlocked = latestSkillUnlocked;
+    }
+
+    public Instant getCooldown() {
+        return cooldown;
+    }
+
+    public void setCooldown(Instant cooldown) {
+        this.cooldown = cooldown;
+    }
+
+    public boolean isOnCooldown() {
+        return this.cooldown.isAfter(Instant.now());
     }
 }

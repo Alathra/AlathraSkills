@@ -23,3 +23,9 @@ CREATE TABLE IF NOT EXISTS ${tablePrefix}player_latest_skill (
     skillid INT NOT NULL,
     PRIMARY KEY (uuid)
 )${tableDefaults};
+
+CREATE TABLE IF NOT EXISTS ${tablePrefix}reset_cooldowns (
+    uuid ${uuidType} NOT NULL,
+    "time" TIMESTAMP NOT NULL,
+    PRIMARY KEY (uuid)
+)${tableDefaults};

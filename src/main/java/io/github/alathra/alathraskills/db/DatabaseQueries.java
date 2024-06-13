@@ -2,33 +2,30 @@ package io.github.alathra.alathraskills.db;
 
 import io.github.alathra.alathraskills.api.PlayerExperience;
 import io.github.alathra.alathraskills.api.PlayerSkillDetails;
-import io.github.alathra.alathraskills.api.SkillDetails;
 import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillcategoryinfoRecord;
 import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillinfoRecord;
 import io.github.alathra.alathraskills.db.schema.tables.records.PlayerUsedSkillPointsRecord;
 import io.github.alathra.alathraskills.utility.DB;
 import io.github.alathra.alathraskills.utility.Logger;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.jooq.DSLContext;
-import org.jooq.Record1;
-import org.jooq.Record2;
-import org.jooq.Result;
+import org.jooq.*;
+import org.jooq.Record;
 import org.jooq.exception.DataAccessException;
 
 import java.nio.ByteBuffer;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_SKILLCATEGORYINFO;
 import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_SKILLINFO;
 import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_USED_SKILL_POINTS;
 import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_LATEST_SKILL;
+import static io.github.alathra.alathraskills.db.schema.Tables.RESET_COOLDOWNS;
 
 /**
  * A holder class for all SQL queries
@@ -494,6 +491,59 @@ public abstract class DatabaseQueries {
 
     public static void deleteLatestSkillUnlocked(Player p) {
         deleteLatestSkillUnlocked(p.getUniqueId());
+    }
+
+    /**
+     * Fetch a player's cooldown from DB.
+     *
+     * @param uuid
+     * @return cooldown, if player is still on cooldown. Else return null.
+     */
+    public static Instant getResetCooldown(UUID uuid) {
+        try (
+            Connection con = DB.getConnection()
+        ) {
+            DSLContext context = DB.getContext(con);
+
+            Result<Record> result = context.select()
+                .from(RESET_COOLDOWNS)
+                .where(RESET_COOLDOWNS.UUID.equal(convertUUIDToBytes(uuid)))
+                .fetch();
+
+            if (result == null) return null;
+
+            Instant instant = result.getValue(1, RESET_COOLDOWNS.TIME).toInstant(ZoneOffset.UTC);
+            if (instant.isBefore(Instant.now())) return null;
+            else return instant;
+        } catch (SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+        }
+        return null;
+    }
+
+    public static Instant getResetCooldown(Player p) {
+        return getResetCooldown(p.getUniqueId());
+    }
+
+    public static void saveResetCooldown(UUID uuid, Instant instant) {
+        try (
+            Connection con = DB.getConnection()
+            ) {
+            DSLContext context = DB.getContext(con);
+
+            context.insertInto(RESET_COOLDOWNS, RESET_COOLDOWNS.UUID, RESET_COOLDOWNS.TIME)
+                .values(
+                    convertUUIDToBytes(uuid),
+                    LocalDateTime.ofInstant(instant, ZoneOffset.UTC)
+                )
+                .execute();
+        } catch (SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+        }
+    }
+
+    public static void saveResetCooldown(Player p, Instant instant) {
+        saveResetCooldown(p.getUniqueId(), instant);
     }
 
     public static byte[] convertUUIDToBytes(UUID uuid) {

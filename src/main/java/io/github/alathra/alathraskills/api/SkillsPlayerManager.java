@@ -1,5 +1,6 @@
 package io.github.alathra.alathraskills.api;
 
+import java.time.Instant;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Stream;
@@ -92,7 +93,9 @@ public class SkillsPlayerManager implements Reloadable {
         final int[] latestSkillUnlocked = new int[1];
         Bukkit.getScheduler().runTaskAsynchronously(instance, () -> latestSkillUnlocked[0] = DatabaseQueries.getLatestSkillUnlocked(p));
 
-		SkillsPlayer newPlayer = new SkillsPlayer(p, playerSkills, playerExperienceValues, usedSkillPoints[0], latestSkillUnlocked[0]);
+        Instant cooldown = DatabaseQueries.getResetCooldown(p);
+
+		SkillsPlayer newPlayer = new SkillsPlayer(p, playerSkills, playerExperienceValues, usedSkillPoints[0], latestSkillUnlocked[0], cooldown);
 		skillPlayers.put(p.getUniqueId(), newPlayer);
 	}
 
@@ -118,6 +121,10 @@ public class SkillsPlayerManager implements Reloadable {
 		
         Integer usedSkillPoints = currentPlayer.getUsedSkillPoints();
         DatabaseQueries.setUsedSkillPoints(p, usedSkillPoints);
+
+        DatabaseQueries.setLatestSkillUnlocked(p, currentPlayer.getLatestSkillUnlocked());
+
+        DatabaseQueries.saveResetCooldown(p, currentPlayer.getCooldown());
 
         skillPlayers.remove(p.getUniqueId());
 	}
@@ -269,7 +276,24 @@ public class SkillsPlayerManager implements Reloadable {
 			.map((SkillsPlayer sp) -> new PlayerExperience(
 					sp.getPlayer(), sp.getPlayerExperienceValues()));
 		DatabaseQueries.updatePlayerExperienceRecordSet(experienceValues);
-		
+
+        Map<UUID, Integer> latestSkillsUnlocked = new HashMap<>();
+        Map<UUID, Instant> playerCooldowns = new HashMap<>();
+
+        skillPlayers
+            .values()
+            .forEach(sp ->  {
+                latestSkillsUnlocked.put(sp.getPlayer().getUniqueId(), sp.getLatestSkillUnlocked());
+                playerCooldowns.put(sp.getPlayer().getUniqueId(), sp.getCooldown());
+            });
+
+        latestSkillsUnlocked.keySet().forEach(uuid ->
+            Bukkit.getScheduler().runTaskAsynchronously(instance, () ->
+                DatabaseQueries.setLatestSkillUnlocked(uuid, latestSkillsUnlocked.get(uuid))));
+
+        playerCooldowns.keySet().forEach(uuid ->
+            Bukkit.getScheduler().runTaskAsynchronously(instance, () ->
+                DatabaseQueries.saveResetCooldown(uuid, playerCooldowns.get(uuid))));
 	}
 	
 	@Deprecated
