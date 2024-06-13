@@ -36,7 +36,10 @@ public class PopulateContent {
         int skillPointsAvailable = (int) ((totalExp - remainingExp) / expPerLevel);
         int unlockedSkills = SkillsPlayerManager.getUsedSkillPoints(offlinePlayer);
 
-        skillPointsAvailable -= unlockedSkills;
+        skillPointsAvailable = skillPointsAvailable - unlockedSkills;
+
+        // Should fix issues with UI showing -1 available.
+        if (skillPointsAvailable < 0) skillPointsAvailable = 0;
 
         ItemStack expToNext = new ItemStack(Material.EMERALD);
         ItemMeta expToNextMeta = expToNext.getItemMeta();

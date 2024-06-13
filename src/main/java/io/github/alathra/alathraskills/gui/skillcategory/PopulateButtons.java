@@ -67,6 +67,8 @@ public class PopulateButtons {
         int unlockedSkills = SkillsPlayerManager.getUsedSkillPoints(offlinePlayer);
         skillPointsAvailable -= unlockedSkills;
 
+        if (skillPointsAvailable < 0) return 0;
+
         return skillPointsAvailable;
     }
 
