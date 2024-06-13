@@ -159,6 +159,8 @@ public class SkillsPlayerManager implements Reloadable {
 
         Skill skillObject = AlathraSkills.getSkillsManager().getSkill(skill);
         currentPlayer.addUsedSkillPoints(skillObject.getCost());
+        currentPlayer.setLatestSkillUnlocked(skill);
+        currentPlayer.addOneSkillUnlocked();
 
         return true;
     }
