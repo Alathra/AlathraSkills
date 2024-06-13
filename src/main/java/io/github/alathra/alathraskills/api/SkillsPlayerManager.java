@@ -164,6 +164,8 @@ public class SkillsPlayerManager implements Reloadable {
     }
 
     public static boolean canSkillBeUnlocked(Player p, int skillCategoryId, int skill) {
+        if (playerHasMaxSkills(p)) return false;
+
         if (skill == 101 || skill == 201 || skill == 301)
             return true;
 
@@ -232,6 +234,11 @@ public class SkillsPlayerManager implements Reloadable {
         if (skillDetails == null)
             return false;
         return currentPlayer.getPlayerSkills().get(skill).isSelected();
+    }
+
+    public static boolean playerHasMaxSkills(Player p) {
+        SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
+        return currentPlayer.getTotalSkillsUnlocked() >= Cfg.get().getInt("skills.maximumSkills");
     }
 	
 	private void saveAllPlayerInformation() {

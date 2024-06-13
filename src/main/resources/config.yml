@@ -9,6 +9,7 @@ db:
   pass: ""
   repair: false
 skills:
+   maximumSkills: 30
    farming:
       fastHarvest:
          chance:
