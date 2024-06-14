@@ -51,8 +51,8 @@ public class FarmingExpListener implements Listener {
 
         Ageable ageable = null;
 
-        if (block instanceof Ageable)
-            ageable = (Ageable) block;
+        if (block.getBlockData() instanceof Ageable)
+            ageable = (Ageable) block.getBlockData();
 
         // TODO: Check for PDC data where relevant
 
