@@ -28,7 +28,7 @@ public class PopulateContent {
 
         float expPerLevel = Cfg.get().getFloat("experience.perLevel");
 
-        float remainingExp = totalExp % expPerLevel;
+        float remainingExp = expPerLevel - (totalExp % expPerLevel);
         if (totalExp < expPerLevel) {
             remainingExp = expPerLevel - totalExp;
         }
