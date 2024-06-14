@@ -288,12 +288,14 @@ public class SkillsPlayerManager implements Reloadable {
             });
 
         latestSkillsUnlocked.keySet().forEach(uuid ->
-            Bukkit.getScheduler().runTaskAsynchronously(instance, () ->
-                DatabaseQueries.setLatestSkillUnlocked(uuid, latestSkillsUnlocked.get(uuid))));
+            Bukkit.getScheduler().runTaskAsynchronously(instance, () -> {
+                if (latestSkillsUnlocked.get(uuid) != null) DatabaseQueries.setLatestSkillUnlocked(uuid, latestSkillsUnlocked.get(uuid));
+                }));
 
         playerCooldowns.keySet().forEach(uuid ->
-            Bukkit.getScheduler().runTaskAsynchronously(instance, () ->
-                DatabaseQueries.saveResetCooldown(uuid, playerCooldowns.get(uuid))));
+            Bukkit.getScheduler().runTaskAsynchronously(instance, () -> {
+                if (playerCooldowns.get(uuid) != null) DatabaseQueries.saveResetCooldown(uuid, playerCooldowns.get(uuid));
+            }));
 	}
 	
 	@Deprecated

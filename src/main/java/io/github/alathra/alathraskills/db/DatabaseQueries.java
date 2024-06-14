@@ -505,14 +505,14 @@ public abstract class DatabaseQueries {
         ) {
             DSLContext context = DB.getContext(con);
 
-            Result<Record> result = context.select()
+            Record result = context.select()
                 .from(RESET_COOLDOWNS)
                 .where(RESET_COOLDOWNS.UUID.equal(convertUUIDToBytes(uuid)))
-                .fetch();
+                .fetchOne();
 
             if (result == null) return null;
 
-            Instant instant = result.getValue(1, RESET_COOLDOWNS.TIME).toInstant(ZoneOffset.UTC);
+            Instant instant = result.get(RESET_COOLDOWNS.TIME).toInstant(ZoneOffset.UTC);
             if (instant.isBefore(Instant.now())) return null;
             else return instant;
         } catch (SQLException e) {
