@@ -7,6 +7,7 @@ import io.github.alathra.alathraskills.skills.farming.util.*;
 import io.github.alathra.alathraskills.skills.farming.util.helper.FarmingData;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.LivingEntity;
@@ -58,23 +59,26 @@ public class FarmingSkillsListener implements Listener {
             }
         }
 
-        // if block broken is one of the breakable crops (specifically defined)
-        if (FarmingData.getBreakableCrops().contains(block.getType())) {
-            boolean[] fastHarvest = new boolean[SkillsManager.fastHarvestIds.length];
+        // If player is holding a hoe
+        if (Tag.ITEMS_HOES.isTagged(event.getPlayer().getInventory().getItemInMainHand().getType())) {
+            // if block broken is one of the breakable crops (specifically defined)
+            if (FarmingData.getBreakableCrops().contains(block.getType())) {
+                boolean[] fastHarvest = new boolean[SkillsManager.fastHarvestIds.length];
 
-            int i = 0;
-            for (int id : SkillsManager.fastHarvestIds) {
-                fastHarvest[i] = skillsPlayer.playerHasSkill(id);
-                i++;
-            }
-
-            i = 0;
-            for (boolean hasSkill : fastHarvest) {
-                if (hasSkill) {
-                    FastHarvest.run(block, player, FastHarvest.MAX_LEVEL - i);
-                    break;
+                int i = 0;
+                for (int id : SkillsManager.fastHarvestIds) {
+                    fastHarvest[i] = skillsPlayer.playerHasSkill(id);
+                    i++;
                 }
-                i++;
+
+                i = 0;
+                for (boolean hasSkill : fastHarvest) {
+                    if (hasSkill) {
+                        FastHarvest.run(block, player, FastHarvest.MAX_LEVEL - i);
+                        break;
+                    }
+                    i++;
+                }
             }
         }
     }
