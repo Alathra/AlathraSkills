@@ -56,16 +56,17 @@ public class PDCUnnaturalBlockHandler implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void PDCTest(PlayerInteractEvent event) {
-        if (event.isCancelled()) {
-            return;
-        }
-        if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            if (event.getHand() == EquipmentSlot.HAND) {
-                if (event.getPlayer().getInventory().getItemInMainHand() == null || event.getPlayer().getInventory().getItemInMainHand().getType() == Material.AIR)
-                    Bukkit.broadcastMessage("Is Unnatural Block: " + String.valueOf(PDCUtil.isUnnatural(event.getClickedBlock())));
-            }
-        }
-    }
+    // Code should be left intact in case we need the test method in the future.
+//    @EventHandler(priority = EventPriority.HIGHEST)
+//    public void PDCTest(PlayerInteractEvent event) {
+//        if (event.isCancelled()) {
+//            return;
+//        }
+//        if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+//            if (event.getHand() == EquipmentSlot.HAND) {
+//                if (event.getPlayer().getInventory().getItemInMainHand() == null || event.getPlayer().getInventory().getItemInMainHand().getType() == Material.AIR)
+//                    Bukkit.broadcastMessage("Is Unnatural Block: " + String.valueOf(PDCUtil.isUnnatural(event.getClickedBlock())));
+//            }
+//        }
+//    }
 }
