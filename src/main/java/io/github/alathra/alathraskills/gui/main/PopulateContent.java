@@ -29,9 +29,6 @@ public class PopulateContent {
         float expPerLevel = Cfg.get().getFloat("experience.perLevel");
 
         float remainingExp = expPerLevel - (totalExp % expPerLevel);
-        if (totalExp < expPerLevel) {
-            remainingExp = expPerLevel - totalExp;
-        }
 
         int skillPointsAvailable = (int) ((totalExp - remainingExp) / expPerLevel);
         int unlockedSkills = SkillsPlayerManager.getUsedSkillPoints(offlinePlayer);
