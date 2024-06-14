@@ -11,6 +11,5 @@ public class SkillsPlayerLoadedListener implements Listener {
     @EventHandler
     public void onSkillsPlayerLoaded(SkillsPlayerLoadedEvent event) {
         AlathraSkills.getSkillsPlayerManager().registerSkillsPlayer(event.getUuid(), event.getSkillsPlayer());
-        Logger.get().info("Caught a SkillsPlayerLoadedEvent!");
     }
 }
