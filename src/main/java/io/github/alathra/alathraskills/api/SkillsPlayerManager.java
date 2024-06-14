@@ -3,8 +3,10 @@ package io.github.alathra.alathraskills.api;
 import java.time.Instant;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
+import io.github.alathra.alathraskills.api.events.SkillsPlayerLoadedEvent;
 import io.github.alathra.alathraskills.skills.Skill;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -53,51 +55,52 @@ public class SkillsPlayerManager implements Reloadable {
 			.cancelTask(storePlayerSkillInfoTask.getTaskId());
 	}
 	
-	public void handlePlayerJoin(Player p) {
-		
-		HashMap<Integer, SkillDetails> playerSkills = new HashMap<Integer, SkillDetails>();
-		HashMap<Integer, Float> playerExperienceValues = new HashMap<Integer, Float>();
+	public static CompletableFuture<SkillsPlayer> handlePlayerJoin(Player p) {
+        return CompletableFuture.supplyAsync(() -> {
+            HashMap<Integer, SkillDetails> playerSkills = new HashMap<Integer, SkillDetails>();
+            HashMap<Integer, Float> playerExperienceValues = new HashMap<Integer, Float>();
 
-		if (!p.hasPlayedBefore()) {
-			// TODO Make this a single DB command that initializes all skills
+            if (!p.hasPlayedBefore()) {
+                // TODO Make this a single DB command that initializes all skills
                 DatabaseQueries.saveSkillCategoryExperience(p, 1, 0);
                 DatabaseQueries.saveSkillCategoryExperience(p, 2, 0);
                 DatabaseQueries.saveSkillCategoryExperience(p, 3, 0);
                 DatabaseQueries.setUsedSkillPoints(p, 0);
-		}
+            }
 
-        // TODO make async
-        Result<PlayerSkillinfoRecord> skillsDBReturn = DatabaseQueries.fetchPlayerSkills(p);
-		
-        if (skillsDBReturn != null) {
-        	for (Iterator<PlayerSkillinfoRecord> iterator = skillsDBReturn.iterator(); iterator.hasNext();) {
-				PlayerSkillinfoRecord playerSkillinfoRecord = iterator.next();
-				playerSkills.put(playerSkillinfoRecord.getSkillid(), new SkillDetails(true, true));
-			}
-        }
+            Result<PlayerSkillinfoRecord> skillsDBReturn = DatabaseQueries.fetchPlayerSkills(p);
 
-        float[] dbExperienceReturnValues = new float[3];
-        for (int i = 0; i <= 2; i++) {
-            int iterate = i;
-            Bukkit.getScheduler().runTaskAsynchronously(instance, () ->
-                dbExperienceReturnValues[iterate] = DatabaseQueries.getSkillCategoryExperienceFloat(p, iterate + 1));
-        }
-        
-        playerExperienceValues.put(1, dbExperienceReturnValues[0]);
-        playerExperienceValues.put(2, dbExperienceReturnValues[1]);
-        playerExperienceValues.put(3, dbExperienceReturnValues[2]);
+            if (skillsDBReturn != null) {
+                for (Iterator<PlayerSkillinfoRecord> iterator = skillsDBReturn.iterator(); iterator.hasNext();) {
+                    PlayerSkillinfoRecord playerSkillinfoRecord = iterator.next();
+                    playerSkills.put(playerSkillinfoRecord.getSkillid(), new SkillDetails(true, true));
+                }
+            }
 
-        final int[] usedSkillPoints = new int[1];
-        Bukkit.getScheduler().runTaskAsynchronously(instance, () -> usedSkillPoints[0] = DatabaseQueries.getUsedSkillPoints(p));
+            float[] dbExperienceReturnValues = new float[3];
+            for (int i = 0; i <= 2; i++) {
+                int iterate = i;
+                dbExperienceReturnValues[iterate] = DatabaseQueries.getSkillCategoryExperienceFloat(p, iterate + 1);
+            }
 
-        final int[] latestSkillUnlocked = new int[1];
-        Bukkit.getScheduler().runTaskAsynchronously(instance, () -> latestSkillUnlocked[0] = DatabaseQueries.getLatestSkillUnlocked(p));
+            playerExperienceValues.put(1, dbExperienceReturnValues[0]);
+            playerExperienceValues.put(2, dbExperienceReturnValues[1]);
+            playerExperienceValues.put(3, dbExperienceReturnValues[2]);
 
-        Instant cooldown = DatabaseQueries.getResetCooldown(p);
+            final int[] usedSkillPoints = new int[1];
+            DatabaseQueries.getUsedSkillPoints(p);
 
-		SkillsPlayer newPlayer = new SkillsPlayer(p, playerSkills, playerExperienceValues, usedSkillPoints[0], latestSkillUnlocked[0], cooldown);
-		skillPlayers.put(p.getUniqueId(), newPlayer);
+            final int[] latestSkillUnlocked = new int[1];
+            latestSkillUnlocked[0] = DatabaseQueries.getLatestSkillUnlocked(p);
+
+            Instant cooldown = DatabaseQueries.getResetCooldown(p);
+            return new SkillsPlayer(p, playerSkills, playerExperienceValues, usedSkillPoints[0], latestSkillUnlocked[0], cooldown);
+        });
 	}
+
+    public void registerSkillsPlayer(UUID uuid, SkillsPlayer skillsPlayer) {
+        skillPlayers.put(uuid, skillsPlayer);
+    }
 
 	public void handlePlayerLeave(Player p) {
 		SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
