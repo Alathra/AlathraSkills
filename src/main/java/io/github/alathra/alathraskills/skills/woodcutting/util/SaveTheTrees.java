@@ -5,7 +5,6 @@ import io.github.alathra.alathraskills.api.SkillsManager;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class SaveTheTrees {
@@ -33,34 +32,11 @@ public class SaveTheTrees {
             return;
         }
 
-        if (!player.getInventory().contains(sapling)) {
-            return;
-        }
-
-        processInventoryAndPlaceSapling(player, sapling, block);
+        placeSapling(sapling, block);
 
     }
 
-    public static void processInventoryAndPlaceSapling(Player player, Material sapling, Block block) {
-
-        // Find sapling in inventory
-        for (int i = 0; i < player.getInventory().getContents().length; i++) {
-            // If nothing in this inventory slot, continue looping
-            if (player.getInventory().getItem(i) == null) {
-                continue;
-            }
-            if (player.getInventory().getItem(i).getType() == sapling) {
-                ItemStack itemStack = player.getInventory().getItem(i);
-                if (itemStack.getAmount() == 1) {
-                    player.getInventory().setItem(i, null);
-                } else {
-                    itemStack.setAmount(itemStack.getAmount() - 1);
-                    player.getInventory().setItem(i, itemStack);
-                }
-                break;
-            }
-        }
-
+    public static void placeSapling(Material sapling, Block block) {
         // Place sapling
         new BukkitRunnable() {
             public void run() {
