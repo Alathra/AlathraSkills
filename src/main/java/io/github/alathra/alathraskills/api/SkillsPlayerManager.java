@@ -124,7 +124,8 @@ public class SkillsPlayerManager implements Reloadable {
 
         DatabaseQueries.setLatestSkillUnlocked(p, currentPlayer.getLatestSkillUnlocked());
 
-        DatabaseQueries.saveResetCooldown(p, currentPlayer.getCooldown());
+        if (currentPlayer.getCooldown() != null)
+            DatabaseQueries.saveResetCooldown(p, currentPlayer.getCooldown());
 
         skillPlayers.remove(p.getUniqueId());
 	}
