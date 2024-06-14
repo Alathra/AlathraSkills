@@ -48,6 +48,7 @@ public class SkillsPlayer {
 	}
 
     public boolean playerHasSkill(int id) {
+        if (playerSkills.get(id) == null) return false;
         return playerSkills.get(id).isSelected();
     }
 
