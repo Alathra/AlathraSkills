@@ -161,6 +161,7 @@ public class SkillsPlayer {
     }
 
     public boolean isOnCooldown() {
+        if (this.cooldown == null) return false;
         return this.cooldown.isAfter(Instant.now());
     }
 
