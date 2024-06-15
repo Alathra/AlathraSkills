@@ -4,10 +4,13 @@ import java.time.Instant;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Stream;
 
 import io.github.alathra.alathraskills.api.events.SkillsPlayerLoadedEvent;
+import io.github.alathra.alathraskills.api.events.SkillsPlayerUnloadedEvent;
 import io.github.alathra.alathraskills.skills.Skill;
+import io.github.alathra.alathraskills.utility.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -34,7 +37,18 @@ public class SkillsPlayerManager implements Reloadable {
 	@Override
 	public void onLoad() {
 		// Handle populating player data on server reload
-		Bukkit.getOnlinePlayers().forEach((Player p) -> handlePlayerJoin(p));
+		Bukkit.getOnlinePlayers().forEach((Player p) -> {
+            CompletableFuture<SkillsPlayer> future = handlePlayerJoin(p);
+            SkillsPlayer skillsPlayer = null;
+            try {
+                skillsPlayer = future.get();
+            } catch (InterruptedException | ExecutionException e) {
+                Logger.get().error("Something went wrong: " + e);
+            }
+
+            SkillsPlayerLoadedEvent firedEvent = new SkillsPlayerLoadedEvent(p.getUniqueId(), skillsPlayer);
+            Bukkit.getPluginManager().callEvent(firedEvent);
+        });
 	}
 
 	@Override
@@ -49,7 +63,18 @@ public class SkillsPlayerManager implements Reloadable {
 
 	@Override
 	public void onDisable() {
-		Bukkit.getOnlinePlayers().forEach((Player p) -> handlePlayerLeave(p));
+		Bukkit.getOnlinePlayers().forEach((Player p) -> {
+            CompletableFuture<SkillsPlayer> future = SkillsPlayerManager.handlePlayerLeave(p);
+            SkillsPlayer skillsPlayer = null;
+            try {
+                skillsPlayer = future.get();
+            } catch (InterruptedException | ExecutionException e) {
+                Logger.get().error("Something went wrong: " + e);
+            }
+
+            SkillsPlayerUnloadedEvent firedEvent = new SkillsPlayerUnloadedEvent(p.getUniqueId(), skillsPlayer);
+            Bukkit.getPluginManager().callEvent(firedEvent);
+        });
 
 		this.instance.getServer().getScheduler()
 			.cancelTask(storePlayerSkillInfoTask.getTaskId());
