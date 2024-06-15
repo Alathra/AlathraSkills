@@ -87,14 +87,12 @@ public class SkillsPlayerManager implements Reloadable {
             playerExperienceValues.put(2, dbExperienceReturnValues[1]);
             playerExperienceValues.put(3, dbExperienceReturnValues[2]);
 
-            final int[] usedSkillPoints = new int[1];
-            DatabaseQueries.getUsedSkillPoints(p);
+            int usedSkillPoints = DatabaseQueries.getUsedSkillPoints(p);
 
-            final int[] latestSkillUnlocked = new int[1];
-            latestSkillUnlocked[0] = DatabaseQueries.getLatestSkillUnlocked(p);
+            int latestSkillUnlocked = DatabaseQueries.getLatestSkillUnlocked(p);
 
             Instant cooldown = DatabaseQueries.getResetCooldown(p);
-            return new SkillsPlayer(p, playerSkills, playerExperienceValues, usedSkillPoints[0], latestSkillUnlocked[0], cooldown);
+            return new SkillsPlayer(p, playerSkills, playerExperienceValues, usedSkillPoints, latestSkillUnlocked, cooldown);
         });
 	}
 
