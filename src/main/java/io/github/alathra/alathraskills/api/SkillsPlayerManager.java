@@ -100,36 +100,42 @@ public class SkillsPlayerManager implements Reloadable {
         skillPlayers.put(uuid, skillsPlayer);
     }
 
-	public void handlePlayerLeave(Player p) {
-		SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
-		
-		// Delete Skill Info
-		Stream<PlayerSkillDetails> skillsToDeleteInfo = Stream.of(new PlayerSkillDetails(
-				currentPlayer.getPlayer(), currentPlayer.getSkillsToDeleteFromDB()));
-		DatabaseQueries.deletePlayerSkillsRecordSet(skillsToDeleteInfo);
-		skillPlayers.values().forEach(sp -> sp.cleanUpDeletedSkills());
-		
-		// Insert New Skill Info
-		Stream<PlayerSkillDetails> skillsToInsertInfo = Stream.of(new PlayerSkillDetails(
-				currentPlayer.getPlayer(), currentPlayer.getSkillsToInsertToDB()));
-		DatabaseQueries.insertPlayerSkillsRecordSet(skillsToInsertInfo);
-		skillPlayers.values().forEach(sp -> sp.cleanUpInsertedSkills());
+	public static CompletableFuture<SkillsPlayer> handlePlayerLeave(Player p) {
+		return CompletableFuture.supplyAsync(() -> {
+            SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
 
-		// Save Experience Info
-		Stream<PlayerExperience> experienceValues = Stream.of(new PlayerExperience(
-					currentPlayer.getPlayer(), currentPlayer.getPlayerExperienceValues()));
-		DatabaseQueries.updatePlayerExperienceRecordSet(experienceValues);
-		
-        Integer usedSkillPoints = currentPlayer.getUsedSkillPoints();
-        DatabaseQueries.setUsedSkillPoints(p, usedSkillPoints);
+            // Delete Skill Info
+            Stream<PlayerSkillDetails> skillsToDeleteInfo = Stream.of(new PlayerSkillDetails(
+                currentPlayer.getPlayer(), currentPlayer.getSkillsToDeleteFromDB()));
+            DatabaseQueries.deletePlayerSkillsRecordSet(skillsToDeleteInfo);
+            skillPlayers.values().forEach(sp -> sp.cleanUpDeletedSkills());
 
-        DatabaseQueries.setLatestSkillUnlocked(p, currentPlayer.getLatestSkillUnlocked());
+            // Insert New Skill Info
+            Stream<PlayerSkillDetails> skillsToInsertInfo = Stream.of(new PlayerSkillDetails(
+                currentPlayer.getPlayer(), currentPlayer.getSkillsToInsertToDB()));
+            DatabaseQueries.insertPlayerSkillsRecordSet(skillsToInsertInfo);
+            skillPlayers.values().forEach(sp -> sp.cleanUpInsertedSkills());
 
-        if (currentPlayer.getCooldown() != null)
-            DatabaseQueries.saveResetCooldown(p, currentPlayer.getCooldown());
+            // Save Experience Info
+            Stream<PlayerExperience> experienceValues = Stream.of(new PlayerExperience(
+                currentPlayer.getPlayer(), currentPlayer.getPlayerExperienceValues()));
+            DatabaseQueries.updatePlayerExperienceRecordSet(experienceValues);
 
-        skillPlayers.remove(p.getUniqueId());
+            Integer usedSkillPoints = currentPlayer.getUsedSkillPoints();
+            DatabaseQueries.setUsedSkillPoints(p, usedSkillPoints);
+
+            DatabaseQueries.setLatestSkillUnlocked(p, currentPlayer.getLatestSkillUnlocked());
+
+            if (currentPlayer.getCooldown() != null)
+                DatabaseQueries.saveResetCooldown(p, currentPlayer.getCooldown());
+
+            return currentPlayer;
+            });
 	}
+
+    public void unregisterSkillsPlayer(UUID uuid) {
+        skillPlayers.remove(uuid);
+    }
 	
 	public static void setPlayerExperience(Player p, Integer skillCategory, Float experienceValue) {
 		SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
