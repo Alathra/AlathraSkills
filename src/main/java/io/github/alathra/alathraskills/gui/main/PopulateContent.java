@@ -30,13 +30,7 @@ public class PopulateContent {
 
         float remainingExp = expPerLevel - (totalExp % expPerLevel);
 
-        int skillPointsAvailable = (int) ((totalExp - remainingExp) / expPerLevel);
-        int unlockedSkills = SkillsPlayerManager.getUsedSkillPoints(offlinePlayer);
-
-        skillPointsAvailable = skillPointsAvailable - unlockedSkills;
-
-        // Should fix issues with UI showing -1 available.
-        if (skillPointsAvailable < 0) skillPointsAvailable = 0;
+        int skillPointsAvailable = availableSkillPoints(player);
 
         ItemStack expToNext = new ItemStack(Material.EMERALD);
         ItemMeta expToNextMeta = expToNext.getItemMeta();
@@ -87,6 +81,27 @@ public class PopulateContent {
         gui.setItem(3, 6, ItemBuilder.from(expToNext).asGuiItem());
         gui.setItem(5, 5, ItemBuilder.from(playerHead).asGuiItem(event -> GuiHelper.openResetGui(player)));
         gui.setItem(5, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
+    }
+
+    private static int availableSkillPoints(Player p) {
+        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(p.getUniqueId());
+
+        float totalExp = SkillsPlayerManager.getTotalExperience(offlinePlayer);
+
+        float expPerLevel = Cfg.get().getFloat("experience.perLevel");
+
+        float remainingExp = totalExp % expPerLevel;
+        if (totalExp < expPerLevel) {
+            remainingExp = expPerLevel - totalExp;
+        }
+
+        int skillPointsAvailable = (int) ((totalExp - remainingExp) / expPerLevel);
+        int unlockedSkills = SkillsPlayerManager.getUsedSkillPoints(offlinePlayer);
+        skillPointsAvailable -= unlockedSkills;
+
+        if (skillPointsAvailable < 0) return 0;
+
+        return skillPointsAvailable;
     }
 
 }
