@@ -194,7 +194,6 @@ public class FarmingSkillsListener implements Listener {
                 }
                 i++;
             }
-            QualityCrops.run(entity, 6);
         }
     }
 
