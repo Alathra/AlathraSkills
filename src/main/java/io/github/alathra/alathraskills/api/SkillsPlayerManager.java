@@ -1,6 +1,8 @@
 package io.github.alathra.alathraskills.api;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.CompletableFuture;
@@ -9,6 +11,7 @@ import java.util.stream.Stream;
 
 import io.github.alathra.alathraskills.api.events.SkillsPlayerLoadedEvent;
 import io.github.alathra.alathraskills.api.events.SkillsPlayerUnloadedEvent;
+import io.github.alathra.alathraskills.db.schema.Tables;
 import io.github.alathra.alathraskills.skills.Skill;
 import io.github.alathra.alathraskills.utility.Logger;
 import org.bukkit.Bukkit;
@@ -16,6 +19,8 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.Nullable;
+import org.jooq.Record2;
+import org.jooq.Record3;
 import org.jooq.Result;
 
 import io.github.alathra.alathraskills.AlathraSkills;
@@ -81,39 +86,51 @@ public class SkillsPlayerManager implements Reloadable {
     // TODO Note, try to cut down on the amount of queries executed per player
 	public static CompletableFuture<SkillsPlayer> handlePlayerJoin(Player p) {
         return CompletableFuture.supplyAsync(() -> {
-            HashMap<Integer, SkillDetails> playerSkills = new HashMap<Integer, SkillDetails>();
-            HashMap<Integer, Float> playerExperienceValues = new HashMap<Integer, Float>();
+            HashMap<Integer, SkillDetails> playerSkills = new HashMap<>();
+            HashMap<Integer, Float> playerExperienceValues = new HashMap<>();
 
             if (!p.hasPlayedBefore()) {
-                // TODO Make this a single DB command that initializes all skills
-                DatabaseQueries.saveSkillCategoryExperience(p, 1, 0);
-                DatabaseQueries.saveSkillCategoryExperience(p, 2, 0);
-                DatabaseQueries.saveSkillCategoryExperience(p, 3, 0);
-                DatabaseQueries.setUsedSkillPoints(p, 0);
+                DatabaseQueries.saveAllSkillCategoryExperience(p, 0.f, 0.f, 0.f);
+                DatabaseQueries.savePlayerData(p, 0, 0, Instant.now());
             }
 
             Result<PlayerSkillinfoRecord> skillsDBReturn = DatabaseQueries.fetchPlayerSkills(p);
-
             if (skillsDBReturn != null) {
                 for (PlayerSkillinfoRecord playerSkillinfoRecord : skillsDBReturn) {
                     playerSkills.put(playerSkillinfoRecord.getSkillid(), new SkillDetails(true, true));
                 }
             }
 
-            float[] dbExperienceReturnValues = new float[3];
-            for (int i = 0; i <= 2; i++) {
-                dbExperienceReturnValues[i] = DatabaseQueries.getSkillCategoryExperienceFloat(p, i + 1);
+            Result<Record2<Integer, Double>> experienceResult = DatabaseQueries.fetchAllSkillCategoryExperience(p);
+            for (Record2<Integer, Double> record : experienceResult) {
+                playerExperienceValues.put(record.getValue(Tables.PLAYER_SKILLCATEGORYINFO.SKILLCATEGORYID), record.getValue(Tables.PLAYER_SKILLCATEGORYINFO.EXPERIENCE).floatValue());
             }
 
-            playerExperienceValues.put(1, dbExperienceReturnValues[0]);
-            playerExperienceValues.put(2, dbExperienceReturnValues[1]);
-            playerExperienceValues.put(3, dbExperienceReturnValues[2]);
+            if (experienceResult.isEmpty()) {
+                playerExperienceValues.put(1, 0.f);
+                playerExperienceValues.put(2, 0.f);
+                playerExperienceValues.put(3, 0.f);
+            }
 
-            int usedSkillPoints = DatabaseQueries.getUsedSkillPoints(p);
+            Result<Record3<Integer, Integer, LocalDateTime>> playerDataRecord = DatabaseQueries.fetchPlayerData(p);
 
-            int latestSkillUnlocked = DatabaseQueries.getLatestSkillUnlocked(p);
+            int usedSkillPoints = 0;
+            int latestSkillUnlocked = 0;
+            Instant cooldown = null;
+            for (Record3<Integer, Integer, LocalDateTime> record : playerDataRecord) {
+                usedSkillPoints = record.getValue(Tables.PLAYER_PLAYERDATA.USED_SKILLPOINTS);
 
-            Instant cooldown = DatabaseQueries.getResetCooldown(p);
+                latestSkillUnlocked = record.getValue(Tables.PLAYER_PLAYERDATA.LATEST_UNLOCKED_SKILL);
+
+                cooldown = record.getValue(Tables.PLAYER_PLAYERDATA.COOLDOWN).toInstant(ZoneOffset.UTC);
+            }
+
+            if (playerDataRecord.isEmpty()) {
+                usedSkillPoints = 0;
+                latestSkillUnlocked = 0;
+                cooldown = null;
+            }
+
             return new SkillsPlayer(p, playerSkills, playerExperienceValues, usedSkillPoints, latestSkillUnlocked, cooldown);
         });
 	}
@@ -126,30 +143,25 @@ public class SkillsPlayerManager implements Reloadable {
 		return CompletableFuture.supplyAsync(() -> {
             SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
 
-            // Delete Skill Info
-            Stream<PlayerSkillDetails> skillsToDeleteInfo = Stream.of(new PlayerSkillDetails(
-                currentPlayer.getPlayer(), currentPlayer.getSkillsToDeleteFromDB()));
-            DatabaseQueries.deletePlayerSkillsRecordSet(skillsToDeleteInfo);
-            skillPlayers.values().forEach(sp -> sp.cleanUpDeletedSkills());
-
-            // Insert New Skill Info
-            Stream<PlayerSkillDetails> skillsToInsertInfo = Stream.of(new PlayerSkillDetails(
-                currentPlayer.getPlayer(), currentPlayer.getSkillsToInsertToDB()));
-            DatabaseQueries.insertPlayerSkillsRecordSet(skillsToInsertInfo);
-            skillPlayers.values().forEach(sp -> sp.cleanUpInsertedSkills());
+            // Runs queries to clean up skills in DB
+            DatabaseQueries.saveFilteredPlayerSkills(p, currentPlayer.getSkillsToDeleteFromDB(), currentPlayer.getSkillsToInsertToDB());
 
             // Save Experience Info
-            Stream<PlayerExperience> experienceValues = Stream.of(new PlayerExperience(
-                currentPlayer.getPlayer(), currentPlayer.getPlayerExperienceValues()));
-            DatabaseQueries.updatePlayerExperienceRecordSet(experienceValues);
+            DatabaseQueries.saveAllSkillCategoryExperience(p,
+                currentPlayer.getSkillCategoryExperience(1),
+                currentPlayer.getSkillCategoryExperience(2),
+                currentPlayer.getSkillCategoryExperience(3));
 
-            Integer usedSkillPoints = currentPlayer.getUsedSkillPoints();
-            DatabaseQueries.setUsedSkillPoints(p, usedSkillPoints);
 
-            DatabaseQueries.setLatestSkillUnlocked(p, currentPlayer.getLatestSkillUnlocked());
+            int usedSkillPoints = currentPlayer.getUsedSkillPoints();
 
+            int latestSkillUnlocked = currentPlayer.getLatestSkillUnlocked();
+
+            Instant cooldown = Instant.now();
             if (currentPlayer.getCooldown() != null)
-                DatabaseQueries.saveResetCooldown(p, currentPlayer.getCooldown());
+                cooldown = currentPlayer.getCooldown();
+
+            DatabaseQueries.savePlayerData(p, usedSkillPoints, latestSkillUnlocked, cooldown);
 
             return currentPlayer;
             });
@@ -285,62 +297,28 @@ public class SkillsPlayerManager implements Reloadable {
      * @param skillPlayers
      */
 	private void saveAllPlayerInformation(final HashMap<UUID, SkillsPlayer> skillPlayers) {
-		// Delete Skill Info
-		Stream<PlayerSkillDetails> skillsToDeleteInfo = skillPlayers
-			.values()
-			.stream()
-			.map((SkillsPlayer sp) ->
-                new PlayerSkillDetails(sp.getPlayer(), sp.getSkillsToDeleteFromDB())
-            );
+        skillPlayers.keySet().forEach(uuid -> {
+            SkillsPlayer currentPlayer = skillPlayers.get(uuid);
 
-		DatabaseQueries.deletePlayerSkillsRecordSet(skillsToDeleteInfo);
+            // Runs queries to clean up skills in DB
+            DatabaseQueries.saveFilteredPlayerSkills(uuid, currentPlayer.getSkillsToDeleteFromDB(), currentPlayer.getSkillsToInsertToDB());
 
-		// Insert New Skill Info
-		Stream<PlayerSkillDetails> skillsToInsertInfo = skillPlayers
-			.values()
-			.stream()
-			.map((SkillsPlayer sp) ->
-                new PlayerSkillDetails(sp.getPlayer(), sp.getSkillsToInsertToDB())
-            );
+            // Save Experience Info
+            DatabaseQueries.saveAllSkillCategoryExperience(uuid,
+                currentPlayer.getSkillCategoryExperience(1),
+                currentPlayer.getSkillCategoryExperience(2),
+                currentPlayer.getSkillCategoryExperience(3));
 
-		DatabaseQueries.insertPlayerSkillsRecordSet(skillsToInsertInfo);
 
-		// Save Experience Info
-		Stream<PlayerExperience> experienceValues = skillPlayers
-			.values()
-			.stream()
-			.map((SkillsPlayer sp) ->
-                new PlayerExperience(sp.getPlayer(), sp.getPlayerExperienceValues())
-            );
+            int usedSkillPoints = currentPlayer.getUsedSkillPoints();
 
-		DatabaseQueries.updatePlayerExperienceRecordSet(experienceValues);
+            int latestSkillUnlocked = currentPlayer.getLatestSkillUnlocked();
 
-        Bukkit.getScheduler().runTask(AlathraSkills.getInstance(), () -> {
-            // TODO Fix, Why manipulate memory when saving player data to db?
-            skillPlayers.values().forEach(SkillsPlayer::cleanUpDeletedSkills);
-            skillPlayers.values().forEach(SkillsPlayer::cleanUpInsertedSkills);
+            Instant cooldown = Instant.now();
+            if (currentPlayer.getCooldown() != null)
+                cooldown = currentPlayer.getCooldown();
 
-            Bukkit.getScheduler().runTaskAsynchronously(instance, () -> {
-                Map<UUID, Integer> latestSkillsUnlocked = new HashMap<>();
-                Map<UUID, Instant> playerCooldowns = new HashMap<>();
-
-                skillPlayers
-                    .values()
-                    .forEach(sp -> {
-                        latestSkillsUnlocked.put(sp.getPlayer().getUniqueId(), sp.getLatestSkillUnlocked());
-                        playerCooldowns.put(sp.getPlayer().getUniqueId(), sp.getCooldown());
-                    });
-
-                latestSkillsUnlocked.keySet().forEach(uuid -> {
-                    if (latestSkillsUnlocked.get(uuid) != null)
-                        DatabaseQueries.setLatestSkillUnlocked(uuid, latestSkillsUnlocked.get(uuid));
-                });
-
-                playerCooldowns.keySet().forEach(uuid -> {
-                    if (playerCooldowns.get(uuid) != null)
-                        DatabaseQueries.saveResetCooldown(uuid, playerCooldowns.get(uuid));
-                });
-            });
+            DatabaseQueries.savePlayerData(uuid, usedSkillPoints, latestSkillUnlocked, cooldown);
         });
 	}
 	

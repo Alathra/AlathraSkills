@@ -28,12 +28,12 @@ public class PopulateContent {
     public static void populateContent(Gui gui, Player player) {
         SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+        if (skillsPlayer == null)
+            return;
 
         ItemStack resetFree;
 
-
         ItemStack resetCost;
-
 
         if (skillsPlayer.isOnCooldown()) {
             long cooldownRemaining = Duration.between(Instant.now(), skillsPlayer.getCooldown()).getSeconds();

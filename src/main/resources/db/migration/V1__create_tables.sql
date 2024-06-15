@@ -12,20 +12,10 @@ CREATE TABLE IF NOT EXISTS ${tablePrefix}player_skillinfo (
     PRIMARY KEY (uuid, skillid)
 )${tableDefaults};
 
-CREATE TABLE IF NOT EXISTS ${tablePrefix}player_used_skill_points (
+CREATE TABLE IF NOT EXISTS ${tablePrefix}player_playerdata (
     uuid ${uuidType} NOT NULL,
-    skills_used INT NOT NULL,
-    PRIMARY KEY (uuid)
-)${tableDefaults};
-
-CREATE TABLE IF NOT EXISTS ${tablePrefix}player_latest_skill (
-    uuid ${uuidType} NOT NULL,
-    skillid INT NOT NULL,
-    PRIMARY KEY (uuid)
-)${tableDefaults};
-
-CREATE TABLE IF NOT EXISTS ${tablePrefix}reset_cooldowns (
-    uuid ${uuidType} NOT NULL,
-    "time" TIMESTAMP NOT NULL,
+    used_skillpoints INT NOT NULL,
+    latest_unlocked_skill INT NOT NULL,
+    cooldown TIMESTAMP,
     PRIMARY KEY (uuid)
 )${tableDefaults};

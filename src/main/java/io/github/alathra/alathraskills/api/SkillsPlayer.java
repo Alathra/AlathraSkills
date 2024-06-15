@@ -2,6 +2,7 @@ package io.github.alathra.alathraskills.api;
 
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.stream.Stream;
 
@@ -90,30 +91,36 @@ public class SkillsPlayer {
 					currSkillDetails.isExistingSkill(), false));
 		}
 	}
-	
-	public Stream<Entry<Integer, SkillDetails>> getSkillsToDeleteFromDB() {
-		return playerSkills
-			.entrySet()
-			.stream()
-			.filter(e -> !e.getValue().isSelected() && e.getValue().isExistingSkill());
-	}
-	
+
+    public List<Integer> getSkillsToDeleteFromDB() {
+        return playerSkills
+            .keySet()
+            .stream()
+            .filter(key -> !playerSkills.get(key).isSelected()
+                || !playerSkills.get(key).isExistingSkill())
+            .toList();
+    }
+
+    @Deprecated
 	public void cleanUpDeletedSkills() {
 		getSkillsToDeleteFromDB().forEach(skill -> {
-			playerSkills.remove(skill.getKey());
+			playerSkills.remove(skill);
 		});
 	}
 
-	public Stream<Entry<Integer, SkillDetails>> getSkillsToInsertToDB() {
-		return playerSkills
-			.entrySet()
-			.stream()
-			.filter(e -> e.getValue().isSelected() && !e.getValue().isExistingSkill());
+	public List<Integer> getSkillsToInsertToDB() {
+        return playerSkills
+            .keySet()
+            .stream()
+            .filter(key -> playerSkills.get(key).isSelected()
+                && playerSkills.get(key).isExistingSkill())
+            .toList();
 	}
-	
+
+    @Deprecated
 	public void cleanUpInsertedSkills() {
 		getSkillsToInsertToDB().forEach(sd -> playerSkills.put(
-				sd.getKey(), new SkillDetails(true, true)));
+				sd, new SkillDetails(true, true)));
 	}
 
 	public Integer getUsedSkillPoints() {
@@ -171,7 +178,6 @@ public class SkillsPlayer {
         this.setTotalSkillsUnlocked(this.getTotalSkillsUnlocked() - 1);
         this.addUsedSkillPoints(skill.getCost() * -1);
         this.removeSkill(skill.getId());
-        this.cleanUpDeletedSkills();
     }
 
     public boolean resetProgress(int cost, float expRetained) {
@@ -180,7 +186,6 @@ public class SkillsPlayer {
                 return false;
 
         playerSkills.keySet().forEach(this::removeSkill);
-        this.cleanUpDeletedSkills();
         this.setExperience(1, this.getSkillCategoryExperience(1) * expRetained);
         this.setExperience(2, this.getSkillCategoryExperience(2) * expRetained);
         this.setExperience(3, this.getSkillCategoryExperience(3) * expRetained);

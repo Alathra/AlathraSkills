@@ -12,6 +12,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import io.github.alathra.alathraskills.AlathraSkills;
 
+import java.util.concurrent.CompletableFuture;
+
 public class PlayerLeaveListener implements Listener {
 	public PlayerLeaveListener() {
 	}

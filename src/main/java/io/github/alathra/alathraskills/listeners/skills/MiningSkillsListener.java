@@ -44,6 +44,8 @@ public class MiningSkillsListener implements Listener {
             return;
 
         SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+        if (skillsPlayer == null)
+            return;
 
         int i = 0;
 
@@ -123,6 +125,8 @@ public class MiningSkillsListener implements Listener {
         }
 
         SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+        if (skillsPlayer == null)
+            return;
 
         boolean[] spelunker = new boolean[SkillsManager.spelunkerIds.length];
 
@@ -169,6 +173,8 @@ public class MiningSkillsListener implements Listener {
         }
 
         SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+        if (skillsPlayer == null)
+            return;
 
         boolean[] easyPicking = new boolean[SkillsManager.easyPickingIds.length];
 

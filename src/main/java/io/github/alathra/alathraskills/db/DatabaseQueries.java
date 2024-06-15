@@ -2,9 +2,10 @@ package io.github.alathra.alathraskills.db;
 
 import io.github.alathra.alathraskills.api.PlayerExperience;
 import io.github.alathra.alathraskills.api.PlayerSkillDetails;
+import io.github.alathra.alathraskills.db.schema.tables.PlayerSkillinfo;
 import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillcategoryinfoRecord;
 import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillinfoRecord;
-import io.github.alathra.alathraskills.db.schema.tables.records.PlayerUsedSkillPointsRecord;
+import io.github.alathra.alathraskills.skills.Skill;
 import io.github.alathra.alathraskills.utility.DB;
 import io.github.alathra.alathraskills.utility.Logger;
 import org.bukkit.entity.Player;
@@ -23,14 +24,174 @@ import java.util.stream.Stream;
 
 import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_SKILLCATEGORYINFO;
 import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_SKILLINFO;
-import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_USED_SKILL_POINTS;
-import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_LATEST_SKILL;
-import static io.github.alathra.alathraskills.db.schema.Tables.RESET_COOLDOWNS;
+import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_PLAYERDATA;
 
 /**
  * A holder class for all SQL queries
  */
 public abstract class DatabaseQueries {
+
+    /**
+     * Saves all data that is stored in PLAYER_PLAYERDATA
+     *
+     * @param uuid
+     * @param usedSkillPoints
+     * @param latestSkillUnlocked
+     * @param cooldown
+     */
+    public static void savePlayerData(UUID uuid, int usedSkillPoints, int latestSkillUnlocked, Instant cooldown) {
+        try (
+            Connection con = DB.getConnection()
+        ) {
+            DSLContext context = DB.getContext(con);
+
+            context.insertInto(PLAYER_PLAYERDATA,
+                    PLAYER_PLAYERDATA.UUID,
+                    PLAYER_PLAYERDATA.USED_SKILLPOINTS,
+                    PLAYER_PLAYERDATA.LATEST_UNLOCKED_SKILL,
+                    PLAYER_PLAYERDATA.COOLDOWN)
+                .values(
+                    convertUUIDToBytes(uuid),
+                    usedSkillPoints,
+                    latestSkillUnlocked,
+                    LocalDateTime.ofInstant(cooldown, ZoneOffset.UTC)
+                )
+                .onDuplicateKeyUpdate()
+                .set(PLAYER_PLAYERDATA.USED_SKILLPOINTS, usedSkillPoints)
+                .set(PLAYER_PLAYERDATA.LATEST_UNLOCKED_SKILL, latestSkillUnlocked)
+                .set(PLAYER_PLAYERDATA.COOLDOWN, LocalDateTime.ofInstant(cooldown, ZoneOffset.UTC))
+                .execute();
+
+        } catch (SQLException | DataAccessException e) {
+            Logger.get().error("SQL Query threw an error: " + e);
+        }
+    }
+
+    public static void savePlayerData(Player p, int usedSkillPoints, int latestSkillUnlocked, Instant cooldown) {
+        savePlayerData(p.getUniqueId(), usedSkillPoints, latestSkillUnlocked, cooldown);
+    }
+
+
+    /**
+     * Fetches all data stored in the PLAYER_PLAYERDATA table.
+     *
+     * @param uuid
+     * @return A result of the data.
+     */
+    public static Result<Record3<Integer, Integer, LocalDateTime>> fetchPlayerData(UUID uuid) {
+        try (
+            Connection con = DB.getConnection()
+        ) {
+            DSLContext context = DB.getContext(con);
+
+            Result<Record3<Integer, Integer, LocalDateTime>> result = context.select(PLAYER_PLAYERDATA.USED_SKILLPOINTS,
+                    PLAYER_PLAYERDATA.LATEST_UNLOCKED_SKILL,
+                    PLAYER_PLAYERDATA.COOLDOWN)
+                .from(PLAYER_PLAYERDATA)
+                .where(PLAYER_PLAYERDATA.UUID.equal(convertUUIDToBytes(uuid)))
+                .fetch();
+
+            return result;
+
+        } catch (SQLException | DataAccessException e) {
+            Logger.get().error("SQL Query threw an error: " + e);
+        }
+        return null;
+    }
+
+    public static Result<Record3<Integer, Integer, LocalDateTime>> fetchPlayerData(Player p) {
+        return fetchPlayerData(p.getUniqueId());
+    }
+
+    /**
+     * Batch insert all experience values.
+     *
+     * @param uuid
+     * @param farmingExperience
+     * @param miningExperience
+     * @param woodcuttingExperience
+     */
+
+    public static void saveAllSkillCategoryExperience(UUID uuid, Float farmingExperience, Float miningExperience, Float woodcuttingExperience) {
+        try (
+            Connection con = DB.getConnection()
+        ) {
+            DSLContext context = DB.getContext(con);
+
+            context.batchMerge(new PlayerSkillcategoryinfoRecord(convertUUIDToBytes(uuid), 1, farmingExperience.doubleValue()),
+                new PlayerSkillcategoryinfoRecord(convertUUIDToBytes(uuid), 2, miningExperience.doubleValue()),
+                new PlayerSkillcategoryinfoRecord(convertUUIDToBytes(uuid), 3, woodcuttingExperience.doubleValue()))
+                .execute();
+
+        } catch (SQLException | DataAccessException e) {
+            Logger.get().error("SQL Query threw an error: " + e);
+        }
+    }
+
+    public static void saveAllSkillCategoryExperience(Player p, Float farmingExperience, Float miningExperience, Float woodcuttingExperience) {
+        saveAllSkillCategoryExperience(p.getUniqueId(), farmingExperience, miningExperience, woodcuttingExperience);
+    }
+
+    /**
+     * Fetches all of a player's experience.
+     *
+     * @return A result of the data.
+     */
+    public static Result<Record2<Integer, Double>> fetchAllSkillCategoryExperience(UUID uuid) {
+        try (
+            Connection con = DB.getConnection()
+        ) {
+            DSLContext context = DB.getContext(con);
+
+            return context.select(PLAYER_SKILLCATEGORYINFO.SKILLCATEGORYID, PLAYER_SKILLCATEGORYINFO.EXPERIENCE)
+                .from(PLAYER_SKILLCATEGORYINFO)
+                .where(PLAYER_SKILLCATEGORYINFO.UUID.equal(convertUUIDToBytes(uuid)))
+                .fetch();
+        } catch (SQLException | DataAccessException e) {
+            Logger.get().error("SQL Query threw an error: " + e);
+        }
+        return null;
+    }
+
+    public static Result<Record2<Integer, Double>> fetchAllSkillCategoryExperience(Player p) {
+        return fetchAllSkillCategoryExperience(p.getUniqueId());
+    }
+
+    /**
+     * Batch deletes and inserts provided lists of skills.
+     *
+     * @param uuid
+     * @param skillsToDelete List of skill IDs to delete.
+     * @param skillsToInsert List of skill IDs to insert.
+     */
+
+    public static void saveFilteredPlayerSkills(byte[] uuid, List<Integer> skillsToDelete, List<Integer> skillsToInsert) {
+        try (
+            Connection con = DB.getConnection()
+        ) {
+            DSLContext context = DB.getContext(con);
+
+            Collection<PlayerSkillinfoRecord> deletedSkills = new ArrayList<>();
+            Collection<PlayerSkillinfoRecord> addedSkills = new ArrayList<>();
+
+            skillsToDelete.forEach(skill -> deletedSkills.add(new PlayerSkillinfoRecord(uuid, skill)));
+            skillsToInsert.forEach(skill -> deletedSkills.add(new PlayerSkillinfoRecord(uuid, skill)));
+
+            context.batchDelete(deletedSkills).execute();
+
+            context.batchMerge(addedSkills).execute();
+        } catch (DataAccessException | SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+        }
+    }
+
+    public static void saveFilteredPlayerSkills(UUID uuid, List<Integer> skillsToDelete, List<Integer> skillsToInsert) {
+        saveFilteredPlayerSkills(convertUUIDToBytes(uuid), skillsToDelete, skillsToInsert);
+    }
+
+    public static void saveFilteredPlayerSkills(Player p, List<Integer> skillsToDelete, List<Integer> skillsToInsert) {
+        saveFilteredPlayerSkills(p.getUniqueId(), skillsToDelete, skillsToInsert);
+    }
 
 
     /**
@@ -60,9 +221,7 @@ public abstract class DatabaseQueries {
                 .onDuplicateKeyUpdate()
                 .set(PLAYER_SKILLCATEGORYINFO.EXPERIENCE, experience.doubleValue())
                 .execute();
-        } catch (DataAccessException e) {
-            Logger.get().error("SQL Query threw an error!", e);
-        } catch (SQLException e) {
+        } catch (DataAccessException | SQLException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
     }
@@ -94,9 +253,7 @@ public abstract class DatabaseQueries {
                 )
                 .onDuplicateKeyIgnore()
                 .execute();
-        } catch (DataAccessException e) {
-            Logger.get().error("SQL Query threw an error!", e);
-        } catch (SQLException e) {
+        } catch (DataAccessException | SQLException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
     }
@@ -142,12 +299,9 @@ public abstract class DatabaseQueries {
             }
             
             return returnContext;
-        } catch (DataAccessException e) {
+        } catch (DataAccessException | SQLException e) {
             Logger.get().error("SQL Query threw an error!", e);
             return null;
-        } catch (SQLException e) {
-            Logger.get().error("SQL Query threw an error!", e);
-            return null;        	
         }
     }
 
@@ -162,32 +316,33 @@ public abstract class DatabaseQueries {
      * @return record containing used number of skills
      */
 
-    public static Record1<Integer> getUsedSkillPoints(UUID uuid) {
+    public static int getUsedSkillPoints(UUID uuid) {
         try (
             Connection con = DB.getConnection()
-        ) {
+            ) {
             DSLContext context = DB.getContext(con);
 
-            return context
-                .select(PLAYER_USED_SKILL_POINTS.SKILLS_USED)
-                .from(PLAYER_USED_SKILL_POINTS)
-                .where(PLAYER_USED_SKILL_POINTS.UUID.equal(convertUUIDToBytes(uuid)))
+            Record1<Integer> record = context
+                .select(PLAYER_PLAYERDATA.USED_SKILLPOINTS)
+                .where(PLAYER_PLAYERDATA.UUID.equal(convertUUIDToBytes(uuid)))
                 .fetchOne();
-        } catch (DataAccessException e) {
+
+            if (record == null)
+                return 0;
+
+            Integer usedSkillPoints = record.component1();
+
+            if (usedSkillPoints == null)
+                return 0;
+            return usedSkillPoints;
+        } catch (DataAccessException | SQLException e) {
             Logger.get().error("SQL Query threw an error!", e);
-            return null;
-        } catch (SQLException e) {
-            Logger.get().error("SQL Query threw an error!", e);
-            return null;        	
         }
+        return 0;
     }
 
-    public static Integer getUsedSkillPoints(Player p) {
-    	Record1<Integer> returnRecord = getUsedSkillPoints(p.getUniqueId());
-    	if (returnRecord == null) {
-    		return 0;
-    	}
-        return (Integer) returnRecord.getValue("SKILLS_USED");
+    public static int getUsedSkillPoints(Player p) {
+    	return getUsedSkillPoints(p.getUniqueId());
     }
 
     /**
@@ -197,26 +352,24 @@ public abstract class DatabaseQueries {
      * @param usedSkillPoints
      */
 
-    public static void setUsedSkillPoints(UUID uuid, Integer usedSkillPoints) {
+    public static void setUsedSkillPoints(UUID uuid, int usedSkillPoints) {
         try (
                 Connection con = DB.getConnection()
             ) {
                 DSLContext context = DB.getContext(con);
 
                 context
-                    .insertInto(PLAYER_USED_SKILL_POINTS,
-                		PLAYER_USED_SKILL_POINTS.UUID,
-                        PLAYER_USED_SKILL_POINTS.SKILLS_USED)
+                    .insertInto(PLAYER_PLAYERDATA,
+                        PLAYER_PLAYERDATA.UUID,
+                        PLAYER_PLAYERDATA.USED_SKILLPOINTS)
                     .values(
                         convertUUIDToBytes(uuid),
                         usedSkillPoints
                     )
                     .onDuplicateKeyUpdate()
-                    .set(PLAYER_USED_SKILL_POINTS.SKILLS_USED, usedSkillPoints)
+                    .set(PLAYER_PLAYERDATA.USED_SKILLPOINTS, usedSkillPoints)
                     .execute();
-            } catch (DataAccessException e) {
-                Logger.get().error("SQL Query threw an error!", e);
-            } catch (SQLException e) {
+            } catch (DataAccessException | SQLException e) {
                 Logger.get().error("SQL Query threw an error!", e);
             }
     }
@@ -264,12 +417,9 @@ public abstract class DatabaseQueries {
                     .selectFrom(PLAYER_SKILLINFO)
                     .where(PLAYER_SKILLINFO.UUID.equal(convertUUIDToBytes(uuid)))
                     .and(PLAYER_SKILLINFO.SKILLID.equal(skillId)));
-        } catch (DataAccessException e) {
+        } catch (DataAccessException | SQLException e) {
             Logger.get().error("SQL Query threw an error!", e);
             return null;
-        } catch (SQLException e) {
-            Logger.get().error("SQL Query threw an error!", e);
-            return null;        	
         }
     }
 
@@ -294,12 +444,9 @@ public abstract class DatabaseQueries {
                 .fetch(context
                     .selectFrom(PLAYER_SKILLINFO)
                     .where(PLAYER_SKILLINFO.UUID.equal(convertUUIDToBytes(uuid))));
-        } catch (DataAccessException e) {
+        } catch (DataAccessException | SQLException e) {
             Logger.get().error("SQL Query threw an error!", e);
             return null;
-        } catch (SQLException e) {
-            Logger.get().error("SQL Query threw an error!", e);
-            return null;        	
         }
     }
 
@@ -323,9 +470,7 @@ public abstract class DatabaseQueries {
                 .delete(PLAYER_SKILLINFO
                     .where(PLAYER_SKILLINFO.UUID.equal(convertUUIDToBytes(uuid))))
                 	.execute();
-        } catch (DataAccessException e) {
-            Logger.get().error("SQL Query threw an error!", e);
-        } catch (SQLException e) {
+        } catch (DataAccessException | SQLException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
     }
@@ -350,9 +495,7 @@ public abstract class DatabaseQueries {
             						psi.getKey()))));
             context
                 .batchDelete(records).execute();
-        } catch (DataAccessException e) {
-            Logger.get().error("SQL Query threw an error!", e);
-        } catch (SQLException e) {
+        } catch (DataAccessException | SQLException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
     }
@@ -373,9 +516,7 @@ public abstract class DatabaseQueries {
             						psi.getKey()))));
             context
                 .batchInsert(records).execute();
-        } catch (DataAccessException e) {
-            Logger.get().error("SQL Query threw an error!", e);
-        } catch (SQLException e) {
+        } catch (DataAccessException | SQLException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
     }
@@ -398,9 +539,7 @@ public abstract class DatabaseQueries {
             						ev.getValue().doubleValue()))));
             context
                 .batchUpdate(records).execute();
-        } catch (DataAccessException e) {
-            Logger.get().error("SQL Query threw an error!", e);
-        } catch (SQLException e) {
+        } catch (DataAccessException | SQLException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
     }
@@ -419,16 +558,16 @@ public abstract class DatabaseQueries {
             DSLContext context = DB.getContext(con);
 
             context
-                .insertInto(PLAYER_LATEST_SKILL, PLAYER_LATEST_SKILL.UUID, PLAYER_LATEST_SKILL.SKILLID)
+                .insertInto(PLAYER_PLAYERDATA, PLAYER_PLAYERDATA.UUID, PLAYER_PLAYERDATA.LATEST_UNLOCKED_SKILL)
                 .values(
                     convertUUIDToBytes(uuid),
                     id
                 )
                 .onDuplicateKeyUpdate()
-                .set(PLAYER_LATEST_SKILL.UUID, convertUUIDToBytes(uuid))
-                .set(PLAYER_LATEST_SKILL.SKILLID, id)
+                .set(PLAYER_PLAYERDATA.UUID, convertUUIDToBytes(uuid))
+                .set(PLAYER_PLAYERDATA.LATEST_UNLOCKED_SKILL, id)
                 .execute();
-        } catch (SQLException e) {
+        } catch (SQLException | DataAccessException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
     }
@@ -451,18 +590,18 @@ public abstract class DatabaseQueries {
             DSLContext context = DB.getContext(con);
 
             Record1<Integer> record = context
-                .select(PLAYER_LATEST_SKILL.SKILLID)
-                .from(PLAYER_LATEST_SKILL)
-                .where(PLAYER_LATEST_SKILL.UUID.equal(convertUUIDToBytes(uuid)))
+                .select(PLAYER_PLAYERDATA.LATEST_UNLOCKED_SKILL)
+                .from(PLAYER_PLAYERDATA)
+                .where(PLAYER_PLAYERDATA.UUID.equal(convertUUIDToBytes(uuid)))
                 .fetchOne();
 
-            if (record == null || record.component1() == null) return -1;
+            if (record == null || record.component1() == null) return 0;
 
             return record.component1();
-        }catch (SQLException e) {
+        }catch (SQLException | DataAccessException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
-        return -1;
+        return 0;
     }
 
     public static int getLatestSkillUnlocked(Player p) {
@@ -481,10 +620,10 @@ public abstract class DatabaseQueries {
             DSLContext context = DB.getContext(con);
 
             context
-                .delete(PLAYER_LATEST_SKILL)
-                .where(PLAYER_LATEST_SKILL.UUID.equal(convertUUIDToBytes(uuid)))
+                .delete(PLAYER_PLAYERDATA)
+                .where(PLAYER_PLAYERDATA.UUID.equal(convertUUIDToBytes(uuid)))
                 .execute();
-        } catch (SQLException e) {
+        } catch (SQLException | DataAccessException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
     }
@@ -506,16 +645,16 @@ public abstract class DatabaseQueries {
             DSLContext context = DB.getContext(con);
 
             Record result = context.select()
-                .from(RESET_COOLDOWNS)
-                .where(RESET_COOLDOWNS.UUID.equal(convertUUIDToBytes(uuid)))
+                .from(PLAYER_PLAYERDATA)
+                .where(PLAYER_PLAYERDATA.UUID.equal(convertUUIDToBytes(uuid)))
                 .fetchOne();
 
             if (result == null) return null;
 
-            Instant instant = result.get(RESET_COOLDOWNS.TIME).toInstant(ZoneOffset.UTC);
+            Instant instant = result.get(PLAYER_PLAYERDATA.COOLDOWN).toInstant(ZoneOffset.UTC);
             if (instant.isBefore(Instant.now())) return null;
             else return instant;
-        } catch (SQLException e) {
+        } catch (SQLException | DataAccessException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
         return null;
@@ -531,13 +670,13 @@ public abstract class DatabaseQueries {
             ) {
             DSLContext context = DB.getContext(con);
 
-            context.insertInto(RESET_COOLDOWNS, RESET_COOLDOWNS.UUID, RESET_COOLDOWNS.TIME)
+            context.insertInto(PLAYER_PLAYERDATA, PLAYER_PLAYERDATA.UUID, PLAYER_PLAYERDATA.COOLDOWN)
                 .values(
                     convertUUIDToBytes(uuid),
                     LocalDateTime.ofInstant(instant, ZoneOffset.UTC)
                 )
                 .execute();
-        } catch (SQLException e) {
+        } catch (SQLException | DataAccessException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
     }

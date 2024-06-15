@@ -34,6 +34,8 @@ public class FarmingSkillsListener implements Listener {
             return;
 
         SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+        if (skillsPlayer == null)
+            return;
 
         // if potato, carrot, beetroot or wheat crop
         if (FarmingData.getStandardCrops().contains(block.getType())) {
@@ -102,6 +104,8 @@ public class FarmingSkillsListener implements Listener {
         // if potato, carrot, beetroot or wheat crop placed
         if (FarmingData.getStandardCrops().contains(block.getType())) {
             SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+            if (skillsPlayer == null)
+                return;
 
             boolean[] wideSpread = new boolean[SkillsManager.wideSpread.length];
 
@@ -143,6 +147,8 @@ public class FarmingSkillsListener implements Listener {
         // if the block grown is a desired bonemealable crop (specifically defined)
         if (FarmingData.getBonemealableCrops().contains(block.getType())) {
             SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+            if (skillsPlayer == null)
+                return;
 
             boolean[] greenThumb = new boolean[SkillsManager.greenThumbIds.length];
 
@@ -177,6 +183,8 @@ public class FarmingSkillsListener implements Listener {
         // if entity bred is one of the standard animals (specifically defined)
         if (FarmingData.getStandardAnimals().contains(entity.getType())) {
             SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer((Player) event.getBreeder());
+            if (skillsPlayer == null)
+                return;
 
             boolean[] qualityCrops = new boolean[SkillsManager.qualityCropsIds.length];
 

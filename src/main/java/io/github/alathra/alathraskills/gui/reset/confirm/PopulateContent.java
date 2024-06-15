@@ -20,6 +20,10 @@ import java.util.List;
 public class PopulateContent {
 
     public static void populateResetProgressContent(Gui gui, Player player, int cost, float expRetained) {
+        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+        if (skillsPlayer == null)
+            return;
+
         ItemStack confirm = new ItemStack(Material.EMERALD_BLOCK);
         ItemMeta confirmMeta = confirm.getItemMeta();
         confirmMeta.displayName(ColorParser.of("<dark_green><bold>Confirm").build());
@@ -42,7 +46,6 @@ public class PopulateContent {
         gui.setItem(1, 3, ItemBuilder.from(deny).asGuiItem(event -> GuiHelper.openMainGui(player)));
         gui.setItem(1, 5, ItemBuilder.from(playerHead).asGuiItem());
         gui.setItem(1, 7, ItemBuilder.from(confirm).asGuiItem(event -> {
-            SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
             boolean reset = skillsPlayer.resetProgress(cost, expRetained);
             if (reset) GuiHelper.openMainGui(player);
             else {
@@ -53,6 +56,10 @@ public class PopulateContent {
     }
 
     public static void populateResetProgressFreeContent(Gui gui, Player player) {
+        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+        if (skillsPlayer == null)
+            return;
+
         ItemStack confirm = new ItemStack(Material.EMERALD_BLOCK);
         ItemMeta confirmMeta = confirm.getItemMeta();
         confirmMeta.displayName(ColorParser.of("<dark_green><bold>Confirm").build());
@@ -74,7 +81,6 @@ public class PopulateContent {
         gui.setItem(1, 3, ItemBuilder.from(deny).asGuiItem(event -> GuiHelper.openMainGui(player)));
         gui.setItem(1, 5, ItemBuilder.from(playerHead).asGuiItem());
         gui.setItem(1, 7, ItemBuilder.from(confirm).asGuiItem(event -> {
-            SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
             boolean reset = skillsPlayer.resetProgress(0, 0);
             if (reset) GuiHelper.openMainGui(player);
             else {
@@ -86,6 +92,10 @@ public class PopulateContent {
     }
 
     public static void populateRefundSkillContent(Gui gui, Player player, Skill skill) {
+        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+        if (skillsPlayer == null)
+            return;
+
         ItemStack confirm = new ItemStack(Material.EMERALD_BLOCK);
         ItemMeta confirmMeta = confirm.getItemMeta();
         confirmMeta.displayName(ColorParser.of("<dark_green><bold>Confirm").build());
@@ -105,7 +115,6 @@ public class PopulateContent {
         gui.setItem(1, 3, ItemBuilder.from(deny).asGuiItem(event -> GuiHelper.openMainGui(player)));
         gui.setItem(1, 5, ItemBuilder.from(skillStack).asGuiItem());
         gui.setItem(1, 7, ItemBuilder.from(confirm).asGuiItem(event -> {
-            SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
             skillsPlayer.refundLatestSkill();
             GuiHelper.openMainGui(player);
         }));
