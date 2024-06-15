@@ -58,6 +58,7 @@ public class PlayerJoinListener implements Listener {
                 float maxSkillLevel = Float.parseFloat(Cfg.getValue("mcmmo.maxSkillLevel").toString());
                 float conversionFactor = Float.parseFloat(Cfg.getValue("mcmmo.conversionFactor").toString());
 
+                if (playerMcMMO == null) return;
                 float skillLevelFarming = 1.0f * playerMcMMO.getHerbalismManager().getSkillLevel();
                 float skillLevelMining = 1.0f * playerMcMMO.getMiningManager().getSkillLevel();
                 float skillLevelWoodcutting = 1.0f * playerMcMMO.getWoodcuttingManager().getSkillLevel();
