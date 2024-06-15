@@ -15,6 +15,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
+import org.jetbrains.annotations.Nullable;
 import org.jooq.Result;
 
 import io.github.alathra.alathraskills.AlathraSkills;
@@ -24,7 +25,6 @@ import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillinfoR
 import io.github.alathra.alathraskills.utility.Cfg;
 
 public class SkillsPlayerManager implements Reloadable {
-	
 	private final AlathraSkills instance;
 	private static HashMap<UUID, SkillsPlayer> skillPlayers = new HashMap<UUID, SkillsPlayer>();
 	private BukkitTask storePlayerSkillInfoTask;
@@ -53,12 +53,10 @@ public class SkillsPlayerManager implements Reloadable {
 
 	@Override
 	public void onEnable() {
-		storePlayerSkillInfoTask = this.instance.getServer().getScheduler()
-				.runTaskTimerAsynchronously(instance, new Runnable() {
-					public void run() {
-						saveAllPlayerInformation();
-					}
-				}, 0, 12000L);
+        final HashMap<UUID, SkillsPlayer> skillPlayers = SkillsPlayerManager.skillPlayers;
+		storePlayerSkillInfoTask = this.instance.getServer().getScheduler().runTaskTimerAsynchronously(instance,
+            () -> saveAllPlayerInformation(skillPlayers), 12000L, 12000L
+        );
 	}
 
 	@Override
@@ -79,7 +77,8 @@ public class SkillsPlayerManager implements Reloadable {
 		this.instance.getServer().getScheduler()
 			.cancelTask(storePlayerSkillInfoTask.getTaskId());
 	}
-	
+
+    // TODO Note, try to cut down on the amount of queries executed per player
 	public static CompletableFuture<SkillsPlayer> handlePlayerJoin(Player p) {
         return CompletableFuture.supplyAsync(() -> {
             HashMap<Integer, SkillDetails> playerSkills = new HashMap<Integer, SkillDetails>();
@@ -96,16 +95,14 @@ public class SkillsPlayerManager implements Reloadable {
             Result<PlayerSkillinfoRecord> skillsDBReturn = DatabaseQueries.fetchPlayerSkills(p);
 
             if (skillsDBReturn != null) {
-                for (Iterator<PlayerSkillinfoRecord> iterator = skillsDBReturn.iterator(); iterator.hasNext();) {
-                    PlayerSkillinfoRecord playerSkillinfoRecord = iterator.next();
+                for (PlayerSkillinfoRecord playerSkillinfoRecord : skillsDBReturn) {
                     playerSkills.put(playerSkillinfoRecord.getSkillid(), new SkillDetails(true, true));
                 }
             }
 
             float[] dbExperienceReturnValues = new float[3];
             for (int i = 0; i <= 2; i++) {
-                int iterate = i;
-                dbExperienceReturnValues[iterate] = DatabaseQueries.getSkillCategoryExperienceFloat(p, iterate + 1);
+                dbExperienceReturnValues[i] = DatabaseQueries.getSkillCategoryExperienceFloat(p, i + 1);
             }
 
             playerExperienceValues.put(1, dbExperienceReturnValues[0]);
@@ -282,53 +279,69 @@ public class SkillsPlayerManager implements Reloadable {
         SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
         return currentPlayer.getTotalSkillsUnlocked() >= Cfg.get().getInt("skills.maximumSkills");
     }
-	
-	private void saveAllPlayerInformation() {
+
+    /**
+     * This method should be run asynchronously and only when saving player all loaded players to db
+     * @param skillPlayers
+     */
+	private void saveAllPlayerInformation(final HashMap<UUID, SkillsPlayer> skillPlayers) {
 		// Delete Skill Info
 		Stream<PlayerSkillDetails> skillsToDeleteInfo = skillPlayers
 			.values()
 			.stream()
-			.map((SkillsPlayer sp) -> new PlayerSkillDetails(
-					sp.getPlayer(), sp.getSkillsToDeleteFromDB()));
+			.map((SkillsPlayer sp) ->
+                new PlayerSkillDetails(sp.getPlayer(), sp.getSkillsToDeleteFromDB())
+            );
+
 		DatabaseQueries.deletePlayerSkillsRecordSet(skillsToDeleteInfo);
-		skillPlayers.values().forEach(sp -> sp.cleanUpDeletedSkills());
-		
+
 		// Insert New Skill Info
 		Stream<PlayerSkillDetails> skillsToInsertInfo = skillPlayers
 			.values()
 			.stream()
-			.map((SkillsPlayer sp) -> new PlayerSkillDetails(
-					sp.getPlayer(), sp.getSkillsToInsertToDB()));
+			.map((SkillsPlayer sp) ->
+                new PlayerSkillDetails(sp.getPlayer(), sp.getSkillsToInsertToDB())
+            );
+
 		DatabaseQueries.insertPlayerSkillsRecordSet(skillsToInsertInfo);
-		skillPlayers.values().forEach(sp -> sp.cleanUpInsertedSkills());
 
 		// Save Experience Info
 		Stream<PlayerExperience> experienceValues = skillPlayers
 			.values()
 			.stream()
-			.map((SkillsPlayer sp) -> new PlayerExperience(
-					sp.getPlayer(), sp.getPlayerExperienceValues()));
+			.map((SkillsPlayer sp) ->
+                new PlayerExperience(sp.getPlayer(), sp.getPlayerExperienceValues())
+            );
+
 		DatabaseQueries.updatePlayerExperienceRecordSet(experienceValues);
 
-        Map<UUID, Integer> latestSkillsUnlocked = new HashMap<>();
-        Map<UUID, Instant> playerCooldowns = new HashMap<>();
+        Bukkit.getScheduler().runTask(AlathraSkills.getInstance(), () -> {
+            // TODO Fix, Why manipulate memory when saving player data to db?
+            skillPlayers.values().forEach(SkillsPlayer::cleanUpDeletedSkills);
+            skillPlayers.values().forEach(SkillsPlayer::cleanUpInsertedSkills);
 
-        skillPlayers
-            .values()
-            .forEach(sp ->  {
-                latestSkillsUnlocked.put(sp.getPlayer().getUniqueId(), sp.getLatestSkillUnlocked());
-                playerCooldowns.put(sp.getPlayer().getUniqueId(), sp.getCooldown());
+            Bukkit.getScheduler().runTaskAsynchronously(instance, () -> {
+                Map<UUID, Integer> latestSkillsUnlocked = new HashMap<>();
+                Map<UUID, Instant> playerCooldowns = new HashMap<>();
+
+                skillPlayers
+                    .values()
+                    .forEach(sp -> {
+                        latestSkillsUnlocked.put(sp.getPlayer().getUniqueId(), sp.getLatestSkillUnlocked());
+                        playerCooldowns.put(sp.getPlayer().getUniqueId(), sp.getCooldown());
+                    });
+
+                latestSkillsUnlocked.keySet().forEach(uuid -> {
+                    if (latestSkillsUnlocked.get(uuid) != null)
+                        DatabaseQueries.setLatestSkillUnlocked(uuid, latestSkillsUnlocked.get(uuid));
+                });
+
+                playerCooldowns.keySet().forEach(uuid -> {
+                    if (playerCooldowns.get(uuid) != null)
+                        DatabaseQueries.saveResetCooldown(uuid, playerCooldowns.get(uuid));
+                });
             });
-
-        latestSkillsUnlocked.keySet().forEach(uuid ->
-            Bukkit.getScheduler().runTaskAsynchronously(instance, () -> {
-                if (latestSkillsUnlocked.get(uuid) != null) DatabaseQueries.setLatestSkillUnlocked(uuid, latestSkillsUnlocked.get(uuid));
-                }));
-
-        playerCooldowns.keySet().forEach(uuid ->
-            Bukkit.getScheduler().runTaskAsynchronously(instance, () -> {
-                if (playerCooldowns.get(uuid) != null) DatabaseQueries.saveResetCooldown(uuid, playerCooldowns.get(uuid));
-            }));
+        });
 	}
 	
 	@Deprecated
@@ -420,10 +433,12 @@ public class SkillsPlayerManager implements Reloadable {
         return skillPlayers;
     }
 
+    @Nullable
     public static SkillsPlayer getSkillsPlayer(UUID uuid){
         return skillPlayers.get(uuid);
     }
 
+    @Nullable
     public static SkillsPlayer getSkillsPlayer(Player p) {
         return getSkillsPlayer(p.getUniqueId());
     }
