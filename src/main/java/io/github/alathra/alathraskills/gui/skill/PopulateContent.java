@@ -61,7 +61,7 @@ public class PopulateContent {
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                         icon.setItemMeta(iconMeta);
-                        gui.setItem(2, col, ItemBuilder.from(icon).asGuiItem());
+                        gui.setItem(3, col, ItemBuilder.from(icon).asGuiItem());
                     }
                     col++;
                 }
