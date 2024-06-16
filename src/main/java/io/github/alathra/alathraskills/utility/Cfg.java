@@ -1,8 +1,8 @@
 package io.github.alathra.alathraskills.utility;
 
+import com.github.milkdrinkers.Crate.Config;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.config.ConfigHandler;
-import com.github.milkdrinkers.Crate.Config;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -16,11 +16,10 @@ public abstract class Cfg {
     public static Config get() {
         return AlathraSkills.getInstance().getConfigHandler().getConfig();
     }
-    
+
     /**
-     * 
      * Returns the value associated with the key in the config
-     * 
+     *
      * @param key Key a value is being retrieved for
      * @return The value associated with the provided key
      */

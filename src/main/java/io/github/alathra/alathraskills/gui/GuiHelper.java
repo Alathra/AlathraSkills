@@ -10,11 +10,6 @@ import org.bukkit.entity.Player;
 
 public class GuiHelper {
 
-    public enum GuiType {
-        MAIN,
-        SKILL
-    }
-
     public static Gui buildGui(GuiType type) {
         Gui gui;
         switch (type) {
@@ -176,6 +171,11 @@ public class GuiHelper {
 
     public static void populateRefundSkillGui(Gui gui, Player player, Skill skill) {
         io.github.alathra.alathraskills.gui.reset.confirm.PopulateContent.populateRefundSkillContent(gui, player, skill);
+    }
+
+    public enum GuiType {
+        MAIN,
+        SKILL
     }
 
 }

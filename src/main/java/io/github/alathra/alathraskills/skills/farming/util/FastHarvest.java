@@ -3,7 +3,6 @@ package io.github.alathra.alathraskills.skills.farming.util;
 import io.github.alathra.alathraskills.skills.farming.util.helper.FarmingBlockUtil;
 import io.github.alathra.alathraskills.skills.farming.util.helper.FarmingData;
 import io.github.alathra.alathraskills.utility.Cfg;
-
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Player;

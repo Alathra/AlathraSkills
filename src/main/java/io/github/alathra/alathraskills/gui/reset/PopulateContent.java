@@ -9,7 +9,6 @@ import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.gui.GuiHelper;
 import io.github.alathra.alathraskills.skills.Skill;
-import io.github.alathra.alathraskills.utility.Logger;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.Sound;

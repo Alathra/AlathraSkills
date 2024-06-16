@@ -1,8 +1,9 @@
 package io.github.alathra.alathraskills.listeners.player;
 
+import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
+import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.api.events.SkillsPlayerLoadedEvent;
-import io.github.alathra.alathraskills.utility.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,23 +11,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import com.gmail.nossr50.api.exceptions.McMMOPlayerNotFoundException;
-import com.gmail.nossr50.datatypes.experience.XPGainReason;
-import com.gmail.nossr50.datatypes.player.McMMOPlayer;
-import com.gmail.nossr50.datatypes.skills.PrimarySkillType;
-import com.gmail.nossr50.util.EventUtils;
-import com.gmail.nossr50.util.player.UserManager;
-
-import io.github.alathra.alathraskills.AlathraSkills;
-import io.github.alathra.alathraskills.api.SkillsPlayerManager;
-import io.github.alathra.alathraskills.utility.Cfg;
-
-import java.util.concurrent.CompletableFuture;
-
 public class PlayerJoinListener implements Listener {
 
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onPlayerJoin(PlayerJoinEvent e) {
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerJoin(PlayerJoinEvent e) {
         final Player p = e.getPlayer();
 
         SkillsPlayerManager.handlePlayerJoin(p)

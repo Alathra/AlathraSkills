@@ -32,7 +32,7 @@ public class WoodcuttingSkillsListener implements Listener {
             return;
         if (PDCUtil.isUnnatural(block))
             return;
-        if (event.isCancelled())    
+        if (event.isCancelled())
             return;
         if (!event.isDropItems())
             return;

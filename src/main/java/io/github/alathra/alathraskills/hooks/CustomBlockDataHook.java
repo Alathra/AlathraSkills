@@ -6,26 +6,26 @@ import io.github.alathra.alathraskills.Reloadable;
 
 public class CustomBlockDataHook implements Reloadable {
 
-	private final AlathraSkills plugin;
-	
-	public CustomBlockDataHook(AlathraSkills plugin) {
+    private final AlathraSkills plugin;
+
+    public CustomBlockDataHook(AlathraSkills plugin) {
         this.plugin = plugin;
     }
-	
-	@Override
-	public void onLoad() {
 
-	}
+    @Override
+    public void onLoad() {
 
-	@Override
-	public void onEnable() {
-		CustomBlockData.registerListener(plugin);
+    }
 
-	}
+    @Override
+    public void onEnable() {
+        CustomBlockData.registerListener(plugin);
 
-	@Override
-	public void onDisable() {
+    }
 
-	}
+    @Override
+    public void onDisable() {
+
+    }
 
 }

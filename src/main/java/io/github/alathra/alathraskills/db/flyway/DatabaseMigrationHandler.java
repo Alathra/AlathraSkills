@@ -1,7 +1,7 @@
 package io.github.alathra.alathraskills.db.flyway;
 
-import io.github.alathra.alathraskills.db.DatabaseType;
 import com.github.milkdrinkers.Crate.Config;
+import io.github.alathra.alathraskills.db.DatabaseType;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.ClassProvider;
 import org.flywaydb.core.api.FlywayException;

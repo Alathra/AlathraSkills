@@ -3,8 +3,6 @@ package io.github.alathra.alathraskills.gui.main;
 import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
-import dev.triumphteam.gui.guis.GuiItem;
-import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.gui.GuiHelper;
 import io.github.alathra.alathraskills.utility.Cfg;

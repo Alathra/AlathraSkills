@@ -1,9 +1,8 @@
 package io.github.alathra.alathraskills.skills.woodcutting.util;
 
+import io.github.alathra.alathraskills.utility.Cfg;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
-
-import io.github.alathra.alathraskills.utility.Cfg;
 
 public class PreciseChop {
 

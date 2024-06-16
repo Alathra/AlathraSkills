@@ -1,14 +1,13 @@
 package io.github.alathra.alathraskills.skills.woodcutting.util;
 
+import io.github.alathra.alathraskills.utility.Cfg;
 import org.bukkit.Material;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
-import io.github.alathra.alathraskills.utility.Cfg;
-
 public class Trimmer {
 
-    public static int MAX_LEVEL =  7;
+    public static int MAX_LEVEL = 7;
 
     public static void run(BlockDamageEvent event, int skillLevel) {
 

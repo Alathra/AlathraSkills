@@ -1,12 +1,10 @@
 package io.github.alathra.alathraskills.skills.farming.util;
 
-import org.bukkit.Bukkit;
+import io.github.alathra.alathraskills.utility.Cfg;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.inventory.ItemStack;
-
-import io.github.alathra.alathraskills.utility.Cfg;
 
 public class ReadyToEat {
 

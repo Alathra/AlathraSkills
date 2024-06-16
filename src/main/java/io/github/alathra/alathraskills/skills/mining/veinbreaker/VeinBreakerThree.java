@@ -17,7 +17,7 @@ public class VeinBreakerThree extends Skill {
     public VeinBreakerThree(int id, int cost) {
         super(id, "Vein Breaker 3", "Sometimes you mine the entire vein of an ore by breaking just one ore.", cost);
 
-        ItemStack icon = new ItemStack(Material.DIAMOND_PICKAXE,3 );
+        ItemStack icon = new ItemStack(Material.DIAMOND_PICKAXE, 3);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<dark_aqua><bold>" + super.getName() + "</dark_aqua>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 7</yellow>").build(),

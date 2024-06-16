@@ -1,7 +1,5 @@
 package io.github.alathra.alathraskills.api;
 
-import java.util.HashMap;
-
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.Reloadable;
 import io.github.alathra.alathraskills.skills.Skill;
@@ -29,11 +27,13 @@ import io.github.alathra.alathraskills.skills.woodcutting.precisechop.*;
 import io.github.alathra.alathraskills.skills.woodcutting.savethetrees.SaveTheTreesOne;
 import io.github.alathra.alathraskills.skills.woodcutting.trimmer.*;
 
+import java.util.HashMap;
+
 public class SkillsManager implements Reloadable {
-	
-	public static int FARMING_SKILL_ID = 1;
-	public static int MINING_SKILL_ID = 2;
-	public static int WOODCUTTING_SKILL_ID = 3;
+
+    public static int FARMING_SKILL_ID = 1;
+    public static int MINING_SKILL_ID = 2;
+    public static int WOODCUTTING_SKILL_ID = 3;
 
     // Farming IDs
     public static int[] qualityCropsIds = new int[]{1218, 1216, 1214, 1211, 106, 101};
@@ -55,11 +55,11 @@ public class SkillsManager implements Reloadable {
     public static int[] trimmerIds = new int[]{3220, 3219, 3216, 3215, 3213, 307, 304};
     public static int[] oneSwingIds = new int[]{3120, 3117, 3115, 3114, 3112, 309, 305};
     public static int[] oneWithTheForestIds = new int[]{3119, 3118, 3116, 3113, 3111, 308, 306};
-	
-	private final AlathraSkills plugin;
-	
-	// Id, SkillCategory
-	public HashMap<Integer, SkillCategory> skillCategories = new HashMap<>();
+
+    private final AlathraSkills plugin;
+
+    // Id, SkillCategory
+    public HashMap<Integer, SkillCategory> skillCategories = new HashMap<>();
 
     // Id, Skill
     public HashMap<Integer, Skill> woodcuttingSkills = new HashMap<>();
@@ -68,30 +68,30 @@ public class SkillsManager implements Reloadable {
 
 
     public SkillsManager(AlathraSkills plugin) {
-		this.plugin = plugin;
-	}
+        this.plugin = plugin;
+    }
 
-	@Override
-	public void onLoad() {
+    @Override
+    public void onLoad() {
 
-	}
+    }
 
-	@Override
-	public void onEnable() {
-		loadSkillCategories();
+    @Override
+    public void onEnable() {
+        loadSkillCategories();
         loadSkills();
-	}
+    }
 
-	@Override
-	public void onDisable() {
+    @Override
+    public void onDisable() {
 
-	}
-	
-	public void loadSkillCategories() {
-		skillCategories.put(1, new FarmingSkillCategory(1));
-		skillCategories.put(2, new MiningSkillCategory(2));
-		skillCategories.put(3, new WoodcuttingSkillCategory(3));
-	}
+    }
+
+    public void loadSkillCategories() {
+        skillCategories.put(1, new FarmingSkillCategory(1));
+        skillCategories.put(2, new MiningSkillCategory(2));
+        skillCategories.put(3, new WoodcuttingSkillCategory(3));
+    }
 
     public void loadSkills() {
         loadWoodcuttingSkills();
@@ -102,7 +102,7 @@ public class SkillsManager implements Reloadable {
     public void loadWoodcuttingSkills() {
         woodcuttingSkills.put(301, new SaveTheTreesOne(301, 5));
         woodcuttingSkills.put(302, new PreciseChopOne(302, 5));
-        woodcuttingSkills.put(303, new PreciseChopTwo(303,5 ));
+        woodcuttingSkills.put(303, new PreciseChopTwo(303, 5));
         woodcuttingSkills.put(304, new TrimmerOne(304, 5));
         woodcuttingSkills.put(305, new OneSwingOne(305, 5));
         woodcuttingSkills.put(306, new OneWithTheForestOne(306, 6));
@@ -214,18 +214,18 @@ public class SkillsManager implements Reloadable {
     public Skill getSkill(Integer skillID) {
         switch (skillID) {
             case 101, 102, 103, 104, 105, 106, 107, 108, 109, 110,
-                1111, 1112, 1113, 1114, 1115, 1116, 1117, 1118, 1119, 1120,
-                1211, 1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220 -> {
+                 1111, 1112, 1113, 1114, 1115, 1116, 1117, 1118, 1119, 1120,
+                 1211, 1212, 1213, 1214, 1215, 1216, 1217, 1218, 1219, 1220 -> {
                 return farmingSkills.get(skillID);
             }
             case 201, 202, 203, 204, 205, 206, 207, 208, 209, 210,
-                2111, 2112, 2113, 2114, 2115, 2116, 2117, 2118, 2119, 2120,
-                2211, 2212, 2213, 2214, 2215, 2216, 2217, 2218, 2219, 2220 -> {
+                 2111, 2112, 2113, 2114, 2115, 2116, 2117, 2118, 2119, 2120,
+                 2211, 2212, 2213, 2214, 2215, 2216, 2217, 2218, 2219, 2220 -> {
                 return miningSkills.get(skillID);
             }
             case 301, 302, 303, 304, 305, 306, 307, 308, 309, 310,
-                3111, 3112, 3113, 3114, 3115, 3116, 3117, 3118, 3119, 3120,
-                3211, 3212, 3213, 3214, 3215, 3216, 3217, 3218, 3219, 3220 -> {
+                 3111, 3112, 3113, 3114, 3115, 3116, 3117, 3118, 3119, 3120,
+                 3211, 3212, 3213, 3214, 3215, 3216, 3217, 3218, 3219, 3220 -> {
                 return woodcuttingSkills.get(skillID);
             }
             default -> {

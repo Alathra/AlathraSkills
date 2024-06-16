@@ -13,7 +13,7 @@ import java.util.List;
 public class OneSwingTwo extends Skill {
 
     private static SkillsManager skillsManager;
-    
+
     public OneSwingTwo(int id, int cost) {
         super(id, "One Swing 2", "When you activate your ax you cut down an entire tree by breaking its trunk.", cost);
 

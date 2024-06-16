@@ -1,11 +1,9 @@
 package io.github.alathra.alathraskills.skills.mining.util;
 
-import org.bukkit.block.Block;
+import io.github.alathra.alathraskills.utility.Cfg;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-
-import io.github.alathra.alathraskills.utility.Cfg;
 
 public class ProudProspector {
 

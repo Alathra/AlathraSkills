@@ -40,7 +40,7 @@ public class PopulateContent {
     private static void populateWoodcuttingContent(Gui gui, Player player, int page) {
         switch (page) {
             case 1 -> {
-                int[] ids = new int[]{ 301, 302, 303, 304, 305 };
+                int[] ids = new int[]{301, 302, 303, 304, 305};
                 HashMap<Integer, Boolean> hasSkill = new HashMap<>();
 
                 for (int i : ids) {
@@ -67,7 +67,7 @@ public class PopulateContent {
                 }
             }
             case 2 -> {
-                int[] ids = new int[]{ 306, 307, 308, 309, 310 };
+                int[] ids = new int[]{306, 307, 308, 309, 310};
                 HashMap<Integer, Boolean> hasSkill = new HashMap<>();
 
                 for (int i : ids) {
@@ -94,7 +94,7 @@ public class PopulateContent {
                 }
             }
             case 3 -> {
-                int[] ids = new int[]{ 3111, 3211, 3112, 3212, 3113, 3213, 3114, 3214, 3115, 3215 };
+                int[] ids = new int[]{3111, 3211, 3112, 3212, 3113, 3213, 3114, 3214, 3115, 3215};
                 HashMap<Integer, Boolean> hasSkill = new HashMap<>();
 
                 for (int i : ids) {
@@ -137,7 +137,7 @@ public class PopulateContent {
                 }
             }
             case 4 -> {
-                int[] ids = new int[]{ 3116, 3216, 3117, 3217, 3118, 3218, 3119, 3219, 3120, 3220  };
+                int[] ids = new int[]{3116, 3216, 3117, 3217, 3118, 3218, 3119, 3219, 3120, 3220};
                 HashMap<Integer, Boolean> hasSkill = new HashMap<>();
 
                 for (int i : ids) {
@@ -189,7 +189,7 @@ public class PopulateContent {
     private static void populateMiningContent(Gui gui, Player player, int page) {
         switch (page) {
             case 1 -> {
-                int[] ids = new int[]{ 201, 202, 203, 204, 205 };
+                int[] ids = new int[]{201, 202, 203, 204, 205};
                 HashMap<Integer, Boolean> hasSkill = new HashMap<>();
 
                 for (int i : ids) {
@@ -216,7 +216,7 @@ public class PopulateContent {
                 }
             }
             case 2 -> {
-                int[] ids = new int[]{ 206, 207, 208, 209, 210 };
+                int[] ids = new int[]{206, 207, 208, 209, 210};
                 HashMap<Integer, Boolean> hasSkill = new HashMap<>();
 
                 for (int i : ids) {
@@ -243,7 +243,7 @@ public class PopulateContent {
                 }
             }
             case 3 -> {
-                int[] ids = new int[]{ 2111, 2211, 2112, 2212, 2113, 2213, 2114, 2214, 2115, 2215 };
+                int[] ids = new int[]{2111, 2211, 2112, 2212, 2113, 2213, 2114, 2214, 2115, 2215};
                 HashMap<Integer, Boolean> hasSkill = new HashMap<>();
 
                 for (int i : ids) {
@@ -286,7 +286,7 @@ public class PopulateContent {
                 }
             }
             case 4 -> {
-                int[] ids = new int[]{ 2116, 2216, 2117, 2217, 2118, 2218, 2119, 2219, 2120, 2220 };
+                int[] ids = new int[]{2116, 2216, 2117, 2217, 2118, 2218, 2119, 2219, 2120, 2220};
                 HashMap<Integer, Boolean> hasSkill = new HashMap<>();
 
                 for (int i : ids) {
@@ -338,7 +338,7 @@ public class PopulateContent {
     private static void populateFarmingContent(Gui gui, Player player, int page) {
         switch (page) {
             case 1 -> {
-                int[] ids = new int[]{ 101, 102, 103, 104, 105 };
+                int[] ids = new int[]{101, 102, 103, 104, 105};
                 HashMap<Integer, Boolean> hasSkill = new HashMap<>();
 
                 for (int i : ids) {
@@ -365,7 +365,7 @@ public class PopulateContent {
                 }
             }
             case 2 -> {
-                int[] ids = new int[]{ 106, 107, 108, 109, 110 };
+                int[] ids = new int[]{106, 107, 108, 109, 110};
                 HashMap<Integer, Boolean> hasSkill = new HashMap<>();
 
                 for (int i : ids) {
@@ -393,7 +393,7 @@ public class PopulateContent {
                 }
             }
             case 3 -> {
-                int[] ids = new int[]{ 1111, 1211, 1112, 1212, 1113, 1213, 1114, 1214, 1115, 1215 };
+                int[] ids = new int[]{1111, 1211, 1112, 1212, 1113, 1213, 1114, 1214, 1115, 1215};
                 HashMap<Integer, Boolean> hasSkill = new HashMap<>();
 
                 for (int i : ids) {
@@ -436,7 +436,7 @@ public class PopulateContent {
                 }
             }
             case 4 -> {
-                int[] ids = new int[]{ 1116, 1216, 1117, 1217, 1118, 1218, 1119, 1219, 1120, 1220 };
+                int[] ids = new int[]{1116, 1216, 1117, 1217, 1118, 1218, 1119, 1219, 1120, 1220};
                 HashMap<Integer, Boolean> hasSkill = new HashMap<>();
 
                 for (int i : ids) {

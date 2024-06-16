@@ -1,5 +1,6 @@
 package io.github.alathra.alathraskills.listeners.player;
 
+import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.api.events.SkillsPlayerUnloadedEvent;
@@ -10,16 +11,12 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import io.github.alathra.alathraskills.AlathraSkills;
-
-import java.util.concurrent.CompletableFuture;
-
 public class PlayerLeaveListener implements Listener {
-	public PlayerLeaveListener() {
-	}
-	
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onPlayerLeave(PlayerQuitEvent e) {
+    public PlayerLeaveListener() {
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerLeave(PlayerQuitEvent e) {
         final Player p = e.getPlayer();
 
         if (Bukkit.isStopping())

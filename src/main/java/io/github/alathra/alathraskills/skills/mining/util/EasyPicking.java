@@ -3,7 +3,6 @@ package io.github.alathra.alathraskills.skills.mining.util;
 import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.utility.Cfg;
-
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -15,11 +14,9 @@ import java.util.UUID;
 
 public class EasyPicking {
 
-    private static Plugin instance = AlathraSkills.getInstance();
-
     private static final HashMap<UUID, Long> cooldowns = new HashMap<>();
-
     public static int MAX_LEVEL = 7;
+    private static Plugin instance = AlathraSkills.getInstance();
 
     public static void run(Player player, Block block, int skillLevel) {
         if (!isOnCooldown(player, skillLevel)) {
@@ -32,7 +29,7 @@ public class EasyPicking {
 
     // Method to check if a player is on cooldown
     public static boolean isOnCooldown(Player player, int skillLevel) {
-        return cooldowns.containsKey(player.getUniqueId()) && System.currentTimeMillis() - cooldowns.get(player.getUniqueId()) < getCooldownTime(skillLevel)*1000;
+        return cooldowns.containsKey(player.getUniqueId()) && System.currentTimeMillis() - cooldowns.get(player.getUniqueId()) < getCooldownTime(skillLevel) * 1000;
     }
 
     // Method to add a player to cooldown

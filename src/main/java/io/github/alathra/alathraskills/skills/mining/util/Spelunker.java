@@ -1,9 +1,8 @@
 package io.github.alathra.alathraskills.skills.mining.util;
 
+import io.github.alathra.alathraskills.utility.Cfg;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
-
-import io.github.alathra.alathraskills.utility.Cfg;
 
 public class Spelunker {
 

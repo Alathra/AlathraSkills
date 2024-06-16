@@ -1,12 +1,11 @@
 package io.github.alathra.alathraskills.config;
 
+import com.github.milkdrinkers.Crate.Config;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.Reloadable;
-import com.github.milkdrinkers.Crate.Config;
-
-import java.util.HashMap;
 
 import javax.inject.Singleton;
+import java.util.HashMap;
 
 /**
  * A class that generates/loads & provides access to a configuration file.
@@ -32,24 +31,24 @@ public class ConfigHandler implements Reloadable {
         configMap = new HashMap<String, Object>();
         generateMap();
     }
-    
+
     private void generateMap() {
         for (String i : cfg.singleLayerKeySet()) {
-	        generateMapHelper(i, cfg.getFileData().get(i));
+            generateMapHelper(i, cfg.getFileData().get(i));
         }
     }
 
     private void generateMapHelper(String prefix, Object value) {
-    	if (cfg.singleLayerKeySet(prefix).size() == 0) {
-    		configMap.put(prefix, value);
-    	} else {
+        if (cfg.singleLayerKeySet(prefix).size() == 0) {
+            configMap.put(prefix, value);
+        } else {
             for (Object j : cfg.singleLayerKeySet(prefix)) {
-            	String key = prefix + "." + j;
-    			if (key.length() < 500) {
-    		        generateMapHelper(key, cfg.getFileData().get(key));				
-    			}
-    		}    		
-    	}
+                String key = prefix + "." + j;
+                if (key.length() < 500) {
+                    generateMapHelper(key, cfg.getFileData().get(key));
+                }
+            }
+        }
     }
 
     @Override
@@ -68,19 +67,19 @@ public class ConfigHandler implements Reloadable {
     public Config getConfig() {
         return cfg;
     }
-    
+
     /**
      * Gets the config value associated with a given key
-     * 
+     *
      * @param key The key associated with the value we are getting
-     * from the config
+     *            from the config
      * @throws NullPointerException When map isn't initialized
      */
     public Object getConfigValue(String key) throws NullPointerException {
-    	if (configMap == null) {
-    		throw new NullPointerException("Map not initialized");
-    	} else {
-    		return configMap.get(key);
-    	}
+        if (configMap == null) {
+            throw new NullPointerException("Map not initialized");
+        } else {
+            return configMap.get(key);
+        }
     }
 }

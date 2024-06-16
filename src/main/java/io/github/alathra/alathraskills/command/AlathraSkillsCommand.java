@@ -1,11 +1,8 @@
 package io.github.alathra.alathraskills.command;
 
-import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.jorel.commandapi.CommandAPICommand;
-import dev.jorel.commandapi.executors.CommandArguments;
 import dev.triumphteam.gui.guis.Gui;
 import io.github.alathra.alathraskills.gui.GuiHelper;
-import org.bukkit.command.CommandSender;
 
 public class AlathraSkillsCommand {
     public AlathraSkillsCommand() {

@@ -1,39 +1,32 @@
 package io.github.alathra.alathraskills.skills.woodcutting.util;
 
+import com.github.milkdrinkers.colorparser.ColorParser;
+import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.skills.woodcutting.util.helper.ChopWorker;
 import io.github.alathra.alathraskills.utility.Cfg;
 import io.github.alathra.alathraskills.utility.PDCUtil;
-
-
-import com.github.milkdrinkers.colorparser.ColorParser;
-import io.github.alathra.alathraskills.AlathraSkills;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.Bukkit;
 
-
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.UUID;
-import org.bukkit.Sound;
 
 public class OneSwing {
 
-    private static Plugin instance = AlathraSkills.getInstance();
-
     private static final HashSet<UUID> preActives = new HashSet<>();
-
     private static final HashSet<UUID> actives = new HashSet<>();
-
     private static final HashMap<UUID, Long> cooldowns = new HashMap<>();
-
     public static int MAX_LEVEL = 7;
+    private static Plugin instance = AlathraSkills.getInstance();
 
     public static void run(Player player, Block block, int skillLevel) {
         if (!isActive(player)) {
@@ -42,16 +35,16 @@ public class OneSwing {
 
         if (ChopWorker.isLog(block) && ChopWorker.isTree(block)) {
             ArrayList<Block> blocks = new ArrayList<>(ChopWorker.getLogsToPop(block));
-			BlockBreakEvent event = new BlockBreakEvent(block, player);
+            BlockBreakEvent event = new BlockBreakEvent(block, player);
             event.setDropItems(false);
-			Bukkit.getPluginManager().callEvent(event);
-			if (event.isCancelled()) {
+            Bukkit.getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
                 return;
-			}
+            }
             ItemStack tool = player.getInventory().getItemInMainHand();
-			block.breakNaturally();
+            block.breakNaturally();
             for (Block log : blocks) {
-			    BlockBreakEvent event2 = new BlockBreakEvent(log, player);
+                BlockBreakEvent event2 = new BlockBreakEvent(log, player);
                 event2.setDropItems(false);
                 Bukkit.getPluginManager().callEvent(event2);
                 if (event2.isCancelled()) {
@@ -60,7 +53,7 @@ public class OneSwing {
                 if (PDCUtil.isUnnatural(log)) {
                     continue;
                 }
-                log.getWorld().playSound(block.getLocation(), Sound.BLOCK_WOOD_BREAK, 0.95F, 0.6F + Math.min(0.015F*(float)(8-skillLevel), 1.8F));
+                log.getWorld().playSound(block.getLocation(), Sound.BLOCK_WOOD_BREAK, 0.95F, 0.6F + Math.min(0.015F * (float) (8 - skillLevel), 1.8F));
                 log.breakNaturally(tool);
                 for (BlockFace face : ChopWorker.leaffaces) {
                     Block neighbor = log.getRelative(face);
@@ -103,7 +96,7 @@ public class OneSwing {
 
     // Method to check if a player is on cooldown
     private static boolean isOnCooldown(Player player, int skillLevel) {
-        return cooldowns.containsKey(player.getUniqueId()) && System.currentTimeMillis() - cooldowns.get(player.getUniqueId()) < getCooldownTime(skillLevel)*1000;
+        return cooldowns.containsKey(player.getUniqueId()) && System.currentTimeMillis() - cooldowns.get(player.getUniqueId()) < getCooldownTime(skillLevel) * 1000;
     }
 
     private static void setPreactive(Player player) {

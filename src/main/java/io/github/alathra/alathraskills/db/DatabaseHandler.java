@@ -1,5 +1,7 @@
 package io.github.alathra.alathraskills.db;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.Reloadable;
 import io.github.alathra.alathraskills.db.flyway.DatabaseMigrationException;
@@ -7,8 +9,6 @@ import io.github.alathra.alathraskills.db.flyway.DatabaseMigrationHandler;
 import io.github.alathra.alathraskills.db.jooq.JooqContext;
 import io.github.alathra.alathraskills.utility.Cfg;
 import io.github.alathra.alathraskills.utility.Logger;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Singleton;

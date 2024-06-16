@@ -8,9 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class SaveTheTrees {
-    private SkillsManager skillsManager;
-
     public static int MAX_LEVEL = 1;
+    private SkillsManager skillsManager;
 
     public static void run(Block block, Player player) {
 

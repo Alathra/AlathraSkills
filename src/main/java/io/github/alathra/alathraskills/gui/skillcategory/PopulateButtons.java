@@ -18,7 +18,7 @@ import java.util.Collections;
 
 public class PopulateButtons {
 
-    public static void populateButtons (Gui gui, Player player) {
+    public static void populateButtons(Gui gui, Player player) {
         ItemStack border = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta borderMeta = border.getItemMeta();
         borderMeta.displayName(Component.text(""));

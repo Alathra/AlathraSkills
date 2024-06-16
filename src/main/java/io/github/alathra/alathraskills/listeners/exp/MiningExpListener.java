@@ -1,5 +1,6 @@
 package io.github.alathra.alathraskills.listeners.exp;
 
+import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.utility.Cfg;
 import io.github.alathra.alathraskills.utility.PDCUtil;
@@ -7,8 +8,6 @@ import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-
-import io.github.alathra.alathraskills.api.SkillsManager;
 
 public class MiningExpListener implements Listener {
 

@@ -1,18 +1,14 @@
 package io.github.alathra.alathraskills.api;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.stream.Stream;
-
+import io.github.alathra.alathraskills.AlathraSkills;
+import io.github.alathra.alathraskills.Reloadable;
 import io.github.alathra.alathraskills.api.events.SkillsPlayerLoadedEvent;
 import io.github.alathra.alathraskills.api.events.SkillsPlayerUnloadedEvent;
+import io.github.alathra.alathraskills.db.DatabaseQueries;
 import io.github.alathra.alathraskills.db.schema.Tables;
+import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillinfoRecord;
 import io.github.alathra.alathraskills.skills.Skill;
+import io.github.alathra.alathraskills.utility.Cfg;
 import io.github.alathra.alathraskills.utility.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -23,68 +19,28 @@ import org.jooq.Record2;
 import org.jooq.Record3;
 import org.jooq.Result;
 
-import io.github.alathra.alathraskills.AlathraSkills;
-import io.github.alathra.alathraskills.Reloadable;
-import io.github.alathra.alathraskills.db.DatabaseQueries;
-import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillinfoRecord;
-import io.github.alathra.alathraskills.utility.Cfg;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Stream;
 
 public class SkillsPlayerManager implements Reloadable {
-	private final AlathraSkills instance;
-	private static HashMap<UUID, SkillsPlayer> skillPlayers = new HashMap<UUID, SkillsPlayer>();
-	private BukkitTask storePlayerSkillInfoTask;
-	
-	public SkillsPlayerManager(AlathraSkills instance) {
-		this.instance = instance;
-		SkillsPlayerManager.skillPlayers = new HashMap<UUID, SkillsPlayer>();
-	}
-	
-	@Override
-	public void onLoad() {
-		// Handle populating player data on server reload
-		Bukkit.getOnlinePlayers().forEach((Player p) -> {
-            CompletableFuture<SkillsPlayer> future = handlePlayerJoin(p);
-            SkillsPlayer skillsPlayer = null;
-            try {
-                skillsPlayer = future.get();
-            } catch (InterruptedException | ExecutionException e) {
-                Logger.get().error("Something went wrong: " + e);
-            }
+    private static HashMap<UUID, SkillsPlayer> skillPlayers = new HashMap<UUID, SkillsPlayer>();
+    private final AlathraSkills instance;
+    private BukkitTask storePlayerSkillInfoTask;
 
-            SkillsPlayerLoadedEvent firedEvent = new SkillsPlayerLoadedEvent(p.getUniqueId(), skillsPlayer);
-            Bukkit.getPluginManager().callEvent(firedEvent);
-        });
-	}
-
-	@Override
-	public void onEnable() {
-        final HashMap<UUID, SkillsPlayer> skillPlayers = SkillsPlayerManager.skillPlayers;
-		storePlayerSkillInfoTask = this.instance.getServer().getScheduler().runTaskTimerAsynchronously(instance,
-            () -> saveAllPlayerInformation(skillPlayers), 12000L, 12000L
-        );
-	}
-
-	@Override
-	public void onDisable() {
-		Bukkit.getOnlinePlayers().forEach((Player p) -> {
-            CompletableFuture<SkillsPlayer> future = SkillsPlayerManager.handlePlayerLeave(p);
-            SkillsPlayer skillsPlayer = null;
-            try {
-                skillsPlayer = future.get();
-            } catch (InterruptedException | ExecutionException e) {
-                Logger.get().error("Something went wrong: " + e);
-            }
-
-            SkillsPlayerUnloadedEvent firedEvent = new SkillsPlayerUnloadedEvent(p.getUniqueId(), skillsPlayer);
-            Bukkit.getPluginManager().callEvent(firedEvent);
-        });
-
-		this.instance.getServer().getScheduler()
-			.cancelTask(storePlayerSkillInfoTask.getTaskId());
-	}
+    public SkillsPlayerManager(AlathraSkills instance) {
+        this.instance = instance;
+        SkillsPlayerManager.skillPlayers = new HashMap<UUID, SkillsPlayer>();
+    }
 
     // TODO Note, try to cut down on the amount of queries executed per player
-	public static CompletableFuture<SkillsPlayer> handlePlayerJoin(Player p) {
+    public static CompletableFuture<SkillsPlayer> handlePlayerJoin(Player p) {
         return CompletableFuture.supplyAsync(() -> {
             HashMap<Integer, SkillDetails> playerSkills = new HashMap<>();
             HashMap<Integer, Float> playerExperienceValues = new HashMap<>();
@@ -134,14 +90,10 @@ public class SkillsPlayerManager implements Reloadable {
 
             return new SkillsPlayer(p, playerSkills, playerExperienceValues, usedSkillPoints, latestSkillUnlocked, cooldown);
         });
-	}
-
-    public void registerSkillsPlayer(UUID uuid, SkillsPlayer skillsPlayer) {
-        skillPlayers.put(uuid, skillsPlayer);
     }
 
-	public static CompletableFuture<SkillsPlayer> handlePlayerLeave(Player p) {
-		return CompletableFuture.supplyAsync(() -> {
+    public static CompletableFuture<SkillsPlayer> handlePlayerLeave(Player p) {
+        return CompletableFuture.supplyAsync(() -> {
             SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
 
             // Runs queries to clean up skills in DB
@@ -165,17 +117,13 @@ public class SkillsPlayerManager implements Reloadable {
             DatabaseQueries.savePlayerData(p, usedSkillPoints, latestSkillUnlocked, cooldown);
 
             return currentPlayer;
-            });
-	}
-
-    public void unregisterSkillsPlayer(UUID uuid) {
-        skillPlayers.remove(uuid);
+        });
     }
-	
-	public static void setPlayerExperience(Player p, Integer skillCategory, Float experienceValue) {
-		SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
-		currentPlayer.setExperience(skillCategory, experienceValue);
-	}
+
+    public static void setPlayerExperience(Player p, Integer skillCategory, Float experienceValue) {
+        SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
+        currentPlayer.setExperience(skillCategory, experienceValue);
+    }
 
     public static void addPlayerExperience(Player p, Integer skillCategory, Float experienceValue) {
         SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
@@ -183,10 +131,10 @@ public class SkillsPlayerManager implements Reloadable {
         currentPlayer.setExperience(skillCategory, currentExp + experienceValue);
     }
 
-	public static void setPlayerUsedSkillPoints(Player p, Integer usedSkillPoints) {
-		SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
-		currentPlayer.setUsedSkillPoints(usedSkillPoints);
-	}
+    public static void setPlayerUsedSkillPoints(Player p, Integer usedSkillPoints) {
+        SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
+        currentPlayer.setUsedSkillPoints(usedSkillPoints);
+    }
 
     public static boolean buySkill(Player p, Integer skill) {
         SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
@@ -269,16 +217,16 @@ public class SkillsPlayerManager implements Reloadable {
             }
         }
     }
-	
-	public static void addPlayerSkill(Player p, Integer skill) {
-		SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
-		currentPlayer.addSkill(skill);
-	}
-	
-	public static void removePlayerSkill(Player p, Integer skill) {
-		SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
-		currentPlayer.removeSkill(skill);
-	}
+
+    public static void addPlayerSkill(Player p, Integer skill) {
+        SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
+        currentPlayer.addSkill(skill);
+    }
+
+    public static void removePlayerSkill(Player p, Integer skill) {
+        SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
+        currentPlayer.removeSkill(skill);
+    }
 
     public static boolean playerHasSkill(Player p, Integer skill) {
         SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
@@ -293,11 +241,132 @@ public class SkillsPlayerManager implements Reloadable {
         return currentPlayer.getTotalSkillsUnlocked() < Cfg.get().getInt("skills.maximumSkills");
     }
 
+    private static SkillsPlayer fetchCurrPlayer(OfflinePlayer p) {
+        UUID playerId = p.getUniqueId();
+        if (playerId != null) {
+            SkillsPlayer currPlayer = skillPlayers.get(playerId);
+            if (currPlayer != null) {
+                return currPlayer;
+            } else {
+                throw new Error("Player is not in memory");
+            }
+        } else {
+            throw new Error("Player doesn't have a valid ID");
+        }
+
+    }
+
+    public static void setPlayerExperience(OfflinePlayer p,
+                                           Integer skillCategory, Float experience) {
+        SkillsPlayer currPlayer = fetchCurrPlayer(p);
+        currPlayer.setExperience(skillCategory, experience);
+    }
+
+    public static void addPlayerSkill(OfflinePlayer p,
+                                      Integer skill) {
+        SkillsPlayer currPlayer = fetchCurrPlayer(p);
+        currPlayer.addSkill(skill);
+    }
+
+    public static void deletePlayerSkill(OfflinePlayer p,
+                                         Integer skill) {
+        SkillsPlayer currPlayer = fetchCurrPlayer(p);
+        currPlayer.removeSkill(skill);
+    }
+
+    public static Stream<Entry<Integer, SkillDetails>> getAllSkills(
+        OfflinePlayer p) {
+        SkillsPlayer currPlayer = fetchCurrPlayer(p);
+        return currPlayer.getPlayerActiveSkills();
+    }
+
+    public static float getSkillCategoryExperience(
+        OfflinePlayer p, Integer skillCategory) {
+        SkillsPlayer currPlayer = fetchCurrPlayer(p);
+        return currPlayer.getSkillCategoryExperience(skillCategory);
+    }
+
+    public static float getTotalExperience(OfflinePlayer p) {
+        float farmingExp = getSkillCategoryExperience(p, 1);
+        float miningExp = getSkillCategoryExperience(p, 2);
+        float woodcuttingExp = getSkillCategoryExperience(p, 3);
+
+        return farmingExp + miningExp + woodcuttingExp;
+    }
+
+    public static Integer getUsedSkillPoints(OfflinePlayer p) {
+        SkillsPlayer currPlayer = fetchCurrPlayer(p);
+        return currPlayer.getUsedSkillPoints();
+    }
+
+    @Nullable
+    public static SkillsPlayer getSkillsPlayer(UUID uuid) {
+        return skillPlayers.get(uuid);
+    }
+
+    @Nullable
+    public static SkillsPlayer getSkillsPlayer(Player p) {
+        return getSkillsPlayer(p.getUniqueId());
+    }
+
+    @Override
+    public void onLoad() {
+        // Handle populating player data on server reload
+        Bukkit.getOnlinePlayers().forEach((Player p) -> {
+            CompletableFuture<SkillsPlayer> future = handlePlayerJoin(p);
+            SkillsPlayer skillsPlayer = null;
+            try {
+                skillsPlayer = future.get();
+            } catch (InterruptedException | ExecutionException e) {
+                Logger.get().error("Something went wrong: " + e);
+            }
+
+            SkillsPlayerLoadedEvent firedEvent = new SkillsPlayerLoadedEvent(p.getUniqueId(), skillsPlayer);
+            Bukkit.getPluginManager().callEvent(firedEvent);
+        });
+    }
+
+    @Override
+    public void onEnable() {
+        final HashMap<UUID, SkillsPlayer> skillPlayers = SkillsPlayerManager.skillPlayers;
+        storePlayerSkillInfoTask = this.instance.getServer().getScheduler().runTaskTimerAsynchronously(instance,
+            () -> saveAllPlayerInformation(skillPlayers), 12000L, 12000L
+        );
+    }
+
+    @Override
+    public void onDisable() {
+        Bukkit.getOnlinePlayers().forEach((Player p) -> {
+            CompletableFuture<SkillsPlayer> future = SkillsPlayerManager.handlePlayerLeave(p);
+            SkillsPlayer skillsPlayer = null;
+            try {
+                skillsPlayer = future.get();
+            } catch (InterruptedException | ExecutionException e) {
+                Logger.get().error("Something went wrong: " + e);
+            }
+
+            SkillsPlayerUnloadedEvent firedEvent = new SkillsPlayerUnloadedEvent(p.getUniqueId(), skillsPlayer);
+            Bukkit.getPluginManager().callEvent(firedEvent);
+        });
+
+        this.instance.getServer().getScheduler()
+            .cancelTask(storePlayerSkillInfoTask.getTaskId());
+    }
+
+    public void registerSkillsPlayer(UUID uuid, SkillsPlayer skillsPlayer) {
+        skillPlayers.put(uuid, skillsPlayer);
+    }
+
+    public void unregisterSkillsPlayer(UUID uuid) {
+        skillPlayers.remove(uuid);
+    }
+
     /**
      * This method should be run asynchronously and only when saving player all loaded players to db
+     *
      * @param skillPlayers
      */
-	private void saveAllPlayerInformation(final HashMap<UUID, SkillsPlayer> skillPlayers) {
+    private void saveAllPlayerInformation(final HashMap<UUID, SkillsPlayer> skillPlayers) {
         skillPlayers.keySet().forEach(uuid -> {
             SkillsPlayer currentPlayer = skillPlayers.get(uuid);
 
@@ -321,105 +390,37 @@ public class SkillsPlayerManager implements Reloadable {
 
             DatabaseQueries.savePlayerData(uuid, usedSkillPoints, latestSkillUnlocked, cooldown);
         });
-	}
-	
-	@Deprecated
-	private void savePlayerValues(SkillsPlayer sp) {
-		HashMap<Integer, SkillDetails> playerSkills = sp.getPlayerSkills();
-		HashMap<Integer, Float> playerExperienceValues = sp.getPlayerExperienceValues();
-		
-		
-		// TODO Make Async
-		// TODO Delete set of skills from players
-		DatabaseQueries.deletePlayerSkills(sp.getPlayer().getUniqueId());
-		
-		// TODO Eventually make the inserts a single insert/update command
-		// TODO Make Async
-		playerSkills
-			.entrySet()
-			.stream()
-			.filter(e -> e.getValue().isSelected() && !e.getValue().isExistingSkill())
-			.forEach(e -> DatabaseQueries.saveSkillInfo(sp.getPlayer().getUniqueId(), e.getKey()));
-			
-		// TODO Make Async and eventually make this a single DBQuerries command
-		playerExperienceValues
-			.entrySet()
-			.stream()
-			.forEach(e -> DatabaseQueries.saveSkillCategoryExperience(
-					sp.getPlayer().getUniqueId(), e.getKey(), e.getValue()
-					));
-	}
-	
-	private static SkillsPlayer fetchCurrPlayer(OfflinePlayer p) {
-		UUID playerId = p.getUniqueId();
-		if (playerId != null) {
-			SkillsPlayer currPlayer = skillPlayers.get(playerId);
-			if (currPlayer != null) {
-				return currPlayer;
-			} else {
-				throw new Error("Player is not in memory");
-			}						
-		} else {
-			throw new Error("Player doesn't have a valid ID");
-		}
-		
-	}
-	
-	public static void setPlayerExperience(OfflinePlayer p,
-			Integer skillCategory, Float experience) {
-		SkillsPlayer currPlayer = fetchCurrPlayer(p);
-		currPlayer.setExperience(skillCategory, experience);
-	}
-	
-	public static void addPlayerSkill(OfflinePlayer p,
-			Integer skill) {
-		SkillsPlayer currPlayer = fetchCurrPlayer(p);
-		currPlayer.addSkill(skill);
-	}
-	
-	public static void deletePlayerSkill(OfflinePlayer p,
-			Integer skill) {
-		SkillsPlayer currPlayer = fetchCurrPlayer(p);
-		currPlayer.removeSkill(skill);
-	}
-	
-	public static Stream<Entry<Integer, SkillDetails>> getAllSkills(
-			OfflinePlayer p) {
-		SkillsPlayer currPlayer = fetchCurrPlayer(p);
-		return currPlayer.getPlayerActiveSkills();
-	}
-	
-	public static float getSkillCategoryExperience(
-			OfflinePlayer p, Integer skillCategory) {
-		SkillsPlayer currPlayer = fetchCurrPlayer(p);
-		return currPlayer.getSkillCategoryExperience(skillCategory);
-	}
-
-    public static float getTotalExperience(OfflinePlayer p) {
-        float farmingExp = getSkillCategoryExperience(p, 1);
-        float miningExp = getSkillCategoryExperience(p, 2);
-        float woodcuttingExp = getSkillCategoryExperience(p, 3);
-
-        return farmingExp + miningExp + woodcuttingExp;
     }
-	
-	public static Integer getUsedSkillPoints(OfflinePlayer p) {
-		SkillsPlayer currPlayer = fetchCurrPlayer(p);
-		return currPlayer.getUsedSkillPoints();
-	}
-	
+
+    @Deprecated
+    private void savePlayerValues(SkillsPlayer sp) {
+        HashMap<Integer, SkillDetails> playerSkills = sp.getPlayerSkills();
+        HashMap<Integer, Float> playerExperienceValues = sp.getPlayerExperienceValues();
+
+
+        // TODO Make Async
+        // TODO Delete set of skills from players
+        DatabaseQueries.deletePlayerSkills(sp.getPlayer().getUniqueId());
+
+        // TODO Eventually make the inserts a single insert/update command
+        // TODO Make Async
+        playerSkills
+            .entrySet()
+            .stream()
+            .filter(e -> e.getValue().isSelected() && !e.getValue().isExistingSkill())
+            .forEach(e -> DatabaseQueries.saveSkillInfo(sp.getPlayer().getUniqueId(), e.getKey()));
+
+        // TODO Make Async and eventually make this a single DBQuerries command
+        playerExperienceValues
+            .entrySet()
+            .stream()
+            .forEach(e -> DatabaseQueries.saveSkillCategoryExperience(
+                sp.getPlayer().getUniqueId(), e.getKey(), e.getValue()
+            ));
+    }
+
     public final HashMap<UUID, SkillsPlayer> getSkillsPlayers() {
         return skillPlayers;
-    }
-
-    @Nullable
-    public static SkillsPlayer getSkillsPlayer(UUID uuid){
-        return skillPlayers.get(uuid);
-    }
-
-    @Nullable
-    public static SkillsPlayer getSkillsPlayer(Player p) {
-        return getSkillsPlayer(p.getUniqueId());
     }
 
 }

@@ -30,23 +30,52 @@ public enum DatabaseType {
      * MariaDB database type.
      */
     MARIADB("MariaDB", org.mariadb.jdbc.Driver.class.getName(), MariaDbDataSource.class.getName(), "mariadb", '?', '&'),
-	;
+    ;
 
     private final String driverName;
     private final String driverClassName;
-	private final String dataSourceClassName;
-	private final String jdbcPrefix;
-	private final char jdbcPropertyPrefix;
-	private final char jdbcPropertySeparator;
+    private final String dataSourceClassName;
+    private final String jdbcPrefix;
+    private final char jdbcPropertyPrefix;
+    private final char jdbcPropertySeparator;
 
-	DatabaseType(String driverName, String driverClassName, String dataSourceClassName, String jdbcPrefix, char jdbcPropertyPrefix, char jdbcPropertySeparator) {
-		this.driverName = driverName;
-		this.driverClassName = driverClassName;
-		this.dataSourceClassName = dataSourceClassName;
+    DatabaseType(String driverName, String driverClassName, String dataSourceClassName, String jdbcPrefix, char jdbcPropertyPrefix, char jdbcPropertySeparator) {
+        this.driverName = driverName;
+        this.driverClassName = driverClassName;
+        this.dataSourceClassName = dataSourceClassName;
         this.jdbcPrefix = jdbcPrefix;
-		this.jdbcPropertyPrefix = jdbcPropertyPrefix;
-		this.jdbcPropertySeparator = jdbcPropertySeparator;
-	}
+        this.jdbcPropertyPrefix = jdbcPropertyPrefix;
+        this.jdbcPropertySeparator = jdbcPropertySeparator;
+    }
+
+    /**
+     * Gets database type from jdbc prefix.
+     *
+     * @param prefix the prefix
+     * @return the database type or null
+     */
+    @Nullable
+    public static DatabaseType getDatabaseTypeFromJdbcPrefix(String prefix) {
+        for (DatabaseType type : DatabaseType.values()) {
+            if (type.equals(prefix.toLowerCase())) {
+                return type;
+            }
+            ;
+        }
+
+        return null;
+    }
+
+    /**
+     * Generates a concatenated SQL query from the specified parameters.
+     *
+     * @param sqlModes database parameters
+     * @return string
+     */
+    private static String setSqlModes(String... sqlModes) {
+        final String modes = String.join(",", sqlModes);
+        return "SET @@SQL_MODE = CONCAT(@@SQL_MODE, '," + modes + "')";
+    }
 
     /**
      * Gets driver name.
@@ -109,31 +138,13 @@ public enum DatabaseType {
      * @return the string
      */
     public String formatJdbcConnectionProperties(Map<String, Object> properties) {
-		if (properties.isEmpty()) return "";
+        if (properties.isEmpty()) return "";
 
         List<String> connectionProperties = properties.entrySet().stream()
             .map(map -> "%s=%s".formatted(map.getKey(), map.getValue()))
             .toList();
 
-		return jdbcPropertyPrefix + String.join(Character.toString(jdbcPropertySeparator), connectionProperties);
-	}
-
-
-    /**
-     * Gets database type from jdbc prefix.
-     *
-     * @param prefix the prefix
-     * @return the database type or null
-     */
-    @Nullable
-    public static DatabaseType getDatabaseTypeFromJdbcPrefix(String prefix) {
-        for (DatabaseType type : DatabaseType.values()) {
-            if (type.equals(prefix.toLowerCase())) {
-                return type;
-            };
-        }
-
-        return null;
+        return jdbcPropertyPrefix + String.join(Character.toString(jdbcPropertySeparator), connectionProperties);
     }
 
     @Override
@@ -272,16 +283,5 @@ public enum DatabaseType {
                 "NO_ZERO_IN_DATE",
                 "NO_ZERO_DATE");
         };
-    }
-
-    /**
-     * Generates a concatenated SQL query from the specified parameters.
-     *
-     * @param sqlModes database parameters
-     * @return string
-     */
-    private static String setSqlModes(String... sqlModes) {
-        final String modes = String.join(",", sqlModes);
-        return "SET @@SQL_MODE = CONCAT(@@SQL_MODE, '," + modes + "')";
     }
 }

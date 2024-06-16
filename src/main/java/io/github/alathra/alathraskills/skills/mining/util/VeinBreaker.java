@@ -1,8 +1,6 @@
 package io.github.alathra.alathraskills.skills.mining.util;
 
-import io.github.alathra.alathraskills.skills.mining.util.helper.MiningData;
 import io.github.alathra.alathraskills.utility.Cfg;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -12,7 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public class VeinBreaker {
 

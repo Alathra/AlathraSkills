@@ -1,7 +1,6 @@
 package io.github.alathra.alathraskills;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
-
 import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.command.CommandHandler;
@@ -10,25 +9,43 @@ import io.github.alathra.alathraskills.db.DatabaseHandler;
 import io.github.alathra.alathraskills.hooks.VaultHook;
 import io.github.alathra.alathraskills.listeners.ListenerHandler;
 import io.github.alathra.alathraskills.utility.Logger;
-
 import io.github.alathra.alathraskills.utility.PDCUtil;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 public class AlathraSkills extends JavaPlugin {
     private static AlathraSkills instance;
+    private static VaultHook vaultHook;
+    // Internal managers
+    private static SkillsManager skillsManager;
+    private static SkillsPlayerManager skillsPlayerManager;
     private ConfigHandler configHandler;
     private DatabaseHandler databaseHandler;
     private CommandHandler commandHandler;
     private ListenerHandler listenerHandler;
-    private static VaultHook vaultHook;
-    
-    // Internal managers
-    private static SkillsManager skillsManager;
-    private static SkillsPlayerManager skillsPlayerManager;
 
     public static AlathraSkills getInstance() {
         return instance;
+    }
+
+    /**
+     * Gets vault hook.
+     *
+     * @return the vault hook
+     */
+    @NotNull
+    public static VaultHook getVaultHook() {
+        return vaultHook;
+    }
+
+    @NotNull
+    public static SkillsManager getSkillsManager() {
+        return skillsManager;
+    }
+
+    @NotNull
+    public static SkillsPlayerManager getSkillsPlayerManager() {
+        return skillsPlayerManager;
     }
 
     @Override
@@ -69,7 +86,7 @@ public class AlathraSkills extends JavaPlugin {
 
         // Static initializers
         PDCUtil.init();
-        
+
     }
 
     @Override
@@ -101,25 +118,5 @@ public class AlathraSkills extends JavaPlugin {
     @NotNull
     public ConfigHandler getConfigHandler() {
         return configHandler;
-    }
-
-    /**
-     * Gets vault hook.
-     *
-     * @return the vault hook
-     */
-    @NotNull
-    public static VaultHook getVaultHook() {
-        return vaultHook;
-    }
-    
-    @NotNull
-    public static SkillsManager getSkillsManager() {
-        return skillsManager;
-    }
-    
-    @NotNull
-    public static SkillsPlayerManager getSkillsPlayerManager() {
-        return skillsPlayerManager;
     }
 }

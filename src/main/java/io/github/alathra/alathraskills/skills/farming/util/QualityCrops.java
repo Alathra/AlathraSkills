@@ -1,12 +1,11 @@
 package io.github.alathra.alathraskills.skills.farming.util;
 
+import io.github.alathra.alathraskills.utility.Cfg;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Ageable;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-
-import io.github.alathra.alathraskills.utility.Cfg;
 
 public class QualityCrops {
 
@@ -22,7 +21,7 @@ public class QualityCrops {
         Location location = animalBaby.getLocation();
 
         LivingEntity newBaby = (LivingEntity) world.spawnEntity(location, animalBaby.getType(), CreatureSpawnEvent.SpawnReason.BREEDING);
-        if(newBaby instanceof Ageable newBabyAgeable) {
+        if (newBaby instanceof Ageable newBabyAgeable) {
             newBabyAgeable.setBaby();
         } else {
             // Kill the entity if it is not ageable for some reason

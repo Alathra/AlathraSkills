@@ -1,22 +1,20 @@
 package io.github.alathra.alathraskills.db.commands;
 
-import io.github.alathra.alathraskills.AlathraSkills;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
 import com.github.milkdrinkers.colorparser.ColorParser;
-
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.IntegerArgument;
 import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
+import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.db.DatabaseQueries;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public class TestGetExerienceCommand {
 
     public TestGetExerienceCommand() {
         new CommandAPICommand("testGetExperience_db")
-        	.withArguments(new PlayerArgument("targetPlayer"), new IntegerArgument("skillCategoryID"))
+            .withArguments(new PlayerArgument("targetPlayer"), new IntegerArgument("skillCategoryID"))
             .withFullDescription("Get Experience For a Given Skill Category.")
             .withShortDescription("Get Experience")
             .withPermission("alathraskills.get")
@@ -27,16 +25,17 @@ public class TestGetExerienceCommand {
     private void runCommand(Player player, CommandArguments args) {
         if (args.get("targetPlayer") == null) {
             player.sendMessage(
-                    ColorParser.of("Provide a value after the command to indicate target player.")
-                        .parseLegacy() // Parse legacy color codes
-                        .build()
+                ColorParser.of("Provide a value after the command to indicate target player.")
+                    .parseLegacy() // Parse legacy color codes
+                    .build()
             );
             return;
-        }        if (args.get("skillCategoryID") == null) {
+        }
+        if (args.get("skillCategoryID") == null) {
             player.sendMessage(
-                    ColorParser.of("Provide a value after the target player to indicate skill category.")
-                        .parseLegacy() // Parse legacy color codes
-                        .build()
+                ColorParser.of("Provide a value after the target player to indicate skill category.")
+                    .parseLegacy() // Parse legacy color codes
+                    .build()
             );
             return;
         }

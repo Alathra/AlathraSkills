@@ -1,10 +1,9 @@
 package io.github.alathra.alathraskills.skills.mining.util;
 
+import io.github.alathra.alathraskills.utility.Cfg;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
-
-import io.github.alathra.alathraskills.utility.Cfg;
 
 public class OreInTheRough {
 
@@ -63,7 +62,7 @@ public class OreInTheRough {
     }
 
     private static double getCopperOreChance(int skillLevel) {
-    	// Config not added due to method not being used
+        // Config not added due to method not being used
         return switch (skillLevel) {
             case 1 -> 0.90;
             case 2 -> 0.85;

@@ -18,6 +18,10 @@ public class SkillsPlayerUnloadedEvent extends Event {
         this.skillsPlayer = skillsPlayer;
     }
 
+    public static HandlerList getHandlerList() {
+        return HANDLERS;
+    }
+
     public UUID getUuid() {
         return uuid;
     }
@@ -28,10 +32,6 @@ public class SkillsPlayerUnloadedEvent extends Event {
 
     @Override
     public @NotNull HandlerList getHandlers() {
-        return HANDLERS;
-    }
-
-    public static HandlerList getHandlerList() {
         return HANDLERS;
     }
 }

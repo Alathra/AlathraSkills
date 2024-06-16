@@ -9,11 +9,11 @@ import org.bukkit.persistence.PersistentDataType;
 
 public class PDCUtil {
 
-	/**
-	 * Utility class that implements CustomBlockData API. This class is used to
-	 * handle Persistent Data Containers (PDCs). PDC is used to store data in blocks
-	 * to determine if blocks at a given location are natural or not.
-	 */
+    /**
+     * Utility class that implements CustomBlockData API. This class is used to
+     * handle Persistent Data Containers (PDCs). PDC is used to store data in blocks
+     * to determine if blocks at a given location are natural or not.
+     */
 
     private static NamespacedKey unnaturalKey;
 
@@ -44,6 +44,6 @@ public class PDCUtil {
     public static PersistentDataContainer getPDC(Block block) {
         return new CustomBlockData(block, AlathraSkills.getInstance());
     }
-	
-	
+
+
 }
