@@ -2,15 +2,13 @@ package io.github.alathra.alathraskills.db;
 
 import io.github.alathra.alathraskills.api.PlayerExperience;
 import io.github.alathra.alathraskills.api.PlayerSkillDetails;
-import io.github.alathra.alathraskills.db.schema.tables.PlayerSkillinfo;
 import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillcategoryinfoRecord;
 import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillinfoRecord;
-import io.github.alathra.alathraskills.skills.Skill;
 import io.github.alathra.alathraskills.utility.DB;
 import io.github.alathra.alathraskills.utility.Logger;
 import org.bukkit.entity.Player;
-import org.jooq.*;
 import org.jooq.Record;
+import org.jooq.*;
 import org.jooq.exception.DataAccessException;
 
 import java.nio.ByteBuffer;
@@ -19,12 +17,13 @@ import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Stream;
 
-import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_SKILLCATEGORYINFO;
-import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_SKILLINFO;
-import static io.github.alathra.alathraskills.db.schema.Tables.PLAYER_PLAYERDATA;
+import static io.github.alathra.alathraskills.db.schema.Tables.*;
 
 /**
  * A holder class for all SQL queries
@@ -67,6 +66,14 @@ public abstract class DatabaseQueries {
         }
     }
 
+    /**
+     * Convenience shorthand for {@link #savePlayerData(UUID, int, int, Instant)}.
+     *
+     * @param p
+     * @param usedSkillPoints
+     * @param latestSkillUnlocked
+     * @param cooldown
+     */
     public static void savePlayerData(Player p, int usedSkillPoints, int latestSkillUnlocked, Instant cooldown) {
         savePlayerData(p.getUniqueId(), usedSkillPoints, latestSkillUnlocked, cooldown);
     }
@@ -84,14 +91,12 @@ public abstract class DatabaseQueries {
         ) {
             DSLContext context = DB.getContext(con);
 
-            Result<Record3<Integer, Integer, LocalDateTime>> result = context.select(PLAYER_PLAYERDATA.USED_SKILLPOINTS,
+            return context.select(PLAYER_PLAYERDATA.USED_SKILLPOINTS,
                     PLAYER_PLAYERDATA.LATEST_UNLOCKED_SKILL,
                     PLAYER_PLAYERDATA.COOLDOWN)
                 .from(PLAYER_PLAYERDATA)
                 .where(PLAYER_PLAYERDATA.UUID.equal(convertUUIDToBytes(uuid)))
                 .fetch();
-
-            return result;
 
         } catch (SQLException | DataAccessException e) {
             Logger.get().error("SQL Query threw an error: " + e);
@@ -99,6 +104,12 @@ public abstract class DatabaseQueries {
         return null;
     }
 
+    /**
+     * Convenience shorthand for {@link #fetchPlayerData(UUID)}.
+     *
+     * @param p player
+     * @return A result of the data.
+     */
     public static Result<Record3<Integer, Integer, LocalDateTime>> fetchPlayerData(Player p) {
         return fetchPlayerData(p.getUniqueId());
     }
@@ -111,16 +122,17 @@ public abstract class DatabaseQueries {
      * @param miningExperience
      * @param woodcuttingExperience
      */
-
     public static void saveAllSkillCategoryExperience(UUID uuid, Float farmingExperience, Float miningExperience, Float woodcuttingExperience) {
         try (
             Connection con = DB.getConnection()
         ) {
             DSLContext context = DB.getContext(con);
 
-            context.batchMerge(new PlayerSkillcategoryinfoRecord(convertUUIDToBytes(uuid), 1, farmingExperience.doubleValue()),
-                new PlayerSkillcategoryinfoRecord(convertUUIDToBytes(uuid), 2, miningExperience.doubleValue()),
-                new PlayerSkillcategoryinfoRecord(convertUUIDToBytes(uuid), 3, woodcuttingExperience.doubleValue()))
+            context.batchMerge(
+                    new PlayerSkillcategoryinfoRecord(convertUUIDToBytes(uuid), 1, farmingExperience.doubleValue()),
+                    new PlayerSkillcategoryinfoRecord(convertUUIDToBytes(uuid), 2, miningExperience.doubleValue()),
+                    new PlayerSkillcategoryinfoRecord(convertUUIDToBytes(uuid), 3, woodcuttingExperience.doubleValue())
+                )
                 .execute();
 
         } catch (SQLException | DataAccessException e) {
@@ -128,6 +140,14 @@ public abstract class DatabaseQueries {
         }
     }
 
+    /**
+     * Convenience shorthand for {@link #saveAllSkillCategoryExperience(UUID, Float, Float, Float)}.
+     *
+     * @param p
+     * @param farmingExperience
+     * @param miningExperience
+     * @param woodcuttingExperience
+     */
     public static void saveAllSkillCategoryExperience(Player p, Float farmingExperience, Float miningExperience, Float woodcuttingExperience) {
         saveAllSkillCategoryExperience(p.getUniqueId(), farmingExperience, miningExperience, woodcuttingExperience);
     }
@@ -153,6 +173,12 @@ public abstract class DatabaseQueries {
         return null;
     }
 
+    /**
+     * Convenience shorthand for {@link #fetchAllSkillCategoryExperience(UUID)}.
+     *
+     * @param p
+     * @return
+     */
     public static Result<Record2<Integer, Double>> fetchAllSkillCategoryExperience(Player p) {
         return fetchAllSkillCategoryExperience(p.getUniqueId());
     }
@@ -164,7 +190,6 @@ public abstract class DatabaseQueries {
      * @param skillsToDelete List of skill IDs to delete.
      * @param skillsToInsert List of skill IDs to insert.
      */
-
     public static void saveFilteredPlayerSkills(byte[] uuid, List<Integer> skillsToDelete, List<Integer> skillsToInsert) {
         try (
             Connection con = DB.getConnection()
@@ -185,14 +210,27 @@ public abstract class DatabaseQueries {
         }
     }
 
+    /**
+     * Convenience shorthand for {@link #saveFilteredPlayerSkills(byte[], List, List)}.
+     *
+     * @param uuid
+     * @param skillsToDelete
+     * @param skillsToInsert
+     */
     public static void saveFilteredPlayerSkills(UUID uuid, List<Integer> skillsToDelete, List<Integer> skillsToInsert) {
         saveFilteredPlayerSkills(convertUUIDToBytes(uuid), skillsToDelete, skillsToInsert);
     }
 
+    /**
+     * Convenience shorthand for {@link #saveFilteredPlayerSkills(UUID, List, List)}.
+     *
+     * @param p
+     * @param skillsToDelete
+     * @param skillsToInsert
+     */
     public static void saveFilteredPlayerSkills(Player p, List<Integer> skillsToDelete, List<Integer> skillsToInsert) {
         saveFilteredPlayerSkills(p.getUniqueId(), skillsToDelete, skillsToInsert);
     }
-
 
     /**
      * Attempts to save skill category experience to DB.
@@ -201,7 +239,6 @@ public abstract class DatabaseQueries {
      * @param skillCategoryId
      * @param experience
      */
-
     public static void saveSkillCategoryExperience(UUID uuid, int skillCategoryId, Float experience) {
         try (
             Connection con = DB.getConnection()
@@ -236,7 +273,6 @@ public abstract class DatabaseQueries {
      * @param uuid
      * @param skillId
      */
-
     public static void saveSkillInfo(UUID uuid, int skillId) {
         try (
             Connection con = DB.getConnection()
@@ -269,7 +305,6 @@ public abstract class DatabaseQueries {
      * @param skillCategoryId
      * @return record containing skill category experience.
      */
-
     public static Record1<Double> getSkillCategoryExperience(UUID uuid, int skillCategoryId) {
         try (
             Connection con = DB.getConnection()
@@ -282,22 +317,22 @@ public abstract class DatabaseQueries {
                 .where(PLAYER_SKILLCATEGORYINFO.UUID.equal(convertUUIDToBytes(uuid)))
                 .and(PLAYER_SKILLCATEGORYINFO.SKILLCATEGORYID.equal(skillCategoryId))
                 .fetchOne();
-            
-            if(returnContext == null) {
-            	 context
-	                 .insertInto(PLAYER_SKILLCATEGORYINFO,
-                		 PLAYER_SKILLCATEGORYINFO.UUID,
-                		 PLAYER_SKILLCATEGORYINFO.SKILLCATEGORYID,
-                		 PLAYER_SKILLCATEGORYINFO.EXPERIENCE)
-	                 .values(
-	                     convertUUIDToBytes(uuid),
-	                     skillCategoryId,
-	                     0.00
-	                 )
-	                 .onDuplicateKeyIgnore()
-	                 .execute();
+
+            if (returnContext == null) {
+                context
+                    .insertInto(PLAYER_SKILLCATEGORYINFO,
+                        PLAYER_SKILLCATEGORYINFO.UUID,
+                        PLAYER_SKILLCATEGORYINFO.SKILLCATEGORYID,
+                        PLAYER_SKILLCATEGORYINFO.EXPERIENCE)
+                    .values(
+                        convertUUIDToBytes(uuid),
+                        skillCategoryId,
+                        0.00
+                    )
+                    .onDuplicateKeyIgnore()
+                    .execute();
             }
-            
+
             return returnContext;
         } catch (DataAccessException | SQLException e) {
             Logger.get().error("SQL Query threw an error!", e);
@@ -315,11 +350,10 @@ public abstract class DatabaseQueries {
      * @param uuid
      * @return record containing used number of skills
      */
-
     public static int getUsedSkillPoints(UUID uuid) {
         try (
             Connection con = DB.getConnection()
-            ) {
+        ) {
             DSLContext context = DB.getContext(con);
 
             Record1<Integer> record = context
@@ -342,7 +376,7 @@ public abstract class DatabaseQueries {
     }
 
     public static int getUsedSkillPoints(Player p) {
-    	return getUsedSkillPoints(p.getUniqueId());
+        return getUsedSkillPoints(p.getUniqueId());
     }
 
     /**
@@ -351,27 +385,26 @@ public abstract class DatabaseQueries {
      * @param uuid
      * @param usedSkillPoints
      */
-
     public static void setUsedSkillPoints(UUID uuid, int usedSkillPoints) {
         try (
-                Connection con = DB.getConnection()
-            ) {
-                DSLContext context = DB.getContext(con);
+            Connection con = DB.getConnection()
+        ) {
+            DSLContext context = DB.getContext(con);
 
-                context
-                    .insertInto(PLAYER_PLAYERDATA,
-                        PLAYER_PLAYERDATA.UUID,
-                        PLAYER_PLAYERDATA.USED_SKILLPOINTS)
-                    .values(
-                        convertUUIDToBytes(uuid),
-                        usedSkillPoints
-                    )
-                    .onDuplicateKeyUpdate()
-                    .set(PLAYER_PLAYERDATA.USED_SKILLPOINTS, usedSkillPoints)
-                    .execute();
-            } catch (DataAccessException | SQLException e) {
-                Logger.get().error("SQL Query threw an error!", e);
-            }
+            context
+                .insertInto(PLAYER_PLAYERDATA,
+                    PLAYER_PLAYERDATA.UUID,
+                    PLAYER_PLAYERDATA.USED_SKILLPOINTS)
+                .values(
+                    convertUUIDToBytes(uuid),
+                    usedSkillPoints
+                )
+                .onDuplicateKeyUpdate()
+                .set(PLAYER_PLAYERDATA.USED_SKILLPOINTS, usedSkillPoints)
+                .execute();
+        } catch (DataAccessException | SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+        }
     }
 
     public static void setUsedSkillPoints(Player p, Integer usedSkillPoints) {
@@ -385,12 +418,11 @@ public abstract class DatabaseQueries {
      * @param skillCategoryId
      * @return skill category experience as float.
      */
-
     public static float getSkillCategoryExperienceFloat(UUID uuid, int skillCategoryId) {
-    	Record1<Double> returnRecord = getSkillCategoryExperience(uuid, skillCategoryId);
-    	if (returnRecord == null) {
-    		return 0;
-    	}
+        Record1<Double> returnRecord = getSkillCategoryExperience(uuid, skillCategoryId);
+        if (returnRecord == null) {
+            return 0;
+        }
         return ((Double) returnRecord.getValue("EXPERIENCE")).floatValue();
     }
 
@@ -405,7 +437,6 @@ public abstract class DatabaseQueries {
      * @param skillId
      * @return whether the player has a skill unlocked, and null if error.
      */
-
     public static Boolean doesPlayerHaveSkill(UUID uuid, int skillId) {
         try (
             Connection con = DB.getConnection()
@@ -426,14 +457,13 @@ public abstract class DatabaseQueries {
     public static Boolean doesPlayerHaveSkill(Player p, int skillId) {
         return doesPlayerHaveSkill(p.getUniqueId(), skillId);
     }
-    
+
     /**
      * Fetches all skills a player has
      *
      * @param uuid
      * @return all skill records a player is associated with.
      */
-
     public static Result<PlayerSkillinfoRecord> fetchPlayerSkills(UUID uuid) {
         try (
             Connection con = DB.getConnection()
@@ -453,13 +483,12 @@ public abstract class DatabaseQueries {
     public static Result<PlayerSkillinfoRecord> fetchPlayerSkills(Player p) {
         return fetchPlayerSkills(p.getUniqueId());
     }
-    
+
     /**
      * Deletes all skills a player has
      *
      * @param uuid
      */
-
     public static void deletePlayerSkills(UUID uuid) {
         try (
             Connection con = DB.getConnection()
@@ -469,7 +498,7 @@ public abstract class DatabaseQueries {
             context
                 .delete(PLAYER_SKILLINFO
                     .where(PLAYER_SKILLINFO.UUID.equal(convertUUIDToBytes(uuid))))
-                	.execute();
+                .execute();
         } catch (DataAccessException | SQLException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
@@ -478,65 +507,65 @@ public abstract class DatabaseQueries {
     public static void deletePlayerSkills(Player p) {
         deletePlayerSkills(p.getUniqueId());
     }
-    
+
     public static void deletePlayerSkillsRecordSet(
-    		Stream<PlayerSkillDetails> skillInfo) {
+        Stream<PlayerSkillDetails> skillInfo) {
         try (
             Connection con = DB.getConnection()
         ) {
             DSLContext context = DB.getContext(con);
-            
+
             Collection<PlayerSkillinfoRecord> records = new ArrayList<PlayerSkillinfoRecord>();
 
-            skillInfo.forEach( psd -> psd.getSkillInfo()
-            		.forEach(psi -> records.add(
-            				new PlayerSkillinfoRecord(
-            						convertUUIDToBytes(psd.getP().getUniqueId()),
-            						psi.getKey()))));
+            skillInfo.forEach(psd -> psd.getSkillInfo()
+                .forEach(psi -> records.add(
+                    new PlayerSkillinfoRecord(
+                        convertUUIDToBytes(psd.getP().getUniqueId()),
+                        psi.getKey()))));
             context
                 .batchDelete(records).execute();
         } catch (DataAccessException | SQLException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
     }
-    
+
     public static void insertPlayerSkillsRecordSet(
-    		Stream<PlayerSkillDetails> skillInfo) {
+        Stream<PlayerSkillDetails> skillInfo) {
         try (
             Connection con = DB.getConnection()
         ) {
             DSLContext context = DB.getContext(con);
-            
+
             Collection<PlayerSkillinfoRecord> records = new ArrayList<PlayerSkillinfoRecord>();
 
-            skillInfo.forEach( psd -> psd.getSkillInfo()
-            		.forEach(psi -> records.add(
-            				new PlayerSkillinfoRecord(
-            						convertUUIDToBytes(psd.getP().getUniqueId()),
-            						psi.getKey()))));
+            skillInfo.forEach(psd -> psd.getSkillInfo()
+                .forEach(psi -> records.add(
+                    new PlayerSkillinfoRecord(
+                        convertUUIDToBytes(psd.getP().getUniqueId()),
+                        psi.getKey()))));
             context
                 .batchInsert(records).execute();
         } catch (DataAccessException | SQLException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
     }
-    
+
     public static void updatePlayerExperienceRecordSet(
-    		Stream<PlayerExperience> experienceInfo) {
+        Stream<PlayerExperience> experienceInfo) {
         try (
             Connection con = DB.getConnection()
         ) {
             DSLContext context = DB.getContext(con);
-            
+
             Collection<PlayerSkillcategoryinfoRecord> records = new ArrayList<PlayerSkillcategoryinfoRecord>();
 
-            experienceInfo.forEach( eo -> eo.getExperienceValues()
-            		.entrySet()
-            		.forEach(ev -> records.add(
-            				new PlayerSkillcategoryinfoRecord(
-            						convertUUIDToBytes(eo.getP().getUniqueId()),
-            						ev.getKey(),
-            						ev.getValue().doubleValue()))));
+            experienceInfo.forEach(eo -> eo.getExperienceValues()
+                .entrySet()
+                .forEach(ev -> records.add(
+                    new PlayerSkillcategoryinfoRecord(
+                        convertUUIDToBytes(eo.getP().getUniqueId()),
+                        ev.getKey(),
+                        ev.getValue().doubleValue()))));
             context
                 .batchUpdate(records).execute();
         } catch (DataAccessException | SQLException e) {
@@ -550,11 +579,10 @@ public abstract class DatabaseQueries {
      * @param uuid
      * @param id
      */
-
     public static void setLatestSkillUnlocked(UUID uuid, int id) {
         try (
             Connection con = DB.getConnection()
-            ) {
+        ) {
             DSLContext context = DB.getContext(con);
 
             context
@@ -582,11 +610,10 @@ public abstract class DatabaseQueries {
      * @param uuid
      * @return - skill ID, or -1 on fail/null.
      */
-
     public static int getLatestSkillUnlocked(UUID uuid) {
         try (
             Connection con = DB.getConnection()
-            ) {
+        ) {
             DSLContext context = DB.getContext(con);
 
             Record1<Integer> record = context
@@ -598,7 +625,7 @@ public abstract class DatabaseQueries {
             if (record == null || record.component1() == null) return 0;
 
             return record.component1();
-        }catch (SQLException | DataAccessException e) {
+        } catch (SQLException | DataAccessException e) {
             Logger.get().error("SQL Query threw an error!", e);
         }
         return 0;
@@ -616,7 +643,7 @@ public abstract class DatabaseQueries {
     public static void deleteLatestSkillUnlocked(UUID uuid) {
         try (
             Connection con = DB.getConnection()
-            ) {
+        ) {
             DSLContext context = DB.getContext(con);
 
             context
@@ -667,7 +694,7 @@ public abstract class DatabaseQueries {
     public static void saveResetCooldown(UUID uuid, Instant instant) {
         try (
             Connection con = DB.getConnection()
-            ) {
+        ) {
             DSLContext context = DB.getContext(con);
 
             context.insertInto(PLAYER_PLAYERDATA, PLAYER_PLAYERDATA.UUID, PLAYER_PLAYERDATA.COOLDOWN)
