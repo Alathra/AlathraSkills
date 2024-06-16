@@ -106,8 +106,9 @@ public class SkillsPlayerManager implements Reloadable {
                 playerExperienceValues.put(record.getValue(Tables.PLAYER_SKILLCATEGORYINFO.SKILLCATEGORYID), record.getValue(Tables.PLAYER_SKILLCATEGORYINFO.EXPERIENCE).floatValue());
             }
 
+            // If player has played before but DB is empty, give 10k EXP. Headstart to players that have played *before* the plugin launched.
             if (experienceResult.isEmpty()) {
-                playerExperienceValues.put(1, 0.f);
+                playerExperienceValues.put(1, 10000.f);
                 playerExperienceValues.put(2, 0.f);
                 playerExperienceValues.put(3, 0.f);
             }
