@@ -238,7 +238,7 @@ public class SkillsPlayerManager implements Reloadable {
 
     public static boolean playerHasMaxSkills(Player p) {
         SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
-        return currentPlayer.getTotalSkillsUnlocked() < Cfg.get().getInt("skills.maximumSkills");
+        return currentPlayer.getTotalSkillsUnlocked() >= Cfg.get().getInt("skills.maximumSkills");
     }
 
     private static SkillsPlayer fetchCurrPlayer(OfflinePlayer p) {
