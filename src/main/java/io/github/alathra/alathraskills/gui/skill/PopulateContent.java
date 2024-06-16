@@ -56,7 +56,7 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = skillsManager.woodcuttingSkills.get(i).getIcon();
+                        ItemStack icon = new ItemStack(skillsManager.woodcuttingSkills.get(i).getIcon());
                         ItemMeta iconMeta = icon.getItemMeta();
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -83,12 +83,12 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = skillsManager.woodcuttingSkills.get(i).getIcon();
+                        ItemStack icon = new ItemStack(skillsManager.woodcuttingSkills.get(i).getIcon());
                         ItemMeta iconMeta = icon.getItemMeta();
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                         icon.setItemMeta(iconMeta);
-                        gui.setItem(2, col, ItemBuilder.from(icon).asGuiItem());
+                        gui.setItem(3, col, ItemBuilder.from(icon).asGuiItem());
                     }
                     col++;
                 }
@@ -116,13 +116,13 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = skillsManager.woodcuttingSkills.get(i).getIcon();
+                        ItemStack icon = new ItemStack(skillsManager.woodcuttingSkills.get(i).getIcon());
                         ItemMeta iconMeta = icon.getItemMeta();
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                         icon.setItemMeta(iconMeta);
 
-                        int row = 2;
+                        int row;
                         if (i > 3200) {
                             row = 4;
                         } else {
@@ -160,7 +160,7 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = skillsManager.woodcuttingSkills.get(i).getIcon();
+                        ItemStack icon = new ItemStack(skillsManager.woodcuttingSkills.get(i).getIcon());
                         ItemMeta iconMeta = icon.getItemMeta();
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -205,7 +205,7 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = skillsManager.miningSkills.get(i).getIcon();
+                        ItemStack icon = new ItemStack(skillsManager.miningSkills.get(i).getIcon());
                         ItemMeta iconMeta = icon.getItemMeta();
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -232,12 +232,12 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = skillsManager.miningSkills.get(i).getIcon();
+                        ItemStack icon = new ItemStack(skillsManager.miningSkills.get(i).getIcon());
                         ItemMeta iconMeta = icon.getItemMeta();
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                         icon.setItemMeta(iconMeta);
-                        gui.setItem(2, col, ItemBuilder.from(icon).asGuiItem());
+                        gui.setItem(3, col, ItemBuilder.from(icon).asGuiItem());
                     }
                     col++;
                 }
@@ -265,7 +265,7 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = skillsManager.miningSkills.get(i).getIcon();
+                        ItemStack icon = new ItemStack(skillsManager.miningSkills.get(i).getIcon());
                         ItemMeta iconMeta = icon.getItemMeta();
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -309,7 +309,7 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = skillsManager.miningSkills.get(i).getIcon();
+                        ItemStack icon = new ItemStack(skillsManager.miningSkills.get(i).getIcon());
                         ItemMeta iconMeta = icon.getItemMeta();
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -354,7 +354,7 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = skillsManager.farmingSkills.get(i).getIcon();
+                        ItemStack icon = new ItemStack(skillsManager.farmingSkills.get(i).getIcon());
                         ItemMeta iconMeta = icon.getItemMeta();
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -382,7 +382,7 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = skillsManager.farmingSkills.get(i).getIcon();
+                        ItemStack icon = new ItemStack(skillsManager.farmingSkills.get(i).getIcon());
                         ItemMeta iconMeta = icon.getItemMeta();
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -415,7 +415,7 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = skillsManager.farmingSkills.get(i).getIcon();
+                        ItemStack icon = new ItemStack(skillsManager.farmingSkills.get(i).getIcon());
                         ItemMeta iconMeta = icon.getItemMeta();
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -459,7 +459,7 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = skillsManager.farmingSkills.get(i).getIcon();
+                        ItemStack icon = new ItemStack(skillsManager.farmingSkills.get(i).getIcon());
                         ItemMeta iconMeta = icon.getItemMeta();
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
