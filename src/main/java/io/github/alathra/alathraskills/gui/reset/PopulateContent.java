@@ -99,7 +99,7 @@ public class PopulateContent {
 
             gui.setItem(2, 7, ItemBuilder.from(latestSkill).asGuiItem(event -> player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.AMBIENT, 1, 1)));
         } else {
-            latestSkill = skillsManager.getSkill(latestSkillId).getIcon();
+            latestSkill = new ItemStack(skillsManager.getSkill(latestSkillId).getIcon());
             ItemMeta latestSkillMeta = latestSkill.getItemMeta();
             Component displayName = latestSkillMeta.displayName();
             latestSkillMeta.displayName(ColorParser.of("<green><bold>Refund: ").build().append(displayName));
