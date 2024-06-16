@@ -96,8 +96,7 @@ public class SkillsPlayer {
         return playerSkills
             .keySet()
             .stream()
-            .filter(key -> !playerSkills.get(key).isSelected()
-                || !playerSkills.get(key).isExistingSkill())
+            .filter(key -> !playerSkills.get(key).isSelected())
             .toList();
     }
 
@@ -112,8 +111,7 @@ public class SkillsPlayer {
         return playerSkills
             .keySet()
             .stream()
-            .filter(key -> playerSkills.get(key).isSelected()
-                && playerSkills.get(key).isExistingSkill())
+            .filter(key -> playerSkills.get(key).isSelected())
             .toList();
 	}
 

@@ -175,7 +175,7 @@ public abstract class DatabaseQueries {
             Collection<PlayerSkillinfoRecord> addedSkills = new ArrayList<>();
 
             skillsToDelete.forEach(skill -> deletedSkills.add(new PlayerSkillinfoRecord(uuid, skill)));
-            skillsToInsert.forEach(skill -> deletedSkills.add(new PlayerSkillinfoRecord(uuid, skill)));
+            skillsToInsert.forEach(skill -> addedSkills.add(new PlayerSkillinfoRecord(uuid, skill)));
 
             context.batchDelete(deletedSkills).execute();
 
