@@ -3,6 +3,7 @@ package io.github.alathra.alathraskills.skills.woodcutting.util;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
 import org.bukkit.Material;
+import org.bukkit.SoundCategory;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -40,7 +41,7 @@ public class SaveTheTrees {
         new BukkitRunnable() {
             public void run() {
                 block.setType(sapling);
-                block.getWorld().playSound(block.getLocation(), block.getBlockSoundGroup().getPlaceSound(), 1.0f, 1.0f);
+                block.getWorld().playSound(block.getLocation(), block.getBlockSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
             }
         }.runTaskLater(AlathraSkills.getInstance(), 2);
     }
