@@ -55,7 +55,7 @@ public class GuiHelper {
 
         Gui gui;
         gui = Gui.gui()
-            .rows(5)
+            .rows(6)
             .title(ColorParser.of("<white>" + skillCategoryString).build())
             .disableItemDrop()
             .disableItemPlace()

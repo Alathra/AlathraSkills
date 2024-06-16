@@ -21,7 +21,7 @@ import java.util.Collections;
 
 public class PopulateButtons {
 
-    static SkillsManager skillsManager = AlathraSkills.getSkillsManager();
+    static AlathraSkills instance = AlathraSkills.getInstance();
 
     public static void populateButtons(Gui gui, Player player, int skillCategoryId, int page) {
 
@@ -77,26 +77,29 @@ public class PopulateButtons {
 
         switch (page) {
             case 1 -> {
-                gui.getFiller().fillBetweenPoints(4, 1, 4, 9, ItemBuilder.from(border).asGuiItem());
-                gui.setItem(5, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
-                gui.setItem(5, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
-                gui.setItem(5, 6, ItemBuilder.from(nextStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 3, page + 1)));
-                gui.setItem(5, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
+                gui.getFiller().fill(ItemBuilder.from(border).asGuiItem());
+
+                gui.setItem(6, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(6, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
+                gui.setItem(6, 6, ItemBuilder.from(nextStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 3, page + 1)));
+                gui.setItem(6, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
             }
-            case 2 -> {
-                gui.getFiller().fillBetweenPoints(4, 1, 4, 9, ItemBuilder.from(border).asGuiItem());
-                gui.setItem(5, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
-                gui.setItem(5, 4, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 3, page - 1)));
-                gui.setItem(5, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
-                gui.setItem(5, 6, ItemBuilder.from(nextStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 3, page + 1)));
-                gui.setItem(5, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
+            case 2, 3 -> {
+                gui.getFiller().fill(ItemBuilder.from(border).asGuiItem());
+
+                gui.setItem(6, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(6, 4, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 3, page - 1)));
+                gui.setItem(6, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
+                gui.setItem(6, 6, ItemBuilder.from(nextStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 3, page + 1)));
+                gui.setItem(6, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
             }
-            case 3 -> {
-                gui.getFiller().fillBetweenPoints(4, 1, 4, 9, ItemBuilder.from(border).asGuiItem());
-                gui.setItem(5, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
-                gui.setItem(5, 4, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 3, page - 1)));
-                gui.setItem(5, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
-                gui.setItem(5, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
+            case 4 -> {
+                gui.getFiller().fill(ItemBuilder.from(border).asGuiItem());
+
+                gui.setItem(6, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(6, 4, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 3, page - 1)));
+                gui.setItem(6, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
+                gui.setItem(6, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
             }
         }
     }
@@ -135,26 +138,29 @@ public class PopulateButtons {
 
         switch (page) {
             case 1 -> {
-                gui.getFiller().fillBetweenPoints(4, 1, 4, 9, ItemBuilder.from(border).asGuiItem());
-                gui.setItem(5, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
-                gui.setItem(5, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
-                gui.setItem(5, 6, ItemBuilder.from(nextStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 2, page + 1)));
-                gui.setItem(5, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
+                gui.getFiller().fill(ItemBuilder.from(border).asGuiItem());
+
+                gui.setItem(6, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(6, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
+                gui.setItem(6, 6, ItemBuilder.from(nextStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 2, page + 1)));
+                gui.setItem(6, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
             }
-            case 2 -> {
-                gui.getFiller().fillBetweenPoints(4, 1, 4, 9, ItemBuilder.from(border).asGuiItem());
-                gui.setItem(5, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
-                gui.setItem(5, 4, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 2, page - 1)));
-                gui.setItem(5, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
-                gui.setItem(5, 6, ItemBuilder.from(nextStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 2, page + 1)));
-                gui.setItem(5, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
+            case 2, 3 -> {
+                gui.getFiller().fill(ItemBuilder.from(border).asGuiItem());
+
+                gui.setItem(6, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(6, 4, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 2, page - 1)));
+                gui.setItem(6, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
+                gui.setItem(6, 6, ItemBuilder.from(nextStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 2, page + 1)));
+                gui.setItem(6, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
             }
-            case 3 -> {
-                gui.getFiller().fillBetweenPoints(4, 1, 4, 9, ItemBuilder.from(border).asGuiItem());
-                gui.setItem(5, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
-                gui.setItem(5, 4, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 2, page - 1)));
-                gui.setItem(5, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
-                gui.setItem(5, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
+            case 4 -> {
+                gui.getFiller().fill(ItemBuilder.from(border).asGuiItem());
+
+                gui.setItem(6, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(6, 4, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 2, page - 1)));
+                gui.setItem(6, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
+                gui.setItem(6, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
             }
         }
     }
@@ -193,26 +199,29 @@ public class PopulateButtons {
 
         switch (page) {
             case 1 -> {
-                gui.getFiller().fillBetweenPoints(4, 1, 4, 9, ItemBuilder.from(border).asGuiItem());
-                gui.setItem(5, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
-                gui.setItem(5, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
-                gui.setItem(5, 6, ItemBuilder.from(nextStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 1, page + 1)));
-                gui.setItem(5, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
+                gui.getFiller().fill(ItemBuilder.from(border).asGuiItem());
+
+                gui.setItem(6, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(6, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
+                gui.setItem(6, 6, ItemBuilder.from(nextStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 1, page + 1)));
+                gui.setItem(6, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
             }
-            case 2 -> {
-                gui.getFiller().fillBetweenPoints(4, 1, 4, 9, ItemBuilder.from(border).asGuiItem());
-                gui.setItem(5, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
-                gui.setItem(5, 4, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 1, page - 1)));
-                gui.setItem(5, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
-                gui.setItem(5, 6, ItemBuilder.from(nextStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 1, page + 1)));
-                gui.setItem(5, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
+            case 2, 3 -> {
+                gui.getFiller().fill(ItemBuilder.from(border).asGuiItem());
+
+                gui.setItem(6, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(6, 4, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 1, page - 1)));
+                gui.setItem(6, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
+                gui.setItem(6, 6, ItemBuilder.from(nextStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 1, page + 1)));
+                gui.setItem(6, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
             }
-            case 3 -> {
-                gui.getFiller().fillBetweenPoints(4, 1, 4, 9, ItemBuilder.from(border).asGuiItem());
-                gui.setItem(5, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
-                gui.setItem(5, 4, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 1, page - 1)));
-                gui.setItem(5, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
-                gui.setItem(5, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
+            case 4 -> {
+                gui.getFiller().fill(ItemBuilder.from(border).asGuiItem());
+
+                gui.setItem(6, 1, ItemBuilder.from(openSkillTrees).asGuiItem(event -> GuiHelper.openSkillCategoryGui(player)));
+                gui.setItem(6, 4, ItemBuilder.from(returnStack).asGuiItem(event -> GuiHelper.openSkillGui(player, 1, page - 1)));
+                gui.setItem(6, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
+                gui.setItem(6, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
             }
         }
     }
