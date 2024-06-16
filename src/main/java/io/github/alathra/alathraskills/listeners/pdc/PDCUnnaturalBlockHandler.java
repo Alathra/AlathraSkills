@@ -28,6 +28,7 @@ public class PDCUnnaturalBlockHandler implements Listener {
             return;
         }
         PDCUtil.clearUnnatural(event.getBlock());
+        PDCUtil.clearPluginPlaced(event.getBlock());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

@@ -76,11 +76,11 @@ public class WoodcuttingSkillsListener implements Listener {
                 }
                 i++;
             }
-        }
 
-        if (Tag.DIRT.isTagged(block.getRelative(BlockFace.DOWN).getType())) {
-            if (!skillsPlayer.playerHasSkill(301)) return;
-            SaveTheTrees.run(block, player);
+            if (Tag.DIRT.isTagged(block.getRelative(BlockFace.DOWN).getType())) {
+                if (!skillsPlayer.playerHasSkill(301)) return;
+                SaveTheTrees.run(block, player);
+            }
         }
 
     }

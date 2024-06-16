@@ -2,6 +2,7 @@ package io.github.alathra.alathraskills.skills.woodcutting.util;
 
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
+import io.github.alathra.alathraskills.utility.PDCUtil;
 import org.bukkit.Material;
 import org.bukkit.SoundCategory;
 import org.bukkit.block.Block;
@@ -35,13 +36,14 @@ public class SaveTheTrees {
         placeSapling(sapling, block);
 
     }
-
+// TODO assign PDC and listen for said PDC on break
     public static void placeSapling(Material sapling, Block block) {
         // Place sapling
         new BukkitRunnable() {
             public void run() {
                 block.setType(sapling);
                 block.getWorld().playSound(block.getLocation(), block.getBlockSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
+                PDCUtil.setPluginPlaced(block, true);
             }
         }.runTaskLater(AlathraSkills.getInstance(), 2);
     }
