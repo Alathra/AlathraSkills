@@ -58,7 +58,7 @@ dependencies {
     }
     implementation("com.github.milkdrinkers:customblockdata:1.0.0")
 
-    implementation("dev.jorel:commandapi-bukkit-shade:9.3.0")
+    implementation("dev.jorel:commandapi-bukkit-shade:9.5.0")
 
     implementation("dev.triumphteam:triumph-gui:3.1.7") {
         exclude("net.kyori")
