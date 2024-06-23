@@ -34,7 +34,7 @@ public class PopulateContent {
 
         ItemStack resetCost;
 
-        if (skillsPlayer.isOnCooldown()) {
+        if (!skillsPlayer.isOnCooldown()) {
             long cooldownRemaining = Duration.between(Instant.now(), skillsPlayer.getCooldown()).getSeconds();
             long hours = TimeUnit.SECONDS.toHours(cooldownRemaining);
             long minutes = TimeUnit.SECONDS.toMinutes(cooldownRemaining) - (TimeUnit.SECONDS.toHours(cooldownRemaining) * 60);
@@ -46,14 +46,14 @@ public class PopulateContent {
             else if (minutes > 0) cooldownString = "approx. " + minutes + " minutes";
             else cooldownString = "less than a minute";
 
-            resetFree = new ItemStack(Material.REDSTONE_BLOCK);
+            resetFree = new ItemStack(Material.EMERALD_BLOCK);
             ItemMeta resetFreeMeta = resetFree.getItemMeta();
             resetFreeMeta.displayName(ColorParser.of("<red><bold>Reset progress").build());
             resetFreeMeta.lore(List.of(ColorParser.of("<green>Cost: Free").build(),
                 ColorParser.of("<red>Remaining cooldown: " + cooldownString).build()));
             resetFree.setItemMeta(resetFreeMeta);
 
-            resetCost = new ItemStack(Material.REDSTONE_BLOCK);
+            resetCost = new ItemStack(Material.EMERALD_BLOCK);
             ItemMeta resetCostMeta = resetCost.getItemMeta();
             resetCostMeta.displayName(ColorParser.of("<red><bold>Reset progress").build());
             resetCostMeta.lore(List.of(ColorParser.of("<green>Cost: $15,000").build(),
@@ -63,7 +63,7 @@ public class PopulateContent {
             gui.setItem(2, 3, ItemBuilder.from(resetFree).asGuiItem(event -> GuiHelper.openResetProgressFreeConfirmGui(player)));
             gui.setItem(2, 5, ItemBuilder.from(resetCost).asGuiItem(event -> GuiHelper.openResetProgressConfirmGui(player, 15000, 0.25f)));
         } else {
-            resetFree = new ItemStack(Material.EMERALD_BLOCK);
+            resetFree = new ItemStack(Material.REDSTONE_BLOCK);
             ItemMeta resetFreeMeta = resetFree.getItemMeta();
             resetFreeMeta.displayName(ColorParser.of("<green><bold>Reset progress").build());
             resetFreeMeta.lore(List.of(ColorParser.of("<green>Cost: Free").build(),
@@ -71,7 +71,7 @@ public class PopulateContent {
                 ColorParser.of("<dark_red>This action is permanent and cannot be undone.").build()));
             resetFree.setItemMeta(resetFreeMeta);
 
-            resetCost = new ItemStack(Material.EMERALD_BLOCK);
+            resetCost = new ItemStack(Material.REDSTONE_BLOCK);
             ItemMeta resetCostMeta = resetCost.getItemMeta();
             resetCostMeta.displayName(ColorParser.of("<green><bold>Reset progress").build());
             resetCostMeta.lore(List.of(ColorParser.of("<green>Cost: $15,000").build(),

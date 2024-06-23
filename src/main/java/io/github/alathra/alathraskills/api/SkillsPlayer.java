@@ -189,7 +189,7 @@ public class SkillsPlayer {
         this.setExperience(3, this.getSkillCategoryExperience(3) * expRetained);
         this.clearLatestSkillUnlocked();
         this.setCooldown(Instant.now().plusSeconds(Cfg.get().getLong("skills.resetCooldown")));
-        if (AlathraSkills.getVaultHook().isVaultLoaded())
+        if (AlathraSkills.getVaultHook().isVaultLoaded() && cost > 0)
             AlathraSkills.getVaultHook().getEconomy().withdrawPlayer(this.p, cost);
         return true;
     }
