@@ -1,11 +1,13 @@
 package io.github.alathra.alathraskills.gui.skill;
 
+import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.gui.GuiHelper;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -56,10 +58,16 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = new ItemStack(skillsManager.woodcuttingSkills.get(i).getIcon());
+                        ItemStack originalIcon = skillsManager.woodcuttingSkills.get(i).getIcon();
+                        ItemMeta originalIconMeta = originalIcon.getItemMeta();
+
+                        ItemStack icon = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
                         ItemMeta iconMeta = icon.getItemMeta();
+
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                        iconMeta.displayName(ColorParser.of("<green><bold>Unlocked: ").build().append(originalIconMeta.displayName()));
+                        iconMeta.lore(originalIconMeta.lore());
                         icon.setItemMeta(iconMeta);
                         gui.setItem(3, col, ItemBuilder.from(icon).asGuiItem());
                     }
@@ -83,10 +91,16 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = new ItemStack(skillsManager.woodcuttingSkills.get(i).getIcon());
+                        ItemStack originalIcon = skillsManager.woodcuttingSkills.get(i).getIcon();
+                        ItemMeta originalIconMeta = originalIcon.getItemMeta();
+
+                        ItemStack icon = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
                         ItemMeta iconMeta = icon.getItemMeta();
+
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                        iconMeta.displayName(ColorParser.of("<green><bold>Unlocked: ").build().append(originalIconMeta.displayName()));
+                        iconMeta.lore(originalIconMeta.lore());
                         icon.setItemMeta(iconMeta);
                         gui.setItem(3, col, ItemBuilder.from(icon).asGuiItem());
                     }
@@ -116,10 +130,16 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = new ItemStack(skillsManager.woodcuttingSkills.get(i).getIcon());
+                        ItemStack originalIcon = skillsManager.woodcuttingSkills.get(i).getIcon();
+                        ItemMeta originalIconMeta = originalIcon.getItemMeta();
+
+                        ItemStack icon = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
                         ItemMeta iconMeta = icon.getItemMeta();
+
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                        iconMeta.displayName(ColorParser.of("<green><bold>Unlocked: ").build().append(originalIconMeta.displayName()));
+                        iconMeta.lore(originalIconMeta.lore());
                         icon.setItemMeta(iconMeta);
 
                         int row;
@@ -160,10 +180,16 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = new ItemStack(skillsManager.woodcuttingSkills.get(i).getIcon());
+                        ItemStack originalIcon = skillsManager.woodcuttingSkills.get(i).getIcon();
+                        ItemMeta originalIconMeta = originalIcon.getItemMeta();
+
+                        ItemStack icon = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
                         ItemMeta iconMeta = icon.getItemMeta();
+
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                        iconMeta.displayName(ColorParser.of("<green><bold>Unlocked: ").build().append(originalIconMeta.displayName()));
+                        iconMeta.lore(originalIconMeta.lore());
                         icon.setItemMeta(iconMeta);
 
                         int row;
@@ -205,10 +231,16 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = new ItemStack(skillsManager.miningSkills.get(i).getIcon());
+                        ItemStack originalIcon = skillsManager.miningSkills.get(i).getIcon();
+                        ItemMeta originalIconMeta = originalIcon.getItemMeta();
+
+                        ItemStack icon = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
                         ItemMeta iconMeta = icon.getItemMeta();
+
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                        iconMeta.displayName(ColorParser.of("<green><bold>Unlocked: ").build().append(originalIconMeta.displayName()));
+                        iconMeta.lore(originalIconMeta.lore());
                         icon.setItemMeta(iconMeta);
                         gui.setItem(3, col, ItemBuilder.from(icon).asGuiItem());
                     }
@@ -232,10 +264,16 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = new ItemStack(skillsManager.miningSkills.get(i).getIcon());
+                        ItemStack originalIcon = skillsManager.miningSkills.get(i).getIcon();
+                        ItemMeta originalIconMeta = originalIcon.getItemMeta();
+
+                        ItemStack icon = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
                         ItemMeta iconMeta = icon.getItemMeta();
+
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                        iconMeta.displayName(ColorParser.of("<green><bold>Unlocked: ").build().append(originalIconMeta.displayName()));
+                        iconMeta.lore(originalIconMeta.lore());
                         icon.setItemMeta(iconMeta);
                         gui.setItem(3, col, ItemBuilder.from(icon).asGuiItem());
                     }
@@ -265,10 +303,16 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = new ItemStack(skillsManager.miningSkills.get(i).getIcon());
+                        ItemStack originalIcon = skillsManager.miningSkills.get(i).getIcon();
+                        ItemMeta originalIconMeta = originalIcon.getItemMeta();
+
+                        ItemStack icon = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
                         ItemMeta iconMeta = icon.getItemMeta();
+
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                        iconMeta.displayName(ColorParser.of("<green><bold>Unlocked: ").build().append(originalIconMeta.displayName()));
+                        iconMeta.lore(originalIconMeta.lore());
                         icon.setItemMeta(iconMeta);
 
                         int row;
@@ -309,10 +353,16 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = new ItemStack(skillsManager.miningSkills.get(i).getIcon());
+                        ItemStack originalIcon = skillsManager.miningSkills.get(i).getIcon();
+                        ItemMeta originalIconMeta = originalIcon.getItemMeta();
+
+                        ItemStack icon = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
                         ItemMeta iconMeta = icon.getItemMeta();
+
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                        iconMeta.displayName(ColorParser.of("<green><bold>Unlocked: ").build().append(originalIconMeta.displayName()));
+                        iconMeta.lore(originalIconMeta.lore());
                         icon.setItemMeta(iconMeta);
 
                         int row;
@@ -354,10 +404,16 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = new ItemStack(skillsManager.farmingSkills.get(i).getIcon());
+                        ItemStack originalIcon = skillsManager.farmingSkills.get(i).getIcon();
+                        ItemMeta originalIconMeta = originalIcon.getItemMeta();
+
+                        ItemStack icon = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
                         ItemMeta iconMeta = icon.getItemMeta();
+
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                        iconMeta.displayName(ColorParser.of("<green><bold>Unlocked: ").build().append(originalIconMeta.displayName()));
+                        iconMeta.lore(originalIconMeta.lore());
                         icon.setItemMeta(iconMeta);
                         gui.setItem(3, col, ItemBuilder.from(icon).asGuiItem());
                     }
@@ -382,10 +438,16 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = new ItemStack(skillsManager.farmingSkills.get(i).getIcon());
+                        ItemStack originalIcon = skillsManager.farmingSkills.get(i).getIcon();
+                        ItemMeta originalIconMeta = originalIcon.getItemMeta();
+
+                        ItemStack icon = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
                         ItemMeta iconMeta = icon.getItemMeta();
+
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                        iconMeta.displayName(ColorParser.of("<green><bold>Unlocked: ").build().append(originalIconMeta.displayName()));
+                        iconMeta.lore(originalIconMeta.lore());
                         icon.setItemMeta(iconMeta);
                         gui.setItem(3, col, ItemBuilder.from(icon).asGuiItem());
                     }
@@ -415,10 +477,16 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = new ItemStack(skillsManager.farmingSkills.get(i).getIcon());
+                        ItemStack originalIcon = skillsManager.farmingSkills.get(i).getIcon();
+                        ItemMeta originalIconMeta = originalIcon.getItemMeta();
+
+                        ItemStack icon = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
                         ItemMeta iconMeta = icon.getItemMeta();
+
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                        iconMeta.displayName(ColorParser.of("<green><bold>Unlocked: ").build().append(originalIconMeta.displayName()));
+                        iconMeta.lore(originalIconMeta.lore());
                         icon.setItemMeta(iconMeta);
 
                         int row;
@@ -459,10 +527,16 @@ public class PopulateContent {
                 int col = 3;
                 for (int i : ids) {
                     if (hasSkill.get(i)) {
-                        ItemStack icon = new ItemStack(skillsManager.farmingSkills.get(i).getIcon());
+                        ItemStack originalIcon = skillsManager.farmingSkills.get(i).getIcon();
+                        ItemMeta originalIconMeta = originalIcon.getItemMeta();
+
+                        ItemStack icon = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
                         ItemMeta iconMeta = icon.getItemMeta();
+
                         iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                         iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                        iconMeta.displayName(ColorParser.of("<green><bold>Unlocked: ").build().append(originalIconMeta.displayName()));
+                        iconMeta.lore(originalIconMeta.lore());
                         icon.setItemMeta(iconMeta);
 
                         int row;
