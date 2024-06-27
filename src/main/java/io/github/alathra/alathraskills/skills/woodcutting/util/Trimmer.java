@@ -2,6 +2,8 @@ package io.github.alathra.alathraskills.skills.woodcutting.util;
 
 import io.github.alathra.alathraskills.utility.Cfg;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -16,6 +18,7 @@ public class Trimmer {
         }
 
         event.setInstaBreak(true);
+        event.getBlock().getWorld().playSound(event.getBlock().getLocation(), Sound.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f);
 
         if (Math.random() > getChance(skillLevel))
             return;
