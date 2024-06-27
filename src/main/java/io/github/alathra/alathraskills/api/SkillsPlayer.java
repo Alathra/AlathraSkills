@@ -133,6 +133,10 @@ public class SkillsPlayer {
         this.usedSkillPoints += addedPoints;
     }
 
+    public void clearUsedSkillPoints() {
+        this.usedSkillPoints = 0;
+    }
+
     public int getTotalSkillsUnlocked() {
         return totalSkillsUnlocked;
     }
@@ -188,6 +192,7 @@ public class SkillsPlayer {
         this.setExperience(2, this.getSkillCategoryExperience(2) * expRetained);
         this.setExperience(3, this.getSkillCategoryExperience(3) * expRetained);
         this.clearLatestSkillUnlocked();
+        this.clearUsedSkillPoints();
         this.setCooldown(Instant.now().plusSeconds(Cfg.get().getLong("skills.resetCooldown")));
         if (AlathraSkills.getVaultHook().isVaultLoaded() && cost > 0)
             AlathraSkills.getVaultHook().getEconomy().withdrawPlayer(this.p, cost);
