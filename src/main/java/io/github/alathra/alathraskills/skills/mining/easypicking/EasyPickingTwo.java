@@ -17,7 +17,7 @@ public class EasyPickingTwo extends Skill {
     public EasyPickingTwo(int id, int cost) {
         super(id, "Easy Picking 2", "When you activate your pickaxe your mining speed greatly increases.", cost);
 
-        ItemStack icon = new ItemStack(Material.IRON_HELMET);
+        ItemStack icon = new ItemStack(Material.GOLDEN_PICKAXE, 2);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of("<dark_aqua><bold>" + super.getName() + "</dark_aqua>").build());
         meta.lore(List.of(ColorParser.of("<yellow>Level 10</yellow>").build(),
