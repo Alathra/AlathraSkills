@@ -31,7 +31,7 @@ public class WideSpread {
                         break;
                 }
             }
-        }.runTaskLaterAsynchronously(AlathraSkills.getInstance(), 2);
+        }.runTaskLater(AlathraSkills.getInstance(), 2);
 
     }
 
@@ -59,6 +59,7 @@ public class WideSpread {
         // place a crop of age 0 (no growth)
         Ageable ageableBlock = (Ageable) crop.createBlockData();
         ageableBlock.setAge(0);
+        block.setType(crop);
         block.setBlockData(ageableBlock);
     }
 
