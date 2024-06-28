@@ -93,7 +93,7 @@ public class MiningSkillsListener implements Listener {
             i = 0;
             for (boolean hasSkill : veinBreaker) {
                 if (hasSkill) {
-                    VeinBreaker.run(block, player, OreInTheRough.MAX_LEVEL - i);
+                    VeinBreaker.run(block, player, VeinBreaker.MAX_LEVEL - i);
                     break;
                 }
                 i++;
