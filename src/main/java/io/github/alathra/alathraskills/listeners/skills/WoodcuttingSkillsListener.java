@@ -42,43 +42,48 @@ public class WoodcuttingSkillsListener implements Listener {
             return;
 
         if (Tag.LOGS.isTagged(block.getType())) {
-            boolean[] preciseChop = new boolean[SkillsManager.preciseChopIds.length];
-            boolean[] oneSwing = new boolean[SkillsManager.oneSwingIds.length];
-
             int i = 0;
+            if (skillsPlayer.isSkillEnabled(SkillsManager.preciseChopIds[0])) {
+                boolean[] preciseChop = new boolean[SkillsManager.preciseChopIds.length];
 
-            for (int id : SkillsManager.preciseChopIds) {
-                preciseChop[i] = skillsPlayer.playerHasSkill(id);
-                i++;
-            }
-
-            i = 0;
-
-            for (int id : SkillsManager.oneSwingIds) {
-                oneSwing[i] = skillsPlayer.playerHasSkill(id);
-                i++;
-            }
-
-            i = 0;
-            for (boolean hasSkill : preciseChop) {
-                if (hasSkill) {
-                    PreciseChop.run(block, PreciseChop.MAX_LEVEL - i);
-                    break;
+                for (int id : SkillsManager.preciseChopIds) {
+                    preciseChop[i] = skillsPlayer.playerHasSkill(id);
+                    i++;
                 }
-                i++;
+
+                i = 0;
+                for (boolean hasSkill : preciseChop) {
+                    if (hasSkill) {
+                        PreciseChop.run(block, PreciseChop.MAX_LEVEL - i);
+                        break;
+                    }
+                    i++;
+                }
             }
 
-            i = 0;
-            for (boolean hasSkill : oneSwing) {
-                if (hasSkill) {
-                    OneSwing.run(player, block, OneSwing.MAX_LEVEL - i);
-                    break;
+            if (skillsPlayer.isSkillEnabled(SkillsManager.oneSwingIds[0])) {
+                boolean[] oneSwing = new boolean[SkillsManager.oneSwingIds.length];
+
+                i = 0;
+
+                for (int id : SkillsManager.oneSwingIds) {
+                    oneSwing[i] = skillsPlayer.playerHasSkill(id);
+                    i++;
                 }
-                i++;
+
+                i = 0;
+                for (boolean hasSkill : oneSwing) {
+                    if (hasSkill) {
+                        OneSwing.run(player, block, OneSwing.MAX_LEVEL - i);
+                        break;
+                    }
+                    i++;
+                }
             }
 
             if (Tag.DIRT.isTagged(block.getRelative(BlockFace.DOWN).getType())) {
                 if (!skillsPlayer.playerHasSkill(301)) return;
+                if (!skillsPlayer.isSkillEnabled(SkillsManager.saveTheTreesId)) return;
                 SaveTheTrees.run(block, player);
             }
         }
@@ -110,21 +115,23 @@ public class WoodcuttingSkillsListener implements Listener {
         if (skillsPlayer == null)
             return;
 
-        boolean[] trimmer = new boolean[SkillsManager.trimmerIds.length];
+        if (skillsPlayer.isSkillEnabled(SkillsManager.trimmerIds[0])) {
+            boolean[] trimmer = new boolean[SkillsManager.trimmerIds.length];
 
-        int i = 0;
+            int i = 0;
 
-        for (int id : SkillsManager.trimmerIds) {
-            trimmer[i] = skillsPlayer.playerHasSkill(id);
-            i++;
-        }
-
-        for (boolean hasSkill : trimmer) {
-            if (hasSkill) {
-                Trimmer.run(event, Trimmer.MAX_LEVEL - i);
-                break;
+            for (int id : SkillsManager.trimmerIds) {
+                trimmer[i] = skillsPlayer.playerHasSkill(id);
+                i++;
             }
-            i++;
+
+            for (boolean hasSkill : trimmer) {
+                if (hasSkill) {
+                    Trimmer.run(event, Trimmer.MAX_LEVEL - i);
+                    break;
+                }
+                i++;
+            }
         }
     }
 
@@ -206,26 +213,28 @@ public class WoodcuttingSkillsListener implements Listener {
             return;
         }
 
-        boolean[] oneWithTheForest = new boolean[SkillsManager.oneWithTheForestIds.length];
 
         SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
         if (skillsPlayer == null)
             return;
 
-        int i = 0;
-        for (int id : SkillsManager.oneWithTheForestIds) {
-            oneWithTheForest[i] = skillsPlayer.playerHasSkill(id);
-            i++;
-        }
+        if (skillsPlayer.isSkillEnabled(SkillsManager.oneWithTheForestIds[0])) {
+            boolean[] oneWithTheForest = new boolean[SkillsManager.oneWithTheForestIds.length];
 
-        i = 0;
-        for (boolean hasSkill : oneWithTheForest) {
-            if (hasSkill) {
-                OneWithTheForest.run(event, OneWithTheForest.MAX_LEVEL - i);
-                break;
+            int i = 0;
+            for (int id : SkillsManager.oneWithTheForestIds) {
+                oneWithTheForest[i] = skillsPlayer.playerHasSkill(id);
+                i++;
             }
-            i++;
+
+            i = 0;
+            for (boolean hasSkill : oneWithTheForest) {
+                if (hasSkill) {
+                    OneWithTheForest.run(event, OneWithTheForest.MAX_LEVEL - i);
+                    break;
+                }
+                i++;
+            }
         }
     }
-
 }

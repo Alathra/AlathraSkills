@@ -2,6 +2,7 @@ package io.github.alathra.alathraskills.gui;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.triumphteam.gui.guis.Gui;
+import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.Skill;
 import org.bukkit.Sound;
@@ -86,6 +87,19 @@ public class GuiHelper {
         return gui;
     }
 
+    public static Gui buildDisableGui() {
+        Gui gui;
+        gui = Gui.gui()
+            .rows(6)
+            .title(ColorParser.of("<white>Disable passive skills").build())
+            .disableItemDrop()
+            .disableItemPlace()
+            .disableItemSwap()
+            .disableItemTake()
+            .create();
+        return gui;
+    }
+
     public static void openMainGui(Player player) {
         Gui gui = buildGui(GuiType.MAIN);
         populateMainGui(gui, player);
@@ -138,6 +152,21 @@ public class GuiHelper {
         gui.open(player);
     }
 
+    public static void openDisableSkillGui(Player player) {
+        Gui gui = buildDisableGui();
+        populateDisableGui(gui, player);
+        gui.open(player);
+    }
+
+    public static void toggleSkillEnabled(Gui gui, Player player, SkillsPlayer sp, int id) {
+        if (sp.isSkillEnabled(id))
+            sp.disableSkill(id);
+        else
+            sp.enableSkill(id);
+
+        openDisableSkillGui(player);
+    }
+
     public static void populateMainGui(Gui gui, Player player) {
         io.github.alathra.alathraskills.gui.main.PopulateContent.populateContent(gui, player);
     }
@@ -171,6 +200,11 @@ public class GuiHelper {
 
     public static void populateRefundSkillGui(Gui gui, Player player, Skill skill) {
         io.github.alathra.alathraskills.gui.reset.confirm.PopulateContent.populateRefundSkillContent(gui, player, skill);
+    }
+
+    public static void populateDisableGui(Gui gui, Player player) {
+        io.github.alathra.alathraskills.gui.disable.PopulateButtons.populateButtons(gui, player);
+        io.github.alathra.alathraskills.gui.disable.PopulateContent.populateContent(gui, player);
     }
 
     public enum GuiType {

@@ -47,20 +47,22 @@ public class MiningSkillsListener implements Listener {
 
         // ORE IN THE ROUGH SKILL
         if (MiningData.getNaturalStoneBlocks().contains(material)) {
-            boolean[] oreInTheRough = new boolean[SkillsManager.oreInTheRoughIds.length];
+            if (skillsPlayer.isSkillEnabled(SkillsManager.oreInTheRoughIds[0])) {
+                boolean[] oreInTheRough = new boolean[SkillsManager.oreInTheRoughIds.length];
 
-            for (int id : SkillsManager.oreInTheRoughIds) {
-                oreInTheRough[i] = skillsPlayer.playerHasSkill(id);
-                i++;
-            }
-
-            i = 0;
-            for (boolean hasSkill : oreInTheRough) {
-                if (hasSkill) {
-                    OreInTheRough.run(block, OreInTheRough.MAX_LEVEL - i);
-                    break;
+                for (int id : SkillsManager.oreInTheRoughIds) {
+                    oreInTheRough[i] = skillsPlayer.playerHasSkill(id);
+                    i++;
                 }
-                i++;
+
+                i = 0;
+                for (boolean hasSkill : oreInTheRough) {
+                    if (hasSkill) {
+                        OreInTheRough.run(block, OreInTheRough.MAX_LEVEL - i);
+                        break;
+                    }
+                    i++;
+                }
             }
         }
 
@@ -69,34 +71,38 @@ public class MiningSkillsListener implements Listener {
             boolean[] proudProspector = new boolean[SkillsManager.proudProspectorIds.length];
             boolean[] veinBreaker = new boolean[SkillsManager.veinBreakerIds.length];
 
-            i = 0;
-            for (int id : SkillsManager.proudProspectorIds) {
-                proudProspector[i] = skillsPlayer.playerHasSkill(id);
-                i++;
-            }
-
-            i = 0;
-            for (int id : SkillsManager.veinBreakerIds) {
-                veinBreaker[i] = skillsPlayer.playerHasSkill(id);
-                i++;
-            }
-
-            i = 0;
-            for (boolean hasSkill : proudProspector) {
-                if (hasSkill) {
-                    ProudProspector.run(event, ProudProspector.MAX_LEVEL - i);
-                    break;
+            if (skillsPlayer.isSkillEnabled(SkillsManager.proudProspectorIds[0])) {
+                i = 0;
+                for (int id : SkillsManager.proudProspectorIds) {
+                    proudProspector[i] = skillsPlayer.playerHasSkill(id);
+                    i++;
                 }
-                i++;
+
+                i = 0;
+                for (boolean hasSkill : proudProspector) {
+                    if (hasSkill) {
+                        ProudProspector.run(event, ProudProspector.MAX_LEVEL - i);
+                        break;
+                    }
+                    i++;
+                }
             }
 
-            i = 0;
-            for (boolean hasSkill : veinBreaker) {
-                if (hasSkill) {
-                    VeinBreaker.run(block, player, VeinBreaker.MAX_LEVEL - i);
-                    break;
+            if (skillsPlayer.isSkillEnabled(SkillsManager.veinBreakerIds[0])) {
+                i = 0;
+                for (int id : SkillsManager.veinBreakerIds) {
+                    veinBreaker[i] = skillsPlayer.playerHasSkill(id);
+                    i++;
                 }
-                i++;
+
+                i = 0;
+                for (boolean hasSkill : veinBreaker) {
+                    if (hasSkill) {
+                        VeinBreaker.run(block, player, VeinBreaker.MAX_LEVEL - i);
+                        break;
+                    }
+                    i++;
+                }
             }
         }
     }
@@ -124,25 +130,27 @@ public class MiningSkillsListener implements Listener {
         if (skillsPlayer == null)
             return;
 
-        boolean[] spelunker = new boolean[SkillsManager.spelunkerIds.length];
+        if (skillsPlayer.isSkillEnabled(SkillsManager.spelunkerIds[0])) {
+            boolean[] spelunker = new boolean[SkillsManager.spelunkerIds.length];
 
-        int i = 0;
-        for (int id : SkillsManager.spelunkerIds) {
-            spelunker[i] = skillsPlayer.playerHasSkill(id);
-            i++;
-        }
-
-        i = 0;
-        int j = 0;
-        for (boolean hasSkill : spelunker) {
-            if (hasSkill) {
-                Spelunker.run(event, player, Spelunker.MAX_LEVEL - j);
-                break;
+            int i = 0;
+            for (int id : SkillsManager.spelunkerIds) {
+                spelunker[i] = skillsPlayer.playerHasSkill(id);
+                i++;
             }
 
-            // Handles Spelunker being in both branches
-            if (i != 0) j++;
-            i++;
+            i = 0;
+            int j = 0;
+            for (boolean hasSkill : spelunker) {
+                if (hasSkill) {
+                    Spelunker.run(event, player, Spelunker.MAX_LEVEL - j);
+                    break;
+                }
+
+                // Handles Spelunker being in both branches
+                if (i != 0) j++;
+                i++;
+            }
         }
     }
 
@@ -172,21 +180,23 @@ public class MiningSkillsListener implements Listener {
         if (skillsPlayer == null)
             return;
 
-        boolean[] easyPicking = new boolean[SkillsManager.easyPickingIds.length];
+        if (skillsPlayer.isSkillEnabled(SkillsManager.easyPickingIds[0])) {
+            boolean[] easyPicking = new boolean[SkillsManager.easyPickingIds.length];
 
-        int i = 0;
-        for (int id : SkillsManager.easyPickingIds) {
-            easyPicking[i] = skillsPlayer.playerHasSkill(id);
-            i++;
-        }
-
-        i = 0;
-        for (boolean hasSkill : easyPicking) {
-            if (hasSkill) {
-                EasyPicking.run(player, event.getClickedBlock(), EasyPicking.MAX_LEVEL - i);
-                break;
+            int i = 0;
+            for (int id : SkillsManager.easyPickingIds) {
+                easyPicking[i] = skillsPlayer.playerHasSkill(id);
+                i++;
             }
-            i++;
+
+            i = 0;
+            for (boolean hasSkill : easyPicking) {
+                if (hasSkill) {
+                    EasyPicking.run(player, event.getClickedBlock(), EasyPicking.MAX_LEVEL - i);
+                    break;
+                }
+                i++;
+            }
         }
     }
 }

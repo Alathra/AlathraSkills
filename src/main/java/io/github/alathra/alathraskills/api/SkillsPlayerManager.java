@@ -15,6 +15,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.Nullable;
+import org.jooq.Record1;
 import org.jooq.Record2;
 import org.jooq.Record3;
 import org.jooq.Result;
@@ -22,7 +23,9 @@ import org.jooq.Result;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -88,7 +91,14 @@ public class SkillsPlayerManager implements Reloadable {
                 cooldown = null;
             }
 
-            return new SkillsPlayer(p, playerSkills, playerExperienceValues, usedSkillPoints, latestSkillUnlocked, cooldown);
+            List<Integer> disabledSkills = new ArrayList<>();
+
+            Result<Record1<Integer>> disabledSkillsResult = DatabaseQueries.fetchDisabledSkills(p);
+            for (Record1<Integer> record : disabledSkillsResult) {
+                disabledSkills.add(record.getValue(Tables.PLAYER_DISABLED_SKILLS.SKILLID));
+            }
+
+            return new SkillsPlayer(p, playerSkills, playerExperienceValues, usedSkillPoints, latestSkillUnlocked, cooldown, disabledSkills);
         });
     }
 
@@ -115,6 +125,8 @@ public class SkillsPlayerManager implements Reloadable {
                 cooldown = currentPlayer.getCooldown();
 
             DatabaseQueries.savePlayerData(p, usedSkillPoints, latestSkillUnlocked, cooldown);
+
+            DatabaseQueries.saveDisabledSkills(p, currentPlayer.getDisabledSkills());
 
             return currentPlayer;
         });
@@ -389,6 +401,8 @@ public class SkillsPlayerManager implements Reloadable {
                 cooldown = currentPlayer.getCooldown();
 
             DatabaseQueries.savePlayerData(uuid, usedSkillPoints, latestSkillUnlocked, cooldown);
+
+            DatabaseQueries.saveDisabledSkills(uuid, currentPlayer.getDisabledSkills());
         });
     }
 

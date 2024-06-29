@@ -64,6 +64,11 @@ public class PopulateContent {
         skullMeta.displayName(ColorParser.of("<color:#00B300><bold>Reset skills").build());
         playerHead.setItemMeta(skullMeta);
 
+        ItemStack openDisable = new ItemStack(Material.REDSTONE_TORCH);
+        ItemMeta disableMeta = openDisable.getItemMeta();
+        disableMeta.displayName(ColorParser.of("<red>Disable passive skills").build());
+        openDisable.setItemMeta(disableMeta);
+
         ItemStack border = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta borderMeta = border.getItemMeta();
         borderMeta.displayName(Component.text(""));
@@ -77,7 +82,8 @@ public class PopulateContent {
             GuiHelper.openSkillCategoryGui(player);
         }));
         gui.setItem(3, 6, ItemBuilder.from(expToNext).asGuiItem());
-        gui.setItem(5, 5, ItemBuilder.from(playerHead).asGuiItem(event -> GuiHelper.openResetGui(player)));
+        gui.setItem(5, 4, ItemBuilder.from(playerHead).asGuiItem(event -> GuiHelper.openResetGui(player)));
+        gui.setItem(5, 6, ItemBuilder.from(openDisable).asGuiItem(event -> GuiHelper.openDisableSkillGui(player)));
         gui.setItem(5, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
     }
 
