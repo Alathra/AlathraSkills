@@ -33,7 +33,7 @@ public class PopulateContent {
             }
 
             boolean isEnabled = sp.isSkillEnabled(id);
-            gui.setItem(row, 2, ItemBuilder.from(getIcon(sp, id, isEnabled)).asGuiItem(event -> GuiHelper.toggleSkillEnabled(gui, p, sp, id)));
+            gui.setItem(row, 2, ItemBuilder.from(getIcon(id, isEnabled)).asGuiItem(event -> GuiHelper.toggleSkillEnabled(gui, p, sp, id)));
             row++;
         }
 
@@ -45,7 +45,7 @@ public class PopulateContent {
             }
 
             boolean isEnabled = sp.isSkillEnabled(id);
-            gui.setItem(row, 5, ItemBuilder.from(getIcon(sp, id, isEnabled)).asGuiItem(event -> GuiHelper.toggleSkillEnabled(gui, p, sp, id)));
+            gui.setItem(row, 5, ItemBuilder.from(getIcon(id, isEnabled)).asGuiItem(event -> GuiHelper.toggleSkillEnabled(gui, p, sp, id)));
             row++;
         }
 
