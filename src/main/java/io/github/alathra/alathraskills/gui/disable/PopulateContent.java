@@ -57,12 +57,12 @@ public class PopulateContent {
             }
 
             boolean isEnabled = sp.isSkillEnabled(id);
-            gui.setItem(row, 8, ItemBuilder.from(getIcon(sp, id, isEnabled)).asGuiItem(event -> GuiHelper.toggleSkillEnabled(gui, p, sp, id)));
+            gui.setItem(row, 8, ItemBuilder.from(getIcon(id, isEnabled)).asGuiItem(event -> GuiHelper.toggleSkillEnabled(gui, p, sp, id)));
             row++;
         }
     }
 
-    private static ItemStack getIcon(SkillsPlayer sp, int id, boolean isEnabled) {
+    private static ItemStack getIcon(int id, boolean isEnabled) {
         ItemStack icon = new ItemStack(AlathraSkills.getSkillsManager().getSkill(id).getIcon());
         ItemMeta meta = icon.getItemMeta();
 
@@ -73,7 +73,7 @@ public class PopulateContent {
 
         Component displayName = meta.displayName();
         String name = PlainTextComponentSerializer.plainText().serialize(displayName).replace(" 1", "");
-        displayName = ColorParser.of(getPrefix(sp, id, isEnabled) + name).build();
+        displayName = ColorParser.of(getPrefix(isEnabled) + name).build();
         meta.displayName(displayName);
 
         if (!isEnabled)
@@ -84,7 +84,7 @@ public class PopulateContent {
         return icon;
     }
 
-    private static String getPrefix(SkillsPlayer sp, int id, boolean isEnabled) {
+    private static String getPrefix(boolean isEnabled) {
         if (isEnabled)
             return "<green><bold>Disable: ";
         else
