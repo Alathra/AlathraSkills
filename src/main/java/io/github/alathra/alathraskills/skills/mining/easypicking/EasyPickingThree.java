@@ -22,7 +22,7 @@ public class EasyPickingThree extends Skill {
 
         ItemStack icon = new ItemStack(Material.GOLDEN_PICKAXE, 3);
         ItemMeta meta = icon.getItemMeta();
-        meta.displayName(ColorParser.of("<cyan><bold>" + super.getName() + "</cyan></bold>").build());
+        meta.displayName(ColorParser.of("<dark_aqua><bold>" + super.getName() + "</dark_aqua></bold>").build());
 
         List<Component> loreList = new ArrayList<>();
         loreList.add(ColorParser.of("<yellow>Level 12</yellow>").build());
