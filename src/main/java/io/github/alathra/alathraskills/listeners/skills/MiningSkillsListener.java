@@ -47,7 +47,7 @@ public class MiningSkillsListener implements Listener {
 
         // ORE IN THE ROUGH SKILL
         if (MiningData.getNaturalStoneBlocks().contains(material)) {
-            if (skillsPlayer.isSkillEnabled(SkillsManager.oreInTheRoughIds[0])) {
+            if (skillsPlayer.isSkillEnabled(SkillsManager.oreInTheRoughIds[SkillsManager.oreInTheRoughIds.length - 1])) {
                 boolean[] oreInTheRough = new boolean[SkillsManager.oreInTheRoughIds.length];
 
                 for (int id : SkillsManager.oreInTheRoughIds) {
@@ -71,7 +71,7 @@ public class MiningSkillsListener implements Listener {
             boolean[] proudProspector = new boolean[SkillsManager.proudProspectorIds.length];
             boolean[] veinBreaker = new boolean[SkillsManager.veinBreakerIds.length];
 
-            if (skillsPlayer.isSkillEnabled(SkillsManager.proudProspectorIds[0])) {
+            if (skillsPlayer.isSkillEnabled(SkillsManager.proudProspectorIds[SkillsManager.proudProspectorIds.length - 1])) {
                 i = 0;
                 for (int id : SkillsManager.proudProspectorIds) {
                     proudProspector[i] = skillsPlayer.playerHasSkill(id);
@@ -88,7 +88,7 @@ public class MiningSkillsListener implements Listener {
                 }
             }
 
-            if (skillsPlayer.isSkillEnabled(SkillsManager.veinBreakerIds[0])) {
+            if (skillsPlayer.isSkillEnabled(SkillsManager.veinBreakerIds[SkillsManager.veinBreakerIds.length - 1])) {
                 i = 0;
                 for (int id : SkillsManager.veinBreakerIds) {
                     veinBreaker[i] = skillsPlayer.playerHasSkill(id);
@@ -130,7 +130,7 @@ public class MiningSkillsListener implements Listener {
         if (skillsPlayer == null)
             return;
 
-        if (skillsPlayer.isSkillEnabled(SkillsManager.spelunkerIds[0])) {
+        if (skillsPlayer.isSkillEnabled(SkillsManager.spelunkerIds[SkillsManager.spelunkerIds.length - 1])) {
             boolean[] spelunker = new boolean[SkillsManager.spelunkerIds.length];
 
             int i = 0;
@@ -180,7 +180,7 @@ public class MiningSkillsListener implements Listener {
         if (skillsPlayer == null)
             return;
 
-        if (skillsPlayer.isSkillEnabled(SkillsManager.easyPickingIds[0])) {
+        if (skillsPlayer.isSkillEnabled(SkillsManager.easyPickingIds[SkillsManager.easyPickingIds.length - 1])) {
             boolean[] easyPicking = new boolean[SkillsManager.easyPickingIds.length];
 
             int i = 0;

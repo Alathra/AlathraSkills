@@ -43,7 +43,7 @@ public class WoodcuttingSkillsListener implements Listener {
 
         if (Tag.LOGS.isTagged(block.getType())) {
             int i = 0;
-            if (skillsPlayer.isSkillEnabled(SkillsManager.preciseChopIds[0])) {
+            if (skillsPlayer.isSkillEnabled(SkillsManager.preciseChopIds[SkillsManager.preciseChopIds.length - 1])) {
                 boolean[] preciseChop = new boolean[SkillsManager.preciseChopIds.length];
 
                 for (int id : SkillsManager.preciseChopIds) {
@@ -61,7 +61,7 @@ public class WoodcuttingSkillsListener implements Listener {
                 }
             }
 
-            if (skillsPlayer.isSkillEnabled(SkillsManager.oneSwingIds[0])) {
+            if (skillsPlayer.isSkillEnabled(SkillsManager.oneSwingIds[SkillsManager.oneSwingIds.length - 1])) {
                 boolean[] oneSwing = new boolean[SkillsManager.oneSwingIds.length];
 
                 i = 0;
@@ -115,7 +115,7 @@ public class WoodcuttingSkillsListener implements Listener {
         if (skillsPlayer == null)
             return;
 
-        if (skillsPlayer.isSkillEnabled(SkillsManager.trimmerIds[0])) {
+        if (skillsPlayer.isSkillEnabled(SkillsManager.trimmerIds[SkillsManager.trimmerIds.length - 1])) {
             boolean[] trimmer = new boolean[SkillsManager.trimmerIds.length];
 
             int i = 0;
@@ -218,7 +218,7 @@ public class WoodcuttingSkillsListener implements Listener {
         if (skillsPlayer == null)
             return;
 
-        if (skillsPlayer.isSkillEnabled(SkillsManager.oneWithTheForestIds[0])) {
+        if (skillsPlayer.isSkillEnabled(SkillsManager.oneWithTheForestIds[SkillsManager.oneWithTheForestIds.length - 1])) {
             boolean[] oneWithTheForest = new boolean[SkillsManager.oneWithTheForestIds.length];
 
             int i = 0;

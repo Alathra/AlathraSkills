@@ -66,7 +66,7 @@ public class FarmingSkillsListener implements Listener {
         // If player is holding a hoe
         if (Tag.ITEMS_HOES.isTagged(event.getPlayer().getInventory().getItemInMainHand().getType())) {
             // if block broken is one of the breakable crops (specifically defined)
-            if (skillsPlayer.isSkillEnabled(SkillsManager.fastHarvestIds[0])) {
+            if (skillsPlayer.isSkillEnabled(SkillsManager.fastHarvestIds[SkillsManager.fastHarvestIds.length - 1])) {
                 if (FarmingData.getBreakableCrops().contains(block.getType())) {
                     boolean[] fastHarvest = new boolean[SkillsManager.fastHarvestIds.length];
 
@@ -111,7 +111,7 @@ public class FarmingSkillsListener implements Listener {
             if (skillsPlayer == null)
                 return;
 
-            if (!skillsPlayer.isSkillEnabled(SkillsManager.wideSpread[0]))
+            if (!skillsPlayer.isSkillEnabled(SkillsManager.wideSpread[SkillsManager.wideSpread.length - 1]))
                 return;
 
             boolean[] wideSpread = new boolean[SkillsManager.wideSpread.length];
@@ -157,7 +157,7 @@ public class FarmingSkillsListener implements Listener {
             if (skillsPlayer == null)
                 return;
 
-            if (!skillsPlayer.isSkillEnabled(SkillsManager.greenThumbIds[0]))
+            if (!skillsPlayer.isSkillEnabled(SkillsManager.greenThumbIds[SkillsManager.greenThumbIds.length - 1]))
                 return;
 
             boolean[] greenThumb = new boolean[SkillsManager.greenThumbIds.length];
@@ -196,7 +196,7 @@ public class FarmingSkillsListener implements Listener {
             if (skillsPlayer == null)
                 return;
 
-            if (skillsPlayer.isSkillEnabled(SkillsManager.qualityCropsIds[0])) {
+            if (skillsPlayer.isSkillEnabled(SkillsManager.qualityCropsIds[SkillsManager.qualityCropsIds.length - 1])) {
                 boolean[] qualityCrops = new boolean[SkillsManager.qualityCropsIds.length];
 
                 int i = 0;
