@@ -9,6 +9,7 @@ public class AlathraSkillsCommand {
         new CommandAPICommand("alathraskills")
             .withShortDescription("The main command of AlathraSkills.")
             .withPermission("alathraskills.alathraskills")
+            .withAliases("as", "skills")
             .executesPlayer((player, commandArguments) -> {
                 Gui gui = GuiHelper.buildGui(GuiHelper.GuiType.MAIN);
                 GuiHelper.populateMainGui(gui, player);
