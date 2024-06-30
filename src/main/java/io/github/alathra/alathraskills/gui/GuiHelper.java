@@ -11,12 +11,19 @@ import org.bukkit.entity.Player;
 
 public class GuiHelper {
 
+    public static String EXPERIENCE_GRADIENT = "<gradient:#c47dff:#ff69be>";
+    public static String POSITIVE = "<green>";
+    public static String NEGATIVE = "<red>";
+    public static String COMMON_TITLE = "<white>";
+    public static String LORETEXT = "<color:#a8a8a8>";
+
+
     public static Gui buildGui(GuiType type) {
         Gui gui;
         switch (type) {
             case MAIN -> {
                 gui = Gui.gui()
-                    .rows(5)
+                    .rows(6)
                     .title(ColorParser.of("<color:#00B300>AlathraSkills").build()) // TODO: config
                     .disableItemDrop()
                     .disableItemPlace()
