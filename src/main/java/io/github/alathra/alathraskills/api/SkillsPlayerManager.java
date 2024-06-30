@@ -311,6 +311,51 @@ public class SkillsPlayerManager implements Reloadable {
         return currPlayer.getUsedSkillPoints();
     }
 
+    private static int getAvailableSkillPoints(OfflinePlayer p) {
+
+        float totalExp = SkillsPlayerManager.getTotalExperience(p);
+
+        float expPerLevel = Cfg.get().getFloat("experience.perLevel");
+
+        float remainingExp = totalExp % expPerLevel;
+        if (totalExp < expPerLevel) {
+            remainingExp = expPerLevel - totalExp;
+        }
+
+        int skillPointsAvailable = (int) ((totalExp - remainingExp) / expPerLevel);
+        int unlockedSkills = SkillsPlayerManager.getUsedSkillPoints(p);
+        skillPointsAvailable -= unlockedSkills;
+
+        if (skillPointsAvailable < 0) return 0;
+
+        return skillPointsAvailable;
+    }
+
+    private static int getAvailableSkillPoints(OfflinePlayer p, float expGain) {
+
+        float totalExpAfterGain = SkillsPlayerManager.getTotalExperience(p) + expGain;
+
+        float expPerLevel = Cfg.get().getFloat("experience.perLevel");
+
+        float remainingExp = totalExpAfterGain % expPerLevel;
+        if (totalExpAfterGain < expPerLevel) {
+            remainingExp = expPerLevel - totalExpAfterGain;
+        }
+
+        int skillPointsAvailable = (int) ((totalExpAfterGain - remainingExp) / expPerLevel);
+        int unlockedSkills = SkillsPlayerManager.getUsedSkillPoints(p);
+        skillPointsAvailable -= unlockedSkills;
+
+        if (skillPointsAvailable < 0) return 0;
+
+        return skillPointsAvailable;
+    }
+
+    public static boolean isSkillPointGained(Player p, float expGain) {
+        // if available skill points is greater after exp gain
+        return getAvailableSkillPoints(p, expGain) > getAvailableSkillPoints(p);
+    }
+
     @Nullable
     public static SkillsPlayer getSkillsPlayer(UUID uuid) {
         return skillPlayers.get(uuid);

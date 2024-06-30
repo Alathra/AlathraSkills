@@ -2,11 +2,14 @@ package io.github.alathra.alathraskills.listeners.exp;
 
 import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
+import io.github.alathra.alathraskills.api.events.SkillPointGainEvent;
 import io.github.alathra.alathraskills.utility.Cfg;
 import io.github.alathra.alathraskills.utility.PDCUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.type.CaveVines;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -16,7 +19,8 @@ public class FarmingExpListener implements Listener {
 
     @EventHandler
     public void BerriesHarvestingListener(PlayerHarvestBlockEvent event) {
-        if (event.getPlayer() == null) {
+        Player p = event.getPlayer();
+        if (p == null) {
             return;
         }
 
@@ -35,13 +39,17 @@ public class FarmingExpListener implements Listener {
                 return;
         }
 
+        if (SkillsPlayerManager.isSkillPointGained(p, expAmount)) {
+            Bukkit.getPluginManager().callEvent(new SkillPointGainEvent(SkillsPlayerManager.getSkillsPlayer(p)));
+        }
         SkillsPlayerManager.addPlayerExperience(event.getPlayer(), SkillsManager.FARMING_SKILL_ID, expAmount);
     }
 
     @EventHandler
     public void FarmHarvestingListener(BlockBreakEvent event) {
 
-        if (event.getPlayer() == null) {
+        Player p = event.getPlayer();
+        if (p == null) {
             return;
         }
 
@@ -128,6 +136,9 @@ public class FarmingExpListener implements Listener {
                 return;
         }
 
+        if (SkillsPlayerManager.isSkillPointGained(p, expAmount)) {
+            Bukkit.getPluginManager().callEvent(new SkillPointGainEvent(SkillsPlayerManager.getSkillsPlayer(p)));
+        }
         SkillsPlayerManager.addPlayerExperience(event.getPlayer(), SkillsManager.FARMING_SKILL_ID, expAmount);
     }
 }

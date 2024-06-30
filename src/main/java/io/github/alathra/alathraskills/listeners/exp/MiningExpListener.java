@@ -2,9 +2,12 @@ package io.github.alathra.alathraskills.listeners.exp;
 
 import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
+import io.github.alathra.alathraskills.api.events.SkillPointGainEvent;
 import io.github.alathra.alathraskills.utility.Cfg;
 import io.github.alathra.alathraskills.utility.PDCUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -13,8 +16,9 @@ public class MiningExpListener implements Listener {
 
     @EventHandler
     public void BlockMiningListener(BlockBreakEvent event) {
+        Player p = event.getPlayer();
 
-        if (event.getPlayer() == null) {
+        if (p == null) {
             return;
         }
 
@@ -40,6 +44,9 @@ public class MiningExpListener implements Listener {
             default -> 0.0f;
         };
 
+        if (SkillsPlayerManager.isSkillPointGained(p, expAmount)) {
+            Bukkit.getPluginManager().callEvent(new SkillPointGainEvent(SkillsPlayerManager.getSkillsPlayer(p)));
+        }
         SkillsPlayerManager.addPlayerExperience(event.getPlayer(), SkillsManager.MINING_SKILL_ID, expAmount);
     }
 }
