@@ -16,7 +16,7 @@ public class MiningSkillCategory extends SkillCategory {
         super(id, "Mining", "I prefer the darkness!");
         ItemStack icon = new ItemStack(Material.DIAMOND_PICKAXE, 1);
         ItemMeta meta = icon.getItemMeta();
-        meta.displayName(ColorParser.of(GuiHelper.COMMON_TITLE + super.getName()).build().decoration(TextDecoration.ITALIC, false));
+        meta.displayName(ColorParser.of(GuiHelper.COMMON_TITLE + super.getName()).build().decoration(TextDecoration.ITALIC, false).decoration(TextDecoration.ITALIC, false));
         meta.lore(Collections.singletonList(ColorParser.of("<color:#a8a8a8>" + super.getDescription()).build()));
         icon.setItemMeta(meta);
         super.setIcon(icon);

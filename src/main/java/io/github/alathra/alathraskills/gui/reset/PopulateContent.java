@@ -35,20 +35,20 @@ public class PopulateContent {
         ItemStack resetCost;
 
         if (!skillsPlayer.isOnCooldown()) {
-            resetFree = new ItemStack(Material.EMERALD_BLOCK);
+            resetFree = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
             ItemMeta resetFreeMeta = resetFree.getItemMeta();
-            resetFreeMeta.displayName(ColorParser.of("<green><bold>Reset progress").build());
-            resetFreeMeta.lore(List.of(ColorParser.of("<green>Cost: Free").build(),
-                ColorParser.of("<red>Resets all of your skills and experience.").build(),
-                ColorParser.of("<dark_red>This action is permanent and cannot be undone.").build()));
+            resetFreeMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "<bold>Reset progress").build());
+            resetFreeMeta.lore(List.of(ColorParser.of(GuiHelper.POSITIVE + "Cost: Free").build(),
+                ColorParser.of(GuiHelper.NEGATIVE + "Resets all of your skills and experience.").build(),
+                ColorParser.of(GuiHelper.NEGATIVE + "<bold>This action is permanent and cannot be undone.").build()));
             resetFree.setItemMeta(resetFreeMeta);
 
-            resetCost = new ItemStack(Material.EMERALD_BLOCK);
+            resetCost = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
             ItemMeta resetCostMeta = resetCost.getItemMeta();
-            resetCostMeta.displayName(ColorParser.of("<green><bold>Reset progress").build());
-            resetCostMeta.lore(List.of(ColorParser.of("<green>Cost: $15,000").build(),
-                ColorParser.of("<red>Resets all of your skills, but you keep 25% of your experience.").build(),
-                ColorParser.of("<dark_red>This action is permanent and cannot be undone.").build()));
+            resetCostMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "<bold>Reset progress").build());
+            resetCostMeta.lore(List.of(ColorParser.of(GuiHelper.POSITIVE + "Cost: $15,000").build(),
+                ColorParser.of(GuiHelper.NEGATIVE + "Resets all of your skills, but you keep 25% of your experience.").build(),
+                ColorParser.of(GuiHelper.NEGATIVE + "<bold>This action is permanent and cannot be undone.").build()));
             resetCost.setItemMeta(resetCostMeta);
 
             gui.setItem(2, 3, ItemBuilder.from(resetFree).asGuiItem(event -> GuiHelper.openResetProgressFreeConfirmGui(player)));
@@ -65,18 +65,18 @@ public class PopulateContent {
             else if (minutes > 0) cooldownString = "approx. " + minutes + " minutes";
             else cooldownString = "less than a minute";
 
-            resetFree = new ItemStack(Material.REDSTONE_BLOCK);
+            resetFree = new ItemStack(Material.RED_STAINED_GLASS);
             ItemMeta resetFreeMeta = resetFree.getItemMeta();
-            resetFreeMeta.displayName(ColorParser.of("<red><bold>Reset progress").build());
-            resetFreeMeta.lore(List.of(ColorParser.of("<green>Cost: Free").build(),
-                ColorParser.of("<red>Remaining cooldown: " + cooldownString).build()));
+            resetFreeMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "<bold>Reset progress").build());
+            resetFreeMeta.lore(List.of(ColorParser.of(GuiHelper.POSITIVE + "Cost: Free").build(),
+                ColorParser.of(GuiHelper.NEGATIVE + "Remaining cooldown: " + cooldownString).build()));
             resetFree.setItemMeta(resetFreeMeta);
 
-            resetCost = new ItemStack(Material.REDSTONE_BLOCK);
+            resetCost = new ItemStack(Material.RED_STAINED_GLASS);
             ItemMeta resetCostMeta = resetCost.getItemMeta();
-            resetCostMeta.displayName(ColorParser.of("<red><bold>Reset progress").build());
-            resetCostMeta.lore(List.of(ColorParser.of("<green>Cost: $15,000").build(),
-                ColorParser.of("<red>Remaining cooldown: " + cooldownString).build()));
+            resetCostMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "<bold>Reset progress").build());
+            resetCostMeta.lore(List.of(ColorParser.of(GuiHelper.POSITIVE + "Cost: $15,000").build(),
+                ColorParser.of(GuiHelper.NEGATIVE + "Remaining cooldown: " + cooldownString).build()));
             resetCost.setItemMeta(resetCostMeta);
 
             gui.setItem(2, 3, ItemBuilder.from(resetFree).asGuiItem(event -> player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.AMBIENT, 1, 1)));
@@ -88,12 +88,12 @@ public class PopulateContent {
         ItemStack latestSkill;
         // If no latest skill
         if (latestSkillId == -1 || latestSkillId == 0) {
-            latestSkill = new ItemStack(Material.REDSTONE_BLOCK);
+            latestSkill = new ItemStack(Material.RED_STAINED_GLASS);
             ItemMeta latestSkillMeta = latestSkill.getItemMeta();
-            latestSkillMeta.displayName(ColorParser.of("<green><bold>Refund latest skill").build());
-            latestSkillMeta.lore(List.of(ColorParser.of("<red>No skill available for refund.").build(),
-                ColorParser.of("<red>This is either because you haven't purchased a skill,").build(),
-                ColorParser.of("<red>or because you've already refunded a skill.").build()));
+            latestSkillMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "<bold>Refund latest skill").build());
+            latestSkillMeta.lore(List.of(ColorParser.of(GuiHelper.NEGATIVE + "No skill available for refund.").build(),
+                ColorParser.of(GuiHelper.NEGATIVE + "This is either because you haven't purchased a skill,").build(),
+                ColorParser.of(GuiHelper.NEGATIVE + "or because you've already refunded a skill.").build()));
             latestSkill.setItemMeta(latestSkillMeta);
 
             gui.setItem(2, 7, ItemBuilder.from(latestSkill).asGuiItem(event -> player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.AMBIENT, 1, 1)));
@@ -101,7 +101,7 @@ public class PopulateContent {
             latestSkill = new ItemStack(skillsManager.getSkill(latestSkillId).getIcon());
             ItemMeta latestSkillMeta = latestSkill.getItemMeta();
             Component displayName = latestSkillMeta.displayName();
-            latestSkillMeta.displayName(ColorParser.of("<green><bold>Refund: ").build().append(displayName));
+            latestSkillMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "<bold>Refund: ").build().append(displayName));
             latestSkill.setItemMeta(latestSkillMeta);
 
             Skill skill = skillsManager.getSkill(latestSkillId);

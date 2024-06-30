@@ -16,6 +16,7 @@ public class GuiHelper {
     public static String NEGATIVE = "<red>";
     public static String COMMON_TITLE = "<white>";
     public static String LORETEXT = "<color:#a8a8a8>";
+    public static String SKILL = "<white>"; // TODO: change this.
 
 
     public static Gui buildMainGui() {
@@ -93,6 +94,19 @@ public class GuiHelper {
         return gui;
     }
 
+    public static Gui buildOptionsGui() {
+        Gui gui;
+        gui = Gui.gui()
+            .rows(3)
+            .title(ColorParser.of(COMMON_TITLE + "Options").build())
+            .disableItemDrop()
+            .disableItemPlace()
+            .disableItemSwap()
+            .disableItemTake()
+            .create();
+        return gui;
+    }
+
     public static void openMainGui(Player player) {
         Gui gui = buildMainGui();
         populateMainGui(gui, player);
@@ -145,6 +159,12 @@ public class GuiHelper {
         gui.open(player);
     }
 
+    public static void openOptionsGui(Player player) {
+        Gui gui = buildOptionsGui();
+        populateOptionsGui(gui, player);
+        gui.open(player);
+    }
+
     public static void toggleSkillEnabled(Gui gui, Player player, SkillsPlayer sp, int id) {
         if (sp.isSkillEnabled(id))
             sp.disableSkill(id);
@@ -187,6 +207,11 @@ public class GuiHelper {
     public static void populateDisableGui(Gui gui, Player player) {
         io.github.alathra.alathraskills.gui.disable.PopulateButtons.populateButtons(gui, player);
         io.github.alathra.alathraskills.gui.disable.PopulateContent.populateContent(gui, player);
+    }
+
+    public static void populateOptionsGui(Gui gui, Player player) {
+        io.github.alathra.alathraskills.gui.options.PopulateButtons.populateButtons(gui, player);
+        io.github.alathra.alathraskills.gui.options.PopulateContent.populateContent(gui, player);
     }
 
 }

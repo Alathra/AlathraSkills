@@ -21,13 +21,13 @@ public class PopulateContent {
     static SkillsManager skillsManager = AlathraSkills.getSkillsManager();
 
     public static void populateContent(Gui gui, Player player, int skill, int skillCategoryId, int page) {
-        ItemStack confirm = new ItemStack(Material.EMERALD_BLOCK);
+        ItemStack confirm = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
         ItemMeta confirmMeta = confirm.getItemMeta();
-        confirmMeta.displayName(ColorParser.of("<dark_green><bold>Confirm").build());
+        confirmMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "<bold>Confirm").build());
         confirmMeta.lore(List.of(ColorParser.of("<yellow>Cost: " + skillsManager.getSkill(skill).getCost()).build()));
         confirm.setItemMeta(confirmMeta);
 
-        ItemStack deny = new ItemStack(Material.REDSTONE_BLOCK);
+        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS);
         ItemMeta denyMeta = deny.getItemMeta();
         denyMeta.displayName(ColorParser.of("<red><bold>Cancel").build());
         deny.setItemMeta(denyMeta);

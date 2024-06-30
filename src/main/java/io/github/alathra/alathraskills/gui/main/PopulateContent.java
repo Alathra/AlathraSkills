@@ -42,7 +42,7 @@ public class PopulateContent {
         availableSkillPointsMeta.lore(
             List.of(
                 ColorParser.of("<color:#a8a8a8>Points: "+ skillPointsAvailable).build(),
-                ColorParser.of("<color:#a8a8a8>Next Point: %s/%s".formatted(remainingExp, totalExp)).build()
+                ColorParser.of("<color:#a8a8a8>Next Point: %s/%s".formatted(expPerLevel - remainingExp, expPerLevel)).build()
             )
         );
         availableSkillPoints.setItemMeta(availableSkillPointsMeta);
@@ -62,11 +62,6 @@ public class PopulateContent {
         );
         optionsButton.setItemMeta(optionsMeta);
 
-//        ItemStack openDisable = new ItemStack(Material.LEVER);
-//        ItemMeta disableMeta = openDisable.getItemMeta();
-//        disableMeta.displayName(ColorParser.of("Disable passive skills").build().decoration(TextDecoration.ITALIC, false));
-//        openDisable.setItemMeta(disableMeta);
-
         ItemStack border = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta borderMeta = border.getItemMeta();
         borderMeta.displayName(Component.text(""));
@@ -75,9 +70,8 @@ public class PopulateContent {
         gui.getFiller().fill(ItemBuilder.from(border).asGuiItem());
 
         gui.setItem(2, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
-//        gui.setItem(2, 7, ItemBuilder.from(openDisable).asGuiItem(event -> GuiHelper.openDisableSkillGui(player)));
 
-        gui.setItem(6, 1, ItemBuilder.from(optionsButton).asGuiItem(event -> GuiHelper.openResetGui(player)));
+        gui.setItem(6, 1, ItemBuilder.from(optionsButton).asGuiItem(event -> GuiHelper.openOptionsGui(player)));
         gui.setItem(6, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
 
         // Open skill trees

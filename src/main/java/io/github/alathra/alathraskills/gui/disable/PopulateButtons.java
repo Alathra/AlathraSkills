@@ -22,15 +22,15 @@ public class PopulateButtons {
 
         ItemStack back = new ItemStack(Material.PAPER);
         ItemMeta backMeta = back.getItemMeta();
-        backMeta.displayName(ColorParser.of("<red><bold>Back").build());
+        backMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "Back").build());
         back.setItemMeta(backMeta);
         gui.setItem(6, 1, ItemBuilder.from(back).asGuiItem(event -> {
-            GuiHelper.openMainGui(p.getPlayer());
+            GuiHelper.openOptionsGui(p.getPlayer());
         }));
 
         ItemStack exit = new ItemStack(Material.BARRIER);
         ItemMeta exitMeta = exit.getItemMeta();
-        exitMeta.displayName(ColorParser.of("<red>Close").build());
+        exitMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "Close").build());
         exit.setItemMeta(exitMeta);
         gui.setItem(6, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(p)));
     }
