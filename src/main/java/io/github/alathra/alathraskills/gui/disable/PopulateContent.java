@@ -4,6 +4,7 @@ import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import io.github.alathra.alathraskills.AlathraSkills;
+import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.gui.GuiHelper;
@@ -13,6 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -66,22 +68,38 @@ public class PopulateContent {
         ItemStack icon = new ItemStack(AlathraSkills.getSkillsManager().getSkill(id).getIcon());
         ItemMeta meta = icon.getItemMeta();
 
-        List<Component> loreList = meta.lore();
-        loreList.remove(0);
-        loreList.remove(loreList.size() - 1);
-        meta.lore(loreList);
+        if (!isEnabled) {
+            icon.setType(Material.REDSTONE_BLOCK);
+            ItemMeta newMeta = icon.getItemMeta();
 
-        Component displayName = meta.displayName();
-        String name = PlainTextComponentSerializer.plainText().serialize(displayName).replace(" 1", "");
-        displayName = ColorParser.of(getPrefix(isEnabled) + name).build();
-        meta.displayName(displayName);
+            List<Component> loreList = meta.lore();
+            loreList.remove(0);
+            loreList.remove(loreList.size() - 1);
+            newMeta.lore(loreList);
 
-        if (!isEnabled)
-            icon = new ItemStack(Material.REDSTONE_BLOCK);
+            Component displayName = meta.displayName();
+            String name = PlainTextComponentSerializer.plainText().serialize(displayName).replace(" 1", "");
+            displayName = ColorParser.of(getPrefix(isEnabled) + name).build();
+            newMeta.displayName(displayName);
 
-        icon.setItemMeta(meta);
+            icon.setItemMeta(newMeta);
 
-        return icon;
+            return icon;
+        } else {
+            List<Component> loreList = meta.lore();
+            loreList.remove(0);
+            loreList.remove(loreList.size() - 1);
+            meta.lore(loreList);
+
+            Component displayName = meta.displayName();
+            String name = PlainTextComponentSerializer.plainText().serialize(displayName).replace(" 1", "");
+            displayName = ColorParser.of(getPrefix(isEnabled) + name).build();
+            meta.displayName(displayName);
+
+            icon.setItemMeta(meta);
+
+            return icon;
+        }
     }
 
     private static String getPrefix(boolean isEnabled) {
