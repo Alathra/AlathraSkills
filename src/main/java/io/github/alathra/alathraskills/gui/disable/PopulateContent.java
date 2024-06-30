@@ -69,7 +69,7 @@ public class PopulateContent {
         ItemMeta meta = icon.getItemMeta();
 
         if (!isEnabled) {
-            icon.setType(Material.REDSTONE_BLOCK);
+            icon.setType(Material.RED_STAINED_GLASS);
             ItemMeta newMeta = icon.getItemMeta();
 
             List<Component> loreList = meta.lore();

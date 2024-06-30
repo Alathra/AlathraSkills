@@ -24,23 +24,23 @@ public class PopulateContent {
         if (skillsPlayer == null)
             return;
 
-        ItemStack confirm = new ItemStack(Material.EMERALD_BLOCK);
+        ItemStack confirm = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
         ItemMeta confirmMeta = confirm.getItemMeta();
-        confirmMeta.displayName(ColorParser.of("<dark_green><bold>Confirm").build());
+        confirmMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "<bold>Confirm").build());
         confirmMeta.lore(List.of(ColorParser.of("<green>Reset all of your skills and keep 25% of your experience").build(),
             ColorParser.of("<green>Cost: $15,000").build(),
             ColorParser.of("<dark_red>This action is permanent and cannot be undone.").build()));
         confirm.setItemMeta(confirmMeta);
 
-        ItemStack deny = new ItemStack(Material.REDSTONE_BLOCK);
+        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS);
         ItemMeta denyMeta = deny.getItemMeta();
-        denyMeta.displayName(ColorParser.of("<red><bold>Cancel").build());
+        denyMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "<bold>Cancel").build());
         deny.setItemMeta(denyMeta);
 
         ItemStack playerHead = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta skullMeta = (SkullMeta) playerHead.getItemMeta();
         skullMeta.setOwningPlayer(player);
-        skullMeta.displayName(ColorParser.of("<color:#00B300><bold>Reset skills").build());
+        skullMeta.displayName(ColorParser.of(GuiHelper.COMMON_TITLE + "<bold>Reset skills").build());
         playerHead.setItemMeta(skullMeta);
 
         gui.setItem(1, 3, ItemBuilder.from(deny).asGuiItem(event -> GuiHelper.openMainGui(player)));
@@ -60,22 +60,22 @@ public class PopulateContent {
         if (skillsPlayer == null)
             return;
 
-        ItemStack confirm = new ItemStack(Material.EMERALD_BLOCK);
+        ItemStack confirm = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
         ItemMeta confirmMeta = confirm.getItemMeta();
-        confirmMeta.displayName(ColorParser.of("<dark_green><bold>Confirm").build());
+        confirmMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "<bold>Confirm").build());
         confirmMeta.lore(List.of(ColorParser.of("<green>Reset all of your skills and experience.").build(),
             ColorParser.of("<dark_red>This action is permanent and cannot be undone.").build()));
         confirm.setItemMeta(confirmMeta);
 
-        ItemStack deny = new ItemStack(Material.REDSTONE_BLOCK);
+        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS);
         ItemMeta denyMeta = deny.getItemMeta();
-        denyMeta.displayName(ColorParser.of("<red><bold>Cancel").build());
+        denyMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "<bold>Cancel").build());
         deny.setItemMeta(denyMeta);
 
         ItemStack playerHead = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta skullMeta = (SkullMeta) playerHead.getItemMeta();
         skullMeta.setOwningPlayer(player);
-        skullMeta.displayName(ColorParser.of("<color:#00B300><bold>Reset skills").build());
+        skullMeta.displayName(ColorParser.of(GuiHelper.COMMON_TITLE + "<bold>Reset skills").build());
         playerHead.setItemMeta(skullMeta);
 
         gui.setItem(1, 3, ItemBuilder.from(deny).asGuiItem(event -> GuiHelper.openMainGui(player)));
@@ -96,20 +96,20 @@ public class PopulateContent {
         if (skillsPlayer == null)
             return;
 
-        ItemStack confirm = new ItemStack(Material.EMERALD_BLOCK);
+        ItemStack confirm = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
         ItemMeta confirmMeta = confirm.getItemMeta();
-        confirmMeta.displayName(ColorParser.of("<dark_green><bold>Confirm").build());
+        confirmMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "<bold>Confirm").build());
         confirmMeta.lore(List.of(ColorParser.of("<green>Refund your latest unlocked skill.").build()));
         confirm.setItemMeta(confirmMeta);
 
-        ItemStack deny = new ItemStack(Material.REDSTONE_BLOCK);
+        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS);
         ItemMeta denyMeta = deny.getItemMeta();
-        denyMeta.displayName(ColorParser.of("<red><bold>Cancel").build());
+        denyMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "<bold>Cancel").build());
         deny.setItemMeta(denyMeta);
 
         ItemStack skillStack = skill.getIcon();
         ItemMeta skillMeta = skillStack.getItemMeta();
-        skillMeta.displayName(ColorParser.of("<green><bold>Refund: ").build().append(skillMeta.displayName()));
+        skillMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "<bold>Refund: ").build().append(skillMeta.displayName()));
         skillStack.setItemMeta(skillMeta);
 
         gui.setItem(1, 3, ItemBuilder.from(deny).asGuiItem(event -> GuiHelper.openMainGui(player)));

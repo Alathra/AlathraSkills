@@ -2,6 +2,7 @@ package io.github.alathra.alathraskills.skills;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.util.ChatPaginator;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class SkillDescriptionUtil {
 
     public static List<Component> descriptionLineBreaker(String description, int lineLength, String miniMessageColor) {
         List<Component> componentList = new ArrayList<>();
-        splitText(description, lineLength).forEach(str -> componentList.add(ColorParser.of(miniMessageColor + str).build()));
+        splitText(description, lineLength).forEach(str -> componentList.add(ColorParser.of(miniMessageColor + str).build().decoration(TextDecoration.ITALIC, false)));
         return componentList;
     }
 
