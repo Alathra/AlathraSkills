@@ -2,6 +2,7 @@ package io.github.alathra.alathraskills.db;
 
 import io.github.alathra.alathraskills.api.PlayerExperience;
 import io.github.alathra.alathraskills.api.PlayerSkillDetails;
+import io.github.alathra.alathraskills.db.schema.tables.records.PlayerDisabledSkillsRecord;
 import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillcategoryinfoRecord;
 import io.github.alathra.alathraskills.db.schema.tables.records.PlayerSkillinfoRecord;
 import io.github.alathra.alathraskills.utility.DB;
@@ -230,6 +231,67 @@ public abstract class DatabaseQueries {
      */
     public static void saveFilteredPlayerSkills(Player p, List<Integer> skillsToDelete, List<Integer> skillsToInsert) {
         saveFilteredPlayerSkills(p.getUniqueId(), skillsToDelete, skillsToInsert);
+    }
+
+    /**
+     * Saves all skills a player has disabled.
+     *
+     * @param uuid
+     * @param disabledSkills
+     */
+    public static void saveDisabledSkills(byte[] uuid, List<Integer> disabledSkills) {
+        try (
+            Connection con = DB.getConnection()
+        ) {
+            DSLContext context = DB.getContext(con);
+
+            Collection<PlayerDisabledSkillsRecord> disabledSkillsRecords = new ArrayList<>();
+
+            disabledSkills.forEach(i -> disabledSkillsRecords.add(new PlayerDisabledSkillsRecord(uuid, i)));
+
+            context.batchMerge(disabledSkillsRecords).execute();
+        } catch (DataAccessException | SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+        }
+    }
+
+    public static void saveDisabledSkills(UUID uuid, List<Integer> disabledSkills) {
+        saveDisabledSkills(convertUUIDToBytes(uuid), disabledSkills);
+    }
+
+    public static void saveDisabledSkills(Player p, List<Integer> disabledSkills) {
+        saveDisabledSkills(p.getUniqueId(), disabledSkills);
+    }
+
+    /**
+     * Attempts to fetch all disabled skills
+     *
+     * @param uuid
+     * @return - disabled skills, or null on fail.
+     */
+    public static Result<Record1<Integer>> fetchDisabledSkills(byte[] uuid) {
+        try (
+            Connection con = DB.getConnection()
+        ) {
+            DSLContext context = DB.getContext(con);
+
+            return context.select(PLAYER_DISABLED_SKILLS.SKILLID)
+                .from(PLAYER_DISABLED_SKILLS)
+                .where(PLAYER_DISABLED_SKILLS.UUID.equal(uuid))
+                .fetch();
+
+        } catch (DataAccessException | SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+        }
+        return null;
+    }
+
+    public static Result<Record1<Integer>> fetchDisabledSkills(UUID uuid) {
+        return fetchDisabledSkills(convertUUIDToBytes(uuid));
+    }
+
+    public static Result<Record1<Integer>> fetchDisabledSkills(Player p) {
+        return fetchDisabledSkills(p.getUniqueId());
     }
 
     /**

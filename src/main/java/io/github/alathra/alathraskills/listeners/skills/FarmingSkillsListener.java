@@ -66,22 +66,24 @@ public class FarmingSkillsListener implements Listener {
         // If player is holding a hoe
         if (Tag.ITEMS_HOES.isTagged(event.getPlayer().getInventory().getItemInMainHand().getType())) {
             // if block broken is one of the breakable crops (specifically defined)
-            if (FarmingData.getBreakableCrops().contains(block.getType())) {
-                boolean[] fastHarvest = new boolean[SkillsManager.fastHarvestIds.length];
+            if (skillsPlayer.isSkillEnabled(SkillsManager.fastHarvestIds[SkillsManager.fastHarvestIds.length - 1])) {
+                if (FarmingData.getBreakableCrops().contains(block.getType())) {
+                    boolean[] fastHarvest = new boolean[SkillsManager.fastHarvestIds.length];
 
-                int i = 0;
-                for (int id : SkillsManager.fastHarvestIds) {
-                    fastHarvest[i] = skillsPlayer.playerHasSkill(id);
-                    i++;
-                }
-
-                i = 0;
-                for (boolean hasSkill : fastHarvest) {
-                    if (hasSkill) {
-                        FastHarvest.run(block, player, FastHarvest.MAX_LEVEL - i);
-                        break;
+                    int i = 0;
+                    for (int id : SkillsManager.fastHarvestIds) {
+                        fastHarvest[i] = skillsPlayer.playerHasSkill(id);
+                        i++;
                     }
-                    i++;
+
+                    i = 0;
+                    for (boolean hasSkill : fastHarvest) {
+                        if (hasSkill) {
+                            FastHarvest.run(block, player, FastHarvest.MAX_LEVEL - i);
+                            break;
+                        }
+                        i++;
+                    }
                 }
             }
         }
@@ -107,6 +109,9 @@ public class FarmingSkillsListener implements Listener {
         if (FarmingData.getStandardCrops().contains(block.getType())) {
             SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
             if (skillsPlayer == null)
+                return;
+
+            if (!skillsPlayer.isSkillEnabled(SkillsManager.wideSpread[SkillsManager.wideSpread.length - 1]))
                 return;
 
             boolean[] wideSpread = new boolean[SkillsManager.wideSpread.length];
@@ -152,6 +157,9 @@ public class FarmingSkillsListener implements Listener {
             if (skillsPlayer == null)
                 return;
 
+            if (!skillsPlayer.isSkillEnabled(SkillsManager.greenThumbIds[SkillsManager.greenThumbIds.length - 1]))
+                return;
+
             boolean[] greenThumb = new boolean[SkillsManager.greenThumbIds.length];
 
             int i = 0;
@@ -188,21 +196,23 @@ public class FarmingSkillsListener implements Listener {
             if (skillsPlayer == null)
                 return;
 
-            boolean[] qualityCrops = new boolean[SkillsManager.qualityCropsIds.length];
+            if (skillsPlayer.isSkillEnabled(SkillsManager.qualityCropsIds[SkillsManager.qualityCropsIds.length - 1])) {
+                boolean[] qualityCrops = new boolean[SkillsManager.qualityCropsIds.length];
 
-            int i = 0;
-            for (int id : SkillsManager.qualityCropsIds) {
-                qualityCrops[i] = skillsPlayer.playerHasSkill(id);
-                i++;
-            }
-
-            i = 0;
-            for (boolean hasSkill : qualityCrops) {
-                if (hasSkill) {
-                    QualityCrops.run(entity, QualityCrops.MAX_LEVEL - i);
-                    break;
+                int i = 0;
+                for (int id : SkillsManager.qualityCropsIds) {
+                    qualityCrops[i] = skillsPlayer.playerHasSkill(id);
+                    i++;
                 }
-                i++;
+
+                i = 0;
+                for (boolean hasSkill : qualityCrops) {
+                    if (hasSkill) {
+                        QualityCrops.run(entity, QualityCrops.MAX_LEVEL - i);
+                        break;
+                    }
+                    i++;
+                }
             }
         }
     }

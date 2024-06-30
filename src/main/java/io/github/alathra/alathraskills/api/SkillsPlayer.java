@@ -23,11 +23,17 @@ public class SkillsPlayer {
     private int latestSkillUnlocked;
 
     private Instant cooldown;
+    private List<Integer> disabledSkills;
 
     private SkillsManager skillsManager;
 
-    public SkillsPlayer(OfflinePlayer p, HashMap<Integer, SkillDetails> playerSkills,
-                        HashMap<Integer, Float> playerExperienceValues, Integer usedSkillPoints, int latestSkillUnlocked, Instant cooldown) {
+    public SkillsPlayer(OfflinePlayer p,
+                        HashMap<Integer, SkillDetails> playerSkills,
+                        HashMap<Integer, Float> playerExperienceValues,
+                        Integer usedSkillPoints,
+                        int latestSkillUnlocked,
+                        Instant cooldown,
+                        List<Integer> disabledSkills) {
         this.p = p;
         this.playerSkills = playerSkills;
         this.playerExperienceValues = playerExperienceValues;
@@ -35,6 +41,7 @@ public class SkillsPlayer {
         this.latestSkillUnlocked = latestSkillUnlocked;
         this.cooldown = cooldown;
         this.skillsManager = AlathraSkills.getSkillsManager();
+        this.disabledSkills = disabledSkills;
 
         for (SkillDetails skillDetails : playerSkills.values())
             if (skillDetails.isSelected()) this.totalSkillsUnlocked++;
@@ -174,12 +181,37 @@ public class SkillsPlayer {
         return this.cooldown.isAfter(Instant.now());
     }
 
+    public List<Integer> getDisabledSkills() {
+        return disabledSkills;
+    }
+
+    public void setDisabledSkills(List<Integer> disabledSkills) {
+        this.disabledSkills = disabledSkills;
+    }
+
+    public void disableSkill(Integer id) {
+        disabledSkills.add(id);
+    }
+
+    public void enableSkill(Integer id) {
+        disabledSkills.remove(id);
+    }
+
+    public boolean isSkillEnabled(Integer id) {
+        return !disabledSkills.contains(id);
+    }
+
+    public void clearDisabledSkills() {
+        disabledSkills.clear();
+    }
+
     public void refundLatestSkill() {
         Skill skill = skillsManager.getSkill(getLatestSkillUnlocked());
         this.clearLatestSkillUnlocked();
         this.setTotalSkillsUnlocked(this.getTotalSkillsUnlocked() - 1);
         this.addUsedSkillPoints(skill.getCost() * -1);
         this.removeSkill(skill.getId());
+        this.enableSkill(skill.getId());
     }
 
     public boolean resetProgress(int cost, float expRetained) {
@@ -193,6 +225,7 @@ public class SkillsPlayer {
         this.setExperience(3, this.getSkillCategoryExperience(3) * expRetained);
         this.clearLatestSkillUnlocked();
         this.clearUsedSkillPoints();
+        this.clearDisabledSkills();
         this.setCooldown(Instant.now().plusSeconds(Cfg.get().getLong("skills.resetCooldown")));
         if (AlathraSkills.getVaultHook().isVaultLoaded() && cost > 0)
             AlathraSkills.getVaultHook().getEconomy().withdrawPlayer(this.p, cost);
