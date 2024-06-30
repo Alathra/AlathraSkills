@@ -42,17 +42,7 @@ public class PopulateContent {
         }));
         gui.setItem(2, ItemBuilder.from(deny).asGuiItem(event -> GuiHelper.openSkillGui(player, skillCategoryId, page)));
 
-        switch (skillCategoryId) {
-            case 1 -> {
-                gui.setItem(4, ItemBuilder.from(skillsManager.farmingSkills.get(skill).getIcon()).asGuiItem());
-            }
-            case 2 -> {
-                gui.setItem(4, ItemBuilder.from(skillsManager.miningSkills.get(skill).getIcon()).asGuiItem());
-            }
-            case 3 -> {
-                gui.setItem(4, ItemBuilder.from(skillsManager.woodcuttingSkills.get(skill).getIcon()).asGuiItem());
-            }
-        }
+        gui.setItem(4, ItemBuilder.from(skillsManager.skills.get(skill).getIcon()).asGuiItem());
     }
 
 }
