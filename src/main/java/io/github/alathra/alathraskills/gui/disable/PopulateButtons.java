@@ -25,9 +25,7 @@ public class PopulateButtons {
         backMeta.displayName(ColorParser.of("<red><bold>Back").build());
         back.setItemMeta(backMeta);
         gui.setItem(6, 1, ItemBuilder.from(back).asGuiItem(event -> {
-            Gui newGui = GuiHelper.buildGui(GuiHelper.GuiType.MAIN);
-            GuiHelper.populateMainGui(newGui, p);
-            newGui.open(p);
+            GuiHelper.openMainGui(p.getPlayer());
         }));
 
         ItemStack exit = new ItemStack(Material.BARRIER);

@@ -15,7 +15,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.Collections;
 import java.util.List;
 
 public class PopulateButtons {
@@ -33,9 +32,7 @@ public class PopulateButtons {
         backMeta.displayName(ColorParser.of("<red>Back").build());
         back.setItemMeta(backMeta);
         gui.setItem(4, 1, ItemBuilder.from(back).asGuiItem(event -> {
-            Gui newGui = GuiHelper.buildGui(GuiHelper.GuiType.MAIN);
-            GuiHelper.populateMainGui(newGui, player);
-            newGui.open(player);
+            GuiHelper.openMainGui(player);
         }));
 
         ItemStack availableSkillPoints = new ItemStack(Material.END_CRYSTAL);

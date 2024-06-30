@@ -11,9 +11,7 @@ public class AlathraSkillsCommand {
             .withPermission("alathraskills.alathraskills")
             .withAliases("as", "skills")
             .executesPlayer((player, commandArguments) -> {
-                Gui gui = GuiHelper.buildGui(GuiHelper.GuiType.MAIN);
-                GuiHelper.populateMainGui(gui, player);
-                gui.open(player);
+                GuiHelper.openMainGui(player);
             })
             .register();
     }

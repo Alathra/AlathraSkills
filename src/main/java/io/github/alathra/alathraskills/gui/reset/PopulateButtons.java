@@ -30,9 +30,7 @@ public class PopulateButtons {
 
         gui.getFiller().fill(ItemBuilder.from(border).asGuiItem());
         gui.setItem(3, 1, ItemBuilder.from(back).asGuiItem(event -> {
-            Gui newGui = GuiHelper.buildGui(GuiHelper.GuiType.MAIN);
-            GuiHelper.populateMainGui(newGui, player);
-            newGui.open(player);
+            GuiHelper.openMainGui(player);
         }));
         gui.setItem(3, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
     }
