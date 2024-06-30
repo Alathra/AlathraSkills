@@ -7,6 +7,7 @@ import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.gui.GuiHelper;
 import io.github.alathra.alathraskills.utility.Cfg;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -15,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Collections;
+import java.util.List;
 
 public class PopulateButtons {
 
@@ -28,7 +30,7 @@ public class PopulateButtons {
 
         ItemStack back = new ItemStack(Material.PAPER);
         ItemMeta backMeta = back.getItemMeta();
-        backMeta.displayName(ColorParser.of("<red><bold>Back").build());
+        backMeta.displayName(ColorParser.of("<red>Back").build());
         back.setItemMeta(backMeta);
         gui.setItem(4, 1, ItemBuilder.from(back).asGuiItem(event -> {
             Gui newGui = GuiHelper.buildGui(GuiHelper.GuiType.MAIN);
@@ -36,17 +38,22 @@ public class PopulateButtons {
             newGui.open(player);
         }));
 
-        ItemStack availableSkillPoints = new ItemStack(Material.BOOK);
+        ItemStack availableSkillPoints = new ItemStack(Material.END_CRYSTAL);
         ItemMeta availableSkillPointsMeta = availableSkillPoints.getItemMeta();
-        availableSkillPointsMeta.displayName(ColorParser.of("<red><bold>Available Skill Points").build());
-        availableSkillPointsMeta.lore(Collections.singletonList(ColorParser.of("<yellow>Amount: " + availableSkillPoints(player)).build()));
+        availableSkillPointsMeta.displayName(ColorParser.of(GuiHelper.EXPERIENCE_GRADIENT + "Skill Points").build().decoration(TextDecoration.ITALIC, false));
+        availableSkillPointsMeta.lore(
+            List.of(
+                ColorParser.of("<color:#a8a8a8>Points: "+ availableSkillPoints(player)).build()//,
+//                ColorParser.of("<color:#a8a8a8>Next Level: %s/%s".formatted(remainingExp, totalExp)).build() // TODO Add a method for this somewhere that is more accessible
+            )
+        );
         availableSkillPoints.setItemMeta(availableSkillPointsMeta);
         gui.setItem(4, 5, ItemBuilder.from(availableSkillPoints).asGuiItem());
 
 
         ItemStack exit = new ItemStack(Material.BARRIER);
         ItemMeta exitMeta = exit.getItemMeta();
-        exitMeta.displayName(ColorParser.of("<dark_red><bold>Exit").build());
+        exitMeta.displayName(ColorParser.of("<red>Close").build());
         exit.setItemMeta(exitMeta);
         gui.setItem(4, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
     }

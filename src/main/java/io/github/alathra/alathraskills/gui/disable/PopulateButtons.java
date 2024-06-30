@@ -32,7 +32,7 @@ public class PopulateButtons {
 
         ItemStack exit = new ItemStack(Material.BARRIER);
         ItemMeta exitMeta = exit.getItemMeta();
-        exitMeta.displayName(ColorParser.of("<dark_red><bold>Exit").build());
+        exitMeta.displayName(ColorParser.of("<red>Close").build());
         exit.setItemMeta(exitMeta);
         gui.setItem(6, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(p)));
     }

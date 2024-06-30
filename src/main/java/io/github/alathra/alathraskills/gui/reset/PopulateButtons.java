@@ -5,6 +5,7 @@ import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import io.github.alathra.alathraskills.gui.GuiHelper;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -19,12 +20,12 @@ public class PopulateButtons {
 
         ItemStack back = new ItemStack(Material.PAPER);
         ItemMeta backMeta = back.getItemMeta();
-        backMeta.displayName(ColorParser.of("<red><bold>Back").build());
+        backMeta.displayName(ColorParser.of("<red>Back").build().decoration(TextDecoration.ITALIC, false));
         back.setItemMeta(backMeta);
 
         ItemStack exit = new ItemStack(Material.BARRIER);
         ItemMeta exitMeta = exit.getItemMeta();
-        exitMeta.displayName(ColorParser.of("<dark_red><bold>Exit").build());
+        exitMeta.displayName(ColorParser.of("<red>Close").build().decoration(TextDecoration.ITALIC, false));
         exit.setItemMeta(exitMeta);
 
         gui.getFiller().fill(ItemBuilder.from(border).asGuiItem());

@@ -24,7 +24,7 @@ public class GuiHelper {
             case MAIN -> {
                 gui = Gui.gui()
                     .rows(6)
-                    .title(ColorParser.of("<color:#00B300>AlathraSkills").build()) // TODO: config
+                    .title(ColorParser.of("<color:#00B300>Skills").build()) // TODO: config
                     .disableItemDrop()
                     .disableItemPlace()
                     .disableItemSwap()
