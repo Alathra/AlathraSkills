@@ -44,6 +44,8 @@ public class CommandHandler implements Reloadable {
         new TestGetUsedSkillPointsCommandMemory();
         new TestSetUsedSkillPointsCommand();
         new TestSetUsedSkillPointsCommandMemory();
+
+        new TestPlaySoundEffects();
     }
 
     @Override

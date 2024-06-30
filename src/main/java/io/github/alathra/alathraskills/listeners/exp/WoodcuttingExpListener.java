@@ -2,11 +2,14 @@ package io.github.alathra.alathraskills.listeners.exp;
 
 import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
+import io.github.alathra.alathraskills.api.events.SkillPointGainEvent;
 import io.github.alathra.alathraskills.utility.Cfg;
 import io.github.alathra.alathraskills.utility.PDCUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -20,6 +23,7 @@ public class WoodcuttingExpListener implements Listener {
 
     @EventHandler
     public void LogBreakingListener(BlockBreakEvent event) {
+        Player p = event.getPlayer();
 
         if (event.getPlayer() == null) {
             return;
@@ -59,6 +63,9 @@ public class WoodcuttingExpListener implements Listener {
 
         // Block broken is a log
 
+        if (SkillsPlayerManager.isSkillPointGained(p, expAmount)) {
+            Bukkit.getPluginManager().callEvent(new SkillPointGainEvent(SkillsPlayerManager.getSkillsPlayer(p)));
+        }
         SkillsPlayerManager.addPlayerExperience(event.getPlayer(), SkillsManager.WOODCUTTING_SKILL_ID, expAmount);
     }
 }
