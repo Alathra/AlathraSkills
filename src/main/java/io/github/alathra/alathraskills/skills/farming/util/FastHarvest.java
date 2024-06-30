@@ -3,9 +3,11 @@ package io.github.alathra.alathraskills.skills.farming.util;
 import io.github.alathra.alathraskills.skills.farming.util.helper.FarmingBlockUtil;
 import io.github.alathra.alathraskills.skills.farming.util.helper.FarmingData;
 import io.github.alathra.alathraskills.utility.Cfg;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class FastHarvest {
@@ -41,10 +43,17 @@ public class FastHarvest {
                 if (crop.getBlockData() instanceof Ageable ageableCrop) {
                     // If crop is fully grown
                     if (ageableCrop.getAge() == ageableCrop.getMaximumAge()) {
-                        crop.breakNaturally();
                         if (tool != null) {
+                            BlockBreakEvent event = new BlockBreakEvent(crop, player);
+                            Bukkit.getPluginManager().callEvent(event);
+                            if (event.isCancelled())
+                                continue;
                             crop.breakNaturally(tool);
                         } else {
+                            BlockBreakEvent event = new BlockBreakEvent(crop, player);
+                            Bukkit.getPluginManager().callEvent(event);
+                            if (event.isCancelled())
+                                continue;
                             crop.breakNaturally();
                         }
                     }
@@ -53,8 +62,16 @@ public class FastHarvest {
                 } else {
                     // Is a crop that does not have growth cycles
                     if (tool != null) {
+                        BlockBreakEvent event = new BlockBreakEvent(crop, player);
+                        Bukkit.getPluginManager().callEvent(event);
+                        if (event.isCancelled())
+                            continue;
                         crop.breakNaturally(tool);
                     } else {
+                        BlockBreakEvent event = new BlockBreakEvent(crop, player);
+                        Bukkit.getPluginManager().callEvent(event);
+                        if (event.isCancelled())
+                            continue;
                         crop.breakNaturally();
                     }
                 }
@@ -75,10 +92,17 @@ public class FastHarvest {
                 if (crop.getBlockData() instanceof Ageable ageableCrop) {
                     // If crop is fully grown
                     if (ageableCrop.getAge() == ageableCrop.getMaximumAge()) {
-                        crop.breakNaturally();
                         if (tool != null) {
+                            BlockBreakEvent event = new BlockBreakEvent(crop, player);
+                            Bukkit.getPluginManager().callEvent(event);
+                            if (event.isCancelled())
+                                continue;
                             crop.breakNaturally(tool);
                         } else {
+                            BlockBreakEvent event = new BlockBreakEvent(crop, player);
+                            Bukkit.getPluginManager().callEvent(event);
+                            if (event.isCancelled())
+                                continue;
                             crop.breakNaturally();
                         }
                     }
@@ -87,8 +111,16 @@ public class FastHarvest {
                 } else {
                     // Is a crop that does not have growth cycles
                     if (tool != null) {
+                        BlockBreakEvent event = new BlockBreakEvent(crop, player);
+                        Bukkit.getPluginManager().callEvent(event);
+                        if (event.isCancelled())
+                            continue;
                         crop.breakNaturally(tool);
                     } else {
+                        BlockBreakEvent event = new BlockBreakEvent(crop, player);
+                        Bukkit.getPluginManager().callEvent(event);
+                        if (event.isCancelled())
+                            continue;
                         crop.breakNaturally();
                     }
                 }
