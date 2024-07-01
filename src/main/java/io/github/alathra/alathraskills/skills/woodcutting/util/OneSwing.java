@@ -92,6 +92,10 @@ public class OneSwing {
         addCooldown(player);
         player.sendActionBar(ColorParser.of("<dark_grey>One Swing <green><bold>activated</bold></green></dark_grey>").build());
         setActive(player, skillLevel);
+        // Notify when cooldown is over
+        Bukkit.getScheduler().runTaskLater(instance,
+            () -> player.sendActionBar(ColorParser.of("<dark_grey>One Swing <green><bold>available</bold></green></dark_grey>").build()), getCooldownTime(skillLevel) * 20
+        );
     }
 
     // Method to check if a player is on cooldown
