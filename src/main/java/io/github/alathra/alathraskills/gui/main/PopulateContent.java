@@ -33,6 +33,7 @@ public class PopulateContent {
         float expPerLevel = Cfg.get().getFloat("experience.perLevel");
 
         float remainingExp = expPerLevel - (totalExp % expPerLevel);
+        float expProgress = expPerLevel - remainingExp;
 
         int skillPointsAvailable = availableSkillPoints(player);
 
@@ -42,7 +43,7 @@ public class PopulateContent {
         availableSkillPointsMeta.lore(
             List.of(
                 ColorParser.of("<color:#a8a8a8>Points: "+ skillPointsAvailable).build(),
-                ColorParser.of("<color:#a8a8a8>Next Point: %s/%s".formatted(expPerLevel - remainingExp, expPerLevel)).build()
+                ColorParser.of("<color:#a8a8a8>Next Point: %s/%s".formatted(Math.round(expProgress), Math.round(expPerLevel))).build()
             )
         );
         availableSkillPoints.setItemMeta(availableSkillPointsMeta);
