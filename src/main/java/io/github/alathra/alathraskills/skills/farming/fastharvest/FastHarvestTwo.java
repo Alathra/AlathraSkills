@@ -20,7 +20,7 @@ public class FastHarvestTwo extends Skill {
     private SkillsManager skillsManager;
 
     public FastHarvestTwo(int id, int cost) {
-        super(id, "Fast Harvest 2", "Break multiple crops at once in a radius. Only applies fortune on the crop hit with the hoe.", cost);
+        super(id, "Fast Harvest 2", "Using your hoe harvests multiple blocks of crops at once.", cost);
 
         ItemStack icon = new ItemStack(Material.IRON_HOE, 2);
         ItemMeta meta = icon.getItemMeta();
