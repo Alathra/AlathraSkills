@@ -98,18 +98,18 @@ public class PopulateContent {
 
         ItemStack confirm = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
         ItemMeta confirmMeta = confirm.getItemMeta();
-        confirmMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "<bold>Confirm").build());
-        confirmMeta.lore(List.of(ColorParser.of("<green>Refund your latest unlocked skill.").build()));
+        confirmMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "Confirm").build());
+        confirmMeta.lore(List.of(ColorParser.of("Refund your latest unlocked skill.").build()));
         confirm.setItemMeta(confirmMeta);
 
         ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS);
         ItemMeta denyMeta = deny.getItemMeta();
-        denyMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "<bold>Cancel").build());
+        denyMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "Cancel").build());
         deny.setItemMeta(denyMeta);
 
-        ItemStack skillStack = skill.getIcon();
+        ItemStack skillStack = new ItemStack(skill.getIcon());
         ItemMeta skillMeta = skillStack.getItemMeta();
-        skillMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "<bold>Refund: ").build().append(skillMeta.displayName()));
+        skillMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "Refund: ").build().append(skillMeta.displayName()));
         skillStack.setItemMeta(skillMeta);
 
         gui.setItem(1, 3, ItemBuilder.from(deny).asGuiItem(event -> GuiHelper.openMainGui(player)));
