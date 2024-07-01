@@ -81,7 +81,7 @@ dependencies {
     library("org.mariadb.jdbc:mariadb-java-client:3.3.3")
     
 	// mcMMO
-    compileOnly("com.gmail.nossr50.mcMMO:mcMMO:2.2.004") {
+    compileOnly("com.gmail.nossr50.mcMMO:mcMMO:2.2.014") {
 		exclude("com.sk89q.worldguard", "worldguard-bukkit")
 		exclude("org.bstats", "bstats-bukkit")
     }
