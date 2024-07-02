@@ -45,6 +45,7 @@ public class SkillsPlayer {
 
         this.playerSkills = playerSkills;
         this.playerExperienceValues = playerExperienceValues;
+        this.nextSkillpointProgress = nextSkillpointProgress;
 
         this.resetCooldown = resetCooldown;
 
