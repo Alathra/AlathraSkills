@@ -163,10 +163,10 @@ public class SkillsPlayerManager implements Reloadable {
         totalExp += currentPlayer.getSkillCategoryExperience(3);
 
         // Gets remaining exp to next skill
-        float remainingExp = totalExp % Float.parseFloat(Cfg.getValue("experience.perLevel").toString());
+        float remainingExp = totalExp % Cfg.get().getFloat("experience.perLevel");
 
         // Calculates total skill points based on exp and exp required for points
-        int skillPointsAvailable = (int) ((totalExp - remainingExp) / Float.parseFloat(Cfg.getValue("experience.perLevel").toString()));
+        int skillPointsAvailable = (int) ((totalExp - remainingExp) / Cfg.get().getFloat("experience.perLevel"));
 
         // Subtracts used skill points
         skillPointsAvailable -= skillPlayers.get(p.getUniqueId()).getUsedSkillpoints();

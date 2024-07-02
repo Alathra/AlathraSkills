@@ -30,10 +30,10 @@ public class FarmingExpListener implements Listener {
 
         switch (block.getType()) {
             case CAVE_VINES:
-                expAmount = Float.parseFloat(Cfg.getValue("experience.farming.caveVine").toString());
+                expAmount = Cfg.get().getFloat("experience.farming.caveVine");
                 break;
             case SWEET_BERRY_BUSH:
-                expAmount = Float.parseFloat(Cfg.getValue("experience.farming.sweetBerryBush").toString());
+                expAmount = Cfg.get().getFloat("experience.farming.sweetBerryBush");
                 break;
             default:
                 return;
@@ -67,70 +67,70 @@ public class FarmingExpListener implements Listener {
             case BAMBOO:
                 if (PDCUtil.isUnnatural(block)) return;
 
-                expAmount = Float.parseFloat(Cfg.getValue("experience.farming.bamboo").toString());
+                expAmount = Cfg.get().getFloat("experience.farming.bamboo");
                 break;
             case BROWN_MUSHROOM, RED_MUSHROOM:
                 if (PDCUtil.isUnnatural(block)) return;
 
-                expAmount = Float.parseFloat(Cfg.getValue("experience.farming.mushroom").toString());
+                expAmount = Cfg.get().getFloat("experience.farming.mushroom");
                 break;
             case CACTUS:
                 if (PDCUtil.isUnnatural(block)) return;
 
-                expAmount = Float.parseFloat(Cfg.getValue("experience.farming.cactus").toString());
+                expAmount = Cfg.get().getFloat("experience.farming.cactus");
                 break;
             case CARROTS:
                 if (ageable.getMaximumAge() == ageable.getAge())
-                    expAmount = Float.parseFloat(Cfg.getValue("experience.farming.carrot").toString());
+                    expAmount = Cfg.get().getFloat("experience.farming.carrot");
                 break;
             case POTATOES:
                 if (ageable.getMaximumAge() == ageable.getAge())
-                    expAmount = Float.parseFloat(Cfg.getValue("experience.farming.potato").toString());
+                    expAmount = Cfg.get().getFloat("experience.farming.potato");
                 break;
             case BEETROOTS:
                 if (ageable.getMaximumAge() == ageable.getAge())
-                    expAmount = Float.parseFloat(Cfg.getValue("experience.farming.beetroot").toString());
+                    expAmount = Cfg.get().getFloat("experience.farming.beetroot");
                 break;
             case WHEAT:
                 if (ageable.getMaximumAge() == ageable.getAge())
-                    expAmount = Float.parseFloat(Cfg.getValue("experience.farming.wheat").toString());
+                    expAmount = Cfg.get().getFloat("experience.farming.wheat");
                 break;
             case CAVE_VINES:
                 CaveVines caveVines = (CaveVines) block.getBlockData();
                 if (caveVines.isBerries())
-                    expAmount = Float.parseFloat(Cfg.getValue("experience.farming.caveVineBlock").toString());
+                    expAmount = Cfg.get().getFloat("experience.farming.caveVineBlock");
                 break;
             case COCOA:
                 if (ageable.getMaximumAge() == ageable.getAge())
-                    expAmount = Float.parseFloat(Cfg.getValue("experience.farming.cocoa").toString());
+                    expAmount = Cfg.get().getFloat("experience.farming.cocoa");
                 break;
             case KELP:
                 if (PDCUtil.isUnnatural(block)) return;
 
-                expAmount = Float.parseFloat(Cfg.getValue("experience.farming.kelp").toString());
+                expAmount = Cfg.get().getFloat("experience.farming.kelp");
                 break;
             case MELON:
                 if (PDCUtil.isUnnatural(block)) return;
 
-                expAmount = Float.parseFloat(Cfg.getValue("experience.farming.melon").toString());
+                expAmount = Cfg.get().getFloat("experience.farming.melon");
                 break;
             case PUMPKIN:
                 if (PDCUtil.isUnnatural(block)) return;
 
-                expAmount = Float.parseFloat(Cfg.getValue("experience.farming.pumpkin").toString());
+                expAmount = Cfg.get().getFloat("experience.farming.pumpkin");
                 break;
             case NETHER_WART:
                 if (ageable.getMaximumAge() == ageable.getAge())
-                    expAmount = Float.parseFloat(Cfg.getValue("experience.farming.netherWart").toString());
+                    expAmount = Cfg.get().getFloat("experience.farming.netherWart");
                 break;
             case SUGAR_CANE:
                 if (PDCUtil.isUnnatural(block)) return;
 
-                expAmount = Float.parseFloat(Cfg.getValue("experience.farming.sugarCane").toString());
+                expAmount = Cfg.get().getFloat("experience.farming.sugarCane");
                 break;
             case SWEET_BERRY_BUSH:
                 if (ageable.getMaximumAge() == ageable.getAge())
-                    expAmount = Float.parseFloat(Cfg.getValue("experience.farming.sweetBerryBushBlock").toString());
+                    expAmount = Cfg.get().getFloat("experience.farming.sweetBerryBushBlock");
                 break;
             default:
                 return;

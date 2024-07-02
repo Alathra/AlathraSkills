@@ -41,25 +41,25 @@ public class EasyPicking {
     private static int getDuration(int skillLevel) {
         switch (skillLevel) {
             case 1 -> {
-                return Integer.parseInt(Cfg.getValue("skills.mining.easyPickings.duration.l1").toString());
+                return Cfg.get().getInt("skills.mining.easyPickings.duration.l1");
             }
             case 2 -> {
-                return Integer.parseInt(Cfg.getValue("skills.mining.easyPickings.duration.l2").toString());
+                return Cfg.get().getInt("skills.mining.easyPickings.duration.l2");
             }
             case 3 -> {
-                return Integer.parseInt(Cfg.getValue("skills.mining.easyPickings.duration.l3").toString());
+                return Cfg.get().getInt("skills.mining.easyPickings.duration.l3");
             }
             case 4 -> {
-                return Integer.parseInt(Cfg.getValue("skills.mining.easyPickings.duration.l4").toString());
+                return Cfg.get().getInt("skills.mining.easyPickings.duration.l4");
             }
             case 5 -> {
-                return Integer.parseInt(Cfg.getValue("skills.mining.easyPickings.duration.l5").toString());
+                return Cfg.get().getInt("skills.mining.easyPickings.duration.l5");
             }
             case 6 -> {
-                return Integer.parseInt(Cfg.getValue("skills.mining.easyPickings.duration.l6").toString());
+                return Cfg.get().getInt("skills.mining.easyPickings.duration.l6");
             }
             case 7 -> {
-                return Integer.parseInt(Cfg.getValue("skills.mining.easyPickings.duration.l7").toString());
+                return Cfg.get().getInt("skills.mining.easyPickings.duration.l7");
             }
             default -> {
                 return 0;
@@ -71,25 +71,25 @@ public class EasyPicking {
     private static long getCooldownTime(int skillLevel) {
         switch (skillLevel) {
             case 1 -> {
-                return Integer.parseInt(Cfg.getValue("skills.mining.easyPickings.cooldown.l1").toString());
+                return Cfg.get().getInt("skills.mining.easyPickings.cooldown.l1");
             }
             case 2 -> {
-                return Integer.parseInt(Cfg.getValue("skills.mining.easyPickings.cooldown.l2").toString());
+                return Cfg.get().getInt("skills.mining.easyPickings.cooldown.l2");
             }
             case 3 -> {
-                return Integer.parseInt(Cfg.getValue("skills.mining.easyPickings.cooldown.l3").toString());
+                return Cfg.get().getInt("skills.mining.easyPickings.cooldown.l3");
             }
             case 4 -> {
-                return Integer.parseInt(Cfg.getValue("skills.mining.easyPickings.cooldown.l4").toString());
+                return Cfg.get().getInt("skills.mining.easyPickings.cooldown.l4");
             }
             case 5 -> {
-                return Integer.parseInt(Cfg.getValue("skills.mining.easyPickings.cooldown.l5").toString());
+                return Cfg.get().getInt("skills.mining.easyPickings.cooldown.l5");
             }
             case 6 -> {
-                return Integer.parseInt(Cfg.getValue("skills.mining.easyPickings.cooldown.l6").toString());
+                return Cfg.get().getInt("skills.mining.easyPickings.cooldown.l6");
             }
             case 7 -> {
-                return Integer.parseInt(Cfg.getValue("skills.mining.easyPickings.cooldown.l7").toString());
+                return Cfg.get().getInt("skills.mining.easyPickings.cooldown.l7");
             }
             default -> {
                 return 0;
