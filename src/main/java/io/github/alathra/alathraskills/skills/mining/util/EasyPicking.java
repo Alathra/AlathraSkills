@@ -16,7 +16,6 @@ public class EasyPicking {
 
     private static final HashMap<UUID, Long> cooldowns = new HashMap<>();
     public static int MAX_LEVEL = 7;
-    private static Plugin instance = AlathraSkills.getInstance();
 
     public static void run(Player player, Block block, int skillLevel) {
         if (!isOnCooldown(player, skillLevel)) {
