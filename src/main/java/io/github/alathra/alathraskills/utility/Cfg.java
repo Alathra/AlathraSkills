@@ -23,7 +23,7 @@ public abstract class Cfg {
      * @param key Key a value is being retrieved for
      * @return The value associated with the provided key
      */
-    @NotNull
+    @NotNull @Deprecated
     public static Object getValue(String key) {
         return AlathraSkills.getInstance().getConfigHandler().getConfigValue(key);
     }

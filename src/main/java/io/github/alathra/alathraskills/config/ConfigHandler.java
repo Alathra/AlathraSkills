@@ -32,13 +32,13 @@ public class ConfigHandler implements Reloadable {
         generateMap();
     }
 
-    private void generateMap() {
+    @Deprecated private void generateMap() {
         for (String i : cfg.singleLayerKeySet()) {
             generateMapHelper(i, cfg.getFileData().get(i));
         }
     }
 
-    private void generateMapHelper(String prefix, Object value) {
+    @Deprecated private void generateMapHelper(String prefix, Object value) {
         if (cfg.singleLayerKeySet(prefix).size() == 0) {
             configMap.put(prefix, value);
         } else {
@@ -75,7 +75,7 @@ public class ConfigHandler implements Reloadable {
      *            from the config
      * @throws NullPointerException When map isn't initialized
      */
-    public Object getConfigValue(String key) throws NullPointerException {
+    @Deprecated public Object getConfigValue(String key) throws NullPointerException {
         if (configMap == null) {
             throw new NullPointerException("Map not initialized");
         } else {
