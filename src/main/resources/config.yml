@@ -9,6 +9,7 @@ db:
   pass: ""
   repair: false
 skills:
+   startingSkillpoints: 10
    maximumSkills: 30
    resetCooldown: 86400 # In seconds
    farming:

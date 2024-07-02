@@ -14,37 +14,46 @@ import java.util.stream.Stream;
 public class SkillsPlayer {
 
     private OfflinePlayer p;
+    private int totalSkillpoints;
+    private Integer usedSkillpoints;
+    private int totalSkillsUnlocked;
+    private int latestSkillUnlocked;
+    private float nextSkillpointProgress;
+
     private HashMap<Integer, SkillDetails> playerSkills;
     private HashMap<Integer, Float> playerExperienceValues;
-    private Integer usedSkillPoints;
 
-    private int totalSkillsUnlocked;
-
-    private int latestSkillUnlocked;
-
-    private Instant cooldown;
+    private Instant resetCooldown;
     private List<Integer> disabledSkills;
 
     private SkillsManager skillsManager;
 
     public SkillsPlayer(OfflinePlayer p,
+                        int totalSkillpoints,
+                        Integer usedSkillpoints,
+                        float nextSkillpointProgress,
+                        int latestSkillUnlocked,
                         HashMap<Integer, SkillDetails> playerSkills,
                         HashMap<Integer, Float> playerExperienceValues,
-                        Integer usedSkillPoints,
-                        int latestSkillUnlocked,
-                        Instant cooldown,
+                        Instant resetCooldown,
                         List<Integer> disabledSkills) {
         this.p = p;
+
+        this.totalSkillpoints = totalSkillpoints;
+        this.usedSkillpoints = usedSkillpoints;
+        this.latestSkillUnlocked = latestSkillUnlocked;
+
         this.playerSkills = playerSkills;
         this.playerExperienceValues = playerExperienceValues;
-        this.usedSkillPoints = usedSkillPoints;
-        this.latestSkillUnlocked = latestSkillUnlocked;
-        this.cooldown = cooldown;
-        this.skillsManager = AlathraSkills.getSkillsManager();
+
+        this.resetCooldown = resetCooldown;
+
         this.disabledSkills = disabledSkills;
 
         for (SkillDetails skillDetails : playerSkills.values())
             if (skillDetails.isSelected()) this.totalSkillsUnlocked++;
+
+        this.skillsManager = AlathraSkills.getSkillsManager();
     }
 
     public OfflinePlayer getPlayer() {
@@ -128,20 +137,52 @@ public class SkillsPlayer {
             sd, new SkillDetails(true, true)));
     }
 
-    public Integer getUsedSkillPoints() {
-        return usedSkillPoints;
+    public int getTotalSkillpoints() {
+        return totalSkillpoints;
     }
 
-    public void setUsedSkillPoints(Integer usedSkillPoints) {
-        this.usedSkillPoints = usedSkillPoints;
+    public void setTotalSkillpoints(int totalSkillpoints) {
+        this.totalSkillpoints = totalSkillpoints;
     }
 
-    public void addUsedSkillPoints(Integer addedPoints) {
-        this.usedSkillPoints += addedPoints;
+    public void addTotalSkillpoints(int addedSkillpoints) {
+        this.totalSkillpoints += addedSkillpoints;
     }
 
-    public void clearUsedSkillPoints() {
-        this.usedSkillPoints = 0;
+    public void clearTotalSkillpoints() {
+        this.totalSkillpoints = 0;
+    }
+
+    public Integer getUsedSkillpoints() {
+        return usedSkillpoints;
+    }
+
+    public void setUsedSkillpoints(Integer usedSkillpoints) {
+        this.usedSkillpoints = usedSkillpoints;
+    }
+
+    public void addUsedSkillpoints(Integer addedSkillpoints) {
+        this.usedSkillpoints += addedSkillpoints;
+    }
+
+    public void clearUsedSkillpoints() {
+        this.usedSkillpoints = 0;
+    }
+
+    public float getNextSkillpointProgress() {
+        return nextSkillpointProgress;
+    }
+
+    public void setNextSkillpointProgress(float nextSkillpointProgress) {
+        this.nextSkillpointProgress = nextSkillpointProgress;
+    }
+
+    public void addNextSkillpointsProgress(float addedExp) {
+        this.nextSkillpointProgress += addedExp;
+    }
+
+    public void clearNextSkillpointProgress() {
+        this.nextSkillpointProgress = 0.f;
     }
 
     public int getTotalSkillsUnlocked() {
@@ -168,17 +209,17 @@ public class SkillsPlayer {
         this.latestSkillUnlocked = -1;
     }
 
-    public Instant getCooldown() {
-        return cooldown;
+    public Instant getResetCooldown() {
+        return resetCooldown;
     }
 
-    public void setCooldown(Instant cooldown) {
-        this.cooldown = cooldown;
+    public void setResetCooldown(Instant resetCooldown) {
+        this.resetCooldown = resetCooldown;
     }
 
     public boolean isOnCooldown() {
-        if (this.cooldown == null) return false;
-        return this.cooldown.isAfter(Instant.now());
+        if (this.resetCooldown == null) return false;
+        return this.resetCooldown.isAfter(Instant.now());
     }
 
     public List<Integer> getDisabledSkills() {
@@ -209,7 +250,7 @@ public class SkillsPlayer {
         Skill skill = skillsManager.getSkill(getLatestSkillUnlocked());
         this.clearLatestSkillUnlocked();
         this.setTotalSkillsUnlocked(this.getTotalSkillsUnlocked() - 1);
-        this.addUsedSkillPoints(skill.getCost() * -1);
+        this.addUsedSkillpoints(skill.getCost() * -1);
         this.removeSkill(skill.getId());
         this.enableSkill(skill.getId());
     }
@@ -223,10 +264,12 @@ public class SkillsPlayer {
         this.setExperience(1, this.getSkillCategoryExperience(1) * expRetained);
         this.setExperience(2, this.getSkillCategoryExperience(2) * expRetained);
         this.setExperience(3, this.getSkillCategoryExperience(3) * expRetained);
+        this.setTotalSkillpoints(Math.round(this.getTotalSkillpoints() * expRetained));
+
+        this.clearUsedSkillpoints();
         this.clearLatestSkillUnlocked();
-        this.clearUsedSkillPoints();
         this.clearDisabledSkills();
-        this.setCooldown(Instant.now().plusSeconds(Cfg.get().getLong("skills.resetCooldown")));
+        this.setResetCooldown(Instant.now().plusSeconds(Cfg.get().getLong("skills.resetCooldown")));
         if (AlathraSkills.getVaultHook().isVaultLoaded() && cost > 0)
             AlathraSkills.getVaultHook().getEconomy().withdrawPlayer(this.p, cost);
         return true;

@@ -39,7 +39,7 @@ public abstract class DatabaseQueries {
      * @param latestSkillUnlocked
      * @param cooldown
      */
-    public static void savePlayerData(UUID uuid, int usedSkillPoints, int latestSkillUnlocked, Instant cooldown) {
+    public static void savePlayerData(UUID uuid, int totalSkillPoints, int usedSkillPoints, float nextSkillpointProgress, int latestSkillUnlocked, Instant cooldown) {
         try (
             Connection con = DB.getConnection()
         ) {
@@ -47,17 +47,23 @@ public abstract class DatabaseQueries {
 
             context.insertInto(PLAYER_PLAYERDATA,
                     PLAYER_PLAYERDATA.UUID,
+                    PLAYER_PLAYERDATA.TOTAL_SKILLPOINTS,
                     PLAYER_PLAYERDATA.USED_SKILLPOINTS,
+                    PLAYER_PLAYERDATA.EXP_PROGRESS,
                     PLAYER_PLAYERDATA.LATEST_UNLOCKED_SKILL,
                     PLAYER_PLAYERDATA.COOLDOWN)
                 .values(
                     convertUUIDToBytes(uuid),
+                    totalSkillPoints,
                     usedSkillPoints,
+                    Double.valueOf(nextSkillpointProgress),
                     latestSkillUnlocked,
                     LocalDateTime.ofInstant(cooldown, ZoneOffset.UTC)
                 )
                 .onDuplicateKeyUpdate()
+                .set(PLAYER_PLAYERDATA.TOTAL_SKILLPOINTS, totalSkillPoints)
                 .set(PLAYER_PLAYERDATA.USED_SKILLPOINTS, usedSkillPoints)
+                .set(PLAYER_PLAYERDATA.EXP_PROGRESS, Double.valueOf(nextSkillpointProgress))
                 .set(PLAYER_PLAYERDATA.LATEST_UNLOCKED_SKILL, latestSkillUnlocked)
                 .set(PLAYER_PLAYERDATA.COOLDOWN, LocalDateTime.ofInstant(cooldown, ZoneOffset.UTC))
                 .execute();
@@ -68,15 +74,15 @@ public abstract class DatabaseQueries {
     }
 
     /**
-     * Convenience shorthand for {@link #savePlayerData(UUID, int, int, Instant)}.
+     * Convenience shorthand for {@link #savePlayerData(UUID, int, int, float, int, Instant)}.
      *
      * @param p
      * @param usedSkillPoints
      * @param latestSkillUnlocked
      * @param cooldown
      */
-    public static void savePlayerData(Player p, int usedSkillPoints, int latestSkillUnlocked, Instant cooldown) {
-        savePlayerData(p.getUniqueId(), usedSkillPoints, latestSkillUnlocked, cooldown);
+    public static void savePlayerData(Player p, int totalSkillPoints, int usedSkillPoints, float nextSkillpointProgress, int latestSkillUnlocked, Instant cooldown) {
+        savePlayerData(p.getUniqueId(), totalSkillPoints, usedSkillPoints, nextSkillpointProgress, latestSkillUnlocked, cooldown);
     }
 
 
@@ -86,13 +92,15 @@ public abstract class DatabaseQueries {
      * @param uuid
      * @return A result of the data.
      */
-    public static Result<Record3<Integer, Integer, LocalDateTime>> fetchPlayerData(UUID uuid) {
+    public static Result<Record5<Integer, Integer, Double, Integer, LocalDateTime>> fetchPlayerData(UUID uuid) {
         try (
             Connection con = DB.getConnection()
         ) {
             DSLContext context = DB.getContext(con);
 
-            return context.select(PLAYER_PLAYERDATA.USED_SKILLPOINTS,
+            return context.select(PLAYER_PLAYERDATA.TOTAL_SKILLPOINTS,
+                    PLAYER_PLAYERDATA.USED_SKILLPOINTS,
+                    PLAYER_PLAYERDATA.EXP_PROGRESS,
                     PLAYER_PLAYERDATA.LATEST_UNLOCKED_SKILL,
                     PLAYER_PLAYERDATA.COOLDOWN)
                 .from(PLAYER_PLAYERDATA)
@@ -111,7 +119,7 @@ public abstract class DatabaseQueries {
      * @param p player
      * @return A result of the data.
      */
-    public static Result<Record3<Integer, Integer, LocalDateTime>> fetchPlayerData(Player p) {
+    public static Result<Record5<Integer, Integer, Double, Integer, LocalDateTime>> fetchPlayerData(Player p) {
         return fetchPlayerData(p.getUniqueId());
     }
 
