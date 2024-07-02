@@ -17,8 +17,6 @@ import java.util.List;
 
 public class OreInTheRoughOne extends Skill {
 
-    private static SkillsManager skillsManager;
-
     public OreInTheRoughOne(int id, int cost) {
         super(id, "Ore in the Rough 1", "Sometimes you find raw ores when breaking stone or deepslate.", cost);
 
@@ -35,7 +33,7 @@ public class OreInTheRoughOne extends Skill {
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
-        skillsManager = AlathraSkills.getSkillsManager();
+        SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(2));
     }
 }

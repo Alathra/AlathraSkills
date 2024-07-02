@@ -17,8 +17,6 @@ import java.util.List;
 
 public class QualityCropsTwo extends Skill {
 
-    private SkillsManager skillsManager;
-
     public QualityCropsTwo(int id, int cost) {
         super(id, "Quality Crops 2", "Chance to have a second baby animal spawn when breeding animals.", cost);
 
@@ -35,7 +33,7 @@ public class QualityCropsTwo extends Skill {
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
-        skillsManager = AlathraSkills.getSkillsManager();
+        SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(1));
     }
 }

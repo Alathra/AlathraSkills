@@ -17,8 +17,6 @@ import java.util.List;
 
 public class ProudProspectorTwo extends Skill {
 
-    private static SkillsManager skillsManager;
-
     public ProudProspectorTwo(int id, int cost) {
         super(id, "Proud Prospector 2", "Sometimes ores drop extra ores when you mine them.", cost);
 
@@ -35,7 +33,7 @@ public class ProudProspectorTwo extends Skill {
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
-        skillsManager = AlathraSkills.getSkillsManager();
+        SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(2));
     }
 }

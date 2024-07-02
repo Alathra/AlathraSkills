@@ -17,8 +17,6 @@ import java.util.List;
 
 public class GreenThumbTwo extends Skill {
 
-    private SkillsManager skillsManager;
-
     public GreenThumbTwo(int id, int cost) {
         super(id, "Green Thumb 2", "Bone meal applies to multiple crops in a radius.", cost);
 
@@ -35,7 +33,7 @@ public class GreenThumbTwo extends Skill {
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
-        skillsManager = AlathraSkills.getSkillsManager();
+        SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(1));
     }
 }

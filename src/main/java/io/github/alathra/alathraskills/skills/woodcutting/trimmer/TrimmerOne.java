@@ -19,8 +19,6 @@ import java.util.List;
 
 public class TrimmerOne extends Skill {
 
-    private SkillsManager skillsManager;
-
     public TrimmerOne(int id, int cost) {
         super(id, "Trimmer 1", "Your ax cuts straight through leaves and you can find apples on the branches of all trees.", cost);
 
@@ -37,7 +35,7 @@ public class TrimmerOne extends Skill {
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
-        skillsManager = AlathraSkills.getSkillsManager();
+        SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(3));
     }
 }

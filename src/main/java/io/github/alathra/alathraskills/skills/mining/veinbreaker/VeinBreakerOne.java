@@ -17,8 +17,6 @@ import java.util.List;
 
 public class VeinBreakerOne extends Skill {
 
-    private static SkillsManager skillsManager;
-
     public VeinBreakerOne(int id, int cost) {
         super(id, "Vein Breaker 1", "Sometimes you mine the entire vein of an ore by breaking just one ore.", cost);
 
@@ -35,7 +33,7 @@ public class VeinBreakerOne extends Skill {
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
-        skillsManager = AlathraSkills.getSkillsManager();
+        SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(2));
     }
 }

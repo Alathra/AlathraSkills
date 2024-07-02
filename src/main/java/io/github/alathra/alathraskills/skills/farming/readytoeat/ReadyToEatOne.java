@@ -17,8 +17,6 @@ import java.util.List;
 
 public class ReadyToEatOne extends Skill {
 
-    private SkillsManager skillsManager;
-
     public ReadyToEatOne(int id, int cost) {
         super(id, "Ready to Eat 1", "Breaking a fully grown crop has a chance to have it also drop its full food counter part.", cost);
 
@@ -35,7 +33,7 @@ public class ReadyToEatOne extends Skill {
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
-        skillsManager = AlathraSkills.getSkillsManager();
+        SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(1));
     }
 }
