@@ -27,7 +27,7 @@ public class PopulateContent {
         confirmMeta.lore(List.of(ColorParser.of("<yellow>Cost: " + skillsManager.getSkill(skill).getCost()).build()));
         confirm.setItemMeta(confirmMeta);
 
-        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS);
+        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS_PANE);
         ItemMeta denyMeta = deny.getItemMeta();
         denyMeta.displayName(ColorParser.of("<red><bold>Cancel").build());
         deny.setItemMeta(denyMeta);

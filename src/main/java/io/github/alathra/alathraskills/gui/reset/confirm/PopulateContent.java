@@ -32,7 +32,7 @@ public class PopulateContent {
             ColorParser.of("<dark_red>This action is permanent and cannot be undone.").build()));
         confirm.setItemMeta(confirmMeta);
 
-        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS);
+        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS_PANE);
         ItemMeta denyMeta = deny.getItemMeta();
         denyMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "<bold>Cancel").build());
         deny.setItemMeta(denyMeta);
@@ -67,7 +67,7 @@ public class PopulateContent {
             ColorParser.of("<dark_red>This action is permanent and cannot be undone.").build()));
         confirm.setItemMeta(confirmMeta);
 
-        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS);
+        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS_PANE);
         ItemMeta denyMeta = deny.getItemMeta();
         denyMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "<bold>Cancel").build());
         deny.setItemMeta(denyMeta);
@@ -102,7 +102,7 @@ public class PopulateContent {
         confirmMeta.lore(List.of(ColorParser.of("Refund your latest unlocked skill.").build()));
         confirm.setItemMeta(confirmMeta);
 
-        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS);
+        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS_PANE);
         ItemMeta denyMeta = deny.getItemMeta();
         denyMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "Cancel").build());
         deny.setItemMeta(denyMeta);
