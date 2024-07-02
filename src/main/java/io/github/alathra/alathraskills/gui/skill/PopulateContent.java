@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 public class PopulateContent {
 
-    private static SkillsManager skillsManager = AlathraSkills.getSkillsManager();
+    private static final SkillsManager skillsManager = AlathraSkills.getSkillsManager();
     private static HashMap<Integer, Boolean> hasSkill = new HashMap<>();
 
     public static void populateContent(Gui gui, Player player, int skillCategoryId, int page) {

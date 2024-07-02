@@ -23,7 +23,7 @@ import java.util.List;
 
 public class PopulateContent {
 
-    private static SkillsManager skillsManager = AlathraSkills.getSkillsManager();
+    private static final SkillsManager skillsManager = AlathraSkills.getSkillsManager();
 
     public static void populateContent(Gui gui, Player player) {
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(player.getUniqueId());

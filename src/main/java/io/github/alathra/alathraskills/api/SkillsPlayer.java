@@ -13,20 +13,20 @@ import java.util.stream.Stream;
 
 public class SkillsPlayer {
 
-    private OfflinePlayer p;
+    private final OfflinePlayer p;
     private int totalSkillpoints;
     private Integer usedSkillpoints;
     private int totalSkillsUnlocked;
     private int latestSkillUnlocked;
     private float nextSkillpointProgress;
 
-    private HashMap<Integer, SkillDetails> playerSkills;
-    private HashMap<Integer, Float> playerExperienceValues;
+    private final HashMap<Integer, SkillDetails> playerSkills;
+    private final HashMap<Integer, Float> playerExperienceValues;
 
     private Instant resetCooldown;
     private List<Integer> disabledSkills;
 
-    private SkillsManager skillsManager;
+    private final SkillsManager skillsManager;
 
     public SkillsPlayer(OfflinePlayer p,
                         int totalSkillpoints,

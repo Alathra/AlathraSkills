@@ -20,9 +20,9 @@ import java.util.List;
 
 public class PopulateContent {
 
-    private static int[] levelOnePassiveFarmingSkillIds = new int[]{101, 102, 103, 105};
-    private static int[] levelOnePassiveMiningSkillIds = new int[]{201, 202, 203, 2111};
-    private static int[] levelOnePassiveWoodcuttingSkillIds = new int[]{301, 302, 304, 306};
+    private static final int[] levelOnePassiveFarmingSkillIds = new int[]{101, 102, 103, 105};
+    private static final int[] levelOnePassiveMiningSkillIds = new int[]{201, 202, 203, 2111};
+    private static final int[] levelOnePassiveWoodcuttingSkillIds = new int[]{301, 302, 304, 306};
 
     public static void populateContent(Gui gui, Player p) {
         SkillsPlayer sp = SkillsPlayerManager.getSkillsPlayer(p);
