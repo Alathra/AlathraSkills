@@ -39,7 +39,7 @@ public class PopulateContent {
             ItemMeta resetFreeMeta = resetFree.getItemMeta();
             resetFreeMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "Reset progress").build());
             resetFreeMeta.lore(List.of(ColorParser.of(GuiHelper.POSITIVE + "Cost: Free").build(),
-                ColorParser.of(GuiHelper.NEGATIVE + "Resets all of your skills and experience.").build(),
+                ColorParser.of(GuiHelper.NEGATIVE + "Resets all of your skills but keep your skill points.").build(),
                 ColorParser.of(GuiHelper.NEGATIVE + "<bold>This action is permanent and cannot be undone.").build()));
             resetFree.setItemMeta(resetFreeMeta);
 
@@ -48,11 +48,11 @@ public class PopulateContent {
             resetCostMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "Reset progress").build());
             resetCostMeta.lore(List.of(ColorParser.of(GuiHelper.POSITIVE + "Cost: $15,000").build(),
                 ColorParser.of(GuiHelper.NEGATIVE + "Resets all of your skills, but you keep 25% of your experience.").build(),
-                ColorParser.of(GuiHelper.NEGATIVE + "<bold>This action is permanent and cannot be undone.").build()));
+                ColorParser.of(GuiHelper.NEGATIVE + "<bold>This option is disabled during the AlathraSkills beta.").build()));
             resetCost.setItemMeta(resetCostMeta);
 
             gui.setItem(2, 3, ItemBuilder.from(resetFree).asGuiItem(event -> GuiHelper.openResetProgressFreeConfirmGui(player)));
-            gui.setItem(2, 5, ItemBuilder.from(resetCost).asGuiItem(event -> GuiHelper.openResetProgressConfirmGui(player, 15000, 0.25f)));
+            gui.setItem(2, 5, ItemBuilder.from(resetCost).asGuiItem(/*event -> GuiHelper.openResetProgressConfirmGui(player, 15000, 0.25f)*/)); // TODO CONFIGURABLE VALUES AND RE-ENABLE
         } else {
             long cooldownRemaining = Duration.between(Instant.now(), skillsPlayer.getCooldown()).getSeconds();
             long hours = TimeUnit.SECONDS.toHours(cooldownRemaining);
