@@ -30,13 +30,13 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.Stream;
 
 public class SkillsPlayerManager implements Reloadable {
-    private static HashMap<UUID, SkillsPlayer> skillPlayers = new HashMap<UUID, SkillsPlayer>();
+    private static HashMap<UUID, SkillsPlayer> skillPlayers = new HashMap<>();
     private final AlathraSkills instance;
     private BukkitTask storePlayerSkillInfoTask;
 
     public SkillsPlayerManager(AlathraSkills instance) {
         this.instance = instance;
-        SkillsPlayerManager.skillPlayers = new HashMap<UUID, SkillsPlayer>();
+        SkillsPlayerManager.skillPlayers = new HashMap<>();
     }
 
     public static CompletableFuture<SkillsPlayer> handlePlayerJoin(Player p) {

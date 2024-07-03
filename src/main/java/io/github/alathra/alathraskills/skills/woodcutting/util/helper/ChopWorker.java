@@ -23,7 +23,7 @@ public class ChopWorker {
         if (!isLog(block)) return false;
         Block nextblock = block.getRelative(BlockFace.SELF);
         int searchlimit = 200;
-        List<Block> searched = new ArrayList<Block>();
+        List<Block> searched = new ArrayList<>();
         while (searchlimit > 0) {
             // Decrement limit first
             searchlimit--;
@@ -74,8 +74,8 @@ public class ChopWorker {
     }
 
     public static List<Block> getLogsToPop(Block block) {
-        Set<Block> logs = new HashSet<Block>();
-        Set<Block> logsundone = new HashSet<Block>();
+        Set<Block> logs = new HashSet<>();
+        Set<Block> logsundone = new HashSet<>();
         logsundone.add(block);
         while (logsundone.size() > 0) {
             Block log = logsundone.iterator().next();
@@ -103,10 +103,10 @@ public class ChopWorker {
                 }
             }
             if (logsundone.size() + logs.size() > 100) {
-                return new ArrayList<Block>();
+                return new ArrayList<>();
             }
         }
-        return new ArrayList<Block>(logs);
+        return new ArrayList<>(logs);
     }
 
     public static boolean isLog(Block block) {

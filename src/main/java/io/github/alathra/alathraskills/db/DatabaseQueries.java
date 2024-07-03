@@ -585,7 +585,7 @@ public abstract class DatabaseQueries {
         ) {
             DSLContext context = DB.getContext(con);
 
-            Collection<PlayerSkillinfoRecord> records = new ArrayList<PlayerSkillinfoRecord>();
+            Collection<PlayerSkillinfoRecord> records = new ArrayList<>();
 
             skillInfo.forEach(psd -> psd.getSkillInfo()
                 .forEach(psi -> records.add(
@@ -606,7 +606,7 @@ public abstract class DatabaseQueries {
         ) {
             DSLContext context = DB.getContext(con);
 
-            Collection<PlayerSkillinfoRecord> records = new ArrayList<PlayerSkillinfoRecord>();
+            Collection<PlayerSkillinfoRecord> records = new ArrayList<>();
 
             skillInfo.forEach(psd -> psd.getSkillInfo()
                 .forEach(psi -> records.add(
@@ -627,7 +627,7 @@ public abstract class DatabaseQueries {
         ) {
             DSLContext context = DB.getContext(con);
 
-            Collection<PlayerSkillcategoryinfoRecord> records = new ArrayList<PlayerSkillcategoryinfoRecord>();
+            Collection<PlayerSkillcategoryinfoRecord> records = new ArrayList<>();
 
             experienceInfo.forEach(eo -> eo.getExperienceValues()
                 .entrySet()
