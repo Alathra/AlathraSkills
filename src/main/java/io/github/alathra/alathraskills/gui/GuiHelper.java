@@ -135,7 +135,7 @@ public class GuiHelper {
         gui.open(player);
     }
 
-    public static void openResetProgressConfirmGui(Player player, int cost, float expRetained) {
+    public static void openResetProgressConfirmGui(Player player, int cost, double expRetained) {
         Gui gui = buildConfirmGui();
         populateResetProgressConfirmGui(gui, player, cost, expRetained);
         gui.open(player);
@@ -192,7 +192,7 @@ public class GuiHelper {
         io.github.alathra.alathraskills.gui.reset.PopulateContent.populateContent(gui, player);
     }
 
-    public static void populateResetProgressConfirmGui(Gui gui, Player player, int cost, float expRetained) {
+    public static void populateResetProgressConfirmGui(Gui gui, Player player, int cost, double expRetained) {
         io.github.alathra.alathraskills.gui.reset.confirm.PopulateContent.populateResetProgressContent(gui, player, cost, expRetained);
     }
 

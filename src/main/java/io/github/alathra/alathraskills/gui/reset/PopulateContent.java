@@ -9,6 +9,7 @@ import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.gui.GuiHelper;
 import io.github.alathra.alathraskills.skills.Skill;
+import io.github.alathra.alathraskills.utility.Cfg;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -52,7 +53,7 @@ public class PopulateContent {
             resetCost.setItemMeta(resetCostMeta);
 
             gui.setItem(2, 3, ItemBuilder.from(resetFree).asGuiItem(event -> GuiHelper.openResetProgressFreeConfirmGui(player)));
-            gui.setItem(2, 5, ItemBuilder.from(resetCost).asGuiItem(/*event -> GuiHelper.openResetProgressConfirmGui(player, 15000, 0.25f)*/)); // TODO CONFIGURABLE VALUES AND RE-ENABLE
+            gui.setItem(2, 5, ItemBuilder.from(resetCost).asGuiItem(event -> GuiHelper.openResetProgressConfirmGui(player, Cfg.get().getInt("skills.resetCost"), Cfg.get().getDouble("skills.resetRetain"))));
         } else {
             long cooldownRemaining = Duration.between(Instant.now(), skillsPlayer.getResetCooldown()).getSeconds();
             long hours = TimeUnit.SECONDS.toHours(cooldownRemaining);

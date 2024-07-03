@@ -19,7 +19,7 @@ import java.util.List;
 
 public class PopulateContent {
 
-    public static void populateResetProgressContent(Gui gui, Player player, int cost, float expRetained) {
+    public static void populateResetProgressContent(Gui gui, Player player, int cost, double expRetained) {
         SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
         if (skillsPlayer == null)
             return;
@@ -50,7 +50,7 @@ public class PopulateContent {
             if (reset) GuiHelper.openMainGui(player);
             else {
                 player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.AMBIENT, 1, 1);
-                player.sendMessage(ColorParser.of("<dark_grey>[<color:#00B300>AlathraSkills<dark_grey>]<red> Resetting costs $15,000.").build());
+                player.sendMessage(ColorParser.of("<dark_grey>[<color:#00B300>AlathraSkills<dark_grey>]<red> Resetting costs $" + cost + ".").build());
             }
         }));
     }
@@ -81,7 +81,7 @@ public class PopulateContent {
         gui.setItem(1, 3, ItemBuilder.from(deny).asGuiItem(event -> GuiHelper.openMainGui(player)));
         gui.setItem(1, 5, ItemBuilder.from(playerHead).asGuiItem());
         gui.setItem(1, 7, ItemBuilder.from(confirm).asGuiItem(event -> {
-            boolean reset = skillsPlayer.resetProgress(0, 1.0f); // TODO CHANGE THIS BEFORE 1.0 LAUNCH
+            boolean reset = skillsPlayer.resetProgress(0, 0.0f); // TODO CHANGE THIS BEFORE 1.0 LAUNCH
             if (reset) GuiHelper.openMainGui(player);
             else {
                 player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.AMBIENT, 1, 1);

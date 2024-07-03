@@ -12,6 +12,8 @@ skills:
    startingSkillpoints: 10
    maximumSkills: 30
    resetCooldown: 86400 # In seconds
+   resetCost: 15000
+   resetRetain: 0.25 # Retained EXP when paying for reset
    farming:
       fastHarvest:
          chance:
