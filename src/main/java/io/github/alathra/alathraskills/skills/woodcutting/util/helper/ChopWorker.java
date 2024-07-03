@@ -110,92 +110,41 @@ public class ChopWorker {
     }
 
     public static boolean isLog(Block block) {
-        switch (block.getType()) {
-            case OAK_LOG:
-            case SPRUCE_LOG:
-            case BIRCH_LOG:
-            case ACACIA_LOG:
-            case DARK_OAK_LOG:
-            case JUNGLE_LOG:
-            case CRIMSON_STEM:
-            case WARPED_STEM:
-            case MANGROVE_LOG:
-            case OAK_WOOD:
-            case SPRUCE_WOOD:
-            case BIRCH_WOOD:
-            case ACACIA_WOOD:
-            case DARK_OAK_WOOD:
-            case JUNGLE_WOOD:
-            case CRIMSON_HYPHAE:
-            case WARPED_HYPHAE:
-            case MANGROVE_WOOD:
-            case CHERRY_LOG:
-            case CHERRY_WOOD:
-                return true;
-            default:
-                return false;
-        }
+        return switch (block.getType()) {
+            case OAK_LOG, SPRUCE_LOG, BIRCH_LOG, ACACIA_LOG, DARK_OAK_LOG, JUNGLE_LOG, CRIMSON_STEM, WARPED_STEM, MANGROVE_LOG, OAK_WOOD, SPRUCE_WOOD, BIRCH_WOOD, ACACIA_WOOD, DARK_OAK_WOOD, JUNGLE_WOOD, CRIMSON_HYPHAE, WARPED_HYPHAE, MANGROVE_WOOD, CHERRY_LOG, CHERRY_WOOD ->
+                    true;
+            default -> false;
+        };
     }
 
     public static boolean isLeaves(Block block) {
-        switch (block.getType()) {
-            case OAK_LEAVES:
-            case SPRUCE_LEAVES:
-            case BIRCH_LEAVES:
-            case ACACIA_LEAVES:
-            case DARK_OAK_LEAVES:
-            case JUNGLE_LEAVES:
-            case AZALEA_LEAVES:
-            case FLOWERING_AZALEA_LEAVES:
-            case MANGROVE_LEAVES:
-            case CHERRY_LEAVES:
-                return true;
-            default:
-                return false;
-        }
+        return switch (block.getType()) {
+            case OAK_LEAVES, SPRUCE_LEAVES, BIRCH_LEAVES, ACACIA_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, AZALEA_LEAVES, FLOWERING_AZALEA_LEAVES, MANGROVE_LEAVES, CHERRY_LEAVES ->
+                    true;
+            default -> false;
+        };
     }
 
     public static boolean isWarts(Block block) {
-        switch (block.getType()) {
-            case NETHER_WART_BLOCK:
-            case WARPED_WART_BLOCK:
-            case SHROOMLIGHT:
-                return true;
-            default:
-                return false;
-        }
+        return switch (block.getType()) {
+            case NETHER_WART_BLOCK, WARPED_WART_BLOCK, SHROOMLIGHT -> true;
+            default -> false;
+        };
     }
 
     public static boolean isLeavesOrVines(Block block) {
-        switch (block.getType()) {
-            case OAK_LEAVES:
-            case SPRUCE_LEAVES:
-            case BIRCH_LEAVES:
-            case ACACIA_LEAVES:
-            case DARK_OAK_LEAVES:
-            case JUNGLE_LEAVES:
-            case AZALEA_LEAVES:
-            case FLOWERING_AZALEA_LEAVES:
-            case MANGROVE_LEAVES:
-            case CHERRY_LEAVES:
-            case VINE:
-                return true;
-            default:
-                return false;
-        }
+        return switch (block.getType()) {
+            case OAK_LEAVES, SPRUCE_LEAVES, BIRCH_LEAVES, ACACIA_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, AZALEA_LEAVES, FLOWERING_AZALEA_LEAVES, MANGROVE_LEAVES, CHERRY_LEAVES, VINE ->
+                    true;
+            default -> false;
+        };
     }
 
     public static boolean isWartsOrVines(Block block) {
-        switch (block.getType()) {
-            case NETHER_WART_BLOCK:
-            case WARPED_WART_BLOCK:
-            case SHROOMLIGHT:
-            case WEEPING_VINES:
-            case WEEPING_VINES_PLANT:
-                return true;
-            default:
-                return false;
-        }
+        return switch (block.getType()) {
+            case NETHER_WART_BLOCK, WARPED_WART_BLOCK, SHROOMLIGHT, WEEPING_VINES, WEEPING_VINES_PLANT -> true;
+            default -> false;
+        };
     }
 
     public static boolean checkPermission(Player p) {
