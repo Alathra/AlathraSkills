@@ -106,8 +106,7 @@ public class ChopWorker {
                 return new ArrayList<Block>();
             }
         }
-        List<Block> logsl = new ArrayList<Block>(logs);
-        return logsl;
+        return new ArrayList<Block>(logs);
     }
 
     public static boolean isLog(Block block) {
@@ -246,8 +245,7 @@ public class ChopWorker {
     }
 
     public static boolean isDurabilityOk(short item, short amount) {
-        if (true && item <= amount) return false;
-        else return true;
+        return item > amount;
     }
 
     @SuppressWarnings("deprecation")
