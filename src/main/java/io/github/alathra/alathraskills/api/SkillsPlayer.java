@@ -256,16 +256,16 @@ public class SkillsPlayer {
         this.enableSkill(skill.getId());
     }
 
-    public boolean resetProgress(int cost, float expRetained) {
+    public boolean resetProgress(int cost, double expRetained) {
         if (AlathraSkills.getVaultHook().isVaultLoaded())
             if (cost > 0 && AlathraSkills.getVaultHook().getEconomy().getBalance(this.p) < cost)
                 return false;
 
         playerSkills.keySet().forEach(this::removeSkill);
-        this.setExperience(1, this.getSkillCategoryExperience(1) * expRetained);
-        this.setExperience(2, this.getSkillCategoryExperience(2) * expRetained);
-        this.setExperience(3, this.getSkillCategoryExperience(3) * expRetained);
-        this.setTotalSkillpoints(Math.round(this.getTotalSkillpoints() * expRetained));
+        this.setExperience(1, (float) (this.getSkillCategoryExperience(1) * expRetained));
+        this.setExperience(2, (float) (this.getSkillCategoryExperience(2) * expRetained));
+        this.setExperience(3, (float) (this.getSkillCategoryExperience(3) * expRetained));
+        this.setTotalSkillpoints(Math.round(this.getTotalSkillpoints() * (float) expRetained));
 
         this.clearUsedSkillpoints();
         this.clearLatestSkillUnlocked();
