@@ -1,12 +1,10 @@
 package io.github.alathra.alathraskills.skills.mining.util;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
-import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.utility.Cfg;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 

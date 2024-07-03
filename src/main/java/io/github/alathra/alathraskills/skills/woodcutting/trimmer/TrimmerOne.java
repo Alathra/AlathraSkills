@@ -3,7 +3,6 @@ package io.github.alathra.alathraskills.skills.woodcutting.trimmer;
 import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.gui.GuiHelper;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextColor;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.skills.Skill;
@@ -14,7 +13,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TrimmerOne extends Skill {

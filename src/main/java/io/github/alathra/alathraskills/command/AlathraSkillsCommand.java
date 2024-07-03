@@ -1,7 +1,6 @@
 package io.github.alathra.alathraskills.command;
 
 import dev.jorel.commandapi.CommandAPICommand;
-import dev.triumphteam.gui.guis.Gui;
 import io.github.alathra.alathraskills.gui.GuiHelper;
 
 public class AlathraSkillsCommand {

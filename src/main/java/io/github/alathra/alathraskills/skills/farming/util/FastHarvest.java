@@ -1,7 +1,6 @@
 package io.github.alathra.alathraskills.skills.farming.util;
 
 import io.github.alathra.alathraskills.api.SkillsManager;
-import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.api.events.SkillPointGainEvent;
 import io.github.alathra.alathraskills.skills.farming.util.helper.FarmingBlockUtil;
@@ -11,7 +10,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class FastHarvest {
