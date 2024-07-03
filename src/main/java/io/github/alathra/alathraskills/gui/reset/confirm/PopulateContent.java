@@ -32,7 +32,7 @@ public class PopulateContent {
             ColorParser.of("<dark_red>This action is permanent and cannot be undone.").build()));
         confirm.setItemMeta(confirmMeta);
 
-        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS);
+        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS_PANE);
         ItemMeta denyMeta = deny.getItemMeta();
         denyMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "<bold>Cancel").build());
         deny.setItemMeta(denyMeta);
@@ -63,11 +63,11 @@ public class PopulateContent {
         ItemStack confirm = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
         ItemMeta confirmMeta = confirm.getItemMeta();
         confirmMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "<bold>Confirm").build());
-        confirmMeta.lore(List.of(ColorParser.of("<green>Reset all of your skills and experience.").build(),
+        confirmMeta.lore(List.of(ColorParser.of("<green>Reset all of your skills but keep your skill points.").build(),
             ColorParser.of("<dark_red>This action is permanent and cannot be undone.").build()));
         confirm.setItemMeta(confirmMeta);
 
-        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS);
+        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS_PANE);
         ItemMeta denyMeta = deny.getItemMeta();
         denyMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "<bold>Cancel").build());
         deny.setItemMeta(denyMeta);
@@ -81,7 +81,7 @@ public class PopulateContent {
         gui.setItem(1, 3, ItemBuilder.from(deny).asGuiItem(event -> GuiHelper.openMainGui(player)));
         gui.setItem(1, 5, ItemBuilder.from(playerHead).asGuiItem());
         gui.setItem(1, 7, ItemBuilder.from(confirm).asGuiItem(event -> {
-            boolean reset = skillsPlayer.resetProgress(0, 0);
+            boolean reset = skillsPlayer.resetProgress(0, 1.0f); // TODO CHANGE THIS BEFORE 1.0 LAUNCH
             if (reset) GuiHelper.openMainGui(player);
             else {
                 player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.AMBIENT, 1, 1);
@@ -102,7 +102,7 @@ public class PopulateContent {
         confirmMeta.lore(List.of(ColorParser.of("Refund your latest unlocked skill.").build()));
         confirm.setItemMeta(confirmMeta);
 
-        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS);
+        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS_PANE);
         ItemMeta denyMeta = deny.getItemMeta();
         denyMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "Cancel").build());
         deny.setItemMeta(denyMeta);
