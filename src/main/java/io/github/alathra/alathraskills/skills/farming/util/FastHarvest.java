@@ -112,7 +112,7 @@ public class FastHarvest {
         if (SkillsPlayerManager.isSkillPointGained(p, getExpAmount(crop))) {
             Bukkit.getPluginManager().callEvent(new SkillPointGainEvent(SkillsPlayerManager.getSkillsPlayer(p)));
         }
-        SkillsPlayerManager.addPlayerExperience(event.getPlayer(), SkillsManager.FARMING_SKILL_ID, getExpAmount(crop));
+        SkillsPlayerManager.addPlayerExperience(p, SkillsManager.FARMING_SKILL_ID, getExpAmount(crop));
     }
 
     private static float getExpAmount(Block crop) {
