@@ -74,7 +74,6 @@ public class OneSwing {
 
             }
         }
-        actives.remove(player.getUniqueId());
     }
 
     // Either pre-activate, activate or do nothing depending on current state
@@ -110,12 +109,7 @@ public class OneSwing {
         preActives.add(player.getUniqueId());
 
         // After duration is over, remove the player from actives set
-        // After 5 seconds
-        new BukkitRunnable() {
-            public void run() {
-                actives.remove(player.getUniqueId());
-            }
-        }.runTaskLaterAsynchronously(AlathraSkills.getInstance(), 100);
+        Bukkit.getScheduler().runTaskLater(AlathraSkills.getInstance(), () -> preActives.remove(player.getUniqueId()), 100L);
     }
 
     private static void setActive(Player player, int skillLevel) {
@@ -128,11 +122,7 @@ public class OneSwing {
         // Add the player to actives set
         actives.add(player.getUniqueId());
         // After duration is over, remove the player from actives set
-        new BukkitRunnable() {
-            public void run() {
-                actives.remove(player.getUniqueId());
-            }
-        }.runTaskLaterAsynchronously(AlathraSkills.getInstance(), (long) getDuration(skillLevel) * 20);
+        Bukkit.getScheduler().runTaskLater(AlathraSkills.getInstance(), () -> actives.remove(player.getUniqueId()), getDuration(skillLevel) * 20L);
     }
 
     private static boolean isActive(Player player) {
