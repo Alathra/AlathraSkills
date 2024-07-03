@@ -1,5 +1,9 @@
 package io.github.alathra.alathraskills.skills.farming.util;
 
+import io.github.alathra.alathraskills.api.SkillsManager;
+import io.github.alathra.alathraskills.api.SkillsPlayer;
+import io.github.alathra.alathraskills.api.SkillsPlayerManager;
+import io.github.alathra.alathraskills.api.events.SkillPointGainEvent;
 import io.github.alathra.alathraskills.skills.farming.util.helper.FarmingBlockUtil;
 import io.github.alathra.alathraskills.skills.farming.util.helper.FarmingData;
 import io.github.alathra.alathraskills.utility.Cfg;
@@ -44,17 +48,11 @@ public class FastHarvest {
                     // If crop is fully grown
                     if (ageableCrop.getAge() == ageableCrop.getMaximumAge()) {
                         if (tool != null) {
-                            BlockBreakEvent event = new BlockBreakEvent(crop, player);
-                            Bukkit.getPluginManager().callEvent(event);
-                            if (event.isCancelled())
-                                continue;
                             crop.breakNaturally(tool);
+                            addExp(player, crop);
                         } else {
-                            BlockBreakEvent event = new BlockBreakEvent(crop, player);
-                            Bukkit.getPluginManager().callEvent(event);
-                            if (event.isCancelled())
-                                continue;
                             crop.breakNaturally();
+                            addExp(player, crop);
                         }
                     }
                     // Is a crop, but not fully grown so ignore
@@ -62,17 +60,11 @@ public class FastHarvest {
                 } else {
                     // Is a crop that does not have growth cycles
                     if (tool != null) {
-                        BlockBreakEvent event = new BlockBreakEvent(crop, player);
-                        Bukkit.getPluginManager().callEvent(event);
-                        if (event.isCancelled())
-                            continue;
                         crop.breakNaturally(tool);
+                        addExp(player, crop);
                     } else {
-                        BlockBreakEvent event = new BlockBreakEvent(crop, player);
-                        Bukkit.getPluginManager().callEvent(event);
-                        if (event.isCancelled())
-                            continue;
                         crop.breakNaturally();
+                        addExp(player, crop);
                     }
                 }
             }
@@ -93,17 +85,11 @@ public class FastHarvest {
                     // If crop is fully grown
                     if (ageableCrop.getAge() == ageableCrop.getMaximumAge()) {
                         if (tool != null) {
-                            BlockBreakEvent event = new BlockBreakEvent(crop, player);
-                            Bukkit.getPluginManager().callEvent(event);
-                            if (event.isCancelled())
-                                continue;
                             crop.breakNaturally(tool);
+                            addExp(player, crop);
                         } else {
-                            BlockBreakEvent event = new BlockBreakEvent(crop, player);
-                            Bukkit.getPluginManager().callEvent(event);
-                            if (event.isCancelled())
-                                continue;
                             crop.breakNaturally();
+                            addExp(player, crop);
                         }
                     }
                     // Is a crop, but not fully grown so ignore
@@ -111,21 +97,32 @@ public class FastHarvest {
                 } else {
                     // Is a crop that does not have growth cycles
                     if (tool != null) {
-                        BlockBreakEvent event = new BlockBreakEvent(crop, player);
-                        Bukkit.getPluginManager().callEvent(event);
-                        if (event.isCancelled())
-                            continue;
                         crop.breakNaturally(tool);
+                        addExp(player, crop);
                     } else {
-                        BlockBreakEvent event = new BlockBreakEvent(crop, player);
-                        Bukkit.getPluginManager().callEvent(event);
-                        if (event.isCancelled())
-                            continue;
                         crop.breakNaturally();
+                        addExp(player, crop);
                     }
                 }
             }
         }
+    }
+
+    private static void addExp(Player p, Block crop) {
+        if (SkillsPlayerManager.isSkillPointGained(p, getExpAmount(crop))) {
+            Bukkit.getPluginManager().callEvent(new SkillPointGainEvent(SkillsPlayerManager.getSkillsPlayer(p)));
+        }
+        SkillsPlayerManager.addPlayerExperience(event.getPlayer(), SkillsManager.FARMING_SKILL_ID, getExpAmount(crop));
+    }
+
+    private static float getExpAmount(Block crop) {
+        return switch (crop.getType()) {
+            case POTATOES ->    Cfg.get().getFloat("experience.farming.potato");
+            case BEETROOTS ->   Cfg.get().getFloat("experience.farming.beetroot");
+            case CARROTS ->     Cfg.get().getFloat("experience.farming.carrot");
+            case WHEAT ->       Cfg.get().getFloat("experience.farming.wheat");
+            default -> 0.f;
+        };
     }
 
     private static double getChance(int skillLevel) {
