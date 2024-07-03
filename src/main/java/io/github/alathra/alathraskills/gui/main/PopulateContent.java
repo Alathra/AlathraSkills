@@ -5,6 +5,7 @@ import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
+import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.gui.GuiHelper;
 import io.github.alathra.alathraskills.utility.Cfg;
@@ -26,22 +27,20 @@ public class PopulateContent {
     public static void populateContent(Gui gui, Player player) {
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(player.getUniqueId());
 
-        float totalExp = SkillsPlayerManager.getTotalExperience(offlinePlayer);
+        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+
+        if (skillsPlayer == null)
+            return;
 
         float expPerLevel = Cfg.get().getFloat("experience.perLevel");
-
-        float remainingExp = expPerLevel - (totalExp % expPerLevel);
-        float expProgress = expPerLevel - remainingExp;
-
-        int skillPointsAvailable = availableSkillPoints(player);
 
         ItemStack availableSkillPoints = new ItemStack(Material.END_CRYSTAL);
         ItemMeta availableSkillPointsMeta = availableSkillPoints.getItemMeta();
         availableSkillPointsMeta.displayName(ColorParser.of(GuiHelper.EXPERIENCE_GRADIENT + "Skill Points").build().decoration(TextDecoration.ITALIC, false));
         availableSkillPointsMeta.lore(
             List.of(
-                ColorParser.of("<color:#a8a8a8>Points: "+ skillPointsAvailable).build(),
-                ColorParser.of("<color:#a8a8a8>Next Point: %s/%s".formatted(Math.round(expProgress), Math.round(expPerLevel))).build()
+                ColorParser.of("<color:#a8a8a8>Points: "+ skillsPlayer.getAvailableSkillpoints()).build(),
+                ColorParser.of("<color:#a8a8a8>Next Point: %s/%s".formatted(Math.round(skillsPlayer.getNextSkillpointProgress()), Math.round(expPerLevel))).build()
             )
         );
         availableSkillPoints.setItemMeta(availableSkillPointsMeta);
@@ -77,27 +76,6 @@ public class PopulateContent {
         gui.setItem(4, 3, ItemBuilder.from(skillsManager.skillCategories.get(1).getIcon()).asGuiItem(event -> GuiHelper.openSkillGui(player, 1, 1)));
         gui.setItem(4, 5, ItemBuilder.from(skillsManager.skillCategories.get(2).getIcon()).asGuiItem(event -> GuiHelper.openSkillGui(player, 2, 1)));
         gui.setItem(4, 7, ItemBuilder.from(skillsManager.skillCategories.get(3).getIcon()).asGuiItem(event -> GuiHelper.openSkillGui(player, 3, 1)));
-    }
-
-    private static int availableSkillPoints(Player p) {
-        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(p.getUniqueId());
-
-        float totalExp = SkillsPlayerManager.getTotalExperience(offlinePlayer);
-
-        float expPerLevel = Cfg.get().getFloat("experience.perLevel");
-
-        float remainingExp = totalExp % expPerLevel;
-        if (totalExp < expPerLevel) {
-            remainingExp = expPerLevel - totalExp;
-        }
-
-        int skillPointsAvailable = (int) ((totalExp - remainingExp) / expPerLevel);
-        int unlockedSkills = SkillsPlayerManager.getUsedSkillPoints(offlinePlayer);
-        skillPointsAvailable -= unlockedSkills;
-
-        if (skillPointsAvailable < 0) return 0;
-
-        return skillPointsAvailable;
     }
 
 }

@@ -4,6 +4,7 @@ import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import io.github.alathra.alathraskills.AlathraSkills;
+import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.gui.GuiHelper;
 import io.github.alathra.alathraskills.utility.Cfg;
@@ -23,6 +24,10 @@ public class PopulateButtons {
     static AlathraSkills instance = AlathraSkills.getInstance();
 
     public static void populateButtons(Gui gui, Player player, int skillCategoryId, int page) {
+
+        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+        if (skillsPlayer == null)
+            return;
 
         ItemStack returnStack = new ItemStack(Material.ARROW);
         ItemMeta returnMeta = returnStack.getItemMeta();
@@ -49,7 +54,7 @@ public class PopulateButtons {
         availableSkillPointsMeta.displayName(ColorParser.of(GuiHelper.EXPERIENCE_GRADIENT + "Skill Points").build().decoration(TextDecoration.ITALIC, false));
         availableSkillPointsMeta.lore(
             List.of(
-                ColorParser.of("<color:#a8a8a8>Points: "+ availableSkillPoints(player)).build()/*,
+                ColorParser.of("<color:#a8a8a8>Points: "+ skillsPlayer.getAvailableSkillpoints()).build()/*,
                 ColorParser.of("<color:#a8a8a8>Next Level: %s/%s".formatted(remainingExp, totalExp)).build()*/ // TODO Implement methods to show these
             )
         );
@@ -88,26 +93,4 @@ public class PopulateButtons {
             }
         }
     }
-
-    private static int availableSkillPoints(Player p) {
-        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(p.getUniqueId());
-
-        float totalExp = SkillsPlayerManager.getTotalExperience(offlinePlayer);
-
-        float expPerLevel = Cfg.get().getFloat("experience.perLevel");
-
-        float remainingExp = totalExp % expPerLevel;
-        if (totalExp < expPerLevel) {
-            remainingExp = expPerLevel - totalExp;
-        }
-
-        int skillPointsAvailable = (int) ((totalExp - remainingExp) / expPerLevel);
-        int unlockedSkills = SkillsPlayerManager.getUsedSkillPoints(offlinePlayer);
-        skillPointsAvailable -= unlockedSkills;
-
-        if (skillPointsAvailable < 0) return 0;
-
-        return skillPointsAvailable;
-    }
-
 }

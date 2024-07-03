@@ -77,6 +77,13 @@ public class SkillsPlayer {
             .filter(e -> e.getValue().isSelected());
     }
 
+    public float getTotalExperience() {
+        float totalExp = 0.f;
+        for (float exp : playerExperienceValues.values())
+            totalExp += exp;
+        return totalExp;
+    }
+
     public Float getSkillCategoryExperience(Integer skillCategory) {
         return this.playerExperienceValues.get(skillCategory);
     }
@@ -134,6 +141,10 @@ public class SkillsPlayer {
     public void cleanUpInsertedSkills() {
         getSkillsToInsertToDB().forEach(sd -> playerSkills.put(
             sd, new SkillDetails(true, true)));
+    }
+
+    public int getAvailableSkillpoints() {
+        return totalSkillpoints - usedSkillpoints;
     }
 
     public int getTotalSkillpoints() {
