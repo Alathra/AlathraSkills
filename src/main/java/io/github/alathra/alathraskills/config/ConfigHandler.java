@@ -28,27 +28,6 @@ public class ConfigHandler implements Reloadable {
     @Override
     public void onLoad() {
         cfg = new Config("config", plugin.getDataFolder().getPath(), plugin.getResource("config.yml")); // Create a config file from the template in our resources folder
-        configMap = new HashMap<String, Object>();
-        generateMap();
-    }
-
-    @Deprecated private void generateMap() {
-        for (String i : cfg.singleLayerKeySet()) {
-            generateMapHelper(i, cfg.getFileData().get(i));
-        }
-    }
-
-    @Deprecated private void generateMapHelper(String prefix, Object value) {
-        if (cfg.singleLayerKeySet(prefix).size() == 0) {
-            configMap.put(prefix, value);
-        } else {
-            for (Object j : cfg.singleLayerKeySet(prefix)) {
-                String key = prefix + "." + j;
-                if (key.length() < 500) {
-                    generateMapHelper(key, cfg.getFileData().get(key));
-                }
-            }
-        }
     }
 
     @Override
@@ -68,18 +47,4 @@ public class ConfigHandler implements Reloadable {
         return cfg;
     }
 
-    /**
-     * Gets the config value associated with a given key
-     *
-     * @param key The key associated with the value we are getting
-     *            from the config
-     * @throws NullPointerException When map isn't initialized
-     */
-    @Deprecated public Object getConfigValue(String key) throws NullPointerException {
-        if (configMap == null) {
-            throw new NullPointerException("Map not initialized");
-        } else {
-            return configMap.get(key);
-        }
-    }
 }
