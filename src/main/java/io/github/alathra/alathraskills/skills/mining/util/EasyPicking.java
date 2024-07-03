@@ -3,6 +3,7 @@ package io.github.alathra.alathraskills.skills.mining.util;
 import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.utility.Cfg;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -24,6 +25,10 @@ public class EasyPicking {
             // Add haste effect
             player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, getDuration(skillLevel) * 20, 0));
             player.sendActionBar(ColorParser.of("<dark_grey>Easy Picking <green><bold>activated</bold></green></dark_grey>").build());
+            // Notify when cooldown is over
+            Bukkit.getScheduler().runTaskLater(instance,
+                () -> player.sendActionBar(ColorParser.of("<dark_grey>Easy Picking <green><bold>available</bold></green></dark_grey>").build()), getCooldownTime(skillLevel) * 20
+            );
         }
     }
 
