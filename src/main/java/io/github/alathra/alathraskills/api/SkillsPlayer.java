@@ -119,9 +119,7 @@ public class SkillsPlayer {
 
     @Deprecated
     public void cleanUpDeletedSkills() {
-        getSkillsToDeleteFromDB().forEach(skill -> {
-            playerSkills.remove(skill);
-        });
+        getSkillsToDeleteFromDB().forEach(skill -> playerSkills.remove(skill));
     }
 
     public List<Integer> getSkillsToInsertToDB() {

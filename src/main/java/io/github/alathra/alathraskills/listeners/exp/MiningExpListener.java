@@ -18,10 +18,6 @@ public class MiningExpListener implements Listener {
     public void BlockMiningListener(BlockBreakEvent event) {
         Player p = event.getPlayer();
 
-        if (p == null) {
-            return;
-        }
-
         Block block = event.getBlock();
 
         // PDC check for unnatural block

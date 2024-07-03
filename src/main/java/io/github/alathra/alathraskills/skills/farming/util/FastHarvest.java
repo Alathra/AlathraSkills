@@ -36,9 +36,8 @@ public class FastHarvest {
 
     private static void runForPlusShape(Block initialCrop, Player player) {
         ItemStack tool = null;
-        if (player.getInventory().getItemInMainHand() != null) {
-            tool = player.getInventory().getItemInMainHand();
-        }
+        player.getInventory().getItemInMainHand();
+        tool = player.getInventory().getItemInMainHand();
 
         for (Block crop : FarmingBlockUtil.getPlusBlocks(initialCrop)) {
             // If adjacent block is a breakable crop
@@ -47,25 +46,15 @@ public class FastHarvest {
                 if (crop.getBlockData() instanceof Ageable ageableCrop) {
                     // If crop is fully grown
                     if (ageableCrop.getAge() == ageableCrop.getMaximumAge()) {
-                        if (tool != null) {
-                            crop.breakNaturally(tool);
-                            addExp(player, crop);
-                        } else {
-                            crop.breakNaturally();
-                            addExp(player, crop);
-                        }
+                        crop.breakNaturally(tool);
+                        addExp(player, crop);
                     }
                     // Is a crop, but not fully grown so ignore
                     continue;
                 } else {
                     // Is a crop that does not have growth cycles
-                    if (tool != null) {
-                        crop.breakNaturally(tool);
-                        addExp(player, crop);
-                    } else {
-                        crop.breakNaturally();
-                        addExp(player, crop);
-                    }
+                    crop.breakNaturally(tool);
+                    addExp(player, crop);
                 }
             }
         }
@@ -73,9 +62,8 @@ public class FastHarvest {
 
     private static void runFor3by3Shape(Block initialCrop, Player player) {
         ItemStack tool = null;
-        if (player.getInventory().getItemInMainHand() != null) {
-            tool = player.getInventory().getItemInMainHand();
-        }
+        player.getInventory().getItemInMainHand();
+        tool = player.getInventory().getItemInMainHand();
 
         for (Block crop : FarmingBlockUtil.get3by3Blocks(initialCrop)) {
             // If adjacent block is a breakable crop
@@ -84,25 +72,15 @@ public class FastHarvest {
                 if (crop.getBlockData() instanceof Ageable ageableCrop) {
                     // If crop is fully grown
                     if (ageableCrop.getAge() == ageableCrop.getMaximumAge()) {
-                        if (tool != null) {
-                            crop.breakNaturally(tool);
-                            addExp(player, crop);
-                        } else {
-                            crop.breakNaturally();
-                            addExp(player, crop);
-                        }
+                        crop.breakNaturally(tool);
+                        addExp(player, crop);
                     }
                     // Is a crop, but not fully grown so ignore
                     continue;
                 } else {
                     // Is a crop that does not have growth cycles
-                    if (tool != null) {
-                        crop.breakNaturally(tool);
-                        addExp(player, crop);
-                    } else {
-                        crop.breakNaturally();
-                        addExp(player, crop);
-                    }
+                    crop.breakNaturally(tool);
+                    addExp(player, crop);
                 }
             }
         }

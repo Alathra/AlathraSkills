@@ -263,15 +263,11 @@ public class SkillsPlayerManager implements Reloadable {
 
     private static SkillsPlayer fetchCurrPlayer(OfflinePlayer p) {
         UUID playerId = p.getUniqueId();
-        if (playerId != null) {
-            SkillsPlayer currPlayer = skillPlayers.get(playerId);
-            if (currPlayer != null) {
-                return currPlayer;
-            } else {
-                throw new Error("Player is not in memory");
-            }
+        SkillsPlayer currPlayer = skillPlayers.get(playerId);
+        if (currPlayer != null) {
+            return currPlayer;
         } else {
-            throw new Error("Player doesn't have a valid ID");
+            throw new Error("Player is not in memory");
         }
 
     }

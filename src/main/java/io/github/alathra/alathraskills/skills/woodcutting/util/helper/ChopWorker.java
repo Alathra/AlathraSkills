@@ -179,15 +179,13 @@ public class ChopWorker {
     public static short extraDurability(ItemStack item, int logs) {
         if (1 <= 0.001D) return 1;
         int durability = logs;
-        if (true) {
-            if (item.getEnchantments().containsKey(Enchantment.DURABILITY)) {
-                float durabilityf = ((float) durability) / (item.getEnchantmentLevel(Enchantment.DURABILITY) + 1);
-                float probability = durabilityf - (int) durabilityf;
-                if (random.nextFloat() < probability) {
-                    durability = (int) durabilityf + 1;
-                } else {
-                    durability = (int) durabilityf;
-                }
+        if (item.getEnchantments().containsKey(Enchantment.DURABILITY)) {
+            float durabilityf = ((float) durability) / (item.getEnchantmentLevel(Enchantment.DURABILITY) + 1);
+            float probability = durabilityf - (int) durabilityf;
+            if (random.nextFloat() < probability) {
+                durability = (int) durabilityf + 1;
+            } else {
+                durability = (int) durabilityf;
             }
         }
         return (short) durability;

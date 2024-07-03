@@ -29,9 +29,7 @@ public class PopulateButtons {
         exit.setItemMeta(exitMeta);
 
         gui.getFiller().fill(ItemBuilder.from(border).asGuiItem());
-        gui.setItem(3, 1, ItemBuilder.from(back).asGuiItem(event -> {
-            GuiHelper.openOptionsGui(player);
-        }));
+        gui.setItem(3, 1, ItemBuilder.from(back).asGuiItem(event -> GuiHelper.openOptionsGui(player)));
         gui.setItem(3, 9, ItemBuilder.from(exit).asGuiItem(event -> gui.close(player)));
     }
 }

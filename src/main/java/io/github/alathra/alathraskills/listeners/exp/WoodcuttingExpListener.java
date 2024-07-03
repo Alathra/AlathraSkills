@@ -25,9 +25,7 @@ public class WoodcuttingExpListener implements Listener {
     public void LogBreakingListener(BlockBreakEvent event) {
         Player p = event.getPlayer();
 
-        if (event.getPlayer() == null) {
-            return;
-        }
+        event.getPlayer();
 
         Block block = event.getBlock();
         if (!logs.contains(block.getType())) {
