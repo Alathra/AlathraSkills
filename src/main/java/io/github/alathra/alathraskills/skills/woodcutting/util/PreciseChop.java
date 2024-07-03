@@ -6,7 +6,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class PreciseChop {
 
-    public static int MAX_LEVEL = 8;
+    public static final int MAX_LEVEL = 8;
 
     public static void run(Block block, int skillLevel) {
         if (Math.random() > getChance(skillLevel))

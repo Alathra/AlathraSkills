@@ -11,11 +11,11 @@ import org.bukkit.entity.Player;
 
 public class GuiHelper {
 
-    public static String EXPERIENCE_GRADIENT = "<gradient:#c47dff:#ff69be>";
-    public static String POSITIVE = "<green>";
-    public static String NEGATIVE = "<red>";
-    public static String COMMON_TITLE = "<white>";
-    public static String LORETEXT = "<color:#a8a8a8>";
+    public static final String EXPERIENCE_GRADIENT = "<gradient:#c47dff:#ff69be>";
+    public static final String POSITIVE = "<green>";
+    public static final String NEGATIVE = "<red>";
+    public static final String COMMON_TITLE = "<white>";
+    public static final String LORETEXT = "<color:#a8a8a8>";
     public static String SKILL = "<white>"; // TODO: change this.
 
 

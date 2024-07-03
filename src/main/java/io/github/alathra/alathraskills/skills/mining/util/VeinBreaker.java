@@ -15,7 +15,7 @@ import java.util.Set;
 
 public class VeinBreaker {
 
-    public static int MAX_LEVEL = 7;
+    public static final int MAX_LEVEL = 7;
 
     public static void run(Block block, Player player, int skillLevel) {
 

@@ -25,7 +25,7 @@ public class OneSwing {
     private static final HashSet<UUID> preActives = new HashSet<>();
     private static final HashSet<UUID> actives = new HashSet<>();
     private static final HashMap<UUID, Long> cooldowns = new HashMap<>();
-    public static int MAX_LEVEL = 7;
+    public static final int MAX_LEVEL = 7;
 
     public static void run(Player player, Block block, int skillLevel) {
         if (!isActive(player)) {

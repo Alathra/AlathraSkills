@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class Trimmer {
 
-    public static int MAX_LEVEL = 7;
+    public static final int MAX_LEVEL = 7;
 
     public static void run(BlockDamageEvent event, int skillLevel) {
 

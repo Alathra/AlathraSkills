@@ -9,7 +9,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 
 public class QualityCrops {
 
-    public static int MAX_LEVEL = 6;
+    public static final int MAX_LEVEL = 6;
 
     // Call this on the EntityBreedEvent if LivingEntity instance of animal
     // animalBaby is `event`.getEntity()`

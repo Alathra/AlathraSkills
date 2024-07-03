@@ -18,7 +18,7 @@ import java.util.List;
 
 public class PopulateContent {
 
-    static SkillsManager skillsManager = AlathraSkills.getSkillsManager();
+    static final SkillsManager skillsManager = AlathraSkills.getSkillsManager();
 
     public static void populateContent(Gui gui, Player player, int skill, int skillCategoryId, int page) {
         ItemStack confirm = new ItemStack(Material.LIME_STAINED_GLASS_PANE);

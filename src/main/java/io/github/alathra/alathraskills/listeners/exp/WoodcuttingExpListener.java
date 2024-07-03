@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class WoodcuttingExpListener implements Listener {
 
-    public static ArrayList<Material> logs = new ArrayList<>(Tag.LOGS.getValues());
+    public static final ArrayList<Material> logs = new ArrayList<>(Tag.LOGS.getValues());
 
 
     @EventHandler

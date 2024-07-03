@@ -7,7 +7,7 @@ import java.util.Comparator;
 
 public class LogSorter implements Comparator<Block> {
 
-    Block oni;
+    final Block oni;
 
     public LogSorter(Block onis) {
         oni = onis;

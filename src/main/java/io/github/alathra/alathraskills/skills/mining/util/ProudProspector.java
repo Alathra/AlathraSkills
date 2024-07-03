@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class ProudProspector {
 
-    public static int MAX_LEVEL = 6;
+    public static final int MAX_LEVEL = 6;
 
     // Called on BlockBreakEvent
     public static void run(BlockBreakEvent event, int skillLevel) {

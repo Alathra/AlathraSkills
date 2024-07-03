@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class ReadyToEat {
 
-    public static int MAX_LEVEL = 2;
+    public static final int MAX_LEVEL = 2;
 
     // Call this on the BlockBreakEvent if wheat, carrots, potatoes or beetroot broken
     // crop is the block being broken

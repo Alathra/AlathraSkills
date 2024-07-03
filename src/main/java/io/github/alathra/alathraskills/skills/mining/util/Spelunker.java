@@ -6,7 +6,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class Spelunker {
 
-    public static int MAX_LEVEL = 4;
+    public static final int MAX_LEVEL = 4;
 
     public static void run(EntityDamageEvent event, Player player, int skilLLevel) {
         double damageReduction = getDamageReduction(skilLLevel);
