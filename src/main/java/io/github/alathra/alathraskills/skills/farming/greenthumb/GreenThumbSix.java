@@ -29,7 +29,7 @@ public class GreenThumbSix extends Skill {
         loreList.add(ColorParser.of(GuiHelper.LORETEXT + "Cost: " + super.getCost() + " skill points").build().decoration(TextDecoration.ITALIC, false));
         loreList.addAll(SkillDescriptionUtil.descriptionLineBreaker(super.getDescription(), 40, GuiHelper.LORETEXT));
         meta.lore(loreList);
-        ;
+        
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
