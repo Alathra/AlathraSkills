@@ -32,11 +32,15 @@ public class OneWithTheForest {
         // Grow nearby saplings
         saplings.clear();
         getNearbySaplings(event.getLocation(), getRadius(skillLevel), 3);
-        for (Block sapling : saplings) {
-            for (int i = 0; i < 10; i++) {
-                sapling.applyBoneMeal(BlockFace.UP);
+
+
+        Bukkit.getScheduler().runTaskLater(AlathraSkills.getInstance(), () -> {
+            for (Block sapling : saplings) {
+                for (int i = 0; i < 10; i++) {
+                    sapling.applyBoneMeal(BlockFace.UP);
+                }
             }
-        }
+        }, 1);
 
         if (Math.random() > getBeehiveChance(skillLevel)) {
             return;
