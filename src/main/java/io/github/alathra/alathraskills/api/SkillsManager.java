@@ -97,7 +97,7 @@ public class SkillsManager implements Reloadable {
         loadFarmingSkills();
     }
 
-    public void loadWoodcuttingSkills() {
+    private void loadWoodcuttingSkills() {
         skills.put(301, new SaveTheTreesOne(301, 5));
         skills.put(302, new PreciseChopOne(302, 5));
         skills.put(303, new PreciseChopTwo(303, 5));
@@ -171,7 +171,7 @@ public class SkillsManager implements Reloadable {
         skills.put(2220, new EasyPickingSeven(2220, 10));
     }
 
-    public void loadFarmingSkills() {
+    private void loadFarmingSkills() {
         skills.put(101, new QualityCropsOne(101, 5));
         skills.put(102, new FastHarvestOne(102, 5));
         skills.put(103, new GreenThumbOne(103, 5));
