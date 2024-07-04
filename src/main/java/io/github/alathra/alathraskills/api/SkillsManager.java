@@ -63,8 +63,6 @@ public class SkillsManager implements Reloadable {
 
     // Id, Skill
     public final HashMap<Integer, Skill> skills = new HashMap<>();
-    @Deprecated public HashMap<Integer, Skill> farmingSkills2 = new HashMap<>();
-    @Deprecated public HashMap<Integer, Skill> miningSkills2 = new HashMap<>();
 
 
     public SkillsManager(AlathraSkills plugin) {
