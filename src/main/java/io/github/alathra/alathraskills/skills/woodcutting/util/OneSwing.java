@@ -91,7 +91,7 @@ public class OneSwing {
         player.sendActionBar(ColorParser.of("<dark_grey>One Swing <green><bold>activated</bold></green></dark_grey>").build());
         setActive(player, skillLevel);
         // Notify when cooldown is over
-        Bukkit.getScheduler().runTaskLater(instance,
+        Bukkit.getScheduler().runTaskLater(AlathraSkills.getInstance(),
             () -> player.sendActionBar(ColorParser.of("<dark_grey>One Swing <green><bold>available</bold></green></dark_grey>").build()), getCooldownTime(skillLevel) * 20
         );
     }
