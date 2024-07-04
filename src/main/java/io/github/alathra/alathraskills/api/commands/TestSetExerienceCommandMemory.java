@@ -7,7 +7,6 @@ import dev.jorel.commandapi.arguments.IntegerArgument;
 import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
 import io.github.alathra.alathraskills.AlathraSkills;
-import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

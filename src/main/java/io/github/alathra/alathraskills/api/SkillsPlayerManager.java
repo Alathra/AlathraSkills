@@ -15,7 +15,10 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.Nullable;
-import org.jooq.*;
+import org.jooq.Record1;
+import org.jooq.Record2;
+import org.jooq.Record5;
+import org.jooq.Result;
 
 import java.time.Instant;
 import java.time.LocalDateTime;

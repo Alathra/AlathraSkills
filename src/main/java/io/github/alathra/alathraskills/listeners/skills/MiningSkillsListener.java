@@ -3,7 +3,6 @@ package io.github.alathra.alathraskills.listeners.skills;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
-import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.mining.util.*;
 import io.github.alathra.alathraskills.skills.mining.util.helper.MiningData;
 import io.github.alathra.alathraskills.utility.PDCUtil;

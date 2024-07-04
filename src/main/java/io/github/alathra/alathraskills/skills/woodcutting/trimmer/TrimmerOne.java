@@ -1,12 +1,12 @@
 package io.github.alathra.alathraskills.skills.woodcutting.trimmer;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
-import io.github.alathra.alathraskills.gui.GuiHelper;
-import net.kyori.adventure.text.Component;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
+import io.github.alathra.alathraskills.gui.GuiHelper;
 import io.github.alathra.alathraskills.skills.Skill;
 import io.github.alathra.alathraskills.skills.SkillDescriptionUtil;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
