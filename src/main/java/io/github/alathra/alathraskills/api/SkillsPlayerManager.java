@@ -163,11 +163,12 @@ public class SkillsPlayerManager implements Reloadable {
         // Subtracts used skill points
         skillPointsAvailable -= skillPlayers.get(p.getUniqueId()).getUsedSkillPoints();
 
-        if (skillPointsAvailable < 1)
+        Skill skillObject = AlathraSkills.getSkillsManager().getSkill(skill);
+
+        if (skillPointsAvailable < skillObject.getCost())
             return false;
         addPlayerSkill(p, skill);
 
-        Skill skillObject = AlathraSkills.getSkillsManager().getSkill(skill);
         currentPlayer.addUsedSkillPoints(skillObject.getCost());
         currentPlayer.setLatestSkillUnlocked(skill);
         currentPlayer.addOneSkillUnlocked();
