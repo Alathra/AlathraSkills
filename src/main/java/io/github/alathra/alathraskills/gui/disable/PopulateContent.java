@@ -101,9 +101,9 @@ public class PopulateContent {
 
     private static String getPrefix(boolean isEnabled) {
         if (isEnabled)
-            return "<green><bold>Disable: ";
+            return GuiHelper.POSITIVE + "<bold>Disable: ";
         else
-            return "<green><bold>Enable: ";
+            return GuiHelper.POSITIVE + "<bold>Enable: ";
     }
 
 }

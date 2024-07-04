@@ -21,12 +21,7 @@ public class PopulateContent {
 
         ItemStack resetButton = new ItemStack(Material.COMPARATOR);
         ItemMeta resetMeta = resetButton.getItemMeta();
-        resetMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "Reset options").build().decoration(TextDecoration.ITALIC, false)); // TODO Replace with custom rgb color
-        resetMeta.lore(
-            List.of(
-                ColorParser.of("<color:#a8a8a8>Open the options menu").build()
-            )
-        );
+        resetMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "Reset options").build().decoration(TextDecoration.ITALIC, false));
         resetButton.setItemMeta(resetMeta);
 
         gui.setItem(2, 4, ItemBuilder.from(resetButton).asGuiItem(event -> GuiHelper.openResetGui(player)));

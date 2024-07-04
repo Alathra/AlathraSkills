@@ -6,6 +6,7 @@ import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.command.CommandHandler;
 import io.github.alathra.alathraskills.config.ConfigHandler;
 import io.github.alathra.alathraskills.db.DatabaseHandler;
+import io.github.alathra.alathraskills.gui.GuiItemHelper;
 import io.github.alathra.alathraskills.hooks.VaultHook;
 import io.github.alathra.alathraskills.listeners.ListenerHandler;
 import io.github.alathra.alathraskills.utility.Logger;
@@ -87,6 +88,7 @@ public class AlathraSkills extends JavaPlugin {
         // Static initializers
         PDCUtil.init();
 
+        GuiItemHelper.loadItemStacks();
     }
 
     @Override

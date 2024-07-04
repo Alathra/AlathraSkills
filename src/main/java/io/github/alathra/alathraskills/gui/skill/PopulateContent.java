@@ -107,12 +107,12 @@ public class PopulateContent {
                 ItemStack originalIcon = skillsManager.skills.get(i).getIcon();
                 ItemMeta originalIconMeta = originalIcon.getItemMeta();
 
-                ItemStack icon = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
+                ItemStack icon = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
                 ItemMeta iconMeta = icon.getItemMeta();
 
                 iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                 iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                iconMeta.displayName(ColorParser.of("<green><bold>Unlocked: ").build().append(originalIconMeta.displayName()));
+                iconMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "<bold>Unlocked: ").build().append(originalIconMeta.displayName()));
                 iconMeta.lore(originalIconMeta.lore());
                 icon.setItemMeta(iconMeta);
                 gui.setItem(3, col, ItemBuilder.from(icon).asGuiItem());
@@ -132,7 +132,7 @@ public class PopulateContent {
                 ItemStack icon = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
                 ItemMeta iconMeta = icon.getItemMeta();
 
-                iconMeta.displayName(ColorParser.of("<aqua><bold>Unlocked: ").build().append(originalIconMeta.displayName()));
+                iconMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "<bold>Unlocked: ").build().append(originalIconMeta.displayName()));
                 iconMeta.lore(originalIconMeta.lore());
                 icon.setItemMeta(iconMeta);
 

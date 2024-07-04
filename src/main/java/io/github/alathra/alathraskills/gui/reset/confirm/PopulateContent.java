@@ -6,6 +6,7 @@ import dev.triumphteam.gui.guis.Gui;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.gui.GuiHelper;
+import io.github.alathra.alathraskills.gui.GuiItemHelper;
 import io.github.alathra.alathraskills.skills.Skill;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -24,28 +25,18 @@ public class PopulateContent {
         if (skillsPlayer == null)
             return;
 
-        ItemStack confirm = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
-        ItemMeta confirmMeta = confirm.getItemMeta();
-        confirmMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "<bold>Confirm").build());
-        confirmMeta.lore(List.of(ColorParser.of("<green>Reset all of your skills and keep 25% of your experience").build(),
-            ColorParser.of("<green>Cost: $15,000").build(),
-            ColorParser.of("<dark_red>This action is permanent and cannot be undone.").build()));
-        confirm.setItemMeta(confirmMeta);
-
-        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS_PANE);
-        ItemMeta denyMeta = deny.getItemMeta();
-        denyMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "<bold>Cancel").build());
-        deny.setItemMeta(denyMeta);
-
         ItemStack playerHead = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta skullMeta = (SkullMeta) playerHead.getItemMeta();
         skullMeta.setOwningPlayer(player);
-        skullMeta.displayName(ColorParser.of(GuiHelper.COMMON_TITLE + "<bold>Reset skills").build());
+        skullMeta.displayName(ColorParser.of(GuiHelper.COMMON_TITLE + "Reset skills").build());
+        skullMeta.lore(List.of(ColorParser.of(GuiHelper.LORETEXT + "Reset all of your skills and keep %s".formatted(expRetained * 100) + "% of your experience").build(),
+            ColorParser.of(GuiHelper.LORETEXT + "Cost: $%s".formatted(cost)).build(),
+            ColorParser.of(GuiHelper.NEGATIVE + "<bold>This action is permanent and cannot be undone.").build()));
         playerHead.setItemMeta(skullMeta);
 
-        gui.setItem(1, 3, ItemBuilder.from(deny).asGuiItem(event -> GuiHelper.openMainGui(player)));
+        gui.setItem(1, 3, ItemBuilder.from(GuiItemHelper.denyItem).asGuiItem(event -> GuiHelper.openMainGui(player)));
         gui.setItem(1, 5, ItemBuilder.from(playerHead).asGuiItem());
-        gui.setItem(1, 7, ItemBuilder.from(confirm).asGuiItem(event -> {
+        gui.setItem(1, 7, ItemBuilder.from(GuiItemHelper.confirmItem).asGuiItem(event -> {
             boolean reset = skillsPlayer.resetProgress(cost, expRetained);
             if (reset) GuiHelper.openMainGui(player);
             else {
@@ -60,28 +51,18 @@ public class PopulateContent {
         if (skillsPlayer == null)
             return;
 
-        ItemStack confirm = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
-        ItemMeta confirmMeta = confirm.getItemMeta();
-        confirmMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "<bold>Confirm").build());
-        confirmMeta.lore(List.of(ColorParser.of("<green>Reset all of your skills but keep your skill points.").build(),
-            ColorParser.of("<dark_red>This action is permanent and cannot be undone.").build()));
-        confirm.setItemMeta(confirmMeta);
-
-        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS_PANE);
-        ItemMeta denyMeta = deny.getItemMeta();
-        denyMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "<bold>Cancel").build());
-        deny.setItemMeta(denyMeta);
-
         ItemStack playerHead = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta skullMeta = (SkullMeta) playerHead.getItemMeta();
         skullMeta.setOwningPlayer(player);
-        skullMeta.displayName(ColorParser.of(GuiHelper.COMMON_TITLE + "<bold>Reset skills").build());
+        skullMeta.displayName(ColorParser.of(GuiHelper.COMMON_TITLE + "Reset skills").build());
+        skullMeta.lore(List.of(ColorParser.of(GuiHelper.LORETEXT + "Reset all of your skills but keep your skill points.").build(),
+            ColorParser.of(GuiHelper.NEGATIVE + "<bold>This action is permanent and cannot be undone.").build()));
         playerHead.setItemMeta(skullMeta);
 
-        gui.setItem(1, 3, ItemBuilder.from(deny).asGuiItem(event -> GuiHelper.openMainGui(player)));
+        gui.setItem(1, 3, ItemBuilder.from(GuiItemHelper.denyItem).asGuiItem(event -> GuiHelper.openResetGui(player)));
         gui.setItem(1, 5, ItemBuilder.from(playerHead).asGuiItem());
-        gui.setItem(1, 7, ItemBuilder.from(confirm).asGuiItem(event -> {
-            boolean reset = skillsPlayer.resetProgress(0, 0.0f); // TODO CHANGE THIS BEFORE 1.0 LAUNCH
+        gui.setItem(1, 7, ItemBuilder.from(GuiItemHelper.confirmItem).asGuiItem(event -> {
+            boolean reset = skillsPlayer.resetProgress(0, 0.0f);
             if (reset) GuiHelper.openMainGui(player);
             else {
                 player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.AMBIENT, 1, 1);
@@ -96,25 +77,14 @@ public class PopulateContent {
         if (skillsPlayer == null)
             return;
 
-        ItemStack confirm = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
-        ItemMeta confirmMeta = confirm.getItemMeta();
-        confirmMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "Confirm").build());
-        confirmMeta.lore(List.of(ColorParser.of("Refund your latest unlocked skill.").build()));
-        confirm.setItemMeta(confirmMeta);
-
-        ItemStack deny = new ItemStack(Material.RED_STAINED_GLASS_PANE);
-        ItemMeta denyMeta = deny.getItemMeta();
-        denyMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "Cancel").build());
-        deny.setItemMeta(denyMeta);
-
         ItemStack skillStack = new ItemStack(skill.getIcon());
         ItemMeta skillMeta = skillStack.getItemMeta();
         skillMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "Refund: ").build().append(skillMeta.displayName()));
         skillStack.setItemMeta(skillMeta);
 
-        gui.setItem(1, 3, ItemBuilder.from(deny).asGuiItem(event -> GuiHelper.openMainGui(player)));
+        gui.setItem(1, 3, ItemBuilder.from(GuiItemHelper.denyItem).asGuiItem(event -> GuiHelper.openResetGui(player)));
         gui.setItem(1, 5, ItemBuilder.from(skillStack).asGuiItem());
-        gui.setItem(1, 7, ItemBuilder.from(confirm).asGuiItem(event -> {
+        gui.setItem(1, 7, ItemBuilder.from(GuiItemHelper.confirmItem).asGuiItem(event -> {
             skillsPlayer.refundLatestSkill();
             GuiHelper.openMainGui(player);
         }));
