@@ -40,9 +40,6 @@ public class MiningExpListener implements Listener {
             default -> 0.0f;
         };
 
-        if (AlathraSkills.getSkillsPlayerManager().isSkillPointGained(p, expAmount)) {
-            Bukkit.getPluginManager().callEvent(new SkillPointGainEvent(AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(p)));
-        }
-        AlathraSkills.getSkillsPlayerManager().addPlayerExperience(event.getPlayer(), SkillsManager.MINING_SKILL_ID, expAmount);
+        AlathraSkills.getSkillsPlayerManager().gainExp(p, SkillsManager.MINING_SKILL_ID, expAmount);
     }
 }

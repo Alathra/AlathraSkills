@@ -2,6 +2,7 @@ package io.github.alathra.alathraskills.api;
 
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.Reloadable;
+import io.github.alathra.alathraskills.api.events.SkillPointGainEvent;
 import io.github.alathra.alathraskills.api.events.SkillsPlayerLoadedEvent;
 import io.github.alathra.alathraskills.api.events.SkillsPlayerUnloadedEvent;
 import io.github.alathra.alathraskills.db.DatabaseQueries;
@@ -161,24 +162,15 @@ public class SkillsPlayerManager implements Reloadable {
 
     public boolean buySkill(Player p, Integer skill) {
         SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
-        float totalExp = currentPlayer.getSkillCategoryExperience(1);
-        totalExp += currentPlayer.getSkillCategoryExperience(2);
-        totalExp += currentPlayer.getSkillCategoryExperience(3);
 
-        // Gets remaining exp to next skill
-        float remainingExp = totalExp % Cfg.get().getFloat("experience.perLevel");
+        int skillPointsAvailable = currentPlayer.getTotalSkillpoints() - currentPlayer.getUsedSkillpoints();
 
-        // Calculates total skill points based on exp and exp required for points
-        int skillPointsAvailable = (int) ((totalExp - remainingExp) / Cfg.get().getFloat("experience.perLevel"));
+        Skill skillObject = AlathraSkills.getSkillsManager().getSkill(skill);
 
-        // Subtracts used skill points
-        skillPointsAvailable -= skillPlayers.get(p.getUniqueId()).getUsedSkillpoints();
-
-        if (skillPointsAvailable < 1)
+        if (skillPointsAvailable < skillObject.getCost())
             return false;
         addPlayerSkill(p, skill);
 
-        Skill skillObject = AlathraSkills.getSkillsManager().getSkill(skill);
         currentPlayer.addUsedSkillpoints(skillObject.getCost());
         currentPlayer.setLatestSkillUnlocked(skill);
         currentPlayer.addOneSkillUnlocked();
@@ -318,51 +310,6 @@ public class SkillsPlayerManager implements Reloadable {
         return currPlayer.getUsedSkillpoints();
     }
 
-    private int getAvailableSkillPoints(OfflinePlayer p) {
-
-        float totalExp = getTotalExperience(p);
-
-        float expPerLevel = Cfg.get().getFloat("experience.perLevel");
-
-        float remainingExp = totalExp % expPerLevel;
-        if (totalExp < expPerLevel) {
-            remainingExp = expPerLevel - totalExp;
-        }
-
-        int skillPointsAvailable = (int) ((totalExp - remainingExp) / expPerLevel);
-        int unlockedSkills = getUsedSkillPoints(p);
-        skillPointsAvailable -= unlockedSkills;
-
-        if (skillPointsAvailable < 0) return 0;
-
-        return skillPointsAvailable;
-    }
-
-    private int getAvailableSkillPoints(OfflinePlayer p, float expGain) {
-
-        float totalExpAfterGain = getTotalExperience(p) + expGain;
-
-        float expPerLevel = Cfg.get().getFloat("experience.perLevel");
-
-        float remainingExp = totalExpAfterGain % expPerLevel;
-        if (totalExpAfterGain < expPerLevel) {
-            remainingExp = expPerLevel - totalExpAfterGain;
-        }
-
-        int skillPointsAvailable = (int) ((totalExpAfterGain - remainingExp) / expPerLevel);
-        int unlockedSkills = getUsedSkillPoints(p);
-        skillPointsAvailable -= unlockedSkills;
-
-        if (skillPointsAvailable < 0) return 0;
-
-        return skillPointsAvailable;
-    }
-
-    public boolean isSkillPointGained(Player p, float expGain) {
-        // if available skill points is greater after exp gain
-        return getAvailableSkillPoints(p, expGain) > getAvailableSkillPoints(p);
-    }
-
     @Nullable
     public SkillsPlayer getSkillsPlayer(UUID uuid) {
         return skillPlayers.get(uuid);
@@ -371,6 +318,19 @@ public class SkillsPlayerManager implements Reloadable {
     @Nullable
     public SkillsPlayer getSkillsPlayer(Player p) {
         return getSkillsPlayer(p.getUniqueId());
+    }
+
+    public void gainExp(Player p, int skillCategoryId, float expAmount) {
+        SkillsPlayer skillsPlayer = getSkillsPlayer(p);
+        if (skillsPlayer == null)
+            return;
+
+        addPlayerExperience(p, skillCategoryId, expAmount);
+        boolean gainedSkillpoint = skillsPlayer.addNextSkillpointsProgress(expAmount);
+
+        if (gainedSkillpoint) {
+            Bukkit.getPluginManager().callEvent(new SkillPointGainEvent(skillsPlayer));
+        }
     }
 
     @Override

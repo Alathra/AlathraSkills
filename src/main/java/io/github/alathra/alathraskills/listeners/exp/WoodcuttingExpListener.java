@@ -61,9 +61,6 @@ public class WoodcuttingExpListener implements Listener {
 
         // Block broken is a log
 
-        if (AlathraSkills.getSkillsPlayerManager().isSkillPointGained(p, expAmount)) {
-            Bukkit.getPluginManager().callEvent(new SkillPointGainEvent(AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(p)));
-        }
-        AlathraSkills.getSkillsPlayerManager().addPlayerExperience(event.getPlayer(), SkillsManager.WOODCUTTING_SKILL_ID, expAmount);
+        AlathraSkills.getSkillsPlayerManager().gainExp(p, SkillsManager.WOODCUTTING_SKILL_ID, expAmount);
     }
 }

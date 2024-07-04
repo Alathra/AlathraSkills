@@ -2,6 +2,7 @@ package io.github.alathra.alathraskills.listeners.exp;
 
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
+import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.events.SkillPointGainEvent;
 import io.github.alathra.alathraskills.utility.Cfg;
 import io.github.alathra.alathraskills.utility.PDCUtil;
@@ -36,10 +37,7 @@ public class FarmingExpListener implements Listener {
                 return;
         }
 
-        if (AlathraSkills.getSkillsPlayerManager().isSkillPointGained(p, expAmount)) {
-            Bukkit.getPluginManager().callEvent(new SkillPointGainEvent(AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(p)));
-        }
-        AlathraSkills.getSkillsPlayerManager().addPlayerExperience(event.getPlayer(), SkillsManager.FARMING_SKILL_ID, expAmount);
+        AlathraSkills.getSkillsPlayerManager().gainExp(p, SkillsManager.FARMING_SKILL_ID, expAmount);
     }
 
     @EventHandler
@@ -130,9 +128,6 @@ public class FarmingExpListener implements Listener {
                 return;
         }
 
-        if (AlathraSkills.getSkillsPlayerManager().isSkillPointGained(p, expAmount)) {
-            Bukkit.getPluginManager().callEvent(new SkillPointGainEvent(AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(p)));
-        }
-        AlathraSkills.getSkillsPlayerManager().addPlayerExperience(event.getPlayer(), SkillsManager.FARMING_SKILL_ID, expAmount);
+        AlathraSkills.getSkillsPlayerManager().gainExp(p, SkillsManager.FARMING_SKILL_ID, expAmount);
     }
 }

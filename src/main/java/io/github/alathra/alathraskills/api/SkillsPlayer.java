@@ -187,12 +187,24 @@ public class SkillsPlayer {
         this.nextSkillpointProgress = nextSkillpointProgress;
     }
 
-    public void addNextSkillpointsProgress(float addedExp) {
+    /**
+     * Adds exp progress to next skill point
+     *
+     * @param addedExp
+     * @return - true if a skill point should be gained.
+     */
+    public boolean addNextSkillpointsProgress(float addedExp) {
         this.nextSkillpointProgress += addedExp;
+        return this.nextSkillpointProgress >= Cfg.get().getFloat("experience.perLevel");
     }
 
     public void clearNextSkillpointProgress() {
         this.nextSkillpointProgress = 0.f;
+    }
+
+    public void levelUp() {
+        this.nextSkillpointProgress -= Cfg.get().getFloat("experience.perLevel");
+        this.addTotalSkillpoints(1);
     }
 
     public int getTotalSkillsUnlocked() {

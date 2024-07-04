@@ -45,14 +45,14 @@ public class FastHarvest {
                     // If crop is fully grown
                     if (ageableCrop.getAge() == ageableCrop.getMaximumAge()) {
                         crop.breakNaturally(tool);
-                        addExp(player, crop);
+                        AlathraSkills.getSkillsPlayerManager().gainExp(player, SkillsManager.FARMING_SKILL_ID, getExpAmount(crop));
                     }
                     // Is a crop, but not fully grown so ignore
                     continue;
                 } else {
                     // Is a crop that does not have growth cycles
                     crop.breakNaturally(tool);
-                    addExp(player, crop);
+                    AlathraSkills.getSkillsPlayerManager().gainExp(player, SkillsManager.FARMING_SKILL_ID, getExpAmount(crop));
                 }
             }
         }
@@ -71,24 +71,17 @@ public class FastHarvest {
                     // If crop is fully grown
                     if (ageableCrop.getAge() == ageableCrop.getMaximumAge()) {
                         crop.breakNaturally(tool);
-                        addExp(player, crop);
+                        AlathraSkills.getSkillsPlayerManager().gainExp(player, SkillsManager.FARMING_SKILL_ID, getExpAmount(crop));
                     }
                     // Is a crop, but not fully grown so ignore
                     continue;
                 } else {
                     // Is a crop that does not have growth cycles
                     crop.breakNaturally(tool);
-                    addExp(player, crop);
+                    AlathraSkills.getSkillsPlayerManager().gainExp(player, SkillsManager.FARMING_SKILL_ID, getExpAmount(crop));
                 }
             }
         }
-    }
-
-    private static void addExp(Player p, Block crop) {
-        if (AlathraSkills.getSkillsPlayerManager().isSkillPointGained(p, getExpAmount(crop))) {
-            Bukkit.getPluginManager().callEvent(new SkillPointGainEvent(AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(p)));
-        }
-        AlathraSkills.getSkillsPlayerManager().addPlayerExperience(p, SkillsManager.FARMING_SKILL_ID, getExpAmount(crop));
     }
 
     private static float getExpAmount(Block crop) {
