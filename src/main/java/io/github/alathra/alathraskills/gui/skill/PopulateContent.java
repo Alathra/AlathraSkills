@@ -124,6 +124,7 @@ public class PopulateContent {
 
     private static void replaceSkillRowAndColumn(Gui gui, int[] ids, HashMap<Integer, Boolean> hasSkill, int limit) {
         int col = 3;
+        int col2 = 3;
         for (int i : ids) {
             if (hasSkill.get(i)) {
                 ItemStack originalIcon = skillsManager.skills.get(i).getIcon();
@@ -143,10 +144,15 @@ public class PopulateContent {
                     row = 2;
                 }
 
-                gui.setItem(row, col, ItemBuilder.from(icon).asGuiItem());
+                if (i > limit)
+                    gui.setItem(row, col, ItemBuilder.from(icon).asGuiItem());
+                else
+                    gui.setItem(row, col2, ItemBuilder.from(icon).asGuiItem());
             }
             if (i > limit) {
                 col++;
+            } else {
+                col2++;
             }
         }
     }
