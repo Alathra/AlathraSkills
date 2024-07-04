@@ -48,10 +48,10 @@ public class MiningSkillsListener implements Listener {
 
         // ORE IN THE ROUGH SKILL
         if (MiningData.getNaturalStoneBlocks().contains(material)) {
-            if (skillsPlayer.isSkillEnabled(SkillsManager.oreInTheRoughIds[SkillsManager.oreInTheRoughIds.length - 1])) {
-                boolean[] oreInTheRough = new boolean[SkillsManager.oreInTheRoughIds.length];
+            if (skillsPlayer.isSkillEnabled(SkillsManager.ORE_IN_THE_ROUGH_IDS[SkillsManager.ORE_IN_THE_ROUGH_IDS.length - 1])) {
+                boolean[] oreInTheRough = new boolean[SkillsManager.ORE_IN_THE_ROUGH_IDS.length];
 
-                for (int id : SkillsManager.oreInTheRoughIds) {
+                for (int id : SkillsManager.ORE_IN_THE_ROUGH_IDS) {
                     oreInTheRough[i] = skillsPlayer.playerHasSkill(id);
                     i++;
                 }
@@ -69,12 +69,12 @@ public class MiningSkillsListener implements Listener {
 
         // PROUD PROSPECTOR & VEIN BREAKER SKILL
         if (MiningData.getOres().contains(material)) {
-            boolean[] proudProspector = new boolean[SkillsManager.proudProspectorIds.length];
-            boolean[] veinBreaker = new boolean[SkillsManager.veinBreakerIds.length];
+            boolean[] proudProspector = new boolean[SkillsManager.PROUD_PROSPECTOR_IDS.length];
+            boolean[] veinBreaker = new boolean[SkillsManager.VEIN_BREAKER_IDS.length];
 
-            if (skillsPlayer.isSkillEnabled(SkillsManager.proudProspectorIds[SkillsManager.proudProspectorIds.length - 1])) {
+            if (skillsPlayer.isSkillEnabled(SkillsManager.PROUD_PROSPECTOR_IDS[SkillsManager.PROUD_PROSPECTOR_IDS.length - 1])) {
                 i = 0;
-                for (int id : SkillsManager.proudProspectorIds) {
+                for (int id : SkillsManager.PROUD_PROSPECTOR_IDS) {
                     proudProspector[i] = skillsPlayer.playerHasSkill(id);
                     i++;
                 }
@@ -89,9 +89,9 @@ public class MiningSkillsListener implements Listener {
                 }
             }
 
-            if (skillsPlayer.isSkillEnabled(SkillsManager.veinBreakerIds[SkillsManager.veinBreakerIds.length - 1])) {
+            if (skillsPlayer.isSkillEnabled(SkillsManager.VEIN_BREAKER_IDS[SkillsManager.VEIN_BREAKER_IDS.length - 1])) {
                 i = 0;
-                for (int id : SkillsManager.veinBreakerIds) {
+                for (int id : SkillsManager.VEIN_BREAKER_IDS) {
                     veinBreaker[i] = skillsPlayer.playerHasSkill(id);
                     i++;
                 }
@@ -131,11 +131,11 @@ public class MiningSkillsListener implements Listener {
         if (skillsPlayer == null)
             return;
 
-        if (skillsPlayer.isSkillEnabled(SkillsManager.spelunkerIds[SkillsManager.spelunkerIds.length - 1])) {
-            boolean[] spelunker = new boolean[SkillsManager.spelunkerIds.length];
+        if (skillsPlayer.isSkillEnabled(SkillsManager.SPELUNKER_IDS[SkillsManager.SPELUNKER_IDS.length - 1])) {
+            boolean[] spelunker = new boolean[SkillsManager.SPELUNKER_IDS.length];
 
             int i = 0;
-            for (int id : SkillsManager.spelunkerIds) {
+            for (int id : SkillsManager.SPELUNKER_IDS) {
                 spelunker[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }
@@ -181,11 +181,11 @@ public class MiningSkillsListener implements Listener {
         if (skillsPlayer == null)
             return;
 
-        if (skillsPlayer.isSkillEnabled(SkillsManager.easyPickingIds[SkillsManager.easyPickingIds.length - 1])) {
-            boolean[] easyPicking = new boolean[SkillsManager.easyPickingIds.length];
+        if (skillsPlayer.isSkillEnabled(SkillsManager.EASY_PICKING_IDS[SkillsManager.EASY_PICKING_IDS.length - 1])) {
+            boolean[] easyPicking = new boolean[SkillsManager.EASY_PICKING_IDS.length];
 
             int i = 0;
-            for (int id : SkillsManager.easyPickingIds) {
+            for (int id : SkillsManager.EASY_PICKING_IDS) {
                 easyPicking[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }

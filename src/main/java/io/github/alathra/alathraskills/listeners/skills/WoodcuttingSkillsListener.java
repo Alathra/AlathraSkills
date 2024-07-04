@@ -44,10 +44,10 @@ public class WoodcuttingSkillsListener implements Listener {
 
         if (Tag.LOGS.isTagged(block.getType())) {
             int i = 0;
-            if (skillsPlayer.isSkillEnabled(SkillsManager.preciseChopIds[SkillsManager.preciseChopIds.length - 1])) {
-                boolean[] preciseChop = new boolean[SkillsManager.preciseChopIds.length];
+            if (skillsPlayer.isSkillEnabled(SkillsManager.PRECISE_CHOP_IDS[SkillsManager.PRECISE_CHOP_IDS.length - 1])) {
+                boolean[] preciseChop = new boolean[SkillsManager.PRECISE_CHOP_IDS.length];
 
-                for (int id : SkillsManager.preciseChopIds) {
+                for (int id : SkillsManager.PRECISE_CHOP_IDS) {
                     preciseChop[i] = skillsPlayer.playerHasSkill(id);
                     i++;
                 }
@@ -62,12 +62,12 @@ public class WoodcuttingSkillsListener implements Listener {
                 }
             }
 
-            if (skillsPlayer.isSkillEnabled(SkillsManager.oneSwingIds[SkillsManager.oneSwingIds.length - 1])) {
-                boolean[] oneSwing = new boolean[SkillsManager.oneSwingIds.length];
+            if (skillsPlayer.isSkillEnabled(SkillsManager.ONE_SWING_IDS[SkillsManager.ONE_SWING_IDS.length - 1])) {
+                boolean[] oneSwing = new boolean[SkillsManager.ONE_SWING_IDS.length];
 
                 i = 0;
 
-                for (int id : SkillsManager.oneSwingIds) {
+                for (int id : SkillsManager.ONE_SWING_IDS) {
                     oneSwing[i] = skillsPlayer.playerHasSkill(id);
                     i++;
                 }
@@ -84,7 +84,7 @@ public class WoodcuttingSkillsListener implements Listener {
 
             if (Tag.DIRT.isTagged(block.getRelative(BlockFace.DOWN).getType())) {
                 if (!skillsPlayer.playerHasSkill(301)) return;
-                if (!skillsPlayer.isSkillEnabled(SkillsManager.saveTheTreesId)) return;
+                if (!skillsPlayer.isSkillEnabled(SkillsManager.SAVE_THE_TREES_ID)) return;
                 SaveTheTrees.run(block, player);
             }
         }
@@ -116,12 +116,12 @@ public class WoodcuttingSkillsListener implements Listener {
         if (skillsPlayer == null)
             return;
 
-        if (skillsPlayer.isSkillEnabled(SkillsManager.trimmerIds[SkillsManager.trimmerIds.length - 1])) {
-            boolean[] trimmer = new boolean[SkillsManager.trimmerIds.length];
+        if (skillsPlayer.isSkillEnabled(SkillsManager.TRIMMER_IDS[SkillsManager.TRIMMER_IDS.length - 1])) {
+            boolean[] trimmer = new boolean[SkillsManager.TRIMMER_IDS.length];
 
             int i = 0;
 
-            for (int id : SkillsManager.trimmerIds) {
+            for (int id : SkillsManager.TRIMMER_IDS) {
                 trimmer[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }
@@ -167,14 +167,14 @@ public class WoodcuttingSkillsListener implements Listener {
                 }
             }
 
-            boolean[] oneSwing = new boolean[SkillsManager.oneSwingIds.length];
+            boolean[] oneSwing = new boolean[SkillsManager.ONE_SWING_IDS.length];
 
             SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
             if (skillsPlayer == null)
                 return;
 
             int i = 0;
-            for (int id : SkillsManager.oneSwingIds) {
+            for (int id : SkillsManager.ONE_SWING_IDS) {
                 oneSwing[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }
@@ -219,11 +219,11 @@ public class WoodcuttingSkillsListener implements Listener {
         if (skillsPlayer == null)
             return;
 
-        if (skillsPlayer.isSkillEnabled(SkillsManager.oneWithTheForestIds[SkillsManager.oneWithTheForestIds.length - 1])) {
-            boolean[] oneWithTheForest = new boolean[SkillsManager.oneWithTheForestIds.length];
+        if (skillsPlayer.isSkillEnabled(SkillsManager.ONE_WITH_THE_FOREST_IDS[SkillsManager.ONE_WITH_THE_FOREST_IDS.length - 1])) {
+            boolean[] oneWithTheForest = new boolean[SkillsManager.ONE_WITH_THE_FOREST_IDS.length];
 
             int i = 0;
-            for (int id : SkillsManager.oneWithTheForestIds) {
+            for (int id : SkillsManager.ONE_WITH_THE_FOREST_IDS) {
                 oneWithTheForest[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }
