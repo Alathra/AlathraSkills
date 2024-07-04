@@ -5,6 +5,7 @@ import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.IntegerArgument;
 import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
+import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import org.bukkit.entity.Player;
 
@@ -36,7 +37,7 @@ public class TestDeleteSkillCommandMemory {
                     .build()
             );
         }
-        SkillsPlayerManager.deletePlayerSkill((Player) args.get("targetPlayer"), (Integer) args.get("skill"));
+        AlathraSkills.getSkillsPlayerManager().deletePlayerSkill((Player) args.get("targetPlayer"), (Integer) args.get("skill"));
         String returnString =
             "Player with ID " +
                 ((Player) args.get("targetPlayer")).getUniqueId() +

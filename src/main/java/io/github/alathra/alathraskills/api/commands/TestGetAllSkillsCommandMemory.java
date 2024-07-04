@@ -4,6 +4,7 @@ import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
+import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillDetails;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import org.bukkit.entity.Player;
@@ -34,7 +35,7 @@ public class TestGetAllSkillsCommandMemory {
         }
 
         Stream<Entry<Integer, SkillDetails>> allSkills =
-            SkillsPlayerManager.getAllSkills((Player) args.get("targetPlayer"));
+            AlathraSkills.getSkillsPlayerManager().getAllSkills((Player) args.get("targetPlayer"));
         String finalSkillString = "";
         if (allSkills != null) {
             finalSkillString = allSkills.map(skill -> skill.getKey() + ", ").reduce(finalSkillString, (a, b) -> a + b);

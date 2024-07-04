@@ -1,5 +1,6 @@
 package io.github.alathra.alathraskills.listeners.skills;
 
+import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
@@ -37,7 +38,7 @@ public class WoodcuttingSkillsListener implements Listener {
         if (!event.isDropItems())
             return;
 
-        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+        SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
         if (skillsPlayer == null)
             return;
 
@@ -111,7 +112,7 @@ public class WoodcuttingSkillsListener implements Listener {
             return;
         }
 
-        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(event.getPlayer());
+        SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(event.getPlayer());
         if (skillsPlayer == null)
             return;
 
@@ -168,7 +169,7 @@ public class WoodcuttingSkillsListener implements Listener {
 
             boolean[] oneSwing = new boolean[SkillsManager.oneSwingIds.length];
 
-            SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+            SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
             if (skillsPlayer == null)
                 return;
 
@@ -214,7 +215,7 @@ public class WoodcuttingSkillsListener implements Listener {
         }
 
 
-        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+        SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
         if (skillsPlayer == null)
             return;
 

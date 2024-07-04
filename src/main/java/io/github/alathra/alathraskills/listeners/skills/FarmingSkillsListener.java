@@ -1,5 +1,6 @@
 package io.github.alathra.alathraskills.listeners.skills;
 
+import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
@@ -35,7 +36,7 @@ public class FarmingSkillsListener implements Listener {
         if (!event.isDropItems())
             return;
 
-        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+        SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
         if (skillsPlayer == null)
             return;
 
@@ -107,7 +108,7 @@ public class FarmingSkillsListener implements Listener {
 
         // if potato, carrot, beetroot or wheat crop placed
         if (FarmingData.getStandardCrops().contains(block.getType())) {
-            SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+            SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
             if (skillsPlayer == null)
                 return;
 
@@ -153,7 +154,7 @@ public class FarmingSkillsListener implements Listener {
 
         // if the block grown is a desired bonemealable crop (specifically defined)
         if (FarmingData.getBonemealableCrops().contains(block.getType())) {
-            SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+            SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
             if (skillsPlayer == null)
                 return;
 
@@ -192,7 +193,7 @@ public class FarmingSkillsListener implements Listener {
 
         // if entity bred is one of the standard animals (specifically defined)
         if (FarmingData.getStandardAnimals().contains(entity.getType())) {
-            SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer((Player) event.getBreeder());
+            SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer((Player) event.getBreeder());
             if (skillsPlayer == null)
                 return;
 

@@ -23,7 +23,7 @@ public class PopulateContent {
     private static final int[] levelOnePassiveWoodcuttingSkillIds = new int[]{301, 302, 304, 306};
 
     public static void populateContent(Gui gui, Player p) {
-        SkillsPlayer sp = SkillsPlayerManager.getSkillsPlayer(p);
+        SkillsPlayer sp = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(p);
 
         int row = 2;
         for (int id : levelOnePassiveFarmingSkillIds) {

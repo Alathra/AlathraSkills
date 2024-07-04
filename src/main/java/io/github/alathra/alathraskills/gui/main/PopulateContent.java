@@ -24,10 +24,9 @@ public class PopulateContent {
 
     private static final SkillsManager skillsManager = AlathraSkills.getSkillsManager();
 
-    public static void populateContent(Gui gui, Player player) {
-        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(player.getUniqueId());
 
-        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+    public static void populateContent(Gui gui, Player player) {
+        SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
 
         if (skillsPlayer == null)
             return;

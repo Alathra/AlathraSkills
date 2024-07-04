@@ -51,7 +51,7 @@ public class TestSetExerienceCommandMemory {
         AlathraSkills instance = AlathraSkills.getInstance();
 
         Bukkit.getScheduler().runTaskAsynchronously(instance, () -> {
-            SkillsPlayerManager.setPlayerExperience((Player) args.get("targetPlayer"), (Integer) args.get("skillCategoryID"), (float) args.get("Experience"));
+            AlathraSkills.getSkillsPlayerManager().setPlayerExperience((Player) args.get("targetPlayer"), (Integer) args.get("skillCategoryID"), (float) args.get("Experience"));
             String returnString =
                 "Player with ID " +
                     player.getUniqueId() +

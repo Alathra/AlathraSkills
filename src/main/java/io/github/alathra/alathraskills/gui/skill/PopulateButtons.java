@@ -21,11 +21,9 @@ import java.util.List;
 
 public class PopulateButtons {
 
-    static AlathraSkills instance = AlathraSkills.getInstance();
-
     public static void populateButtons(Gui gui, Player player, int skillCategoryId, int page) {
 
-        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+        SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
         if (skillsPlayer == null)
             return;
 

@@ -3,6 +3,7 @@ package io.github.alathra.alathraskills.gui.reset.confirm;
 import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
+import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.gui.GuiHelper;
@@ -20,7 +21,7 @@ import java.util.List;
 public class PopulateContent {
 
     public static void populateResetProgressContent(Gui gui, Player player, int cost, double expRetained) {
-        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+        SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
         if (skillsPlayer == null)
             return;
 
@@ -56,7 +57,7 @@ public class PopulateContent {
     }
 
     public static void populateResetProgressFreeContent(Gui gui, Player player) {
-        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+        SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
         if (skillsPlayer == null)
             return;
 
@@ -92,7 +93,7 @@ public class PopulateContent {
     }
 
     public static void populateRefundSkillContent(Gui gui, Player player, Skill skill) {
-        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+        SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
         if (skillsPlayer == null)
             return;
 

@@ -22,7 +22,7 @@ public class PlayerLeaveListener implements Listener {
         if (Bukkit.isStopping())
             return;
 
-        SkillsPlayerManager.handlePlayerLeave(p)
+        AlathraSkills.getSkillsPlayerManager().handlePlayerLeave(p)
             .thenAccept(skillsPlayerPassed -> {
                 final SkillsPlayer skillsPlayer = skillsPlayerPassed;
                 Bukkit.getScheduler().runTask(AlathraSkills.getInstance(), () -> {

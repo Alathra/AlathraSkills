@@ -1,5 +1,6 @@
 package io.github.alathra.alathraskills.skills.farming.util;
 
+import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.api.events.SkillPointGainEvent;
@@ -85,10 +86,10 @@ public class FastHarvest {
     }
 
     private static void addExp(Player p, Block crop) {
-        if (SkillsPlayerManager.isSkillPointGained(p, getExpAmount(crop))) {
-            Bukkit.getPluginManager().callEvent(new SkillPointGainEvent(SkillsPlayerManager.getSkillsPlayer(p)));
+        if (AlathraSkills.getSkillsPlayerManager().isSkillPointGained(p, getExpAmount(crop))) {
+            Bukkit.getPluginManager().callEvent(new SkillPointGainEvent(AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(p)));
         }
-        SkillsPlayerManager.addPlayerExperience(p, SkillsManager.FARMING_SKILL_ID, getExpAmount(crop));
+        AlathraSkills.getSkillsPlayerManager().addPlayerExperience(p, SkillsManager.FARMING_SKILL_ID, getExpAmount(crop));
     }
 
     private static float getExpAmount(Block crop) {

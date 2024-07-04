@@ -2,6 +2,7 @@ package io.github.alathra.alathraskills.gui;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.triumphteam.gui.guis.Gui;
+import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.Skill;
@@ -17,6 +18,8 @@ public class GuiHelper {
     public static final String COMMON_TITLE = "<white>";
     public static final String LORETEXT = "<color:#a8a8a8>";
     public static String SKILL = "<white>"; // TODO: change this.
+
+    private static final SkillsPlayerManager skillsPlayerManager = AlathraSkills.getSkillsPlayerManager();
 
 
     public static Gui buildMainGui() {
@@ -120,7 +123,7 @@ public class GuiHelper {
     }
 
     public static void openConfirmGui(Player player, int skill, int skillCategoryId, int page) {
-        if (SkillsPlayerManager.canSkillBeUnlocked(player, skillCategoryId, skill)) {
+        if (skillsPlayerManager.canSkillBeUnlocked(player, skillCategoryId, skill)) {
             Gui gui = buildConfirmGui();
             populateConfirmGui(gui, player, skill, skillCategoryId, page);
             gui.open(player);

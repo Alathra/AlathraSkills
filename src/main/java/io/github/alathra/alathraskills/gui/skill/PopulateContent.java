@@ -60,7 +60,7 @@ public class PopulateContent {
             case 1, 2 -> {
                 hasSkill.clear();
                 for (int i : ids) {
-                    hasSkill.put(i, SkillsPlayerManager.playerHasSkill(player, i));
+                    hasSkill.put(i, AlathraSkills.getSkillsPlayerManager().playerHasSkill(player, i));
                 }
 
                 gui.setItem(3, 3, ItemBuilder.from(skillsManager.skills.get(ids[0]).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, ids[0], skillCategoryId, page)));
@@ -74,7 +74,7 @@ public class PopulateContent {
             case 3, 4 -> {
                 hasSkill.clear();
                 for (int i : ids) {
-                    hasSkill.put(i, SkillsPlayerManager.playerHasSkill(player, i));
+                    hasSkill.put(i, AlathraSkills.getSkillsPlayerManager().playerHasSkill(player, i));
                 }
 
                 gui.setItem(2, 3, ItemBuilder.from(skillsManager.skills.get(ids[0]).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, ids[0], skillCategoryId, page)));

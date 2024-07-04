@@ -25,9 +25,10 @@ import java.util.concurrent.TimeUnit;
 
 public class PopulateContent {
 
+
     public static void populateContent(Gui gui, Player player) {
         SkillsManager skillsManager = AlathraSkills.getSkillsManager();
-        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+        SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
         if (skillsPlayer == null)
             return;
 

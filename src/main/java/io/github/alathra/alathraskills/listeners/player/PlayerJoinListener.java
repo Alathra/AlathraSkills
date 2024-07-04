@@ -17,7 +17,7 @@ public class PlayerJoinListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent e) {
         final Player p = e.getPlayer();
 
-        SkillsPlayerManager.handlePlayerJoin(p)
+        AlathraSkills.getSkillsPlayerManager().handlePlayerJoin(p)
             .thenAccept(skillsPlayerPassed -> {
                 final SkillsPlayer skillsPlayer = skillsPlayerPassed;
                 Bukkit.getScheduler().runTask(AlathraSkills.getInstance(), () -> {

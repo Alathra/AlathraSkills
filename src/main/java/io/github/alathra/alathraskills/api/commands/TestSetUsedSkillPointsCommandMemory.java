@@ -42,7 +42,7 @@ public class TestSetUsedSkillPointsCommandMemory {
         AlathraSkills instance = AlathraSkills.getInstance();
 
         Bukkit.getScheduler().runTaskAsynchronously(instance, () -> {
-            SkillsPlayerManager.setPlayerUsedSkillPoints((Player) args.get("targetPlayer"), (Integer) args.get("usedSkillPoints"));
+            AlathraSkills.getSkillsPlayerManager().setPlayerUsedSkillPoints((Player) args.get("targetPlayer"), (Integer) args.get("usedSkillPoints"));
             String returnString =
                 "Player with ID " +
                     player.getUniqueId() +

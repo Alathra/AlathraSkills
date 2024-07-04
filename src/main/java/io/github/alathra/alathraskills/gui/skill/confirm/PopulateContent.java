@@ -33,7 +33,7 @@ public class PopulateContent {
         deny.setItemMeta(denyMeta);
 
         gui.setItem(6, ItemBuilder.from(confirm).asGuiItem(event -> {
-            boolean buySkill = SkillsPlayerManager.buySkill(player, skill);
+            boolean buySkill = AlathraSkills.getSkillsPlayerManager().buySkill(player, skill);
 
             if (buySkill) {
                 GuiHelper.openSkillGui(player, skillCategoryId, page);
