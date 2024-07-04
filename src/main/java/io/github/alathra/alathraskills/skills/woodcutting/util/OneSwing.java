@@ -138,62 +138,30 @@ public class OneSwing {
 
     // In seconds
     private static int getDuration(int skillLevel) {
-        switch (skillLevel) {
-            case 1 -> {
-                return Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l1");
-            }
-            case 2 -> {
-                return Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l2");
-            }
-            case 3 -> {
-                return Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l3");
-            }
-            case 4 -> {
-                return Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l4");
-            }
-            case 5 -> {
-                return Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l5");
-            }
-            case 6 -> {
-                return Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l6");
-            }
-            case 7 -> {
-                return Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l7");
-            }
-            default -> {
-                return 0;
-            }
-        }
+        return switch (skillLevel) {
+            case 1 -> Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l1");
+            case 2 -> Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l2");
+            case 3 -> Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l3");
+            case 4 -> Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l4");
+            case 5 -> Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l5");
+            case 6 -> Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l6");
+            case 7 -> Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l7");
+            default -> throw new IllegalStateException("Unexpected value: " + skillLevel);
+        };
     }
 
     // In seconds
     private static long getCooldownTime(int skillLevel) {
-        switch (skillLevel) {
-            case 1 -> {
-                return Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l1");
-            }
-            case 2 -> {
-                return Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l2");
-            }
-            case 3 -> {
-                return Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l3");
-            }
-            case 4 -> {
-                return Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l4");
-            }
-            case 5 -> {
-                return Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l5");
-            }
-            case 6 -> {
-                return Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l6");
-            }
-            case 7 -> {
-                return Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l7");
-            }
-            default -> {
-                return 0;
-            }
-        }
+        return switch (skillLevel) {
+            case 1 -> Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l1");
+            case 2 -> Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l2");
+            case 3 -> Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l3");
+            case 4 -> Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l4");
+            case 5 -> Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l5");
+            case 6 -> Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l6");
+            case 7 -> Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l7");
+            default -> throw new IllegalStateException("Unexpected value: " + skillLevel);
+        };
     }
 
 }
