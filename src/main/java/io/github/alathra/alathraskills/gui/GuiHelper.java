@@ -17,7 +17,7 @@ public class GuiHelper {
     public static final String NEGATIVE = "<red>";
     public static final String COMMON_TITLE = "<white>";
     public static final String LORETEXT = "<color:#a8a8a8>";
-    public static String SKILL = "<white>"; // TODO: change this.
+    public static final String SKILL = "<white>"; // TODO: change this.
 
     private static final SkillsPlayerManager skillsPlayerManager = AlathraSkills.getSkillsPlayerManager();
 
