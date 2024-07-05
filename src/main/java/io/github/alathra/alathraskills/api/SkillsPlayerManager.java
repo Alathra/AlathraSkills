@@ -47,7 +47,7 @@ public class SkillsPlayerManager implements Reloadable {
         return CompletableFuture.supplyAsync(() -> {
             HashMap<Integer, SkillDetails> playerSkills = new HashMap<>();
             HashMap<Integer, Float> playerExperienceValues = new HashMap<>();
-            
+
             Result<PlayerSkillinfoRecord> skillsDBReturn = DatabaseQueries.fetchPlayerSkills(p);
             if (skillsDBReturn != null) {
                 for (PlayerSkillinfoRecord playerSkillinfoRecord : skillsDBReturn) {
@@ -76,7 +76,7 @@ public class SkillsPlayerManager implements Reloadable {
             if (playerDataRecord.isEmpty()) {
                 usedSkillpoints = 0;
                 latestSkillUnlocked = 0;
-                cooldown = null;
+                cooldown = Instant.now();
             }
 
             List<Integer> disabledSkills = new ArrayList<>();
