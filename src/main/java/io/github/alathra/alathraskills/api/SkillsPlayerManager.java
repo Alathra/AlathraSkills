@@ -47,13 +47,7 @@ public class SkillsPlayerManager implements Reloadable {
         return CompletableFuture.supplyAsync(() -> {
             HashMap<Integer, SkillDetails> playerSkills = new HashMap<>();
             HashMap<Integer, Float> playerExperienceValues = new HashMap<>();
-
-            // TODO: test if this needs to stay or not.
-//            if (!p.hasPlayedBefore()) {
-//                DatabaseQueries.saveAllSkillCategoryExperience(p, 0.f, 0.f, 0.f);
-//                DatabaseQueries.savePlayerData(p, 0, 0, 0.f, 0, Instant.now());
-//            }
-
+            
             Result<PlayerSkillinfoRecord> skillsDBReturn = DatabaseQueries.fetchPlayerSkills(p);
             if (skillsDBReturn != null) {
                 for (PlayerSkillinfoRecord playerSkillinfoRecord : skillsDBReturn) {
