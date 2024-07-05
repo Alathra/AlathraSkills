@@ -15,20 +15,19 @@ import java.util.List;
 
 public class GuiItemHelper {
 
-    public static ItemStack borderItem;
-    public static ItemStack backItem;
-    public static ItemStack exitItem;
-    public static ItemStack confirmItem;
-    public static ItemStack denyItem;
-
-
-    public static void loadItemStacks() {
+    static {
         loadBorderItem();
         loadBackItem();
         loadExitItem();
         loadConfirmItem();
         loadDenyItem();
     }
+
+    public static ItemStack borderItem;
+    public static ItemStack backItem;
+    public static ItemStack exitItem;
+    public static ItemStack confirmItem;
+    public static ItemStack denyItem;
 
     public static ItemStack skillpointsItem(Player player) {
         SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);

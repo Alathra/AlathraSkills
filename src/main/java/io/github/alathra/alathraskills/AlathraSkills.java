@@ -87,8 +87,6 @@ public class AlathraSkills extends JavaPlugin {
 
         // Static initializers
         PDCUtil.init();
-
-        GuiItemHelper.loadItemStacks();
     }
 
     @Override
