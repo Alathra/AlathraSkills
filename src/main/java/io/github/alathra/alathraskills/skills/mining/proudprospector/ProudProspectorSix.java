@@ -25,7 +25,7 @@ public class ProudProspectorSix extends Skill {
         meta.displayName(ColorParser.of(GuiHelper.COMMON_TITLE + super.getName()).build().decoration(TextDecoration.ITALIC, false));
 
         List<Component> loreList = new ArrayList<>();
-        loreList.add(ColorParser.of(GuiHelper.LORETEXT + "Level 20").build().decoration(TextDecoration.ITALIC, false));
+        loreList.add(ColorParser.of(GuiHelper.LORETEXT + "Level 19").build().decoration(TextDecoration.ITALIC, false));
         loreList.add(ColorParser.of(GuiHelper.LORETEXT + "Cost: " + super.getCost() + " skill points").build().decoration(TextDecoration.ITALIC, false));
         loreList.addAll(SkillDescriptionUtil.descriptionLineBreaker(super.getDescription(), 40, GuiHelper.LORETEXT));
         meta.lore(loreList);

@@ -60,17 +60,15 @@ skills:
             l2: 20
             l3: 30
             l4: 40
-            l5: 50
-            l6: 60
-            l7: 80
+            l5: 60
+            l6: 80
          cooldown:
             l1: 600
             l2: 570
             l3: 540
             l4: 510
-            l5: 480
-            l6: 420
-            l7: 300
+            l5: 450
+            l6: 300
       oreInTheRough:
          chance:
             l1: 0.03
@@ -92,11 +90,13 @@ skills:
             l5: 0.20
       proudProspector:
          chance:
-            l1: 0.10
-            l2: 0.15
-            l3: 0.20
-            l4: 0.25
-            l5: 0.30
+            l1: 0.05
+            l2: 0.10
+            l3: 0.15
+            l4: 0.20
+            l5: 0.25
+            l6: 0.30
+            l7: 0.35
       spelunker:
          damageReduction:
             l1: 2.0

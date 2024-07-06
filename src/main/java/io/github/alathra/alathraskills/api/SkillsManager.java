@@ -44,9 +44,9 @@ public class SkillsManager implements Reloadable {
 
     // Mining IDs
     public static final int[] SPELUNKER_IDS = new int[]{2213, 2113, 209, 206, 201};
-    public static final int[] VEIN_BREAKER_IDS = new int[]{2218, 2217, 2214, 2211, 207, 204, 202};
-    public static final int[] PROUD_PROSPECTOR_IDS = new int[]{2120, 2118, 2115, 2112, 208, 203};
-    public static final int[] EASY_PICKING_IDS = new int[]{2220, 2219, 2216, 2215, 2212, 210, 205};
+    public static final int[] VEIN_BREAKER_IDS = new int[]{2218, 2216, 2214, 2211, 207, 204, 202};
+    public static final int[] PROUD_PROSPECTOR_IDS = new int[]{2220, 2219, 2217, 2215, 2212, 208, 203};
+    public static final int[] EASY_PICKING_IDS = new int[]{2120, 2118, 2115, 2112, 210, 205};
     public static final int[] ORE_IN_THE_ROUGH_IDS = new int[]{2119, 2117, 2116, 2114, 2111};
 
     // Woodcutting IDs
@@ -148,27 +148,27 @@ public class SkillsManager implements Reloadable {
 
         // Left branch
         skills.put(2111, new OreInTheRoughOne(2111, 10));
-        skills.put(2112, new ProudProspectorThree(2112, 10));
+        skills.put(2112, new EasyPickingThree(2112, 10));
         skills.put(2113, new SpelunkerFour(2113, 10));
         skills.put(2114, new OreInTheRoughTwo(2114, 10));
-        skills.put(2115, new ProudProspectorFour(2115, 10));
+        skills.put(2115, new EasyPickingFour(2115, 10));
         skills.put(2116, new OreInTheRoughThree(2116, 10));
         skills.put(2117, new OreInTheRoughFour(2117, 10));
-        skills.put(2118, new ProudProspectorFive(2118, 10));
+        skills.put(2118, new EasyPickingFive(2118, 10));
         skills.put(2119, new OreInTheRoughFive(2119, 10));
-        skills.put(2120, new ProudProspectorSix(2120, 10));
+        skills.put(2120, new EasyPickingSix(2120, 10));
 
         // Right branch
         skills.put(2211, new VeinBreakerFour(2211, 10));
-        skills.put(2212, new EasyPickingThree(2212, 10));
+        skills.put(2212, new ProudProspectorThree(2212, 10));
         skills.put(2213, new SpelunkerFour(2213, 10));
         skills.put(2214, new VeinBreakerFive(2214, 10));
-        skills.put(2215, new EasyPickingFour(2215, 10));
-        skills.put(2216, new EasyPickingFive(2216, 10));
-        skills.put(2217, new VeinBreakerSix(2217, 10));
+        skills.put(2215, new ProudProspectorFour(2215, 10));
+        skills.put(2216, new VeinBreakerSix(2216, 10));
+        skills.put(2217, new ProudProspectorFive(2217, 10));
         skills.put(2218, new VeinBreakerSeven(2218, 10));
-        skills.put(2219, new EasyPickingSix(2219, 10));
-        skills.put(2220, new EasyPickingSeven(2220, 10));
+        skills.put(2219, new ProudProspectorSix(2219, 10));
+        skills.put(2220, new ProudProspectorSeven(2220, 10));
     }
 
     private void loadFarmingSkills() {

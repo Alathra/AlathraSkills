@@ -1,4 +1,4 @@
-package io.github.alathra.alathraskills.skills.mining.easypicking;
+package io.github.alathra.alathraskills.skills.mining.proudprospector;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.alathraskills.AlathraSkills;
@@ -15,12 +15,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EasyPickingSeven extends Skill {
+public class ProudProspectorSeven extends Skill {
 
-    public EasyPickingSeven(int id, int cost) {
-        super(id, "Easy Picking 7", "When you activate your pickaxe your mining speed greatly increases.", cost);
+    public ProudProspectorSeven(int id, int cost) {
+        super(id, "Proud Prospector 7", "Get a chance at double drops when mining ores.", cost);
 
-        ItemStack icon = new ItemStack(Material.GOLDEN_PICKAXE, 7);
+        ItemStack icon = new ItemStack(Material.DIAMOND, 7);
         ItemMeta meta = icon.getItemMeta();
         meta.displayName(ColorParser.of(GuiHelper.COMMON_TITLE + super.getName()).build().decoration(TextDecoration.ITALIC, false));
 

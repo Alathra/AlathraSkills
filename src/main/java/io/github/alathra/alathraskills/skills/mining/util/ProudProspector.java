@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class ProudProspector {
 
-    public static final int MAX_LEVEL = 6;
+    public static final int MAX_LEVEL = 7;
 
     // Called on BlockBreakEvent
     public static void run(BlockBreakEvent event, int skillLevel) {
@@ -49,6 +49,7 @@ public class ProudProspector {
             case 4 -> Cfg.get().getDouble("skills.mining.proudProspector.chance.l4");
             case 5 -> Cfg.get().getDouble("skills.mining.proudProspector.chance.l5");
             case 6 -> Cfg.get().getDouble("skills.mining.proudProspector.chance.l6");
+            case 7 -> Cfg.get().getDouble("skills.mining.proudProspector.chance.l7");
             default -> 0;
         };
     }

@@ -15,7 +15,7 @@ import java.util.UUID;
 public class EasyPicking {
 
     private static final HashMap<UUID, Long> cooldowns = new HashMap<>();
-    public static final int MAX_LEVEL = 7;
+    public static final int MAX_LEVEL = 6;
 
     public static void run(Player player, Block block, int skillLevel) {
         if (!isOnCooldown(player, skillLevel)) {
@@ -49,7 +49,6 @@ public class EasyPicking {
             case 4 -> Cfg.get().getInt("skills.mining.easyPickings.duration.l4");
             case 5 -> Cfg.get().getInt("skills.mining.easyPickings.duration.l5");
             case 6 -> Cfg.get().getInt("skills.mining.easyPickings.duration.l6");
-            case 7 -> Cfg.get().getInt("skills.mining.easyPickings.duration.l7");
             default -> throw new IllegalStateException("Unexpected value: " + skillLevel);
         };
     }
@@ -63,7 +62,6 @@ public class EasyPicking {
             case 4 -> Cfg.get().getInt("skills.mining.easyPickings.cooldown.l4");
             case 5 -> Cfg.get().getInt("skills.mining.easyPickings.cooldown.l5");
             case 6 -> Cfg.get().getInt("skills.mining.easyPickings.cooldown.l6");
-            case 7 -> Cfg.get().getInt("skills.mining.easyPickings.cooldown.l7");
             default -> throw new IllegalStateException("Unexpected value: " + skillLevel);
         };
     }
