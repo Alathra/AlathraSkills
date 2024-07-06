@@ -28,9 +28,9 @@ public class PopulateContent {
         ItemStack playerHead = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta skullMeta = (SkullMeta) playerHead.getItemMeta();
         skullMeta.setOwningPlayer(player);
-        skullMeta.displayName(ColorParser.of(GuiHelper.COMMON_TITLE + "Reset skills").build());
-        skullMeta.lore(List.of(ColorParser.of(GuiHelper.LORETEXT + "Reset all of your skills and keep %s".formatted(expRetained * 100) + "% of your experience").build(),
-            ColorParser.of(GuiHelper.LORETEXT + "Cost: $%s".formatted(cost)).build(),
+        skullMeta.displayName(ColorParser.of(GuiHelper.COMMON_TITLE + "Reset progress").build());
+        skullMeta.lore(List.of(ColorParser.of(GuiHelper.LORETEXT + "Cost: $%s".formatted(cost)).build(),
+            ColorParser.of(GuiHelper.LORETEXT + "Reset all of your skills and keep %s".formatted(Math.round(expRetained * 100)) + "% of your experience").build(),
             ColorParser.of(GuiHelper.NEGATIVE + "<bold>This action is permanent and cannot be undone.").build()));
         playerHead.setItemMeta(skullMeta);
 
@@ -55,7 +55,7 @@ public class PopulateContent {
         SkullMeta skullMeta = (SkullMeta) playerHead.getItemMeta();
         skullMeta.setOwningPlayer(player);
         skullMeta.displayName(ColorParser.of(GuiHelper.COMMON_TITLE + "Reset skills").build());
-        skullMeta.lore(List.of(ColorParser.of(GuiHelper.LORETEXT + "Reset all of your skills but keep your skill points.").build(),
+        skullMeta.lore(List.of(ColorParser.of(GuiHelper.LORETEXT + "Reset all of your progress.").build(),
             ColorParser.of(GuiHelper.NEGATIVE + "<bold>This action is permanent and cannot be undone.").build()));
         playerHead.setItemMeta(skullMeta);
 

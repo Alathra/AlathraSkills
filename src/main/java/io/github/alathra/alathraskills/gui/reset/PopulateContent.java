@@ -41,19 +41,23 @@ public class PopulateContent {
             resetFreeMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "Reset progress").build());
             resetFreeMeta.lore(List.of(ColorParser.of(GuiHelper.LORETEXT + "Cost: Free").build(),
                 ColorParser.of(GuiHelper.LORETEXT + "Resets all of your progress.").build(),
-                ColorParser.of(GuiHelper.LORETEXT + "<bold>This action is permanent and cannot be undone.").build()));
+                ColorParser.of(GuiHelper.NEGATIVE + "<bold>This action is permanent and cannot be undone.").build()));
             resetFree.setItemMeta(resetFreeMeta);
+
+            int cost = Cfg.get().getInt("skills.resetCost");
+            double expRetained = Cfg.get().getDouble("skills.resetRetain");
 
             resetCost = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
             ItemMeta resetCostMeta = resetCost.getItemMeta();
             resetCostMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "Reset progress").build());
-            resetCostMeta.lore(List.of(ColorParser.of(GuiHelper.LORETEXT + "Cost: $15,000").build(),
-                ColorParser.of(GuiHelper.LORETEXT + "Resets all of your skills, but you keep 25% of your experience.").build()
+            resetCostMeta.lore(List.of(ColorParser.of(GuiHelper.LORETEXT + "Cost: $%s".formatted(cost)).build(),
+                ColorParser.of(GuiHelper.LORETEXT + "Resets all of your skills, but you keep %s".formatted(Math.round(expRetained * 100)) + "% of your experience.").build(),
+                ColorParser.of(GuiHelper.NEGATIVE + "<bold>This action is permanent and cannot be undone.").build()
             ));
             resetCost.setItemMeta(resetCostMeta);
 
             gui.setItem(2, 3, ItemBuilder.from(resetFree).asGuiItem(event -> GuiHelper.openResetProgressFreeConfirmGui(player)));
-            gui.setItem(2, 5, ItemBuilder.from(resetCost).asGuiItem(event -> GuiHelper.openResetProgressConfirmGui(player, Cfg.get().getInt("skills.resetCost"), Cfg.get().getDouble("skills.resetRetain"))));
+            gui.setItem(2, 5, ItemBuilder.from(resetCost).asGuiItem(event -> GuiHelper.openResetProgressConfirmGui(player, cost, expRetained)));
         } else {
             long cooldownRemaining = Duration.between(Instant.now(), skillsPlayer.getResetCooldown()).getSeconds();
             long hours = TimeUnit.SECONDS.toHours(cooldownRemaining);
