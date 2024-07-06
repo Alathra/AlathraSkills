@@ -12,8 +12,6 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,8 +23,7 @@ public class OneSwing {
     private static final HashSet<UUID> preActives = new HashSet<>();
     private static final HashSet<UUID> actives = new HashSet<>();
     private static final HashMap<UUID, Long> cooldowns = new HashMap<>();
-    public static int MAX_LEVEL = 7;
-    private static Plugin instance = AlathraSkills.getInstance();
+    public static final int MAX_LEVEL = 7;
 
     public static void run(Player player, Block block, int skillLevel) {
         if (!isActive(player)) {
@@ -92,7 +89,7 @@ public class OneSwing {
         player.sendActionBar(ColorParser.of("<dark_grey>One Swing <green><bold>activated</bold></green></dark_grey>").build());
         setActive(player, skillLevel);
         // Notify when cooldown is over
-        Bukkit.getScheduler().runTaskLater(instance,
+        Bukkit.getScheduler().runTaskLater(AlathraSkills.getInstance(),
             () -> player.sendActionBar(ColorParser.of("<dark_grey>One Swing <green><bold>available</bold></green></dark_grey>").build()), getCooldownTime(skillLevel) * 20
         );
     }
@@ -140,62 +137,30 @@ public class OneSwing {
 
     // In seconds
     private static int getDuration(int skillLevel) {
-        switch (skillLevel) {
-            case 1 -> {
-                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.duration.l1").toString());
-            }
-            case 2 -> {
-                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.duration.l2").toString());
-            }
-            case 3 -> {
-                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.duration.l3").toString());
-            }
-            case 4 -> {
-                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.duration.l4").toString());
-            }
-            case 5 -> {
-                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.duration.l5").toString());
-            }
-            case 6 -> {
-                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.duration.l6").toString());
-            }
-            case 7 -> {
-                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.duration.l7").toString());
-            }
-            default -> {
-                return 0;
-            }
-        }
+        return switch (skillLevel) {
+            case 1 -> Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l1");
+            case 2 -> Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l2");
+            case 3 -> Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l3");
+            case 4 -> Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l4");
+            case 5 -> Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l5");
+            case 6 -> Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l6");
+            case 7 -> Cfg.get().getInt("skills.woodcutting.oneSwing.duration.l7");
+            default -> throw new IllegalStateException("Unexpected value: " + skillLevel);
+        };
     }
 
     // In seconds
     private static long getCooldownTime(int skillLevel) {
-        switch (skillLevel) {
-            case 1 -> {
-                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.cooldown.l1").toString());
-            }
-            case 2 -> {
-                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.cooldown.l2").toString());
-            }
-            case 3 -> {
-                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.cooldown.l3").toString());
-            }
-            case 4 -> {
-                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.cooldown.l4").toString());
-            }
-            case 5 -> {
-                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.cooldown.l5").toString());
-            }
-            case 6 -> {
-                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.cooldown.l6").toString());
-            }
-            case 7 -> {
-                return Integer.parseInt(Cfg.getValue("skills.woodcutting.oneSwing.cooldown.l7").toString());
-            }
-            default -> {
-                return 0;
-            }
-        }
+        return switch (skillLevel) {
+            case 1 -> Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l1");
+            case 2 -> Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l2");
+            case 3 -> Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l3");
+            case 4 -> Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l4");
+            case 5 -> Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l5");
+            case 6 -> Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l6");
+            case 7 -> Cfg.get().getInt("skills.woodcutting.oneSwing.cooldown.l7");
+            default -> throw new IllegalStateException("Unexpected value: " + skillLevel);
+        };
     }
 
 }

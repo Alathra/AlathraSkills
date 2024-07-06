@@ -2,7 +2,6 @@ package io.github.alathra.alathraskills.listeners.player;
 
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
-import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.api.events.SkillsPlayerUnloadedEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -22,7 +21,7 @@ public class PlayerLeaveListener implements Listener {
         if (Bukkit.isStopping())
             return;
 
-        SkillsPlayerManager.handlePlayerLeave(p)
+        AlathraSkills.getSkillsPlayerManager().handlePlayerLeave(p)
             .thenAccept(skillsPlayerPassed -> {
                 final SkillsPlayer skillsPlayer = skillsPlayerPassed;
                 Bukkit.getScheduler().runTask(AlathraSkills.getInstance(), () -> {

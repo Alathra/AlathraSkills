@@ -8,7 +8,6 @@ import io.github.alathra.alathraskills.skills.Skill;
 import io.github.alathra.alathraskills.skills.SkillDescriptionUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -17,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VeinBreakerFive extends Skill {
-
-    private static SkillsManager skillsManager;
 
     public VeinBreakerFive(int id, int cost) {
         super(id, "Vein Breaker 5", "Sometimes you mine the entire vein of an ore by breaking just one ore.", cost);
@@ -36,7 +33,7 @@ public class VeinBreakerFive extends Skill {
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
-        skillsManager = AlathraSkills.getSkillsManager();
+        SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(2));
     }
 }

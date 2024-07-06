@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class Trimmer {
 
-    public static int MAX_LEVEL = 7;
+    public static final int MAX_LEVEL = 7;
 
     public static void run(BlockDamageEvent event, int skillLevel) {
 
@@ -28,13 +28,13 @@ public class Trimmer {
 
     private static double getChance(int skillLevel) {
         return switch (skillLevel) {
-            case 1 -> Double.parseDouble(Cfg.getValue("skills.woodcutting.trimmer.chance.l1").toString());
-            case 2 -> Double.parseDouble(Cfg.getValue("skills.woodcutting.trimmer.chance.l2").toString());
-            case 3 -> Double.parseDouble(Cfg.getValue("skills.woodcutting.trimmer.chance.l3").toString());
-            case 4 -> Double.parseDouble(Cfg.getValue("skills.woodcutting.trimmer.chance.l4").toString());
-            case 5 -> Double.parseDouble(Cfg.getValue("skills.woodcutting.trimmer.chance.l5").toString());
-            case 6 -> Double.parseDouble(Cfg.getValue("skills.woodcutting.trimmer.chance.l6").toString());
-            case 7 -> Double.parseDouble(Cfg.getValue("skills.woodcutting.trimmer.chance.l7").toString());
+            case 1 -> Cfg.get().getDouble("skills.woodcutting.trimmer.chance.l1");
+            case 2 -> Cfg.get().getDouble("skills.woodcutting.trimmer.chance.l2");
+            case 3 -> Cfg.get().getDouble("skills.woodcutting.trimmer.chance.l3");
+            case 4 -> Cfg.get().getDouble("skills.woodcutting.trimmer.chance.l4");
+            case 5 -> Cfg.get().getDouble("skills.woodcutting.trimmer.chance.l5");
+            case 6 -> Cfg.get().getDouble("skills.woodcutting.trimmer.chance.l6");
+            case 7 -> Cfg.get().getDouble("skills.woodcutting.trimmer.chance.l7");
             default -> 0;
         };
     }

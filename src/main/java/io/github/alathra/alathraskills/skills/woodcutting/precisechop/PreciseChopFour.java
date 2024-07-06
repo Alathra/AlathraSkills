@@ -17,8 +17,6 @@ import java.util.List;
 
 public class PreciseChopFour extends Skill {
 
-    private SkillsManager skillsManager;
-
     public PreciseChopFour(int id, int cost) {
         super(id, "Precise Chop 4", "Sometimes you gain more logs from cutting trees down.", cost);
 
@@ -35,7 +33,7 @@ public class PreciseChopFour extends Skill {
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
-        skillsManager = AlathraSkills.getSkillsManager();
+        SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(3));
     }
 }

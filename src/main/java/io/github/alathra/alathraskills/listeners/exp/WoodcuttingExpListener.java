@@ -1,7 +1,7 @@
 package io.github.alathra.alathraskills.listeners.exp;
 
+import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
-import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.api.events.SkillPointGainEvent;
 import io.github.alathra.alathraskills.utility.Cfg;
 import io.github.alathra.alathraskills.utility.PDCUtil;
@@ -18,16 +18,14 @@ import java.util.ArrayList;
 
 public class WoodcuttingExpListener implements Listener {
 
-    public static ArrayList<Material> logs = new ArrayList<>(Tag.LOGS.getValues());
+    public static final ArrayList<Material> logs = new ArrayList<>(Tag.LOGS.getValues());
 
 
     @EventHandler
     public void LogBreakingListener(BlockBreakEvent event) {
         Player p = event.getPlayer();
 
-        if (event.getPlayer() == null) {
-            return;
-        }
+        event.getPlayer();
 
         Block block = event.getBlock();
         if (!logs.contains(block.getType())) {
@@ -63,9 +61,6 @@ public class WoodcuttingExpListener implements Listener {
 
         // Block broken is a log
 
-        if (SkillsPlayerManager.isSkillPointGained(p, expAmount)) {
-            Bukkit.getPluginManager().callEvent(new SkillPointGainEvent(SkillsPlayerManager.getSkillsPlayer(p)));
-        }
-        SkillsPlayerManager.addPlayerExperience(event.getPlayer(), SkillsManager.WOODCUTTING_SKILL_ID, expAmount);
+        AlathraSkills.getSkillsPlayerManager().gainExp(p, SkillsManager.WOODCUTTING_SKILL_ID, expAmount);
     }
 }

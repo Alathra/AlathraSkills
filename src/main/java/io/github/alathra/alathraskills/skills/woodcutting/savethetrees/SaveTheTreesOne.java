@@ -17,8 +17,6 @@ import java.util.List;
 
 public class SaveTheTreesOne extends Skill {
 
-    private SkillsManager skillsManager;
-
     public SaveTheTreesOne(int id, int cost) {
         super(id, "Save the Trees", "Replant the trees you cut down.", cost);
 
@@ -35,7 +33,7 @@ public class SaveTheTreesOne extends Skill {
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
-        skillsManager = AlathraSkills.getSkillsManager();
+        SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(3));
     }
 }

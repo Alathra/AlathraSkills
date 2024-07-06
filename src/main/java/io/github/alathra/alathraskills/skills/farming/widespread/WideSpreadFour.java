@@ -17,8 +17,6 @@ import java.util.List;
 
 public class WideSpreadFour extends Skill {
 
-    private SkillsManager skillsManager;
-
     public WideSpreadFour(int id, int cost) {
         super(id, "Wide Spread 4", "Seeds plant in a radius. Must have enough seeds in your inventory to fill the area you are planting.", cost);
 
@@ -35,7 +33,7 @@ public class WideSpreadFour extends Skill {
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
-        skillsManager = AlathraSkills.getSkillsManager();
+        SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(1));
     }
 

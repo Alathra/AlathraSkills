@@ -17,8 +17,6 @@ import java.util.List;
 
 public class OneWithTheForestThree extends Skill {
 
-    private static SkillsManager skillsManager;
-
     public OneWithTheForestThree(int id, int cost) {
         super(id, "One With the Forest 3", "Your bone meal affects multiple saplings, you find the saplings of other trees in leaves, and bees are more likely to appear on the trees you grow.", cost);
 
@@ -35,7 +33,7 @@ public class OneWithTheForestThree extends Skill {
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
-        skillsManager = AlathraSkills.getSkillsManager();
+        SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(3));
     }
 }

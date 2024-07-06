@@ -10,8 +10,8 @@ import java.util.UUID;
 public class SkillsPlayerUnloadedEvent extends Event {
 
     private static final HandlerList HANDLERS = new HandlerList();
-    private UUID uuid;
-    private SkillsPlayer skillsPlayer;
+    private final UUID uuid;
+    private final SkillsPlayer skillsPlayer;
 
     public SkillsPlayerUnloadedEvent(UUID uuid, SkillsPlayer skillsPlayer) {
         this.uuid = uuid;

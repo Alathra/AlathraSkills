@@ -17,8 +17,6 @@ import java.util.List;
 
 public class SpelunkerFour extends Skill {
 
-    private static SkillsManager skillsManager;
-
     public SpelunkerFour(int id, int cost) {
         super(id, "Spelunker 4", "Take reduced fall damage.", cost);
 
@@ -35,7 +33,7 @@ public class SpelunkerFour extends Skill {
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
-        skillsManager = AlathraSkills.getSkillsManager();
+        SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(2));
     }
 }

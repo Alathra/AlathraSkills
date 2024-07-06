@@ -17,15 +17,5 @@ public abstract class Cfg {
         return AlathraSkills.getInstance().getConfigHandler().getConfig();
     }
 
-    /**
-     * Returns the value associated with the key in the config
-     *
-     * @param key Key a value is being retrieved for
-     * @return The value associated with the provided key
-     */
-    @NotNull
-    public static Object getValue(String key) {
-        return AlathraSkills.getInstance().getConfigHandler().getConfigValue(key);
-    }
 
 }

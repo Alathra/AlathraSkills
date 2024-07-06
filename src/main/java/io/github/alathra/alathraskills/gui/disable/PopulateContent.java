@@ -4,9 +4,7 @@ import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import io.github.alathra.alathraskills.AlathraSkills;
-import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
-import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.gui.GuiHelper;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
@@ -14,18 +12,17 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class PopulateContent {
 
-    private static int[] levelOnePassiveFarmingSkillIds = new int[]{101, 102, 103, 105};
-    private static int[] levelOnePassiveMiningSkillIds = new int[]{201, 202, 203, 2111};
-    private static int[] levelOnePassiveWoodcuttingSkillIds = new int[]{301, 302, 304, 306};
+    private static final int[] levelOnePassiveFarmingSkillIds = new int[]{101, 102, 103, 105};
+    private static final int[] levelOnePassiveMiningSkillIds = new int[]{201, 202, 203, 2111};
+    private static final int[] levelOnePassiveWoodcuttingSkillIds = new int[]{301, 302, 304, 306};
 
     public static void populateContent(Gui gui, Player p) {
-        SkillsPlayer sp = SkillsPlayerManager.getSkillsPlayer(p);
+        SkillsPlayer sp = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(p);
 
         int row = 2;
         for (int id : levelOnePassiveFarmingSkillIds) {
@@ -69,7 +66,7 @@ public class PopulateContent {
         ItemMeta meta = icon.getItemMeta();
 
         if (!isEnabled) {
-            icon.setType(Material.RED_STAINED_GLASS);
+            icon.setType(Material.RED_STAINED_GLASS_PANE);
             ItemMeta newMeta = icon.getItemMeta();
 
             List<Component> loreList = meta.lore();
@@ -104,9 +101,9 @@ public class PopulateContent {
 
     private static String getPrefix(boolean isEnabled) {
         if (isEnabled)
-            return "<green><bold>Disable: ";
+            return GuiHelper.POSITIVE + "<bold>Disable: ";
         else
-            return "<green><bold>Enable: ";
+            return GuiHelper.POSITIVE + "<bold>Enable: ";
     }
 
 }

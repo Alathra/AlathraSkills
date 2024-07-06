@@ -1,8 +1,8 @@
 package io.github.alathra.alathraskills.listeners.skills;
 
+import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
-import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.farming.util.*;
 import io.github.alathra.alathraskills.skills.farming.util.helper.FarmingData;
 import org.bukkit.GameMode;
@@ -35,16 +35,16 @@ public class FarmingSkillsListener implements Listener {
         if (!event.isDropItems())
             return;
 
-        SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+        SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
         if (skillsPlayer == null)
             return;
 
         // if potato, carrot, beetroot or wheat crop
         if (FarmingData.getStandardCrops().contains(block.getType())) {
-            boolean[] readyToEat = new boolean[SkillsManager.readyToEatIds.length];
+            boolean[] readyToEat = new boolean[SkillsManager.READY_TO_EAT_IDS.length];
 
             int i = 0;
-            for (int id : SkillsManager.readyToEatIds) {
+            for (int id : SkillsManager.READY_TO_EAT_IDS) {
                 readyToEat[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }
@@ -66,12 +66,12 @@ public class FarmingSkillsListener implements Listener {
         // If player is holding a hoe
         if (Tag.ITEMS_HOES.isTagged(event.getPlayer().getInventory().getItemInMainHand().getType())) {
             // if block broken is one of the breakable crops (specifically defined)
-            if (skillsPlayer.isSkillEnabled(SkillsManager.fastHarvestIds[SkillsManager.fastHarvestIds.length - 1])) {
+            if (skillsPlayer.isSkillEnabled(SkillsManager.FAST_HARVEST_IDS[SkillsManager.FAST_HARVEST_IDS.length - 1])) {
                 if (FarmingData.getBreakableCrops().contains(block.getType())) {
-                    boolean[] fastHarvest = new boolean[SkillsManager.fastHarvestIds.length];
+                    boolean[] fastHarvest = new boolean[SkillsManager.FAST_HARVEST_IDS.length];
 
                     int i = 0;
-                    for (int id : SkillsManager.fastHarvestIds) {
+                    for (int id : SkillsManager.FAST_HARVEST_IDS) {
                         fastHarvest[i] = skillsPlayer.playerHasSkill(id);
                         i++;
                     }
@@ -107,17 +107,17 @@ public class FarmingSkillsListener implements Listener {
 
         // if potato, carrot, beetroot or wheat crop placed
         if (FarmingData.getStandardCrops().contains(block.getType())) {
-            SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+            SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
             if (skillsPlayer == null)
                 return;
 
-            if (!skillsPlayer.isSkillEnabled(SkillsManager.wideSpread[SkillsManager.wideSpread.length - 1]))
+            if (!skillsPlayer.isSkillEnabled(SkillsManager.WIDE_SPREAD_IDS[SkillsManager.WIDE_SPREAD_IDS.length - 1]))
                 return;
 
-            boolean[] wideSpread = new boolean[SkillsManager.wideSpread.length];
+            boolean[] wideSpread = new boolean[SkillsManager.WIDE_SPREAD_IDS.length];
 
             int i = 0;
-            for (int id : SkillsManager.wideSpread) {
+            for (int id : SkillsManager.WIDE_SPREAD_IDS) {
                 wideSpread[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }
@@ -153,17 +153,17 @@ public class FarmingSkillsListener implements Listener {
 
         // if the block grown is a desired bonemealable crop (specifically defined)
         if (FarmingData.getBonemealableCrops().contains(block.getType())) {
-            SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer(player);
+            SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
             if (skillsPlayer == null)
                 return;
 
-            if (!skillsPlayer.isSkillEnabled(SkillsManager.greenThumbIds[SkillsManager.greenThumbIds.length - 1]))
+            if (!skillsPlayer.isSkillEnabled(SkillsManager.GREEN_THUMB_IDS[SkillsManager.GREEN_THUMB_IDS.length - 1]))
                 return;
 
-            boolean[] greenThumb = new boolean[SkillsManager.greenThumbIds.length];
+            boolean[] greenThumb = new boolean[SkillsManager.GREEN_THUMB_IDS.length];
 
             int i = 0;
-            for (int id : SkillsManager.greenThumbIds) {
+            for (int id : SkillsManager.GREEN_THUMB_IDS) {
                 greenThumb[i] = skillsPlayer.playerHasSkill(id);
                 i++;
             }
@@ -192,15 +192,15 @@ public class FarmingSkillsListener implements Listener {
 
         // if entity bred is one of the standard animals (specifically defined)
         if (FarmingData.getStandardAnimals().contains(entity.getType())) {
-            SkillsPlayer skillsPlayer = SkillsPlayerManager.getSkillsPlayer((Player) event.getBreeder());
+            SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer((Player) event.getBreeder());
             if (skillsPlayer == null)
                 return;
 
-            if (skillsPlayer.isSkillEnabled(SkillsManager.qualityCropsIds[SkillsManager.qualityCropsIds.length - 1])) {
-                boolean[] qualityCrops = new boolean[SkillsManager.qualityCropsIds.length];
+            if (skillsPlayer.isSkillEnabled(SkillsManager.QUALITY_CROP_IDS[SkillsManager.QUALITY_CROP_IDS.length - 1])) {
+                boolean[] qualityCrops = new boolean[SkillsManager.QUALITY_CROP_IDS.length];
 
                 int i = 0;
-                for (int id : SkillsManager.qualityCropsIds) {
+                for (int id : SkillsManager.QUALITY_CROP_IDS) {
                     qualityCrops[i] = skillsPlayer.playerHasSkill(id);
                     i++;
                 }

@@ -2,6 +2,7 @@ package io.github.alathra.alathraskills.api;
 
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.Reloadable;
+import io.github.alathra.alathraskills.api.events.SkillPointGainEvent;
 import io.github.alathra.alathraskills.api.events.SkillsPlayerLoadedEvent;
 import io.github.alathra.alathraskills.api.events.SkillsPlayerUnloadedEvent;
 import io.github.alathra.alathraskills.db.DatabaseQueries;
@@ -17,7 +18,7 @@ import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.Nullable;
 import org.jooq.Record1;
 import org.jooq.Record2;
-import org.jooq.Record3;
+import org.jooq.Record5;
 import org.jooq.Result;
 
 import java.time.Instant;
@@ -33,25 +34,19 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.Stream;
 
 public class SkillsPlayerManager implements Reloadable {
-    private static HashMap<UUID, SkillsPlayer> skillPlayers = new HashMap<UUID, SkillsPlayer>();
+    private static HashMap<UUID, SkillsPlayer> skillPlayers = new HashMap<>();
     private final AlathraSkills instance;
     private BukkitTask storePlayerSkillInfoTask;
 
     public SkillsPlayerManager(AlathraSkills instance) {
         this.instance = instance;
-        SkillsPlayerManager.skillPlayers = new HashMap<UUID, SkillsPlayer>();
+        SkillsPlayerManager.skillPlayers = new HashMap<>();
     }
 
-    // TODO Note, try to cut down on the amount of queries executed per player
-    public static CompletableFuture<SkillsPlayer> handlePlayerJoin(Player p) {
+    public CompletableFuture<SkillsPlayer> handlePlayerJoin(Player p) {
         return CompletableFuture.supplyAsync(() -> {
             HashMap<Integer, SkillDetails> playerSkills = new HashMap<>();
             HashMap<Integer, Float> playerExperienceValues = new HashMap<>();
-
-            if (!p.hasPlayedBefore()) {
-                DatabaseQueries.saveAllSkillCategoryExperience(p, 0.f, 0.f, 0.f);
-                DatabaseQueries.savePlayerData(p, 0, 0, Instant.now());
-            }
 
             Result<PlayerSkillinfoRecord> skillsDBReturn = DatabaseQueries.fetchPlayerSkills(p);
             if (skillsDBReturn != null) {
@@ -60,25 +55,18 @@ public class SkillsPlayerManager implements Reloadable {
                 }
             }
 
-            Result<Record2<Integer, Double>> experienceResult = DatabaseQueries.fetchAllSkillCategoryExperience(p);
-            for (Record2<Integer, Double> record : experienceResult) {
-                playerExperienceValues.put(record.getValue(Tables.PLAYER_SKILLCATEGORYINFO.SKILLCATEGORYID), record.getValue(Tables.PLAYER_SKILLCATEGORYINFO.EXPERIENCE).floatValue());
-            }
+            Result<Record5<Integer, Integer, Double, Integer, LocalDateTime>> playerDataRecord = DatabaseQueries.fetchPlayerData(p);
 
-            // If player has played before but DB is empty, give 10k EXP. Headstart to players that have played *before* the plugin launched.
-            if (experienceResult.isEmpty()) {
-                playerExperienceValues.put(1, 10000.f);
-                playerExperienceValues.put(2, 0.f);
-                playerExperienceValues.put(3, 0.f);
-            }
-
-            Result<Record3<Integer, Integer, LocalDateTime>> playerDataRecord = DatabaseQueries.fetchPlayerData(p);
-
-            int usedSkillPoints = 0;
+            int totalSkillpoints = 0;
+            int usedSkillpoints = 0;
+            float nextSkillpointProgress = 0.f;
             int latestSkillUnlocked = 0;
             Instant cooldown = null;
-            for (Record3<Integer, Integer, LocalDateTime> record : playerDataRecord) {
-                usedSkillPoints = record.getValue(Tables.PLAYER_PLAYERDATA.USED_SKILLPOINTS);
+            for (Record5<Integer, Integer, Double, Integer, LocalDateTime> record : playerDataRecord) {
+                totalSkillpoints = record.getValue(Tables.PLAYER_PLAYERDATA.TOTAL_SKILLPOINTS);
+                usedSkillpoints = record.getValue(Tables.PLAYER_PLAYERDATA.USED_SKILLPOINTS);
+
+                nextSkillpointProgress = record.getValue(Tables.PLAYER_PLAYERDATA.EXP_PROGRESS).floatValue();
 
                 latestSkillUnlocked = record.getValue(Tables.PLAYER_PLAYERDATA.LATEST_UNLOCKED_SKILL);
 
@@ -86,9 +74,9 @@ public class SkillsPlayerManager implements Reloadable {
             }
 
             if (playerDataRecord.isEmpty()) {
-                usedSkillPoints = 0;
+                usedSkillpoints = 0;
                 latestSkillUnlocked = 0;
-                cooldown = null;
+                cooldown = Instant.now();
             }
 
             List<Integer> disabledSkills = new ArrayList<>();
@@ -98,11 +86,25 @@ public class SkillsPlayerManager implements Reloadable {
                 disabledSkills.add(record.getValue(Tables.PLAYER_DISABLED_SKILLS.SKILLID));
             }
 
-            return new SkillsPlayer(p, playerSkills, playerExperienceValues, usedSkillPoints, latestSkillUnlocked, cooldown, disabledSkills);
+            // Running this query last so that we can overwrite skillpoints later on, without them being overwritten again.
+            Result<Record2<Integer, Double>> experienceResult = DatabaseQueries.fetchAllSkillCategoryExperience(p);
+            for (Record2<Integer, Double> record : experienceResult) {
+                playerExperienceValues.put(record.getValue(Tables.PLAYER_SKILLCATEGORYINFO.SKILLCATEGORYID), record.getValue(Tables.PLAYER_SKILLCATEGORYINFO.EXPERIENCE).floatValue());
+            }
+
+            // If player has played before but DB is empty, set all to 0. Also set skillpoints to config value.
+            if (experienceResult.isEmpty()) {
+                playerExperienceValues.put(1, 0.f);
+                playerExperienceValues.put(2, 0.f);
+                playerExperienceValues.put(3, 0.f);
+                totalSkillpoints = Cfg.get().getInt("skills.startingSkillpoints");
+            }
+
+            return new SkillsPlayer(p, totalSkillpoints, usedSkillpoints, nextSkillpointProgress, latestSkillUnlocked, playerSkills, playerExperienceValues, cooldown, disabledSkills);
         });
     }
 
-    public static CompletableFuture<SkillsPlayer> handlePlayerLeave(Player p) {
+    public CompletableFuture<SkillsPlayer> handlePlayerLeave(Player p) {
         return CompletableFuture.supplyAsync(() -> {
             SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
 
@@ -116,15 +118,19 @@ public class SkillsPlayerManager implements Reloadable {
                 currentPlayer.getSkillCategoryExperience(3));
 
 
-            int usedSkillPoints = currentPlayer.getUsedSkillPoints();
+
+            int totalSkillpoints = currentPlayer.getTotalSkillpoints();
+            int usedSkillpoints = currentPlayer.getUsedSkillpoints();
+
+            float nextSkillpointProgress = currentPlayer.getNextSkillpointProgress();
 
             int latestSkillUnlocked = currentPlayer.getLatestSkillUnlocked();
 
             Instant cooldown = Instant.now();
-            if (currentPlayer.getCooldown() != null)
-                cooldown = currentPlayer.getCooldown();
+            if (currentPlayer.getResetCooldown() != null)
+                cooldown = currentPlayer.getResetCooldown();
 
-            DatabaseQueries.savePlayerData(p, usedSkillPoints, latestSkillUnlocked, cooldown);
+            DatabaseQueries.savePlayerData(p, totalSkillpoints, usedSkillpoints, nextSkillpointProgress, latestSkillUnlocked, cooldown);
 
             DatabaseQueries.saveDisabledSkills(p, currentPlayer.getDisabledSkills());
 
@@ -132,36 +138,26 @@ public class SkillsPlayerManager implements Reloadable {
         });
     }
 
-    public static void setPlayerExperience(Player p, Integer skillCategory, Float experienceValue) {
+    public void setPlayerExperience(Player p, Integer skillCategory, Float experienceValue) {
         SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
         currentPlayer.setExperience(skillCategory, experienceValue);
     }
 
-    public static void addPlayerExperience(Player p, Integer skillCategory, Float experienceValue) {
+    public void addPlayerExperience(Player p, Integer skillCategory, Float experienceValue) {
         SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
         float currentExp = currentPlayer.getSkillCategoryExperience(skillCategory);
         currentPlayer.setExperience(skillCategory, currentExp + experienceValue);
     }
 
-    public static void setPlayerUsedSkillPoints(Player p, Integer usedSkillPoints) {
+    public void setPlayerUsedSkillPoints(Player p, Integer usedSkillPoints) {
         SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
-        currentPlayer.setUsedSkillPoints(usedSkillPoints);
+        currentPlayer.setUsedSkillpoints(usedSkillPoints);
     }
 
-    public static boolean buySkill(Player p, Integer skill) {
+    public boolean buySkill(Player p, Integer skill) {
         SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
-        float totalExp = currentPlayer.getSkillCategoryExperience(1);
-        totalExp += currentPlayer.getSkillCategoryExperience(2);
-        totalExp += currentPlayer.getSkillCategoryExperience(3);
 
-        // Gets remaining exp to next skill
-        float remainingExp = totalExp % Float.parseFloat(Cfg.getValue("experience.perLevel").toString());
-
-        // Calculates total skill points based on exp and exp required for points
-        int skillPointsAvailable = (int) ((totalExp - remainingExp) / Float.parseFloat(Cfg.getValue("experience.perLevel").toString()));
-
-        // Subtracts used skill points
-        skillPointsAvailable -= skillPlayers.get(p.getUniqueId()).getUsedSkillPoints();
+        int skillPointsAvailable = currentPlayer.getTotalSkillpoints() - currentPlayer.getUsedSkillpoints();
 
         Skill skillObject = AlathraSkills.getSkillsManager().getSkill(skill);
 
@@ -169,14 +165,14 @@ public class SkillsPlayerManager implements Reloadable {
             return false;
         addPlayerSkill(p, skill);
 
-        currentPlayer.addUsedSkillPoints(skillObject.getCost());
+        currentPlayer.addUsedSkillpoints(skillObject.getCost());
         currentPlayer.setLatestSkillUnlocked(skill);
         currentPlayer.addOneSkillUnlocked();
 
         return true;
     }
 
-    public static boolean canSkillBeUnlocked(Player p, int skillCategoryId, int skill) {
+    public boolean canSkillBeUnlocked(Player p, int skillCategoryId, int skill) {
         if (playerHasMaxSkills(p)) return false;
 
         if (skill == 101 || skill == 201 || skill == 301)
@@ -231,17 +227,17 @@ public class SkillsPlayerManager implements Reloadable {
         }
     }
 
-    public static void addPlayerSkill(Player p, Integer skill) {
+    public void addPlayerSkill(Player p, Integer skill) {
         SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
         currentPlayer.addSkill(skill);
     }
 
-    public static void removePlayerSkill(Player p, Integer skill) {
+    public void removePlayerSkill(Player p, Integer skill) {
         SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
         currentPlayer.removeSkill(skill);
     }
 
-    public static boolean playerHasSkill(Player p, Integer skill) {
+    public boolean playerHasSkill(Player p, Integer skill) {
         SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
         SkillDetails skillDetails = currentPlayer.getPlayerSkills().get(skill);
         if (skillDetails == null)
@@ -249,57 +245,53 @@ public class SkillsPlayerManager implements Reloadable {
         return currentPlayer.getPlayerSkills().get(skill).isSelected();
     }
 
-    public static boolean playerHasMaxSkills(Player p) {
+    public boolean playerHasMaxSkills(Player p) {
         SkillsPlayer currentPlayer = skillPlayers.get(p.getUniqueId());
         return currentPlayer.getTotalSkillsUnlocked() >= Cfg.get().getInt("skills.maximumSkills");
     }
 
-    private static SkillsPlayer fetchCurrPlayer(OfflinePlayer p) {
+    private SkillsPlayer fetchCurrPlayer(OfflinePlayer p) {
         UUID playerId = p.getUniqueId();
-        if (playerId != null) {
-            SkillsPlayer currPlayer = skillPlayers.get(playerId);
-            if (currPlayer != null) {
-                return currPlayer;
-            } else {
-                throw new Error("Player is not in memory");
-            }
+        SkillsPlayer currPlayer = skillPlayers.get(playerId);
+        if (currPlayer != null) {
+            return currPlayer;
         } else {
-            throw new Error("Player doesn't have a valid ID");
+            throw new Error("Player is not in memory");
         }
 
     }
 
-    public static void setPlayerExperience(OfflinePlayer p,
+    public void setPlayerExperience(OfflinePlayer p,
                                            Integer skillCategory, Float experience) {
         SkillsPlayer currPlayer = fetchCurrPlayer(p);
         currPlayer.setExperience(skillCategory, experience);
     }
 
-    public static void addPlayerSkill(OfflinePlayer p,
+    public void addPlayerSkill(OfflinePlayer p,
                                       Integer skill) {
         SkillsPlayer currPlayer = fetchCurrPlayer(p);
         currPlayer.addSkill(skill);
     }
 
-    public static void deletePlayerSkill(OfflinePlayer p,
+    public void deletePlayerSkill(OfflinePlayer p,
                                          Integer skill) {
         SkillsPlayer currPlayer = fetchCurrPlayer(p);
         currPlayer.removeSkill(skill);
     }
 
-    public static Stream<Entry<Integer, SkillDetails>> getAllSkills(
+    public Stream<Entry<Integer, SkillDetails>> getAllSkills(
         OfflinePlayer p) {
         SkillsPlayer currPlayer = fetchCurrPlayer(p);
         return currPlayer.getPlayerActiveSkills();
     }
 
-    public static float getSkillCategoryExperience(
+    public float getSkillCategoryExperience(
         OfflinePlayer p, Integer skillCategory) {
         SkillsPlayer currPlayer = fetchCurrPlayer(p);
         return currPlayer.getSkillCategoryExperience(skillCategory);
     }
 
-    public static float getTotalExperience(OfflinePlayer p) {
+    public float getTotalExperience(OfflinePlayer p) {
         float farmingExp = getSkillCategoryExperience(p, 1);
         float miningExp = getSkillCategoryExperience(p, 2);
         float woodcuttingExp = getSkillCategoryExperience(p, 3);
@@ -307,64 +299,32 @@ public class SkillsPlayerManager implements Reloadable {
         return farmingExp + miningExp + woodcuttingExp;
     }
 
-    public static Integer getUsedSkillPoints(OfflinePlayer p) {
+    public Integer getUsedSkillPoints(OfflinePlayer p) {
         SkillsPlayer currPlayer = fetchCurrPlayer(p);
-        return currPlayer.getUsedSkillPoints();
-    }
-
-    private static int getAvailableSkillPoints(OfflinePlayer p) {
-
-        float totalExp = SkillsPlayerManager.getTotalExperience(p);
-
-        float expPerLevel = Cfg.get().getFloat("experience.perLevel");
-
-        float remainingExp = totalExp % expPerLevel;
-        if (totalExp < expPerLevel) {
-            remainingExp = expPerLevel - totalExp;
-        }
-
-        int skillPointsAvailable = (int) ((totalExp - remainingExp) / expPerLevel);
-        int unlockedSkills = SkillsPlayerManager.getUsedSkillPoints(p);
-        skillPointsAvailable -= unlockedSkills;
-
-        if (skillPointsAvailable < 0) return 0;
-
-        return skillPointsAvailable;
-    }
-
-    private static int getAvailableSkillPoints(OfflinePlayer p, float expGain) {
-
-        float totalExpAfterGain = SkillsPlayerManager.getTotalExperience(p) + expGain;
-
-        float expPerLevel = Cfg.get().getFloat("experience.perLevel");
-
-        float remainingExp = totalExpAfterGain % expPerLevel;
-        if (totalExpAfterGain < expPerLevel) {
-            remainingExp = expPerLevel - totalExpAfterGain;
-        }
-
-        int skillPointsAvailable = (int) ((totalExpAfterGain - remainingExp) / expPerLevel);
-        int unlockedSkills = SkillsPlayerManager.getUsedSkillPoints(p);
-        skillPointsAvailable -= unlockedSkills;
-
-        if (skillPointsAvailable < 0) return 0;
-
-        return skillPointsAvailable;
-    }
-
-    public static boolean isSkillPointGained(Player p, float expGain) {
-        // if available skill points is greater after exp gain
-        return getAvailableSkillPoints(p, expGain) > getAvailableSkillPoints(p);
+        return currPlayer.getUsedSkillpoints();
     }
 
     @Nullable
-    public static SkillsPlayer getSkillsPlayer(UUID uuid) {
+    public SkillsPlayer getSkillsPlayer(UUID uuid) {
         return skillPlayers.get(uuid);
     }
 
     @Nullable
-    public static SkillsPlayer getSkillsPlayer(Player p) {
+    public SkillsPlayer getSkillsPlayer(Player p) {
         return getSkillsPlayer(p.getUniqueId());
+    }
+
+    public void gainExp(Player p, int skillCategoryId, float expAmount) {
+        SkillsPlayer skillsPlayer = getSkillsPlayer(p);
+        if (skillsPlayer == null)
+            return;
+
+        addPlayerExperience(p, skillCategoryId, expAmount);
+        boolean gainedSkillpoint = skillsPlayer.addNextSkillpointsProgress(expAmount);
+
+        if (gainedSkillpoint) {
+            Bukkit.getPluginManager().callEvent(new SkillPointGainEvent(skillsPlayer));
+        }
     }
 
     @Override
@@ -395,7 +355,7 @@ public class SkillsPlayerManager implements Reloadable {
     @Override
     public void onDisable() {
         Bukkit.getOnlinePlayers().forEach((Player p) -> {
-            CompletableFuture<SkillsPlayer> future = SkillsPlayerManager.handlePlayerLeave(p);
+            CompletableFuture<SkillsPlayer> future = handlePlayerLeave(p);
             SkillsPlayer skillsPlayer = null;
             try {
                 skillsPlayer = future.get();
@@ -438,15 +398,18 @@ public class SkillsPlayerManager implements Reloadable {
                 currentPlayer.getSkillCategoryExperience(3));
 
 
-            int usedSkillPoints = currentPlayer.getUsedSkillPoints();
+            int totalSkillpoints = currentPlayer.getTotalSkillpoints();
+            int usedSkillPoints = currentPlayer.getUsedSkillpoints();
+
+            float nextSkillpointProgress = currentPlayer.getNextSkillpointProgress();
 
             int latestSkillUnlocked = currentPlayer.getLatestSkillUnlocked();
 
             Instant cooldown = Instant.now();
-            if (currentPlayer.getCooldown() != null)
-                cooldown = currentPlayer.getCooldown();
+            if (currentPlayer.getResetCooldown() != null)
+                cooldown = currentPlayer.getResetCooldown();
 
-            DatabaseQueries.savePlayerData(uuid, usedSkillPoints, latestSkillUnlocked, cooldown);
+            DatabaseQueries.savePlayerData(uuid, totalSkillpoints, usedSkillPoints, nextSkillpointProgress, latestSkillUnlocked, cooldown);
 
             DatabaseQueries.saveDisabledSkills(uuid, currentPlayer.getDisabledSkills());
         });

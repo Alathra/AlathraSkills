@@ -17,8 +17,6 @@ import java.util.List;
 
 public class GreenThumbSix extends Skill {
 
-    private SkillsManager skillsManager;
-
     public GreenThumbSix(int id, int cost) {
         super(id, "Green Thumb 6", "Bone meal applies to multiple crops in a radius.", cost);
 
@@ -31,11 +29,11 @@ public class GreenThumbSix extends Skill {
         loreList.add(ColorParser.of(GuiHelper.LORETEXT + "Cost: " + super.getCost() + " skill points").build().decoration(TextDecoration.ITALIC, false));
         loreList.addAll(SkillDescriptionUtil.descriptionLineBreaker(super.getDescription(), 40, GuiHelper.LORETEXT));
         meta.lore(loreList);
-        ;
+        
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
-        skillsManager = AlathraSkills.getSkillsManager();
+        SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(1));
     }
 }

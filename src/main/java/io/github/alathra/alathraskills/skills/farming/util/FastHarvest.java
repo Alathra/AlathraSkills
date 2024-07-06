@@ -1,8 +1,7 @@
 package io.github.alathra.alathraskills.skills.farming.util;
 
+import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
-import io.github.alathra.alathraskills.api.SkillsPlayer;
-import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.api.events.SkillPointGainEvent;
 import io.github.alathra.alathraskills.skills.farming.util.helper.FarmingBlockUtil;
 import io.github.alathra.alathraskills.skills.farming.util.helper.FarmingData;
@@ -11,12 +10,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class FastHarvest {
 
-    public static int MAX_LEVEL = 7;
+    public static final int MAX_LEVEL = 7;
 
     // Call this on the BlockBreakEvent if instance of breakable crop
     // crop is event.getBlock()
@@ -36,9 +34,8 @@ public class FastHarvest {
 
     private static void runForPlusShape(Block initialCrop, Player player) {
         ItemStack tool = null;
-        if (player.getInventory().getItemInMainHand() != null) {
-            tool = player.getInventory().getItemInMainHand();
-        }
+        player.getInventory().getItemInMainHand();
+        tool = player.getInventory().getItemInMainHand();
 
         for (Block crop : FarmingBlockUtil.getPlusBlocks(initialCrop)) {
             // If adjacent block is a breakable crop
@@ -47,25 +44,15 @@ public class FastHarvest {
                 if (crop.getBlockData() instanceof Ageable ageableCrop) {
                     // If crop is fully grown
                     if (ageableCrop.getAge() == ageableCrop.getMaximumAge()) {
-                        if (tool != null) {
-                            crop.breakNaturally(tool);
-                            addExp(player, crop);
-                        } else {
-                            crop.breakNaturally();
-                            addExp(player, crop);
-                        }
+                        crop.breakNaturally(tool);
+                        AlathraSkills.getSkillsPlayerManager().gainExp(player, SkillsManager.FARMING_SKILL_ID, getExpAmount(crop));
                     }
                     // Is a crop, but not fully grown so ignore
                     continue;
                 } else {
                     // Is a crop that does not have growth cycles
-                    if (tool != null) {
-                        crop.breakNaturally(tool);
-                        addExp(player, crop);
-                    } else {
-                        crop.breakNaturally();
-                        addExp(player, crop);
-                    }
+                    crop.breakNaturally(tool);
+                    AlathraSkills.getSkillsPlayerManager().gainExp(player, SkillsManager.FARMING_SKILL_ID, getExpAmount(crop));
                 }
             }
         }
@@ -73,9 +60,8 @@ public class FastHarvest {
 
     private static void runFor3by3Shape(Block initialCrop, Player player) {
         ItemStack tool = null;
-        if (player.getInventory().getItemInMainHand() != null) {
-            tool = player.getInventory().getItemInMainHand();
-        }
+        player.getInventory().getItemInMainHand();
+        tool = player.getInventory().getItemInMainHand();
 
         for (Block crop : FarmingBlockUtil.get3by3Blocks(initialCrop)) {
             // If adjacent block is a breakable crop
@@ -84,35 +70,18 @@ public class FastHarvest {
                 if (crop.getBlockData() instanceof Ageable ageableCrop) {
                     // If crop is fully grown
                     if (ageableCrop.getAge() == ageableCrop.getMaximumAge()) {
-                        if (tool != null) {
-                            crop.breakNaturally(tool);
-                            addExp(player, crop);
-                        } else {
-                            crop.breakNaturally();
-                            addExp(player, crop);
-                        }
+                        crop.breakNaturally(tool);
+                        AlathraSkills.getSkillsPlayerManager().gainExp(player, SkillsManager.FARMING_SKILL_ID, getExpAmount(crop));
                     }
                     // Is a crop, but not fully grown so ignore
                     continue;
                 } else {
                     // Is a crop that does not have growth cycles
-                    if (tool != null) {
-                        crop.breakNaturally(tool);
-                        addExp(player, crop);
-                    } else {
-                        crop.breakNaturally();
-                        addExp(player, crop);
-                    }
+                    crop.breakNaturally(tool);
+                    AlathraSkills.getSkillsPlayerManager().gainExp(player, SkillsManager.FARMING_SKILL_ID, getExpAmount(crop));
                 }
             }
         }
-    }
-
-    private static void addExp(Player p, Block crop) {
-        if (SkillsPlayerManager.isSkillPointGained(p, getExpAmount(crop))) {
-            Bukkit.getPluginManager().callEvent(new SkillPointGainEvent(SkillsPlayerManager.getSkillsPlayer(p)));
-        }
-        SkillsPlayerManager.addPlayerExperience(p, SkillsManager.FARMING_SKILL_ID, getExpAmount(crop));
     }
 
     private static float getExpAmount(Block crop) {
@@ -127,13 +96,13 @@ public class FastHarvest {
 
     private static double getChance(int skillLevel) {
         return switch (skillLevel) {
-            case 1 -> Double.parseDouble(Cfg.getValue("skills.farming.fastHarvest.chance.l1").toString());
-            case 2 -> Double.parseDouble(Cfg.getValue("skills.farming.fastHarvest.chance.l2").toString());
-            case 3 -> Double.parseDouble(Cfg.getValue("skills.farming.fastHarvest.chance.l3").toString());
-            case 4 -> Double.parseDouble(Cfg.getValue("skills.farming.fastHarvest.chance.l4").toString());
-            case 5 -> Double.parseDouble(Cfg.getValue("skills.farming.fastHarvest.chance.l5").toString());
-            case 6 -> Double.parseDouble(Cfg.getValue("skills.farming.fastHarvest.chance.l6").toString());
-            case 7 -> Double.parseDouble(Cfg.getValue("skills.farming.fastHarvest.chance.l7").toString());
+            case 1 -> Cfg.get().getDouble("skills.farming.fastHarvest.chance.l1");
+            case 2 -> Cfg.get().getDouble("skills.farming.fastHarvest.chance.l2");
+            case 3 -> Cfg.get().getDouble("skills.farming.fastHarvest.chance.l3");
+            case 4 -> Cfg.get().getDouble("skills.farming.fastHarvest.chance.l4");
+            case 5 -> Cfg.get().getDouble("skills.farming.fastHarvest.chance.l5");
+            case 6 -> Cfg.get().getDouble("skills.farming.fastHarvest.chance.l6");
+            case 7 -> Cfg.get().getDouble("skills.farming.fastHarvest.chance.l7");
             default -> 0;
         };
     }

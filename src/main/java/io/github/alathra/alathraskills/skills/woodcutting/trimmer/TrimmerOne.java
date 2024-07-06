@@ -1,25 +1,21 @@
 package io.github.alathra.alathraskills.skills.woodcutting.trimmer;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
-import io.github.alathra.alathraskills.gui.GuiHelper;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextColor;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
+import io.github.alathra.alathraskills.gui.GuiHelper;
 import io.github.alathra.alathraskills.skills.Skill;
 import io.github.alathra.alathraskills.skills.SkillDescriptionUtil;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TrimmerOne extends Skill {
-
-    private SkillsManager skillsManager;
 
     public TrimmerOne(int id, int cost) {
         super(id, "Trimmer 1", "Your ax cuts straight through leaves and you can find apples on the branches of all trees.", cost);
@@ -37,7 +33,7 @@ public class TrimmerOne extends Skill {
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
-        skillsManager = AlathraSkills.getSkillsManager();
+        SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(3));
     }
 }

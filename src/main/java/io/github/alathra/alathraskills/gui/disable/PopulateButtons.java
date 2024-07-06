@@ -4,6 +4,7 @@ import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import io.github.alathra.alathraskills.gui.GuiHelper;
+import io.github.alathra.alathraskills.gui.GuiItemHelper;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -13,20 +14,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class PopulateButtons {
 
     public static void populateButtons(Gui gui, Player p) {
-        ItemStack border = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
-        ItemMeta borderMeta = border.getItemMeta();
-        borderMeta.displayName(Component.text(""));
-        border.setItemMeta(borderMeta);
-
-        gui.getFiller().fill(ItemBuilder.from(border).asGuiItem());
+        gui.getFiller().fill(ItemBuilder.from(GuiItemHelper.borderItem).asGuiItem());
 
         ItemStack back = new ItemStack(Material.PAPER);
         ItemMeta backMeta = back.getItemMeta();
         backMeta.displayName(ColorParser.of(GuiHelper.NEGATIVE + "Back").build());
         back.setItemMeta(backMeta);
-        gui.setItem(6, 1, ItemBuilder.from(back).asGuiItem(event -> {
-            GuiHelper.openOptionsGui(p.getPlayer());
-        }));
+        gui.setItem(6, 1, ItemBuilder.from(back).asGuiItem(event -> GuiHelper.openOptionsGui(p.getPlayer())));
 
         ItemStack exit = new ItemStack(Material.BARRIER);
         ItemMeta exitMeta = exit.getItemMeta();

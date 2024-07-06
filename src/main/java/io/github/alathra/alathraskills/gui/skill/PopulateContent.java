@@ -5,7 +5,6 @@ import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsManager;
-import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.gui.GuiHelper;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -18,8 +17,8 @@ import java.util.HashMap;
 
 public class PopulateContent {
 
-    private static SkillsManager skillsManager = AlathraSkills.getSkillsManager();
-    private static HashMap<Integer, Boolean> hasSkill = new HashMap<>();
+    private static final SkillsManager skillsManager = AlathraSkills.getSkillsManager();
+    private static final HashMap<Integer, Boolean> hasSkill = new HashMap<>();
 
     public static void populateContent(Gui gui, Player player, int skillCategoryId, int page) {
 
@@ -60,7 +59,7 @@ public class PopulateContent {
             case 1, 2 -> {
                 hasSkill.clear();
                 for (int i : ids) {
-                    hasSkill.put(i, SkillsPlayerManager.playerHasSkill(player, i));
+                    hasSkill.put(i, AlathraSkills.getSkillsPlayerManager().playerHasSkill(player, i));
                 }
 
                 gui.setItem(3, 3, ItemBuilder.from(skillsManager.skills.get(ids[0]).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, ids[0], skillCategoryId, page)));
@@ -74,7 +73,7 @@ public class PopulateContent {
             case 3, 4 -> {
                 hasSkill.clear();
                 for (int i : ids) {
-                    hasSkill.put(i, SkillsPlayerManager.playerHasSkill(player, i));
+                    hasSkill.put(i, AlathraSkills.getSkillsPlayerManager().playerHasSkill(player, i));
                 }
 
                 gui.setItem(2, 3, ItemBuilder.from(skillsManager.skills.get(ids[0]).getIcon()).asGuiItem(event -> GuiHelper.openConfirmGui(player, ids[0], skillCategoryId, page)));
@@ -108,12 +107,12 @@ public class PopulateContent {
                 ItemStack originalIcon = skillsManager.skills.get(i).getIcon();
                 ItemMeta originalIconMeta = originalIcon.getItemMeta();
 
-                ItemStack icon = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
+                ItemStack icon = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
                 ItemMeta iconMeta = icon.getItemMeta();
 
                 iconMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                 iconMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                iconMeta.displayName(ColorParser.of("<green><bold>Unlocked: ").build().append(originalIconMeta.displayName()));
+                iconMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "<bold>Unlocked: ").build().append(originalIconMeta.displayName()));
                 iconMeta.lore(originalIconMeta.lore());
                 icon.setItemMeta(iconMeta);
                 gui.setItem(3, col, ItemBuilder.from(icon).asGuiItem());
@@ -133,7 +132,7 @@ public class PopulateContent {
                 ItemStack icon = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
                 ItemMeta iconMeta = icon.getItemMeta();
 
-                iconMeta.displayName(ColorParser.of("<aqua><bold>Unlocked: ").build().append(originalIconMeta.displayName()));
+                iconMeta.displayName(ColorParser.of(GuiHelper.POSITIVE + "<bold>Unlocked: ").build().append(originalIconMeta.displayName()));
                 iconMeta.lore(originalIconMeta.lore());
                 icon.setItemMeta(iconMeta);
 

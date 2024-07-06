@@ -6,7 +6,6 @@ import dev.jorel.commandapi.arguments.IntegerArgument;
 import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
 import io.github.alathra.alathraskills.AlathraSkills;
-import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -42,7 +41,7 @@ public class TestSetUsedSkillPointsCommandMemory {
         AlathraSkills instance = AlathraSkills.getInstance();
 
         Bukkit.getScheduler().runTaskAsynchronously(instance, () -> {
-            SkillsPlayerManager.setPlayerUsedSkillPoints((Player) args.get("targetPlayer"), (Integer) args.get("usedSkillPoints"));
+            AlathraSkills.getSkillsPlayerManager().setPlayerUsedSkillPoints((Player) args.get("targetPlayer"), (Integer) args.get("usedSkillPoints"));
             String returnString =
                 "Player with ID " +
                     player.getUniqueId() +

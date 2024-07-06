@@ -17,8 +17,6 @@ import java.util.List;
 
 public class OneSwingFive extends Skill {
 
-    private static SkillsManager skillsManager;
-
     public OneSwingFive(int id, int cost) {
         super(id, "One Swing 5", "When you activate your ax you cut down an entire tree by breaking its trunk.", cost);
 
@@ -35,7 +33,7 @@ public class OneSwingFive extends Skill {
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
-        skillsManager = AlathraSkills.getSkillsManager();
+        SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(3));
     }
 }

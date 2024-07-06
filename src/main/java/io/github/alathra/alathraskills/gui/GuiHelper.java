@@ -2,6 +2,7 @@ package io.github.alathra.alathraskills.gui;
 
 import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.triumphteam.gui.guis.Gui;
+import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.api.SkillsPlayer;
 import io.github.alathra.alathraskills.api.SkillsPlayerManager;
 import io.github.alathra.alathraskills.skills.Skill;
@@ -11,12 +12,14 @@ import org.bukkit.entity.Player;
 
 public class GuiHelper {
 
-    public static String EXPERIENCE_GRADIENT = "<gradient:#c47dff:#ff69be>";
-    public static String POSITIVE = "<green>";
-    public static String NEGATIVE = "<red>";
-    public static String COMMON_TITLE = "<white>";
-    public static String LORETEXT = "<color:#a8a8a8>";
-    public static String SKILL = "<white>"; // TODO: change this.
+    public static final String EXPERIENCE_GRADIENT = "<gradient:#c47dff:#ff69be>";
+    public static final String POSITIVE = "<green>";
+    public static final String NEGATIVE = "<red>";
+    public static final String COMMON_TITLE = "<white>";
+    public static final String LORETEXT = "<color:#a8a8a8>";
+    public static final String SKILL = "<white>"; // TODO: change this.
+
+    private static final SkillsPlayerManager skillsPlayerManager = AlathraSkills.getSkillsPlayerManager();
 
 
     public static Gui buildMainGui() {
@@ -120,7 +123,7 @@ public class GuiHelper {
     }
 
     public static void openConfirmGui(Player player, int skill, int skillCategoryId, int page) {
-        if (SkillsPlayerManager.canSkillBeUnlocked(player, skillCategoryId, skill)) {
+        if (skillsPlayerManager.canSkillBeUnlocked(player, skillCategoryId, skill)) {
             Gui gui = buildConfirmGui();
             populateConfirmGui(gui, player, skill, skillCategoryId, page);
             gui.open(player);
@@ -135,7 +138,7 @@ public class GuiHelper {
         gui.open(player);
     }
 
-    public static void openResetProgressConfirmGui(Player player, int cost, float expRetained) {
+    public static void openResetProgressConfirmGui(Player player, int cost, double expRetained) {
         Gui gui = buildConfirmGui();
         populateResetProgressConfirmGui(gui, player, cost, expRetained);
         gui.open(player);
@@ -192,7 +195,7 @@ public class GuiHelper {
         io.github.alathra.alathraskills.gui.reset.PopulateContent.populateContent(gui, player);
     }
 
-    public static void populateResetProgressConfirmGui(Gui gui, Player player, int cost, float expRetained) {
+    public static void populateResetProgressConfirmGui(Gui gui, Player player, int cost, double expRetained) {
         io.github.alathra.alathraskills.gui.reset.confirm.PopulateContent.populateResetProgressContent(gui, player, cost, expRetained);
     }
 

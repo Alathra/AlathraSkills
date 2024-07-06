@@ -17,8 +17,6 @@ import java.util.List;
 
 public class EasyPickingFour extends Skill {
 
-    private static SkillsManager skillsManager;
-
     public EasyPickingFour(int id, int cost) {
         super(id, "Easy Picking 4", "When you activate your pickaxe your mining speed greatly increases.", cost);
 
@@ -35,7 +33,7 @@ public class EasyPickingFour extends Skill {
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
-        skillsManager = AlathraSkills.getSkillsManager();
+        SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(2));
     }
 }

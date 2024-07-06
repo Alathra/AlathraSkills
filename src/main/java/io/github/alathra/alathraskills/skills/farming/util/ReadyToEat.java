@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class ReadyToEat {
 
-    public static int MAX_LEVEL = 2;
+    public static final int MAX_LEVEL = 2;
 
     // Call this on the BlockBreakEvent if wheat, carrots, potatoes or beetroot broken
     // crop is the block being broken
@@ -38,8 +38,8 @@ public class ReadyToEat {
 
     private static double getChance(int skillLevel) {
         return switch (skillLevel) {
-            case 1 -> Double.parseDouble(Cfg.getValue("skills.farming.readyToEat.chance.l1").toString());
-            case 2 -> Double.parseDouble(Cfg.getValue("skills.farming.readyToEat.chance.l2").toString());
+            case 1 -> Cfg.get().getDouble("skills.farming.readyToEat.chance.l1");
+            case 2 -> Cfg.get().getDouble("skills.farming.readyToEat.chance.l2");
             default -> 0;
         };
     }

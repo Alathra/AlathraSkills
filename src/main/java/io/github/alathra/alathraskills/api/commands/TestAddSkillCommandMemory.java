@@ -5,7 +5,7 @@ import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.IntegerArgument;
 import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
-import io.github.alathra.alathraskills.api.SkillsPlayerManager;
+import io.github.alathra.alathraskills.AlathraSkills;
 import org.bukkit.entity.Player;
 
 public class TestAddSkillCommandMemory {
@@ -36,7 +36,7 @@ public class TestAddSkillCommandMemory {
                     .build()
             );
         }
-        SkillsPlayerManager.addPlayerSkill((Player) args.get("targetPlayer"), (Integer) args.get("skill"));
+        AlathraSkills.getSkillsPlayerManager().addPlayerSkill((Player) args.get("targetPlayer"), (Integer) args.get("skill"));
         String returnString =
             "Player with ID " +
                 ((Player) args.get("targetPlayer")).getUniqueId() +

@@ -3,10 +3,8 @@ package io.github.alathra.alathraskills.skills;
 import com.github.milkdrinkers.colorparser.ColorParser;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
-import org.bukkit.util.ChatPaginator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SkillDescriptionUtil {

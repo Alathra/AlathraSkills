@@ -4,7 +4,7 @@ import com.github.milkdrinkers.colorparser.ColorParser;
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.executors.CommandArguments;
-import io.github.alathra.alathraskills.api.SkillsPlayerManager;
+import io.github.alathra.alathraskills.AlathraSkills;
 import org.bukkit.entity.Player;
 
 public class TestGetUsedSkillPointsCommandMemory {
@@ -28,7 +28,7 @@ public class TestGetUsedSkillPointsCommandMemory {
             );
             return;
         }
-        Integer dbReturnValue = SkillsPlayerManager.getUsedSkillPoints((Player) args.get("targetPlayer"));
+        Integer dbReturnValue = AlathraSkills.getSkillsPlayerManager().getUsedSkillPoints((Player) args.get("targetPlayer"));
         String returnString =
             "Player with ID " +
                 ((Player) args.get("targetPlayer")).getUniqueId() +

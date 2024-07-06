@@ -17,8 +17,6 @@ import java.util.List;
 
 public class FastHarvestOne extends Skill {
 
-    private SkillsManager skillsManager;
-
     public FastHarvestOne(int id, int cost) {
         super(id, "Fast Harvest 1", "Using your hoe harvests multiple blocks of crops at once.", cost);
 
@@ -35,7 +33,7 @@ public class FastHarvestOne extends Skill {
         icon.setItemMeta(meta);
         super.setIcon(icon);
 
-        skillsManager = AlathraSkills.getSkillsManager();
+        SkillsManager skillsManager = AlathraSkills.getSkillsManager();
         super.setCategory(skillsManager.skillCategories.get(1));
     }
 }
