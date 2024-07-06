@@ -18,7 +18,7 @@ import java.util.List;
 public class ProudProspectorFive extends Skill {
 
     public ProudProspectorFive(int id, int cost) {
-        super(id, "Proud Prospector 5", "Sometimes ores drop extra ores when you mine them.", cost);
+        super(id, "Proud Prospector 5", "Get a chance at double drops when mining ores.", cost);
 
         ItemStack icon = new ItemStack(Material.DIAMOND, 5);
         ItemMeta meta = icon.getItemMeta();
