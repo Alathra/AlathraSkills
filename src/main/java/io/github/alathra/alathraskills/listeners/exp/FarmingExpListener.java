@@ -20,6 +20,10 @@ public class FarmingExpListener implements Listener {
 
     @EventHandler
     public void BerriesHarvestingListener(PlayerHarvestBlockEvent event) {
+
+        if (event.isCancelled())
+            return;
+
         Player p = event.getPlayer();
 
         Block block = event.getHarvestedBlock();
@@ -42,6 +46,9 @@ public class FarmingExpListener implements Listener {
 
     @EventHandler
     public void FarmHarvestingListener(BlockBreakEvent event) {
+
+        if (event.isCancelled())
+            return;
 
         Player p = event.getPlayer();
 

@@ -16,6 +16,9 @@ public class MiningExpListener implements Listener {
 
     @EventHandler
     public void BlockMiningListener(BlockBreakEvent event) {
+        if (event.isCancelled())
+            return;
+
         Player p = event.getPlayer();
 
         Block block = event.getBlock();
