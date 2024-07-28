@@ -11,6 +11,7 @@ import io.github.alathra.alathraskills.listeners.player.PlayerJoinListener;
 import io.github.alathra.alathraskills.listeners.player.PlayerLeaveListener;
 import io.github.alathra.alathraskills.listeners.player.SkillsPlayerLoadedListener;
 import io.github.alathra.alathraskills.listeners.player.SkillsPlayerUnloadedListener;
+import io.github.alathra.alathraskills.listeners.skills.AlchemySkillsListener;
 import io.github.alathra.alathraskills.listeners.skills.FarmingSkillsListener;
 import io.github.alathra.alathraskills.listeners.skills.MiningSkillsListener;
 import io.github.alathra.alathraskills.listeners.skills.WoodcuttingSkillsListener;
@@ -51,6 +52,8 @@ public class ListenerHandler implements Reloadable {
         plugin.getServer().getPluginManager().registerEvents(new FarmingSkillsListener(), plugin);
         plugin.getServer().getPluginManager().registerEvents(new MiningSkillsListener(), plugin);
         plugin.getServer().getPluginManager().registerEvents(new WoodcuttingSkillsListener(), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new AlchemySkillsListener(), plugin);
+
         plugin.getServer().getPluginManager().registerEvents(new SkillPointGainListener(), plugin);
     }
 
