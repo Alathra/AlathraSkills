@@ -18,7 +18,7 @@ import java.util.List;
 public class SpelunkerTwo extends Skill {
 
     public SpelunkerTwo(int id, int cost) {
-        super(id, "Spelunker 2", "Take reduced fall damage.");
+        super(id, "Spelunker 2", "Take reduced fall damage.", cost);
 
         ItemStack icon = new ItemStack(Material.IRON_BOOTS, 2);
         ItemMeta meta = icon.getItemMeta();
