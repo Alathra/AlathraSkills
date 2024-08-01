@@ -23,6 +23,9 @@ public class WoodcuttingExpListener implements Listener {
 
     @EventHandler
     public void LogBreakingListener(BlockBreakEvent event) {
+        if (event.isCancelled())
+            return;
+
         Player p = event.getPlayer();
 
         event.getPlayer();
