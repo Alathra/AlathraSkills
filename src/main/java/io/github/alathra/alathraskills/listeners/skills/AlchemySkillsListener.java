@@ -2,6 +2,7 @@ package io.github.alathra.alathraskills.listeners.skills;
 
 import io.github.alathra.alathraskills.AlathraSkills;
 import io.github.alathra.alathraskills.skills.alchemy.util.AlchemicalRecycling;
+import io.github.alathra.alathraskills.skills.alchemy.util.ArcaneExplorer;
 import io.github.alathra.alathraskills.skills.alchemy.util.QualityIngredients;
 import io.github.alathra.alathraskills.skills.alchemy.util.RapidInfusion;
 import org.bukkit.Bukkit;
@@ -11,6 +12,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BrewingStartEvent;
 import org.bukkit.event.inventory.BrewEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.inventory.BrewerInventory;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import java.util.UUID;
@@ -44,5 +47,19 @@ public class AlchemySkillsListener implements Listener {
         Player player = (Player) brewingStand.getInventory().getViewers().get(0);
         brewingStand.setMetadata("alathraskills_brewer", new FixedMetadataValue(AlathraSkills.getInstance(), player.getUniqueId().toString()));
         RapidInfusion.run(event, 5);
+    }
+
+    // Testing...
+    @EventHandler
+    public void BrewingStandOpenEvent(InventoryOpenEvent event) {
+        if (event.getInventory().getLocation() == null) {
+            return; // inventory does not correspond to a block
+        }
+        if (!(event.getInventory() instanceof BrewerInventory)) {
+            return;
+        }
+
+        ArcaneExplorer.run(event);
+
     }
 }
