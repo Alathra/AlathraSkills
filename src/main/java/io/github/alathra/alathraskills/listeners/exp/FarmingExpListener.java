@@ -12,18 +12,15 @@ import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.type.CaveVines;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerHarvestBlockEvent;
 
 public class FarmingExpListener implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void BerriesHarvestingListener(PlayerHarvestBlockEvent event) {
-
-        if (event.isCancelled())
-            return;
-
         Player p = event.getPlayer();
 
         Block block = event.getHarvestedBlock();
@@ -44,12 +41,8 @@ public class FarmingExpListener implements Listener {
         AlathraSkills.getSkillsPlayerManager().gainExp(p, SkillsManager.FARMING_SKILL_ID, expAmount);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void FarmHarvestingListener(BlockBreakEvent event) {
-
-        if (event.isCancelled())
-            return;
-
         Player p = event.getPlayer();
 
         Block block = event.getBlock();
@@ -59,8 +52,6 @@ public class FarmingExpListener implements Listener {
 
         if (block.getBlockData() instanceof Ageable)
             ageable = (Ageable) block.getBlockData();
-
-        // TODO: Check for PDC data where relevant
 
         switch (block.getType()) {
             case BAMBOO:

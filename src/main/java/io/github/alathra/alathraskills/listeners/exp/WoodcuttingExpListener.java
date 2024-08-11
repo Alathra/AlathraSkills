@@ -11,6 +11,7 @@ import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
@@ -21,11 +22,8 @@ public class WoodcuttingExpListener implements Listener {
     public static final ArrayList<Material> logs = new ArrayList<>(Tag.LOGS.getValues());
 
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void LogBreakingListener(BlockBreakEvent event) {
-        if (event.isCancelled())
-            return;
-
         Player p = event.getPlayer();
 
         event.getPlayer();

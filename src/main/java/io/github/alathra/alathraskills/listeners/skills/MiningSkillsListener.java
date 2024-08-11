@@ -11,6 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -20,7 +21,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class MiningSkillsListener implements Listener {
 
     // Calls "Ore in the Rough", "VeinBreaker" and "Proud Prospector" skills
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void BlockBreakListener(BlockBreakEvent event) {
         Block block = event.getBlock();
         Material material = block.getType();
@@ -108,7 +109,7 @@ public class MiningSkillsListener implements Listener {
     }
 
     // Calls the "Spelunker" skill
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void FallDamageListener(EntityDamageEvent event) {
 
         // If entity is not a player
@@ -155,7 +156,7 @@ public class MiningSkillsListener implements Listener {
     }
 
     // calls "Easy Picking" skill
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void PlayerInteractListener(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;

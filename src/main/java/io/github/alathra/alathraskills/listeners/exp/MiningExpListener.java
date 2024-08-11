@@ -9,16 +9,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 public class MiningExpListener implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void BlockMiningListener(BlockBreakEvent event) {
-        if (event.isCancelled())
-            return;
-
         Player p = event.getPlayer();
 
         Block block = event.getBlock();

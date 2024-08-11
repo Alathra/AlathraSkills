@@ -13,6 +13,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockFertilizeEvent;
@@ -22,7 +23,7 @@ import org.bukkit.event.entity.EntityBreedEvent;
 public class FarmingSkillsListener implements Listener {
 
     // calls "Ready to Eat" skill and "Faster Harvest"
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void BlockBreakListener(BlockBreakEvent event) {
         Block block = event.getBlock();
         Player player = event.getPlayer();
@@ -90,7 +91,7 @@ public class FarmingSkillsListener implements Listener {
     }
 
     // calls "Wide Spread" skill
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void BlockPlaceListener(BlockPlaceEvent event) {
         Block block = event.getBlock();
         Player player = event.getPlayer();
@@ -134,7 +135,7 @@ public class FarmingSkillsListener implements Listener {
     }
 
     // calls "Green Thumb" skill
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void BlockFertilizeListener(BlockFertilizeEvent event) {
 
         Player player = event.getPlayer();
@@ -180,7 +181,7 @@ public class FarmingSkillsListener implements Listener {
     }
 
     // calls "Quality Crops" skill
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void AnimalBreedListener(EntityBreedEvent event) {
         LivingEntity entity = event.getEntity();
 

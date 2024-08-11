@@ -12,6 +12,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -23,7 +24,7 @@ import org.bukkit.inventory.EquipmentSlot;
 public class WoodcuttingSkillsListener implements Listener {
 
     // calls "Precise Chop", "Save the Trees" and "One Swing"
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void BlockBreakListener(BlockBreakEvent event) {
         Block block = event.getBlock();
         Player player = event.getPlayer();
@@ -91,7 +92,7 @@ public class WoodcuttingSkillsListener implements Listener {
     }
 
     // calls "Trimmer"
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void BlockDamageListener(BlockDamageEvent event) {
 
 
@@ -136,7 +137,7 @@ public class WoodcuttingSkillsListener implements Listener {
     }
 
     // used to activate "One Swing"
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void RightClickListener(PlayerInteractEvent event) {
 
         Player player = event.getPlayer();
@@ -190,7 +191,7 @@ public class WoodcuttingSkillsListener implements Listener {
     }
 
     // used to call "One with the Forest"
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onTreeGrow(StructureGrowEvent event) {
         Player player = event.getPlayer();
 
