@@ -28,7 +28,7 @@ public class AlathraSkillsCommand {
                             .executes((sender, args) -> {
                                 Player player = (Player) args.get("player");
 
-                                boolean gainedSkillpoint = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player).addNextSkillpointsProgress((Float) args.get("exp"));
+                                boolean gainedSkillpoint = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player).addNextSkillpointsProgress(((Integer) args.get("exp")).floatValue());
 
                                 if (gainedSkillpoint) {
                                     Bukkit.getPluginManager().callEvent(new SkillPointGainEvent(AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player)));
