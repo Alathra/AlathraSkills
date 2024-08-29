@@ -7,7 +7,6 @@ plugins {
     id("com.github.johnrengelman.shadow") version "8.1.1" // Shades and relocates dependencies, See https://imperceptiblethoughts.com/shadow/introduction/
     id("xyz.jpenilla.run-paper") version "2.3.0" // Adds runServer and runMojangMappedServer tasks for testing
     id("net.minecrell.plugin-yml.bukkit") version "0.6.0" // Automatic plugin.yml generation
-//    id("io.papermc.paperweight.userdev") version "1.5.9" // Used to develop internal plugins using Mojang mappings, See https://github.com/PaperMC/paperweight
     id("org.flywaydb.flyway") version "10.13.0" // Database migrations
     id("org.jooq.jooq-codegen-gradle") version "3.19.10"
 
@@ -31,6 +30,8 @@ repositories {
     maven("https://papermc.io/repo/repository/maven-public/")
     maven("https://mvn-repo.arim.space/lesser-gpl3/")
     maven("https://maven.athyrium.eu/releases/")
+
+    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
 
     maven("https://jitpack.io/") {
         content {
@@ -65,6 +66,8 @@ dependencies {
     }
 
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
+
+    compileOnly("me.clip:placeholderapi:2.11.6")
 
     // Database Dependencies
     implementation("com.zaxxer:HikariCP:5.1.0")
@@ -157,6 +160,7 @@ tasks {
 //            hangar("squaremap", "1.2.0")
 //            url("https://download.luckperms.net/1515/bukkit/loader/LuckPerms-Bukkit-5.4.102.jar")
             github("MilkBowl", "Vault", "1.7.3", "Vault.jar")
+            github("PlaceholderAPI", "PlaceholderAPI", "2.11.6", "PlaceholderAPI-2.11.6.jar")
         }
     }
 }
