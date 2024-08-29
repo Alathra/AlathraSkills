@@ -71,7 +71,7 @@ public class SkillsManager implements Reloadable {
     public static final int[] HIGH_QUALITY_CATCH_IDS = new int[]{4220, 4218, 4213, 4211, 408, 402};
     public static final int[] QUICK_TO_BITE_IDS = new int[]{4119, 4118, 4115, 4113, 407, 403};
     public static final int[] ONE_MANS_TRASH_IDS = new int[]{4216, 4116, 4214, 4114, 410, 405};
-    public static final int[] BIG_CATCH_IDS = new int[]{4219, 4217, 4215, 4212, 409, 406}
+    public static final int[] BIG_CATCH_IDS = new int[]{4219, 4217, 4215, 4212, 409, 406};
 
     private final AlathraSkills plugin;
 
