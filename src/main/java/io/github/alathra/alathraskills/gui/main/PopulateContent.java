@@ -47,9 +47,10 @@ public class PopulateContent {
         gui.setItem(6, 9, ItemBuilder.from(GuiItemHelper.exitItem).asGuiItem(event -> gui.close(player)));
 
         // Open skill trees
-        gui.setItem(4, 3, ItemBuilder.from(skillsManager.skillCategories.get(1).getIcon()).asGuiItem(event -> GuiHelper.openSkillGui(player, 1, 1)));
-        gui.setItem(4, 5, ItemBuilder.from(skillsManager.skillCategories.get(2).getIcon()).asGuiItem(event -> GuiHelper.openSkillGui(player, 2, 1)));
-        gui.setItem(4, 7, ItemBuilder.from(skillsManager.skillCategories.get(3).getIcon()).asGuiItem(event -> GuiHelper.openSkillGui(player, 3, 1)));
+        gui.setItem(4, 2, ItemBuilder.from(skillsManager.skillCategories.get(1).getIcon()).asGuiItem(event -> GuiHelper.openSkillGui(player, 1, 1)));
+        gui.setItem(4, 4, ItemBuilder.from(skillsManager.skillCategories.get(2).getIcon()).asGuiItem(event -> GuiHelper.openSkillGui(player, 2, 1)));
+        gui.setItem(4, 6, ItemBuilder.from(skillsManager.skillCategories.get(3).getIcon()).asGuiItem(event -> GuiHelper.openSkillGui(player, 3, 1)));
+        gui.setItem(4, 8, ItemBuilder.from(skillsManager.skillCategories.get(4).getIcon()).asGuiItem(event -> GuiHelper.openSkillGui(player, 4, 1)));
     }
 
 }

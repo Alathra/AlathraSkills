@@ -20,6 +20,7 @@ public class PopulateContent {
     private static final int[] levelOnePassiveFarmingSkillIds = new int[]{101, 102, 103, 105};
     private static final int[] levelOnePassiveMiningSkillIds = new int[]{201, 202, 203, 2111};
     private static final int[] levelOnePassiveWoodcuttingSkillIds = new int[]{301, 302, 304, 306};
+    private static final int[] levelOnePassiveFishingSkillIds = new int[]{401, 402, 403, 405, 406};
 
     public static void populateContent(Gui gui, Player p) {
         SkillsPlayer sp = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(p);
@@ -44,7 +45,7 @@ public class PopulateContent {
             }
 
             boolean isEnabled = sp.isSkillEnabled(id);
-            gui.setItem(row, 5, ItemBuilder.from(getIcon(id, isEnabled)).asGuiItem(event -> GuiHelper.toggleSkillEnabled(gui, p, sp, id)));
+            gui.setItem(row, 4, ItemBuilder.from(getIcon(id, isEnabled)).asGuiItem(event -> GuiHelper.toggleSkillEnabled(gui, p, sp, id)));
             row++;
         }
 
@@ -56,7 +57,19 @@ public class PopulateContent {
             }
 
             boolean isEnabled = sp.isSkillEnabled(id);
-            gui.setItem(row, 8, ItemBuilder.from(getIcon(id, isEnabled)).asGuiItem(event -> GuiHelper.toggleSkillEnabled(gui, p, sp, id)));
+            gui.setItem(row, 6, ItemBuilder.from(getIcon(id, isEnabled)).asGuiItem(event -> GuiHelper.toggleSkillEnabled(gui, p, sp, id)));
+            row++;
+        }
+
+        row = 2;
+        for (int id : levelOnePassiveFishingSkillIds) {
+            boolean hasSkill = sp.playerHasSkill(id);
+            if (!hasSkill) {
+                continue;
+            }
+
+            boolean isEnabled = sp.isSkillEnabled(id);
+            gui.setItem(row, 6, ItemBuilder.from(getIcon(id, isEnabled)).asGuiItem(event -> GuiHelper.toggleSkillEnabled(gui, p, sp, id)));
             row++;
         }
     }

@@ -48,6 +48,14 @@ public class PopulateContent {
                     case 4 -> populateSkillContent(gui, player, skillCategoryId, page, new int[]{3116, 3117, 3118, 3119, 3120, 3216, 3217, 3218, 3219, 3220});
                 }
             }
+            case 4 -> {
+                switch (page) {
+                    case 1 -> populateSkillContent(gui, player, skillCategoryId, page, new int[]{401, 402, 403, 404, 405});
+                    case 2 -> populateSkillContent(gui, player, skillCategoryId, page, new int[]{406, 407, 408, 409, 410});
+                    case 3 -> populateSkillContent(gui, player, skillCategoryId, page, new int[]{4111, 4112, 4113, 4114, 4115, 4211, 4212, 4213, 4214, 4215});
+                    case 4 -> populateSkillContent(gui, player, skillCategoryId, page, new int[]{4116, 4117, 4118, 4119, 4120, 4216, 4217, 4218, 4219, 4220});
+                }
+            }
             default -> {
                 return;
             }
