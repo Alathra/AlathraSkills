@@ -14,16 +14,14 @@ import io.github.alathra.alathraskills.skills.farming.qualitycrops.*;
 import io.github.alathra.alathraskills.skills.farming.readytoeat.ReadyToEatOne;
 import io.github.alathra.alathraskills.skills.farming.readytoeat.ReadyToEatTwo;
 import io.github.alathra.alathraskills.skills.farming.widespread.*;
-import io.github.alathra.alathraskills.skills.fishing.alongfight.ALongFightOne;
-import io.github.alathra.alathraskills.skills.fishing.alongfight.ALongFightTwo;
-import io.github.alathra.alathraskills.skills.fishing.bigcatch.BigCatchOne;
-import io.github.alathra.alathraskills.skills.fishing.bigcatch.BigCatchTwo;
-import io.github.alathra.alathraskills.skills.fishing.highqualitycatch.HighQualityCatchOne;
-import io.github.alathra.alathraskills.skills.fishing.highqualitycatch.HighQualityCatchTwo;
+import io.github.alathra.alathraskills.skills.fishing.alongfight.*;
+import io.github.alathra.alathraskills.skills.fishing.bigcatch.*;
+import io.github.alathra.alathraskills.skills.fishing.highqualitycatch.*;
+import io.github.alathra.alathraskills.skills.fishing.onemanstrash.OneMansTrashFour;
 import io.github.alathra.alathraskills.skills.fishing.onemanstrash.OneMansTrashOne;
+import io.github.alathra.alathraskills.skills.fishing.onemanstrash.OneMansTrashThree;
 import io.github.alathra.alathraskills.skills.fishing.onemanstrash.OneMansTrashTwo;
-import io.github.alathra.alathraskills.skills.fishing.quicktobite.QuickToBiteOne;
-import io.github.alathra.alathraskills.skills.fishing.quicktobite.QuickToBiteTwo;
+import io.github.alathra.alathraskills.skills.fishing.quicktobite.*;
 import io.github.alathra.alathraskills.skills.mining.easypicking.*;
 import io.github.alathra.alathraskills.skills.mining.oreintherough.*;
 import io.github.alathra.alathraskills.skills.mining.proudprospector.*;
@@ -67,6 +65,13 @@ public class SkillsManager implements Reloadable {
     public static final int[] TRIMMER_IDS = new int[]{3220, 3219, 3216, 3215, 3213, 307, 304};
     public static final int[] ONE_SWING_IDS = new int[]{3120, 3117, 3115, 3114, 3112, 309, 305};
     public static final int[] ONE_WITH_THE_FOREST_IDS = new int[]{3119, 3118, 3116, 3113, 3111, 308, 306};
+
+    // Fishing IDs
+    public static final int[] A_LONG_FIGHT_IDS = new int[]{4120, 4117, 4112, 4111, 404, 401};
+    public static final int[] HIGH_QUALITY_CATCH_IDS = new int[]{4220, 4218, 4213, 4211, 408, 402};
+    public static final int[] QUICK_TO_BITE_IDS = new int[]{4119, 4118, 4115, 4113, 407, 403};
+    public static final int[] ONE_MANS_TRASH_IDS = new int[]{4216, 4116, 4214, 4114, 410, 405};
+    public static final int[] BIG_CATCH_IDS = new int[]{4219, 4217, 4215, 4212, 409, 406}
 
     private final AlathraSkills plugin;
 
@@ -220,6 +225,43 @@ public class SkillsManager implements Reloadable {
         skills.put(1219, new FastHarvestSeven       (1219, 10));
         skills.put(1220, new ReadyToEatTwo          (1220, 10));
 
+    }
+
+    private void loadFishingSkills() {
+        skills.put(401, new ALongFightOne           (401, 5));
+        skills.put(402, new HighQualityCatchOne     (402, 5));
+        skills.put(403, new QuickToBiteOne          (403, 5));
+        skills.put(404, new ALongFightTwo           (404, 5));
+        skills.put(405, new OneMansTrashOne         (405, 5));
+        skills.put(406, new BigCatchOne             (406, 6));
+        skills.put(407, new QuickToBiteTwo          (407, 7));
+        skills.put(408, new HighQualityCatchTwo     (408, 8));
+        skills.put(409, new BigCatchTwo             (409, 9));
+        skills.put(410, new OneMansTrashTwo         (410, 10));
+
+        // Left branch
+        skills.put(4111, new ALongFightThree        (4111, 10));
+        skills.put(4112, new ALongFightFour         (4112, 10));
+        skills.put(4113, new QuickToBiteThree       (4113, 10));
+        skills.put(4114, new OneMansTrashThree      (4114, 10));
+        skills.put(4115, new QuickToBiteFour        (4115, 10));
+        skills.put(4116, new OneMansTrashFour       (4116, 10));
+        skills.put(4117, new ALongFightFive         (4117, 10));
+        skills.put(4118, new QuickToBiteFive        (4118, 10));
+        skills.put(4119, new QuickToBiteSix         (4119, 10));
+        skills.put(4120, new ALongFightSix          (4120, 10));
+
+        // Right branch
+        skills.put(4211, new HighQualityCatchThree  (4211, 10));
+        skills.put(4212, new BigCatchThree          (4212, 10));
+        skills.put(4213, new HighQualityCatchFour   (4213, 10));
+        skills.put(4214, new OneMansTrashThree      (4214, 10));
+        skills.put(4215, new BigCatchFour           (4215, 10));
+        skills.put(4216, new OneMansTrashFour       (4216, 10));
+        skills.put(4217, new BigCatchFive           (4217, 10));
+        skills.put(4218, new HighQualityCatchFive   (4218, 10));
+        skills.put(4219, new BigCatchSix            (4219, 10));
+        skills.put(4220, new HighQualityCatchSix    (4220, 10));
     }
 
     public Skill getSkill(Integer skillID) {
