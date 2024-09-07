@@ -1,15 +1,20 @@
 package io.github.alathra.alathraskills.listeners.pdc;
 
 import io.github.alathra.alathraskills.utility.PDCUtil;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.world.StructureGrowEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 public class PDCUnnaturalBlockHandler implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)

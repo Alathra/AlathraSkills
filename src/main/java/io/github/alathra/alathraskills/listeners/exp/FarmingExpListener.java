@@ -15,11 +15,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.event.player.PlayerHarvestBlockEvent;
 
 public class FarmingExpListener implements Listener {
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void BerriesHarvestingListener(PlayerHarvestBlockEvent event) {
         Player p = event.getPlayer();
 
@@ -41,8 +42,8 @@ public class FarmingExpListener implements Listener {
         AlathraSkills.getSkillsPlayerManager().gainExp(p, SkillsManager.FARMING_SKILL_ID, expAmount);
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void FarmHarvestingListener(BlockBreakEvent event) {
+    @EventHandler(ignoreCancelled = true)
+    public void FarmHarvestingListener(BlockDropItemEvent event) {
         Player p = event.getPlayer();
 
         Block block = event.getBlock();
