@@ -5,6 +5,7 @@ import io.github.alathra.alathraskills.Reloadable;
 import io.github.alathra.alathraskills.skills.Skill;
 import io.github.alathra.alathraskills.skills.SkillCategory;
 import io.github.alathra.alathraskills.skills.categories.FarmingSkillCategory;
+import io.github.alathra.alathraskills.skills.categories.FishingSkillCategory;
 import io.github.alathra.alathraskills.skills.categories.MiningSkillCategory;
 import io.github.alathra.alathraskills.skills.categories.WoodcuttingSkillCategory;
 import io.github.alathra.alathraskills.skills.farming.fastharvest.*;
@@ -13,6 +14,16 @@ import io.github.alathra.alathraskills.skills.farming.qualitycrops.*;
 import io.github.alathra.alathraskills.skills.farming.readytoeat.ReadyToEatOne;
 import io.github.alathra.alathraskills.skills.farming.readytoeat.ReadyToEatTwo;
 import io.github.alathra.alathraskills.skills.farming.widespread.*;
+import io.github.alathra.alathraskills.skills.fishing.alongfight.ALongFightOne;
+import io.github.alathra.alathraskills.skills.fishing.alongfight.ALongFightTwo;
+import io.github.alathra.alathraskills.skills.fishing.bigcatch.BigCatchOne;
+import io.github.alathra.alathraskills.skills.fishing.bigcatch.BigCatchTwo;
+import io.github.alathra.alathraskills.skills.fishing.highqualitycatch.HighQualityCatchOne;
+import io.github.alathra.alathraskills.skills.fishing.highqualitycatch.HighQualityCatchTwo;
+import io.github.alathra.alathraskills.skills.fishing.onemanstrash.OneMansTrashOne;
+import io.github.alathra.alathraskills.skills.fishing.onemanstrash.OneMansTrashTwo;
+import io.github.alathra.alathraskills.skills.fishing.quicktobite.QuickToBiteOne;
+import io.github.alathra.alathraskills.skills.fishing.quicktobite.QuickToBiteTwo;
 import io.github.alathra.alathraskills.skills.mining.easypicking.*;
 import io.github.alathra.alathraskills.skills.mining.oreintherough.*;
 import io.github.alathra.alathraskills.skills.mining.proudprospector.*;
@@ -90,6 +101,7 @@ public class SkillsManager implements Reloadable {
         skillCategories.put(1, new FarmingSkillCategory(1));
         skillCategories.put(2, new MiningSkillCategory(2));
         skillCategories.put(3, new WoodcuttingSkillCategory(3));
+        skillCategories.put(4, new FishingSkillCategory(4));
     }
 
     public void loadSkills() {

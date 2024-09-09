@@ -16,7 +16,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.event.block.BlockFertilizeEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityBreedEvent;
@@ -24,8 +23,8 @@ import org.bukkit.event.entity.EntityBreedEvent;
 public class FarmingSkillsListener implements Listener {
 
     // calls "Ready to Eat" skill and "Faster Harvest"
-    @EventHandler(ignoreCancelled = true)
-    public void BlockBreakListener(BlockDropItemEvent event) {
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void BlockBreakListener(BlockBreakEvent event) {
         Block block = event.getBlock();
         Player player = event.getPlayer();
 
@@ -33,6 +32,9 @@ public class FarmingSkillsListener implements Listener {
         if (player.getGameMode() == GameMode.CREATIVE) {
             return;
         }
+
+        if (!event.isDropItems())
+            return;
 
         SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
         if (skillsPlayer == null)
@@ -89,7 +91,7 @@ public class FarmingSkillsListener implements Listener {
     }
 
     // calls "Wide Spread" skill
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void BlockPlaceListener(BlockPlaceEvent event) {
         Block block = event.getBlock();
         Player player = event.getPlayer();
@@ -133,7 +135,7 @@ public class FarmingSkillsListener implements Listener {
     }
 
     // calls "Green Thumb" skill
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void BlockFertilizeListener(BlockFertilizeEvent event) {
 
         Player player = event.getPlayer();
@@ -179,7 +181,7 @@ public class FarmingSkillsListener implements Listener {
     }
 
     // calls "Quality Crops" skill
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void AnimalBreedListener(EntityBreedEvent event) {
         LivingEntity entity = event.getEntity();
 

@@ -15,7 +15,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 public class MiningExpListener implements Listener {
 
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void BlockMiningListener(BlockBreakEvent event) {
         Player p = event.getPlayer();
 

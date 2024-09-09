@@ -14,7 +14,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockDropItemEvent;
 
 import java.util.ArrayList;
 
@@ -23,8 +22,8 @@ public class WoodcuttingExpListener implements Listener {
     public static final ArrayList<Material> logs = new ArrayList<>(Tag.LOGS.getValues());
 
 
-    @EventHandler(ignoreCancelled = true)
-    public void LogBreakingListener(BlockDropItemEvent event) {
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void LogBreakingListener(BlockBreakEvent event) {
         Player p = event.getPlayer();
 
         event.getPlayer();

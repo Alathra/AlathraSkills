@@ -3,7 +3,6 @@ package io.github.alathra.alathraskills.skills.mining.util;
 import io.github.alathra.alathraskills.utility.Cfg;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class ProudProspector {
@@ -11,7 +10,7 @@ public class ProudProspector {
     public static final int MAX_LEVEL = 7;
 
     // Called on BlockBreakEvent
-    public static void run(BlockDropItemEvent event, int skillLevel) {
+    public static void run(BlockBreakEvent event, int skillLevel) {
         if (Math.random() >= getChance(skillLevel))
             return;
 
@@ -20,6 +19,9 @@ public class ProudProspector {
 
         // If there are no drops, return
         if (event.getBlock().getDrops().isEmpty())
+            return;
+
+        if (!event.isDropItems())
             return;
 
         // If tool is silk touch, drop an ore block

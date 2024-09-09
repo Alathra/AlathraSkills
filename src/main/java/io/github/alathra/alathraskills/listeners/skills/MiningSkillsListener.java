@@ -15,15 +15,14 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class MiningSkillsListener implements Listener {
 
     // Calls "Ore in the Rough", "VeinBreaker" and "Proud Prospector" skills
-    @EventHandler(ignoreCancelled = true)
-    public void BlockBreakListener(BlockDropItemEvent event) {
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void BlockBreakListener(BlockBreakEvent event) {
         Block block = event.getBlock();
         Material material = block.getType();
         Player player = event.getPlayer();
@@ -37,6 +36,9 @@ public class MiningSkillsListener implements Listener {
         if (PDCUtil.isUnnatural(block)) {
             return;
         }
+
+        if (!event.isDropItems())
+            return;
 
         SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
         if (skillsPlayer == null)
@@ -107,7 +109,7 @@ public class MiningSkillsListener implements Listener {
     }
 
     // Calls the "Spelunker" skill
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void FallDamageListener(EntityDamageEvent event) {
 
         // If entity is not a player
@@ -154,7 +156,7 @@ public class MiningSkillsListener implements Listener {
     }
 
     // calls "Easy Picking" skill
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void PlayerInteractListener(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;

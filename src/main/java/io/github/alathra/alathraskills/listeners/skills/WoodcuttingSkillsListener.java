@@ -17,7 +17,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
-import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.world.StructureGrowEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -25,8 +24,8 @@ import org.bukkit.inventory.EquipmentSlot;
 public class WoodcuttingSkillsListener implements Listener {
 
     // calls "Precise Chop", "Save the Trees" and "One Swing"
-    @EventHandler(ignoreCancelled = true)
-    public void BlockBreakListener(BlockDropItemEvent event) {
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void BlockBreakListener(BlockBreakEvent event) {
         Block block = event.getBlock();
         Player player = event.getPlayer();
 
@@ -35,6 +34,8 @@ public class WoodcuttingSkillsListener implements Listener {
         if (PDCUtil.isUnnatural(block))
             return;
         if (event.isCancelled())
+            return;
+        if (!event.isDropItems())
             return;
 
         SkillsPlayer skillsPlayer = AlathraSkills.getSkillsPlayerManager().getSkillsPlayer(player);
@@ -91,7 +92,7 @@ public class WoodcuttingSkillsListener implements Listener {
     }
 
     // calls "Trimmer"
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void BlockDamageListener(BlockDamageEvent event) {
 
 
