@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.world.StructureGrowEvent;
@@ -23,7 +24,7 @@ public class PDCUnnaturalBlockHandler implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void BlockBreakListener(BlockBreakEvent event) {
+    public void BlockBreakListener(BlockDropItemEvent event) {
         if (event.isCancelled()) {
             return;
         }
