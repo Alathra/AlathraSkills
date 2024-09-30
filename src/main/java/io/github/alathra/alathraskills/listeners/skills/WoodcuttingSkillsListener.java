@@ -24,7 +24,7 @@ import org.bukkit.inventory.EquipmentSlot;
 public class WoodcuttingSkillsListener implements Listener {
 
     // calls "Precise Chop", "Save the Trees" and "One Swing"
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void BlockBreakListener(BlockBreakEvent event) {
         Block block = event.getBlock();
         Player player = event.getPlayer();
