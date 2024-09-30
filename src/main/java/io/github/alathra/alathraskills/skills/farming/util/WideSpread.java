@@ -102,7 +102,7 @@ public class WideSpread {
             case WHEAT:
                 WideSpread.processInventoryForSeedsAndPlaceCrop(Material.WHEAT_SEEDS, Material.WHEAT, player, block);
                 break;
-            case BEETROOT_SEEDS:
+            case BEETROOTS:
                 WideSpread.processInventoryForSeedsAndPlaceCrop(Material.BEETROOT_SEEDS, Material.BEETROOTS, player, block);
                 break;
             case CARROTS:
