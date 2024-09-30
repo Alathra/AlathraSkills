@@ -23,7 +23,7 @@ import org.bukkit.event.entity.EntityBreedEvent;
 public class FarmingSkillsListener implements Listener {
 
     // calls "Ready to Eat" skill and "Faster Harvest"
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void BlockBreakListener(BlockBreakEvent event) {
         Block block = event.getBlock();
         Player player = event.getPlayer();

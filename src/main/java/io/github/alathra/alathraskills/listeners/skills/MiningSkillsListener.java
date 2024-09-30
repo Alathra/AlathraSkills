@@ -21,7 +21,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class MiningSkillsListener implements Listener {
 
     // Calls "Ore in the Rough", "VeinBreaker" and "Proud Prospector" skills
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void BlockBreakListener(BlockBreakEvent event) {
         Block block = event.getBlock();
         Material material = block.getType();
