@@ -132,6 +132,7 @@ public class SkillsPlayerManager implements Reloadable {
 
             DatabaseQueries.savePlayerData(p, totalSkillpoints, usedSkillpoints, nextSkillpointProgress, latestSkillUnlocked, cooldown);
 
+            DatabaseQueries.clearDisabledSkills(p);
             DatabaseQueries.saveDisabledSkills(p, currentPlayer.getDisabledSkills());
 
             return currentPlayer;

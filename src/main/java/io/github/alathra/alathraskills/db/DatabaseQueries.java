@@ -302,6 +302,29 @@ public abstract class DatabaseQueries {
         return fetchDisabledSkills(p.getUniqueId());
     }
 
+    public static void clearDisabledSkills(byte[] uuid) {
+        try (
+            Connection con = DB.getConnection()
+        ) {
+            DSLContext context = DB.getContext(con);
+
+            context.deleteFrom(PLAYER_DISABLED_SKILLS)
+                .where(PLAYER_DISABLED_SKILLS.UUID.equal(uuid))
+                .execute();
+
+        } catch (DataAccessException | SQLException e) {
+            Logger.get().error("SQL Query threw an error!", e);
+        }
+    }
+
+    public static void clearDisabledSkills(UUID uuid) {
+        clearDisabledSkills(convertUUIDToBytes(uuid));
+    }
+
+    public static void clearDisabledSkills(Player p) {
+        clearDisabledSkills(p.getUniqueId());
+    }
+
     /**
      * Attempts to save skill category experience to DB.
      *
