@@ -126,6 +126,7 @@ public class WoodcuttingSkillsListener implements Listener {
                 i++;
             }
 
+            i = 0;
             for (boolean hasSkill : trimmer) {
                 if (hasSkill) {
                     Trimmer.run(event, Trimmer.MAX_LEVEL - i);
